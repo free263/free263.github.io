@@ -13,8 +13,8 @@ $( function() {
         $('.countdown.styled').countdown({
           date: endDate,
           render: function(data) {
-            $(this.el).html("<div>" +  "<a href=./cloud/ target=_blank>云空间</a><span><a href=./cloud/ target=_blank>Cloud</a></span></div><div>" +
-			"<a href=https://www.free163.com target=_blank>博客</a> <span><a href=https://www.free163.com target=_blank>BLOG</a></span></div><div>" + " <a href=./music/ target=_blank>音乐</a><span><a href=./music/ target=_blank>MUSIC</a></span></div><div>" + "<a href=./index/ target=_blank>网址</a> <span><a href=./index/ target=_blank>LINK</a></span></div>");
+            $(this.el).html("<div>" +  "<a href=../../cloud/ target=_blank>云空间</a><span><a href=../../cloud/ target=_blank>Cloud</a></span></div><div>" +
+			"<a href=https://www.free163.com target=_blank>博客</a> <span><a href=https://www.free163.com target=_blank>BLOG</a></span></div><div>" + " <a href=../../music/ target=_blank>音乐</a><span><a href=../../music/ target=_blank>MUSIC</a></span></div><div>" + "<a href=../../index/ target=_blank>网址</a> <span><a href=../../index/ target=_blank>LINK</a></span></div>");
           }
         });
 
