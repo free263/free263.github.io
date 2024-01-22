@@ -1,0 +1,239 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>Momentio</title>
+<!-- Load google font -->
+<link href='http://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
+<!-- Load styles -->
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<link href="css/icons.css" rel="stylesheet">
+<link href="css/colorbox.css" rel="stylesheet">
+<!-- Load javascrips libraries-->
+<script src="js/jquery-1.8.3.min.js"></script>
+<script src="js/jquery.bxslider.js"></script>
+<script src="js/jquery.easypiechart.js"></script>
+<script src="js/jquery.colorbox.js"></script>
+
+</head>
+<body>
+<!-- Offsite canvas navigation start -->
+<nav class="main-nav">
+	<a href="#" class="close"><i class="icon-cancel"></i></a>
+	<img  src="images/logo4.png" alt="">
+	<h2>听松阁</h2>
+	<hr>
+	<ul class="nav nav-pills nav-stacked">
+		<li>
+			<a href="../../index.html" title="首页">首页 <i class="icon-angle-right"></i></a>
+		</li>
+		<li>
+			<a href="https://free345.com/" target="_blank" title="博客">博客 <i class="icon-angle-right"></i></a>
+		</li>
+		<li>
+			<a href="../../music/" target="_blank" title="音乐">音乐 <i class="icon-angle-right"></i></a>
+		</li>
+		<li>
+			<a href="../../photo/" target="_blank" title="相册">相册 <i class="icon-angle-right"></i></a>
+		</li>
+		<li>
+			<a href="../../book/" target="_blank" title="古诗词">古诗词 <i class="icon-angle-right"></i></a>
+		</li>
+		<li>
+			<a href="../../dys/" target="_blank" title="德云社">德云社 <i class="icon-angle-right"></i></a>
+		</li>
+		<li>
+			<a href="../../wuxia/" target="_blank" title="武侠">武侠 <i class="icon-angle-right"></i></a>
+		</li>
+		<li>
+			<a href="../../game/" target="_blank" title="小游戏">小游戏 <i class="icon-angle-right"></i></a>
+		</li>
+		<li>
+			<a href="../../index/" target="_blank" title="网址">网址 <i class="icon-angle-right"></i></a>
+		</li>
+	</ul>
+	<hr>
+	<ul class="social">
+		<li class="gplus">
+			<a href="#/r4xzR4"><i class="icon-gplus"></i></a>
+		</li>
+		<li class="dribbble">
+			<a href="#/k9zAy5"><i class="icon-dribbble"></i></a>
+		</li>
+		<li class="twitter">
+			<a href="#/hUfpSB"><i class="icon-twitter"></i></a>
+		</li>
+		<li class="facebook">
+			<a href="goo.gl/RqhEjP">
+				<i class="icon-facebook"></i>
+			</a>
+		</li>
+		<li class="youtube">
+			<a href="#">
+				<i class="icon-youtube"></i>
+			</a>
+		</li>
+		<li class="skype">
+			<a href="#">
+				<i class="icon-skype"></i>
+			</a>
+		</li>
+	</ul>
+</nav>
+<!-- Offsite canvas navigation end -->
+<div class="navbar navbar-default navbar-fixed-top">
+	<div class="navbar-inner">
+		<a href="#" class="navbar-brand">
+			<img src="images/logo4.png" alt="Logo" />
+			<!-- This is website logo -->
+		</a>
+		<a href="#" id="nav-expander" class="nav-expander pull-right">Menu
+			<i class="icon-align-justify"></i>
+		</a>
+	</div>
+</div>
+<!-- Main slider start -->
+<div id="main-slider" class="slider">
+	<div class="slide slide-01">
+		<div class="content">
+			<div class="mask">
+				<h1>听松阁</h1>
+				<p>枕上听松语，槛外看潮生!</p>
+			</div>
+			<a href="../../cloud/" class="btn btn-default btn-lg" target="_blank">访问云空间</a>
+			&nbsp;&nbsp;&nbsp;<a href="https://free345.com" class="btn btn-default btn-lg" target="_blank">我的博客</a>
+		</div>
+	</div>
+	<div class="slide slide-02">
+		<div class="content">
+			<div class="mask">
+				<h1>听松阁</h1>
+				<p>枕上听松语，槛外看潮生!</p>
+			</div>
+			<a href="../../cloud/" class="btn btn-default btn-lg" target="_blank">访问云空间</a>
+			&nbsp;&nbsp;&nbsp;<a href="https://free345.com" class="btn btn-default btn-lg" target="_blank">我的博客</a>
+		</div>
+	</div>
+</div>
+<!-- Main slider end -->
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+/*
+* Initialize switcher on conact section from address view to contat form.
+* We use bxSlider for this.
+*/
+$('.contact-slider').bxSlider({
+nextSelector: '#contact-form',
+prevSelector: '#go-to-address',
+autoControls: false,
+pager: false,
+nextText: "Drop a line",
+prevText: "View address",
+});
+
+/*
+* Initialize slider for team members.
+* We use bxSlider for this.
+*/
+$('#slider').bxSlider({
+pagerCustom: '#person-pager',
+autoControls: false,
+controls: false,
+});
+
+/*
+* Initialize lightbox for images in portfolio.
+* We use ColorBox for this.
+*/
+$(".portfolio-search").colorbox({
+rel:'portfolio-search',
+height:"75%"
+});
+
+/*
+* Show or hide offsite navigation.
+*
+*/
+$('#nav-expander').on('click', function(e) {
+e.preventDefault();
+$('.main-nav').toggleClass('nav-expanded');
+$('.navbar-default').toggleClass('expanded');
+});
+$('.main-nav .close').on('click', function(e) {
+e.preventDefault();
+$('.main-nav').toggleClass('nav-expanded');
+$('.navbar-default').toggleClass('expanded');
+});
+
+
+/*
+* Link navigation and webpage sections.
+*
+*/
+$(window).load(function() {
+function filterPath(string) {
+	return string.replace(/^\//, '').replace(/(index|default).[a-zA-Z]{3,4}$/, '').replace(/\/$/, '');
+}
+$('a[href*=#]').each(function() {
+	if (filterPath(location.pathname) == filterPath(this.pathname) && location.hostname == this.hostname && this.hash.replace(/#/, '')) {
+		var $targetId = $(this.hash),
+		$targetAnchor = $('[name=' + this.hash.slice(1) + ']');
+		var $target = $targetId.length ? $targetId : $targetAnchor.length ? $targetAnchor : false;
+
+		if ($target) {
+
+			$(this).click(function() {
+
+				var targetOffset = $target.offset().top - 63;
+				$('html, body').animate({
+					scrollTop: targetOffset
+				}, 800);
+				return false;
+			});
+		}
+	}
+});
+});
+
+$('#main-slider').bxSlider({
+auto: true,
+autoControls: false,
+pager: false,
+controls: false,
+mode: 'fade',
+onSlideAfter: function($slideElement, oldIndex, newIndex) {
+					$slideElement.find('.mask h1').addClass("current animated  fadeInRightBig");
+					$slideElement.find('.mask p').addClass("current animated  fadeInLeftBig");
+				},
+				onSlideBefore: function($slideElement, oldIndex, newIndex) {
+					$slideElement.find('.mask h1').removeClass("current animated  fadeInRightBig");
+					$slideElement.find('.mask p').removeClass("current animated  fadeInLeftBig");
+				}
+			});
+
+$('.chart').easyPieChart({
+barColor: '#202835',
+trackColor: '#FB6816',
+lineWidth: 10,
+lineCap: 'butt',
+size: 130,
+scaleLength: 0,
+easing: 'easeOutBounce',
+onStep: function(from, to, percent) {
+	$(this.el).find('.percent').text(Math.round(percent));
+}
+});
+</script>
+</body>
+</html>
