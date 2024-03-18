@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="renderer" content="webkit" />
+		<meta name="screen-orientation" content="portrait" />
+		<meta name="x5-orientation" content="portrait" />
+		<link rel="stylesheet" type="text/css" href="css/slippry.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+	</head>
+
+	<body class="body">
+
+		<div class="top">
+			<div class="w1200">
+				<ul>
+					<li><a href="../../index.html">网站首页 </a></li>
+					<li><a href="../../cloud/" target="_blank">云空间</a></li>
+					<li><a href="https://free345.com/" target="_blank">我的博客<b></b></a></li>
+					<li><a href="../../index.html" class="logo"><img src="img/logo.png" height="100px"/></a></li>
+					<li><a href="../../photo/" target="_blank">唯美相册 </a></li>
+					<li><a href="../../book/" target="_blank">古典诗词 </a></li>
+					<li><a href="../../index/" target="_blank">网址导航</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="clearfix banner">
+			<div class="flexslider ">
+				<ul class="slides">
+					<li>
+						<a href=""><img src="img/banner1.jpg" width="100%" height="auto" alt="" /></a>
+					</li>
+					<li>
+						<a href=""><img src="img/banner2.jpg" width="100%" height="auto" alt="" /></a>
+					</li>
+					<li>
+						<a href=""><img src="img/banner3.jpg" width="100%" height="auto" alt="" /></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		
+		
+		<div class="copyright">
+			Copyright &copy; 2020 听松阁 All rights reserved.
+		</div>
+		<script src="js/jquery-3.3.1.min.js"></script>
+		<script src="js/flexslider-min.js"></script>
+		<script src="js/SuperSlide.2.1.3.js"></script>
+		<script src="js/slippry.min.js"></script>
+		<script src="js/more.js"></script>
+
+		<script>
+			var thumbs = jQuery('#thumbnails').slippry({
+				// general elements & wrapper
+				slippryWrapper: '<div class="slippry_box thumbnails" />',
+				// options
+				transition: 'horizontal',
+				pager: false,
+				auto: false,
+				onSlideBefore: function(el, index_old, index_new) {
+					jQuery('.thumbs a img').removeClass('active');
+					jQuery('img', jQuery('.thumbs a')[index_new]).addClass('active');
+				}
+			});
+
+			jQuery('.thumbs a').click(function() {
+				thumbs.goToSlide($(this).data('slide'));
+				return false;
+			});
+		</script>
+
+	</body>
+
+</html>
