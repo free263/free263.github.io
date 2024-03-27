@@ -1,0 +1,191 @@
+// External Files:
+// https://api.html5media.info/1.1.8/html5media.min.js (enables <video> and <audio> tags in all major browsers)
+// https://cdn.plyr.io/2.0.13/plyr.js
+
+
+// HTML5 audio player + playlist controls...
+// Inspiration: http://jonhall.info/how_to/create_a_playlist_for_html5_audio
+// Mythium Archive: https://archive.org/details/mythium/
+jQuery(function ($) {
+    'use strict'
+    var supportsAudio = !!document.createElement('audio').canPlayType;
+    if (supportsAudio) {
+        var index = 0,
+            playing = false,
+            mediaPath = 'https://pan.11.wf/free163person/音乐视听/',
+            extension = '',
+            tracks = [
+			
+				{
+                "track": 456,
+                "name": "399.Wentupinsmoke",
+                "length": "4:46",
+                "file": "治愈系放空舒缓音乐/399.Wentupinsmoke.mp3"
+				},
+				{
+                "track": 455,
+                "name": "398.Tuscany",
+                "length": "4:46",
+                "file": "治愈系放空舒缓音乐/398.Tuscany.mp3"
+				},
+				{
+                "track": 454,
+                "name": "397.Sepiaphotographs",
+                "length": "4:46",
+                "file": "治愈系放空舒缓音乐/397.Sepiaphotographs.mp3"
+				},
+				{
+                "track": 453,
+                "name": "396.Believein",
+                "length": "4:46",
+                "file": "治愈系放空舒缓音乐/396.Believein.mp3"
+				},
+				{
+                "track": 452,
+                "name": "395.Dayafterday",
+                "length": "4:46",
+                "file": "治愈系放空舒缓音乐/395.Dayafterday.mp3"
+				},
+				{
+                "track": 451,
+                "name": "394.GoldenMoments",
+                "length": "4:46",
+                "file": "治愈系放空舒缓音乐/394.GoldenMoments.mp3"
+				},
+				{
+                "track": 450,
+                "name": "393.Handinhand",
+                "length": "4:46",
+                "file": "治愈系放空舒缓音乐/393.Handinhand.mp3"
+				},
+				{
+                "track": 449,
+                "name": "392.Dimlight",
+                "length": "4:46",
+                "file": "治愈系放空舒缓音乐/392.Dimlight.mp3"
+				},
+				{
+                "track": 448,
+                "name": "391.WinterKing",
+                "length": "4:46",
+                "file": "治愈系放空舒缓音乐/391.WinterKing.mp3"
+				},
+				{
+                "track": 447,
+                "name": "390.WeepingAngel",
+                "length": "4:46",
+                "file": "治愈系放空舒缓音乐/390.WeepingAngel.mp3"
+				},
+				{
+                "track": 446,
+                "name": "389.Johnnyrook",
+                "length": "4:46",
+                "file": "治愈系放空舒缓音乐/389.Johnnyrook.mp3"
+				},
+				{
+                "track": 445,
+                "name": "388.Tomorrow",
+                "length": "4:46",
+                "file": "治愈系放空舒缓音乐/388.Tomorrow.mp3"
+				},
+				{
+                "track": 444,
+                "name": "387.GoldenGlitter",
+                "length": "4:46",
+                "file": "治愈系放空舒缓音乐/387.GoldenGlitter.mp3"
+				},
+				{
+                "track": 443,
+                "name": "386.Breath",
+                "length": "4:46",
+                "file": "治愈系放空舒缓音乐/386.Breath.mp3"
+				},
+				{
+                "track": 442,
+                "name": "385.HeartRock",
+                "length": "4:46",
+                "file": "治愈系放空舒缓音乐/385.HeartRock.mp3"
+				},
+			],
+            buildPlaylist = $.each(tracks, function(key, value) {
+                var trackNumber = value.track,
+                    trackName = value.name,
+                    trackLength = value.length;
+                if (trackNumber.toString().length === 1) {
+                    trackNumber = '0' + trackNumber;
+                } else {
+                    trackNumber = '' + trackNumber;
+                }
+                $('#plList').append('<li><div class="plItem"><div class="plNum">' + trackNumber + '.</div><div class="plTitle">' + trackName + '</div><div class="plLength">' + trackLength + '</div></div></li>');
+            }),
+            trackCount = tracks.length,
+            npAction = $('#npAction'),
+            npTitle = $('#npTitle'),
+            audio = $('#audio1').bind('play', function () {
+                playing = true;
+                npAction.text('Now Playing...');
+            }).bind('pause', function () {
+                playing = false;
+                npAction.text('Paused...');
+            }).bind('ended', function () {
+                npAction.text('Paused...');
+                if ((index + 1) < trackCount) {
+                    index++;
+                    loadTrack(index);
+                    audio.play();
+                } else {
+                    audio.pause();
+                    index = 0;
+                    loadTrack(index);
+                }
+            }).get(0),
+            btnPrev = $('#btnPrev').click(function () {
+                if ((index - 1) > -1) {
+                    index--;
+                    loadTrack(index);
+                    if (playing) {
+                        audio.play();
+                    }
+                } else {
+                    audio.pause();
+                    index = 0;
+                    loadTrack(index);
+                }
+            }),
+            btnNext = $('#btnNext').click(function () {
+                if ((index + 1) < trackCount) {
+                    index++;
+                    loadTrack(index);
+                    if (playing) {
+                        audio.play();
+                    }
+                } else {
+                    audio.pause();
+                    index = 0;
+                    loadTrack(index);
+                }
+            }),
+            li = $('#plList li').click(function () {
+                var id = parseInt($(this).index());
+                if (id !== index) {
+                    playTrack(id);
+                }
+            }),
+            loadTrack = function (id) {
+                $('.plSel').removeClass('plSel');
+                $('#plList li:eq(' + id + ')').addClass('plSel');
+                npTitle.text(tracks[id].name);
+                index = id;
+                audio.src = mediaPath + tracks[id].file + extension;
+            },
+            playTrack = function (id) {
+                loadTrack(id);
+                audio.play();
+            };
+        extension = audio.canPlayType('audio/mpeg') ? '' : audio.canPlayType('audio/ogg') ? '.ogg' : '';
+        loadTrack(index);
+    }
+});
+
+//initialize plyr
+plyr.setup($('#audio1'), {});
