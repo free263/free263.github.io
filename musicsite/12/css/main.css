@@ -89,6 +89,12 @@ a, a:focus, a:hover {
   outline: 0;
 }
 
+.daohang a, a:focus, a:hover {
+  text-decoration: none;
+  outline: 0;
+  color: #000000;
+}
+
 .btn.active.focus,
 .btn.active:focus,
 .btn.focus,
