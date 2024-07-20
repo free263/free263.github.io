@@ -12,7 +12,7 @@ jQuery(function ($) {
     if (supportsAudio) {
         var index = 0,
             playing = false,
-            mediaPath = 'https://pan.11.wf/free163person/音乐视听/',
+            mediaPath = 'https://vercel.11.wf/free163person/音乐视听/',
             extension = '',
             tracks = [{
                 "track": 1,
