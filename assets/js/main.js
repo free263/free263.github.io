@@ -36,7 +36,7 @@ function getBingImages(imgUrls) {
 	var indexName = "bing-image-index";
 	var index = sessionStorage.getItem(indexName);
 	var panel = document.querySelector('#panel');
-	if (isNaN(index) || index == 990) index = 0;
+	if (isNaN(index) || index == 1) index = 0;
 	else index++;
 	var imgUrl = imgUrls[index];
 	var url = "http://www.ffff.life/pic/api.php";
