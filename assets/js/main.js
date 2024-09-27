@@ -39,7 +39,7 @@ function getBingImages(imgUrls) {
 	if (isNaN(index) || index == 1) index = 0;
 	else index++;
 	var imgUrl = imgUrls[index];
-	var url = "http://www.ffff.life/pic/api.php";
+	var url = "https://xjj-api.838383.xyz/pic/api.php";
 	panel.style.background = "url('" + url + "') center center no-repeat #666";
 	panel.style.backgroundSize = "cover";
 	sessionStorage.setItem(indexName, index);
