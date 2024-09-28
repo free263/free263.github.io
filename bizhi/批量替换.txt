@@ -1,0 +1,37 @@
+﻿首页	替换为	<div class="isDefault"><font color="#ffffff">⇠</font></div>
+上一页	替换为	<div class="isDefault"><font color="#ffffff">Pre</font></div>
+下一页	替换为	<div class="isDefault"><font color="#ffffff">Next</font></div>
+尾页	替换为	<div class="isDefault"><font color="#ffffff">⇢</font></div>
+../../html/	替换为	../
+
+<h1 data-v-59d97c29=""> <div class="isDefault"><font color="#ffffff">⇠</font></div> </h1></a>
+替换为
+<h1 data-v-59d97c29=""> 首页 </h1></a>
+
+
+PC端 列表页每页9张，模板 wallpaperPC
+
+移动端 列表页每页16张，模板 wallpaperMobile
+
+
+移动端，每16个文件做一个分组，放到source字段，编号 01 02~16 等
+AAAAAAAAA16	替换为	left: 0px; top: 0px;
+AAAAAAAAA15	替换为	left: 479.969px; top: 0px;
+AAAAAAAAA14	替换为	left: 959.938px; top: 0px;
+AAAAAAAAA13	替换为	left: 1439.91px; top: 0px;
+ 
+AAAAAAAAA12	替换为	left: 0px; top: 681.89px;
+AAAAAAAAA11	替换为	left: 479.969px; top: 681.89px;
+AAAAAAAAA10	替换为	left: 959.938px; top: 681.89px;
+AAAAAAAAA09	替换为	left: 1439.91px; top: 681.89px;
+
+AAAAAAAAA08	替换为	left: 0px; top: 1363.78px;
+AAAAAAAAA07	替换为	left: 479.969px; top: 1363.78px;
+AAAAAAAAA06	替换为	left: 959.938px; top: 1363.78px;
+AAAAAAAAA05	替换为	left: 1439.91px; top: 1363.78px;
+
+AAAAAAAAA04	替换为	left: 0px; top: 2022.14px;
+AAAAAAAAA03	替换为	left: 479.969px; top: 2022.14px;
+AAAAAAAAA02	替换为	left: 959.938px; top: 2022.14px;
+AAAAAAAAA01	替换为	left: 1439.91px; top: 2022.14px;
+
