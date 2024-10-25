@@ -16,6 +16,19 @@ body {
     align-items: center;
 }
 
+#mySelect {
+  text-align-last: center;
+  -webkit-appearance: none; /* 移除默认样式 */
+  -moz-appearance: none;    /* 移除默认样式 */
+  appearance: none;          /* 移除默认样式 */
+  background-color: #fff;    /* 背景颜色 */
+  border: 1px solid #aaa;    /* 边框样式 */
+  padding-left: 10px;        /* 内边距，可根据需要调整 */
+  padding-right: 10px;       /* 内边距，可根据需要调整 */
+  height: 38px;
+  width: 70px;
+  font-size: 16px;
+}
 
 #main {
     height: calc(100vh - 60px);
