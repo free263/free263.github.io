@@ -12,14 +12,14 @@
 <noscript></head></noscript>
 <body>
     <section id="main">
-        <video id="player" src="http://v.nrzj.vip/video.php" controls="" webkit-playsinline="" playsinline=""></video>
+        <video id="player" src="https://xjj-api.838383.xyz/video/video2.php" controls="" webkit-playsinline="" playsinline=""></video>
     </section>
     <section id="buttons">
         <button id="switch">连续: 开</button>
         <button id="next">下一个</button>
         <select id="mySelect">
 		<option value="index1.html">线路1</option>
-		<option value="index2.html" style="color:white;background-color:blue;">线路2</option>
+		<option value="index2.html">线路2</option>
 		<option value="index3.html">线路3</option>
 		<option value="index4.html">线路4</option>
 		<option value="index5.html">线路5</option>
@@ -30,7 +30,7 @@
 		<option value="myown2.html">移动2</option>
 		<option value="myown3.html">移动3</option>
 		<option value="myown4.html">电信4</option>
-		<option value="myown5.html">电信5</option>
+		<option value="myown5.html" style="color:white;background-color:blue;">电信5</option>
 		<option value="myown6.html">电信6</option>
 		</select>
     </section>
@@ -57,7 +57,7 @@ document.getElementById('mySelect').addEventListener('change', function() {
         var auto = true;
         var player = get('player');
         var randomm = function () {
-            player.src = 'http://v.nrzj.vip/video.php?_t=' + Math.random();
+            player.src = 'https://xjj-api.838383.xyz/video/video2.php?_t=' + Math.random();
             player.play();
         }
         bind(get('next'), 'click', randomm);
