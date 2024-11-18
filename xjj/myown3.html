@@ -12,7 +12,7 @@
 <noscript></head></noscript>
 <body>
     <section id="main">
-        <video id="player" src="https://www.nihaowua.com/v/video.php" controls="" webkit-playsinline="" playsinline=""></video>
+        <video id="player" src="https://xjj-api.838383.xyz/video/video3.php" controls="" webkit-playsinline="" playsinline=""></video>
     </section>
     <section id="buttons">
         <button id="switch">连续: 开</button>
@@ -24,11 +24,11 @@
 		<option value="index4.html">线路4</option>
 		<option value="index5.html">线路5</option>
 		<option value="index6.html">线路6</option>
-		<option value="index7.html" style="color:white;background-color:blue;">线路7</option>
+		<option value="index7.html">线路7</option>
 		<option value="index8.html">线路8</option>
 		<option value="myown1.html">自制1</option>
 		<option value="myown2.html">自制2</option>
-		<option value="myown3.html">自制3</option>
+		<option value="myown3.html" style="color:white;background-color:blue;">自制3</option>
 		</select>
     </section>
 	<script>
@@ -54,7 +54,7 @@ document.getElementById('mySelect').addEventListener('change', function() {
         var auto = true;
         var player = get('player');
         var randomm = function () {
-            player.src = 'https://www.nihaowua.com/v/video.php?_t=' + Math.random();
+            player.src = 'https://xjj-api.838383.xyz/video/video3.php?_t=' + Math.random();
             player.play();
         }
         bind(get('next'), 'click', randomm);
