@@ -1,0 +1,152 @@
+@import url('loading.css');
+@import url('background-video.css');
+
+@keyframes fadenum {
+    0% {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
+}
+
+*, html, body, p, ul, li, h1 {
+    margin: 0;
+    padding: 0;
+    font-weight: initial
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+a:link {
+    color: #FFFFFF;
+}
+
+a:visited {
+    color: #FFFFFF;
+}
+
+a:hover {
+    color: #00FBFF;
+}
+
+a:active {
+    color: #0000FF;
+}
+
+ul {
+    list-style: none
+}
+
+html {
+    box-sizing: border-box;
+}
+
+* {
+    box-sizing: inherit
+}
+
+*:before, *:after {
+    box-sizing: inherit
+}
+
+img {
+    height: auto;
+    max-width: 100%
+}
+
+a {
+    text-decoration: none
+}
+
+
+/* Main */
+body {
+    background-color: black;
+    font-family: Lucida Grande, Lucida Sans Unicode, Lucida, Helvetica Neue, Helvetica, Arial, Microsoft Yahei, Hiragino Sans GB, Heiti SC, WenQuanYi Micro Hei, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0 1em
+}
+
+.bak, body {
+    height: 100%;
+    background-size: cover
+}
+
+.bak {
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0
+}
+
+main {
+    position: relative
+}
+
+main .content {
+    display: flex;
+    margin: 2em 1em;
+    background: hsla(0, 0%, 100%, .3);
+    text-align: center;
+    border-radius: 5px;
+    animation: content .5s 2.2s both;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+    overflow: hidden;
+    width: 24em;
+}
+
+section {
+    -webkit-animation: fadenum .5s;
+    animation: fadenum .5s
+}
+
+footer {
+    left: 0;
+    bottom: 15px;
+    position: absolute;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    z-index: 8888;
+    font-size: x-small;
+}
+
+footer {
+    text-shadow: 2px 1px 2px #666;
+}
+
+/* Hack for mobile */
+@media (max-width: 768px) {
+
+    main {
+        width: 100%;
+        max-width: 22em
+    }
+
+    main .content {
+        display: block;
+        margin: 5em 0 1em;
+        width: 100%;
+        overflow: visible
+    }
+
+    footer {
+        margin-bottom: 1em;
+        font-size: 80%
+    }
+
+}

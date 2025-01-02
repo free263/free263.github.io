@@ -1,14 +1,9 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-<title>听松阁 - Free163.Com</title>
-<link rel='stylesheet' href='static/css/all.min.css'>
-<link rel="stylesheet" href="static/css/style.css">
-<link rel="stylesheet" href="static/css2/style.css">
-<link rel="stylesheet" type="text/css" href="static/css2/normalize1.css" />
+<!DOCTYPE html>
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <title>听松阁 - Free163.Com</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta name="robots" content="index,follow">
@@ -42,15 +37,62 @@
 	<link rel="stylesheet" type="text/css" href="./assets/css/vno-mv.css">
     <link rel="stylesheet" type="text/css" href="./assets/css/iconfont.css">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
 
-<noscript></head></noscript>
 <body>
 
 
+    <div style="z-index:1;">
+        <video id="background_video" muted="">你的浏览器好像不支持内嵌视频诶，换个浏览器吧~
+        <source src="" type="video/mp4"><source src="" type="video/mp4"><source src="" type="video/mp4"><source src="" type="video/mp4"></video>
+        <!-- #video_cover 是默认的视频封面 -->
+        <div id="video_cover" style="display: none;"></div>
+        <!-- #overlay 遮罩层 -->
+        <div id="overlay"></div>
+        <!-- #video_controls 用来控制视频静音、取消静音 -->
+
+        <div id="video_controls">
+            <span id="mute" style="background-repeat: no-repeat; background-image: url(&quot;./assets/img/mute.png&quot;);">
+                <img src="./assets/images/blank.png" alt="">
+            </span>
+        </div>
+        <!-- section 中添加任意你想展示的HTML内容 -->
+        <section id="main_content">
+            <div class="loading" >
+                <div class="spinner" style="z-index:99;">
+                    <div class="rect1">
+					11111
+					</div>
+                    <div class="rect2">22222</div>
+                    <div class="rect3">33333</div>
+                    <div class="rect4">44444</div>
+                </div>
+            </div>
+
+            <!-- <main>
+            <div class="content">
+                <span style="display: none;font-size: xxx-large;color: white;margin: 0 auto;" id="js-polling">Hello, Hola, Bonjour, Ciao, こんにちは, 안녕하세요, สวัสดี , مرحبا, नमस्ते , Привет, Olá, مرحبا, Hej</span>
+            </div>
+        </main> -->
+        </section>
+        <footer>
+            <p id="hitokoto1">枕上听松语，槛外看潮升。 —— 燕山居士</p>
+            <div>
+                <span id="view_domain">Free163.Com</span>
+                <span> Copyright @  2005-2024 </span>
+                <span><a href="https://free163.com/">听松阁</a>  All Rights Reserved. Power By Github</span>
+                <!--<span id="run_time"></span>-->
+            </div>
+        </footer>
+    </div>
 	
-					
+	
 <div style="position:absolute; z-index:99; left: 0%; top: 0%;">
-                <header id="panel" class="panel-cover">
+		<span class="mobile btn-mobile-menu">
+         <i class="social iconfont icon-list btn-mobile-menu__icon"></i>
+         <i class="social iconfont icon-angleup btn-mobile-close__icon hidden"></i>
+        </span>
+        <header id="panel" class="panel-cover">
         <div class="panel-main" style="z-index:1;">
             <div class="panel-main__inner panel-inverted">
                 <div class="panel-main__content">
@@ -108,7 +150,10 @@
                                         <a href="./xjj/" class="blog-button" target="_blank">小姐姐</a>
                                     </li>
 									<li class="navigation__item">
-                                        <a href="http://www.ffff.life" class="blog-button" target="_blank">毒鸡汤</a>
+                                        <a href="./photo/weimei/" class="blog-button" target="_blank">随机美图</a>
+                                    </li>
+									<li class="navigation__item">
+                                        <a href="https://greenapi.838383.xyz/dog/" class="blog-button" target="_blank">毒鸡汤</a>
                                     </li>
 									<li class="navigation__item">
                                         <a href="./bing2/" class="blog-button" target="_blank">Bing壁纸</a>
@@ -143,15 +188,6 @@
                                 </ul>
                             </nav>
                         </div>
-						<div style="height: 10%;">
-						</div>
-						<div>
-						    <nav class="cover-navigation cover-navigation--primary">
-								<ul class="navigation">
-                                    <span>Copyright @ 2005-2024 <a href="https://free163.com/" target="_blank">听松阁</a>  All Rights Reserved. Power By Github</span>
-                                </ul>
-                            </nav>
-						</div>
 
 			</div>
           </div>
@@ -166,16 +202,91 @@
     <script src="./assets/images/main.js"></script>
     <script src="./assets/images/bideo.js"></script>
     <script src="./assets/images/morphext.min.js"></script>
-		
-		
-		
-<section class="showcase">
-	<div class="video-container">
-		<video src="https://greenapi.838383.xyz/api/bg/url.php" autoplay="" muted="" loop=""></video>
-	</div>
-</section>
 
 
-  
-</body>
-</html>
+    <script>
+        const curdomain = window.location.host;
+        document.title = curdomain + '听松阁 - Free163.Com';
+        document.getElementById('view_domain').innerHTML = curdomain;
+        (function () {
+            /* Rotating Text - Morphtext */
+            // $("#js-polling").Morphext({
+            //     // The [in] animation type. Refer to Animate.css for a list of available animations.
+            //     animation: "fadeIn",
+            //     // An array of phrases to rotate are created based on this separator. Change it if you wish to separate the phrases differently (e.g. So Simple | Very Doge | Much Wow | Such Cool).
+            //     separator: ",",
+            //     // The delay between the changing of each phrase in milliseconds.
+            //     speed: 2523,
+            //     complete: function () {
+            //         $("#js-polling").css('display', 'block');
+            //         // Called after the entrance animation is executed.
+            //     }
+            // });
+
+            const bv = new Bideo();
+            //视频背景直链数组 rain 心火
+            const videoUrls = [
+                'https://lcap-static-saas.nos-eastchina1.126.net/app/爱过卑微过这首春娇与志明直击灵魂_20241201223725052.mp4',
+                'https://lcap-static-saas.nos-eastchina1.126.net/app/挥不去的阴霾 让我为你掩埋_20241201223725630.mp4',
+                'https://lcap-static-saas.nos-eastchina1.126.net/app/looking_into_your_heart_20241201223700205.mp4',
+                'https://lcap-static-saas.nos-eastchina1.126.net/app/喜欢你是我的秘密 深度就像在海底十万米_20241201223808677.mp4'
+            ];
+            const firstVid = Math.floor(Math.random() * videoUrls.length);
+            const firstVidUrl = videoUrls[firstVid];
+            videoUrls.splice(firstVid, 1)
+            let newVidArr = new Array();
+            newVidArr.push(
+                {
+                    src: firstVidUrl,
+                    type: 'video/mp4'
+                }
+            );
+            videoUrls.forEach((val) => {
+                newVidArr.push(
+                    {
+                        src: val,
+                        type: 'video/mp4'
+                    }
+                );
+            });
+
+            bv.init({
+                // Video元素
+                videoEl: document.querySelector('#background_video'),
+                // 容器元素
+                container: document.querySelector('body'),
+                // 自适应调整
+                resize: true,
+                // autoplay: false,
+                muteButton: document.querySelector('#mute'),
+                // 静音图标
+                _muteImage: './assets/img/mute.png',
+                // 取消静音图标
+                _unmuteImage: './assets/img/unmute.png',
+                // 加载视频源, 根据实际业务更换自己的视频源文件
+                src: newVidArr,
+                // 一旦视频加载后即将视频封面隐藏
+                onLoad: function () {
+                    document.querySelector('#video_cover').style.display = 'none';
+                    if (video.muted) {
+                        document.querySelector('#mute').style.backgroundImage = "url('./assets/img/mute.png')";
+                    }
+                }
+            });
+            // 监听视频播放完成事件, 并播放下一个
+            var video = document.getElementById('background_video');
+            var sources = video.getElementsByTagName('source');
+            var currentIndex = 0;
+            video.addEventListener('ended', function () {
+                console.log('next...');
+                currentIndex = (currentIndex + 1) % sources.length;
+                video.src = sources[currentIndex].src;
+                video.load();
+                video.play();
+                video.muted = false;
+            });
+        }());
+    </script>
+
+	
+</body></html>
