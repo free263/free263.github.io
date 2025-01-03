@@ -44,8 +44,7 @@ h1 {
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
-	background: var(--primary-color) url('https://www.17sucai.com/preview/2413762/2021-10-22/%E8%A7%86%E9%A2%91%E7%99%BB%E9%99%86%E9%A1%B5%E9%9D%A2/%E2%95%A9%E2%95%99%E2%95%9E%E2%95%A1%E2%95%A1%E2%95%9F%E2%94%AC%E2%95%9C%E2%95%A5%E2%94%82%E2%94%9C%C2%B5/video-landing-page/https://traversymedia.com/downloads/cover.jpg') no-repeat center
-		center/cover;
+	
 }
 
 .video-container video {
