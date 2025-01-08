@@ -76,7 +76,13 @@ background-color: 000;
 			
 		
 		</style>
-</head>
+	<script>
+        // JavaScript函数，用于刷新页面
+        function refreshPage() {
+            location.reload();
+        }
+    </script>
+<noscript></head></noscript>
 
 <body>
     <span class="mobile btn-mobile-menu">
@@ -178,6 +184,10 @@ background-color: 000;
                                     </li>
                                     <li class="navigation__item">
                                         <a href="index-126.html" class="blog-button">随机壁纸</a>
+                                    </li>
+									&nbsp;&nbsp;&nbsp;
+									<li class="navigation__item">
+                                        <a href="#" class="blog-button" onclick="refreshPage()">变换一个新背景</a>
                                     </li>
                                 </ul>
                             </nav>
