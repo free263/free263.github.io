@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+  .image-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .image-container img {
+    height: auto;
+    width: 100%;
+  }
+  
+/* 按钮基本样式 */
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+.button1 {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.button2:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+/* 下拉框基本样式 */
+.select-style {
+  width: 200px;  /* 设置宽度 */
+  height: 53px;  /* 设置高度 */
+  padding: 5px;  /* 内边距 */
+  border: 1px solid #ccc;  /* 边框样式 */
+  border-radius: 5px;  /* 边框圆角 */
+  -webkit-appearance: none;  /* 移除默认样式 */
+  -moz-appearance: none;  /* 移除默认样式 */
+  appearance: none;  /* 移除默认样式 */
+  background-color: #4CAF50;  /* 背景颜色 */
+  font-size: 16px;                 /* 设置字体大小 */
+  font-weight: bold;               /* 设置字体粗细 */
+  color: #ffffff;  
+  text-align: center;
+  padding-left: 5px; /* 左侧内边距用于对齐文本 */
+}
+
+</style>
+<script>
+        // JavaScript函数，用于刷新页面
+        function refreshPage() {
+            location.reload();
+        }
+</script>
+</head>
+<body>
+
+<div style="position:absolute; left: 0%; top: 0%; width:100%; height:100%; text-align: center;">
+ <center>
+<section id="buttons">
+        <button class="button button2" onclick="refreshPage()">点击切换下一张美图</button> 
+        <select id="mySelect" class="select-style">
+		<option value="#">换一个国产套图欣赏</option>
+		<option value="./china-bololi.html">BoLoLi波萝社</option>
+		<option value="./china-candy.html">CANDY网红馆</option>
+		<option value="./china-dkgirl.html">DKGirl御女郎</option>
+		<option value="./china-feilin.html">FEILIN嗲囡囡</option>
+		<option value="./china-girlt.html">Girlt果团网</option>
+		<option value="./china-goddes.html" style="color:white;background-color:blue;">Goddes头条女神</option>
+		<option value="./china-huayan.html">HuaYan花の颜</option>
+		<option value="./china-huayang.html">HuaYang花漾</option>
+		<option value="./china-imiss.html">IMISS爱蜜社</option>
+		<option value="./china-ishow.html">ISHOW爱秀</option>
+		<option value="./china-kelagirls.html">KelaGirls克拉女神</option>
+		<option value="./china-kimoe.html">Kimoe激萌文化</option>
+		<option value="./china-legbaby.html">LEGBABY美腿宝贝</option>
+		<option value="./china-leyuan.html">LeYuan星乐园</option>
+		<option value="./china-mfstar.html">MFStar模范学院</option>
+		<option value="./china-micat.html">MICAT猫萌榜</option>
+		<option value="./china-miitao.html">MiiTao蜜桃社</option>
+		<option value="./china-missleg.html">MISSLEG蜜丝</option>
+		<option value="./china-ugirls1.html">UGIRLS1</option>
+		<option value="./china-ugirls2.html">UGIRLS2</option>
+		<option value="./china-ugirls3.html">UGIRLS3</option>
+		</select>
+		<script>
+document.getElementById('mySelect').addEventListener('change', function() {
+  var url = this.value;
+  if (url) {
+    window.open(url, '_self');
+  }
+});
+</script>
+    </section>
+</center> 
+</div>
+<br><br><br>
+<div class="image-container">
+  <img src="https://api.rryyz.com/api-china/china-goddes.php" alt="" class="zoom-img">
+</div>
+
+</body>
+
+</html>
