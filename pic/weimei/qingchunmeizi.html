@@ -120,22 +120,51 @@
         <button class="button button2" onclick="refreshPage()">点击切换下一张美图</button> 
         <select id="mySelect" class="select-style">
 		<option value="#">换一个图册欣赏</option>
-		<option value="../guidao/index.html">鬼刀绘画</option>
-		<option value="../bing/index.html">Bing壁纸</option>
-		<option value="../katong/index.html">卡通动漫</option>
-		<option value="../meili/index.html">魅力无限</option>
-		<option value="../weimei/index.html">唯美美女</option>
-		<option value="../xinggan/index.html">性感诱惑</option>
-		<option value="../cnstar/index.html">华国明星</option>
-		<option value="../mobile/index.html">手机版美图</option>
-		<option value="../qingchunmeizi/index.html">清纯妹子</option>
-		<option value="../qingchunxi/index.html">清纯系美女</option>
-		<option value="../uuribao1/index.html" style="color:white;background-color:blue;">优优日报1</option>
-		<option value="../uuribao2/index.html">优优日报2</option>
-		<option value="../xingganmeizi1/index.html">性感妹子1</option>
-		<option value="../xingganmeizi2/index.html">性感妹子2</option>
+		<option value="../pic/weimei/guidao.html">鬼刀绘画</option>
+		<option value="../pic/weimei/bing.html">Bing壁纸</option>
+		<option value="../pic/weimei/katong.html">卡通动漫</option>
+		<option value="../pic/weimei/meili.html">魅力无限</option>
+		<option value="../pic/weimei/weimei.html">唯美美女</option>
+		<option value="../pic/weimei/xinggan.html">性感诱惑</option>
+		<option value="../pic/weimei/cnstar.html">华国明星</option>
+		<option value="../pic/weimei/mobile.html">手机版美图</option>
+		<option value="../pic/weimei/qingchunmeizi/index.html" style="color:white;background-color:blue;">清纯妹子</option>
+		<option value="../pic/weimei/qingchunxi.html">清纯系美女</option>
+		<option value="../pic/weimei/uuribao1.html">优优日报1</option>
+		<option value="../pic/weimei/uuribao2.html">优优日报2</option>
+		<option value="../pic/weimei/xingganmeizi1.html">性感妹子1</option>
+		<option value="../pic/weimei/xingganmeizi2.html">性感妹子2</option>
 		</select>
-		<script>
+    </section>
+</center> 
+</div>
+<br><br><br>
+<div class="container">
+  <img src="https://api.rryyz.com/api-pic/photo-qingchunmeizi.php" alt="Image" class="img-responsive">
+</div>
+
+<div>
+<center>
+<section id="buttons">
+        <button class="button button2" onclick="refreshPage()">点击切换下一张美图</button> 
+        <select id="mySelect" class="select-style">
+		<option value="#">换一个图册欣赏</option>
+		<option value="../pic/weimei/guidao.html">鬼刀绘画</option>
+		<option value="../pic/weimei/bing/index.html" style="color:white;background-color:blue;">Bing壁纸</option>
+		<option value="../pic/weimei/katong.html">卡通动漫</option>
+		<option value="../pic/weimei/meili.html">魅力无限</option>
+		<option value="../pic/weimei/weimei.html">唯美美女</option>
+		<option value="../pic/weimei/xinggan.html">性感诱惑</option>
+		<option value="../pic/weimei/cnstar.html">华国明星</option>
+		<option value="../pic/weimei/mobile.html">手机版美图</option>
+		<option value="../pic/weimei/qingchunmeizi.html">清纯妹子</option>
+		<option value="../pic/weimei/qingchunxi.html">清纯系美女</option>
+		<option value="../pic/weimei/uuribao1.html">优优日报1</option>
+		<option value="../pic/weimei/uuribao2.html">优优日报2</option>
+		<option value="../pic/weimei/xingganmeizi1.html">性感妹子1</option>
+		<option value="../pic/weimei/xingganmeizi2.html">性感妹子2</option>
+		</select>
+<script>
 document.getElementById('mySelect').addEventListener('change', function() {
   var url = this.value;
   if (url) {
@@ -143,14 +172,10 @@ document.getElementById('mySelect').addEventListener('change', function() {
   }
 });
 </script>
-    </section>
+</section>
 </center> 
 </div>
-<br><br><br>
-<div class="container">
-  <img src="https://api.rryyz.com/api-pic/photo-uuribao1.php" alt="Image" class="img-responsive">
-</div>
- 
+
 <div id="myModal" class="modal">
   <span class="close">&times;</span>
   <img class="modal-content" id="img01">

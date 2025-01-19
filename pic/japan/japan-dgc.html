@@ -97,14 +97,6 @@
 		<option value="./japan-wpb.html">WPB套图503套</option>
 		<option value="./japan-ysweb.html">YSWeb685套</option>
 		</select>
-		<script>
-document.getElementById('mySelect').addEventListener('change', function() {
-  var url = this.value;
-  if (url) {
-    window.open(url, '_self');
-  }
-});
-</script>
     </section>
 </center> 
 </div>
@@ -112,7 +104,45 @@ document.getElementById('mySelect').addEventListener('change', function() {
 <div class="image-container">
   <img src="https://api.rryyz.com/api-japan/japan-dgc.php" alt="" class="zoom-img">
 </div>
-
+<div>
+<center>
+<section id="buttons">
+        <button class="button button2" onclick="refreshPage()">点击切换下一张美图</button> 
+        <select id="mySelect" class="select-style">
+		<option value="#">换一个日本套图欣赏</option>
+		<option value="./japan-bejeanonline.html" style="color:white;background-color:blue;">BejeanOnLine170套</option>
+		<option value="./japan-bombtv.html">Bomb.tv350套</option>
+		<option value="./japan-bwh.html">BWH日本美女303套</option>
+		<option value="./japan-dgc.html">DGC套图1338套</option>
+		<option value="./japan-forside.html">For-side158套</option>
+		<option value="./japan-helloproject.html">HelloProject549套</option>
+		<option value="./japan-imagetv.html">Image.tv460套</option>
+		<option value="./japan-imoutotv.html">Imouto.tv98套</option>
+		<option value="./japan-minisukatv.html">Minisuka.tv696套</option>
+		<option value="./japan-misty.html">Misty套图257套</option>
+		<option value="./japan-nseyes.html">NSEyes619套</option>
+		<option value="./japan-other.html">其他套图33套</option>
+		<option value="./japan-princesscollection.html">PrincessCollection98套</option>
+		<option value="./japan-racequeenclub.html">RaceQueenClub21套</option>
+		<option value="./japan-rqstar.html">RQ-STAR1276套</option>
+		<option value="./japan-sabra.html">Sabra.net美女写真315套</option>
+		<option value="./japan-topqueen.html">TopQueen564套</option>
+		<option value="./japan-two.html">TWO套图35套</option>
+		<option value="./japan-wanibooks.html">Wanibooks127套</option>
+		<option value="./japan-wpb.html">WPB套图503套</option>
+		<option value="./japan-ysweb.html">YSWeb685套</option>
+		</select>
+<script>
+document.getElementById('mySelect').addEventListener('change', function() {
+  var url = this.value;
+  if (url) {
+    window.open(url, '_self');
+  }
+});
+</script>
+</section>
+</center> 
+</div>
 </body>
 
 </html>
