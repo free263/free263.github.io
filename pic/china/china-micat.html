@@ -59,6 +59,18 @@
   padding-left: 5px; /* 左侧内边距用于对齐文本 */
 }
 
+/* 网页底部漂浮div样式 */
+.fixed-div {
+  position: fixed; /* 使div定位于屏幕视口的一个固定位置 */
+  left: 0; /* 定位到左边 */
+  top: 0; /* 定位到底部 */
+  width: 100%; /* 设置宽度为100%，使其横跨整个屏幕宽度 */
+  background-color: #fff; /* 背景颜色 */
+  color: white; /* 字体颜色 */
+  padding: 10px; /* 内边距 */
+  text-align: center; /* 文本居中对齐 */
+  z-index: 1000;
+}
 </style>
 <script>
         // JavaScript函数，用于刷新页面
@@ -69,7 +81,7 @@
 </head>
 <body>
 
-<div style="position:absolute; left: 0%; top: 0%; width:100%; height:100%; text-align: center;">
+<div class="fixed-div">
  <center>
 <section id="buttons">
         <button class="button button2" onclick="refreshPage()">点击切换下一张美图</button> 
@@ -97,41 +109,6 @@
 		<option value="./china-ugirls2.html">UGIRLS2</option>
 		<option value="./china-ugirls3.html">UGIRLS3</option>
 		</select>
-    </section>
-</center> 
-</div>
-<br><br><br>
-<div class="image-container">
-  <img src="https://api.rryyz.com/api-china/china-micat.php" alt="" class="zoom-img">
-</div>
-<div>
-<center>
-<section id="buttons">
-        <button class="button button2" onclick="refreshPage()">点击切换下一张美图</button> 
-        <select id="mySelect" class="select-style">
-		<option value="#">换一个国产套图欣赏</option>
-		<option value="./china-bololi.html" style="color:white;background-color:blue;">BoLoLi波萝社</option>
-		<option value="./china-candy.html">CANDY网红馆</option>
-		<option value="./china-dkgirl.html">DKGirl御女郎</option>
-		<option value="./china-feilin.html">FEILIN嗲囡囡</option>
-		<option value="./china-girlt.html">Girlt果团网</option>
-		<option value="./china-goddes.html">Goddes头条女神</option>
-		<option value="./china-huayan.html">HuaYan花の颜</option>
-		<option value="./china-huayang.html">HuaYang花漾</option>
-		<option value="./china-imiss.html">IMISS爱蜜社</option>
-		<option value="./china-ishow.html">ISHOW爱秀</option>
-		<option value="./china-kelagirls.html">KelaGirls克拉女神</option>
-		<option value="./china-kimoe.html">Kimoe激萌文化</option>
-		<option value="./china-legbaby.html">LEGBABY美腿宝贝</option>
-		<option value="./china-leyuan.html">LeYuan星乐园</option>
-		<option value="./china-mfstar.html">MFStar模范学院</option>
-		<option value="./china-micat.html">MICAT猫萌榜</option>
-		<option value="./china-miitao.html">MiiTao蜜桃社</option>
-		<option value="./china-missleg.html">MISSLEG蜜丝</option>
-		<option value="./china-ugirls1.html">UGIRLS1</option>
-		<option value="./china-ugirls2.html">UGIRLS2</option>
-		<option value="./china-ugirls3.html">UGIRLS3</option>
-		</select>
 <script>
 document.getElementById('mySelect').addEventListener('change', function() {
   var url = this.value;
@@ -140,9 +117,12 @@ document.getElementById('mySelect').addEventListener('change', function() {
   }
 });
 </script>
-</section>
+    </section>
 </center> 
 </div>
+<br><br><br>
+<div class="image-container">
+  <img src="https://api.rryyz.com/api-china/china-micat.php" alt="" class="zoom-img">
+</div>
 </body>
-
 </html>

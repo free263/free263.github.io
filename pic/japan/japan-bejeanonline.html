@@ -59,6 +59,18 @@
   padding-left: 5px; /* 左侧内边距用于对齐文本 */
 }
 
+/* 网页底部漂浮div样式 */
+.fixed-div {
+  position: fixed; /* 使div定位于屏幕视口的一个固定位置 */
+  left: 0; /* 定位到左边 */
+  top: 0; /* 定位到底部 */
+  width: 100%; /* 设置宽度为100%，使其横跨整个屏幕宽度 */
+  background-color: #fff; /* 背景颜色 */
+  color: white; /* 字体颜色 */
+  padding: 10px; /* 内边距 */
+  text-align: center; /* 文本居中对齐 */
+  z-index: 1000;
+}
 </style>
 <script>
         // JavaScript函数，用于刷新页面
@@ -69,43 +81,8 @@
 </head>
 <body>
 
-<div style="position:absolute; left: 0%; top: 0%; width:100%; height:100%; text-align: center;">
+<div class="fixed-div">
  <center>
-<section id="buttons">
-        <button class="button button2" onclick="refreshPage()">点击切换下一张美图</button> 
-        <select id="mySelect" class="select-style">
-		<option value="#">换一个日本套图欣赏</option>
-		<option value="./japan-bejeanonline.html" style="color:white;background-color:blue;">BejeanOnLine170套</option>
-		<option value="./japan-bombtv.html">Bomb.tv350套</option>
-		<option value="./japan-bwh.html">BWH日本美女303套</option>
-		<option value="./japan-dgc.html">DGC套图1338套</option>
-		<option value="./japan-forside.html">For-side158套</option>
-		<option value="./japan-helloproject.html">HelloProject549套</option>
-		<option value="./japan-imagetv.html">Image.tv460套</option>
-		<option value="./japan-imoutotv.html">Imouto.tv98套</option>
-		<option value="./japan-minisukatv.html">Minisuka.tv696套</option>
-		<option value="./japan-misty.html">Misty套图257套</option>
-		<option value="./japan-nseyes.html">NSEyes619套</option>
-		<option value="./japan-other.html">其他套图33套</option>
-		<option value="./japan-princesscollection.html">PrincessCollection98套</option>
-		<option value="./japan-racequeenclub.html">RaceQueenClub21套</option>
-		<option value="./japan-rqstar.html">RQ-STAR1276套</option>
-		<option value="./japan-sabra.html">Sabra.net美女写真315套</option>
-		<option value="./japan-topqueen.html">TopQueen564套</option>
-		<option value="./japan-two.html">TWO套图35套</option>
-		<option value="./japan-wanibooks.html">Wanibooks127套</option>
-		<option value="./japan-wpb.html">WPB套图503套</option>
-		<option value="./japan-ysweb.html">YSWeb685套</option>
-		</select>
-    </section>
-</center> 
-</div>
-<br><br><br>
-<div class="image-container">
-  <img src="https://api.rryyz.com/api-japan/japan-bombtv.php" alt="" class="zoom-img">
-</div>
-<div>
-<center>
 <section id="buttons">
         <button class="button button2" onclick="refreshPage()">点击切换下一张美图</button> 
         <select id="mySelect" class="select-style">
@@ -140,9 +117,12 @@ document.getElementById('mySelect').addEventListener('change', function() {
   }
 });
 </script>
-</section>
+    </section>
 </center> 
 </div>
-
+<br><br><br>
+<div class="image-container">
+  <img src="https://api.rryyz.com/api-japan/japan-bombtv.php" alt="" class="zoom-img">
+</div>
 </body>
 </html>
