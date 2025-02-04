@@ -8,20 +8,23 @@
     <meta name="renderer" content="webkit">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>随机观看小姐姐视频</title>
-    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="stylesheet" href="../assets/style.css">
 <noscript></head></noscript>
 <body>
     <section id="main">
-        <video id="player" src="https://api.rryyz.com/api-ai/126/index1.php" controls="" webkit-playsinline="" playsinline=""></video>
+        <video id="player" src="https://api.rryyz.com/api-ai/github/index1.php" controls="" webkit-playsinline="" playsinline=""></video>
     </section>
     <section id="buttons">
         <button id="switch">连续: 开</button>
         <button id="next">下一个</button>
         <select id="mySelect">
-		<option value="index.html" style="color:white;background-color:blue;">回首页</option>
-		<option value="./126/index1.html">网易线路</option>
-		<option value="./github/index1.html">Github线路</option>
-		<option value="./az/index1.html">微软Azure</option>
+		<option value="#">--选择--</option>
+		<option value="../index.html"style="color:red;">回首页</option>
+		<option value="index1.html" style="color:white;background-color:blue;">AI古风</option>
+		<option value="index2.html">AI美女</option>
+		<option value="index3.html">Colsplay</option>
+		<option value="index4.html">明星秀</option>
+		<option value="index5.html">山海经</option>
 		</select>
     </section>
 	<script>
@@ -47,7 +50,7 @@ document.getElementById('mySelect').addEventListener('change', function() {
         var auto = true;
         var player = get('player');
         var randomm = function () {
-            player.src = 'https://api.rryyz.com/api-ai/126/index1.php?_t=' + Math.random();
+            player.src = 'https://api.rryyz.com/api-ai/github/index1.php?_t=' + Math.random();
             player.play();
         }
         bind(get('next'), 'click', randomm);
