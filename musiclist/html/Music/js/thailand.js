@@ -6,19 +6,19 @@
 		continous = true,
 		autoplay = true,
 		playlist = [
-{title:"Lydia-DontLeaveMeHere.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.838383.xyz/free163person/音乐视听/泰国音乐/Lydia-DontLeaveMeHere.mp3",},
-{title:"Lydia-YOU.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.838383.xyz/free163person/音乐视听/泰国音乐/Lydia-YOU.mp3",},
-{title:"Lydia-前女友的规则.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.838383.xyz/free163person/音乐视听/泰国音乐/Lydia-前女友的规则.mp3",},
-{title:"Lydia-如果我说爱你行吗.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.838383.xyz/free163person/音乐视听/泰国音乐/Lydia-如果我说爱你行吗.mp3",},
-{title:"Sara-总好过难过.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.838383.xyz/free163person/音乐视听/泰国音乐/Sara-总好过难过.mp3",},
-{title:"Sara-没关系.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.838383.xyz/free163person/音乐视听/泰国音乐/Sara-没关系.mp3",},
-{title:"Zaza-KuamPidTidTua.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.838383.xyz/free163person/音乐视听/泰国音乐/Zaza-KuamPidTidTua.mp3",},
-{title:"focus-等待着你.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.838383.xyz/free163person/音乐视听/泰国音乐/focus-等待着你.mp3",},
-{title:"lydia-为什么不接电话.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.838383.xyz/free163person/音乐视听/泰国音乐/lydia-为什么不接电话.mp3",},
-{title:"sara-即使知道要见面.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.838383.xyz/free163person/音乐视听/泰国音乐/sara-即使知道要见面.mp3",},
-{title:"sara-想说什么吗.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.838383.xyz/free163person/音乐视听/泰国音乐/sara-想说什么吗.mp3",},
-{title:"sara-是否要忘记.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.838383.xyz/free163person/音乐视听/泰国音乐/sara-是否要忘记.mp3",},
-{title:"泰国歌曲-慢嗨舞曲.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.838383.xyz/free163person/音乐视听/泰国音乐/泰国歌曲-慢嗨舞曲.mp3",}
+{title:"Lydia-DontLeaveMeHere.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/泰国音乐/Lydia-DontLeaveMeHere.mp3",},
+{title:"Lydia-YOU.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/泰国音乐/Lydia-YOU.mp3",},
+{title:"Lydia-前女友的规则.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/泰国音乐/Lydia-前女友的规则.mp3",},
+{title:"Lydia-如果我说爱你行吗.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/泰国音乐/Lydia-如果我说爱你行吗.mp3",},
+{title:"Sara-总好过难过.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/泰国音乐/Sara-总好过难过.mp3",},
+{title:"Sara-没关系.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/泰国音乐/Sara-没关系.mp3",},
+{title:"Zaza-KuamPidTidTua.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/泰国音乐/Zaza-KuamPidTidTua.mp3",},
+{title:"focus-等待着你.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/泰国音乐/focus-等待着你.mp3",},
+{title:"lydia-为什么不接电话.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/泰国音乐/lydia-为什么不接电话.mp3",},
+{title:"sara-即使知道要见面.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/泰国音乐/sara-即使知道要见面.mp3",},
+{title:"sara-想说什么吗.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/泰国音乐/sara-想说什么吗.mp3",},
+{title:"sara-是否要忘记.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/泰国音乐/sara-是否要忘记.mp3",},
+{title:"泰国歌曲-慢嗨舞曲.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/泰国音乐/泰国歌曲-慢嗨舞曲.mp3",}
 
 ];
 
