@@ -1,0 +1,570 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>听松阁桌面</title>
+<link type="text/css" rel="stylesheet" href="images/main.css">
+
+<link rel="stylesheet" href="css/player.css">
+
+
+<!--[if IE 6]>
+<link rel="stylesheet" type="text/css" href="images/ie6.css" />
+<![endif]-->
+<script src="images/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="images/lightbox.min.js"></script>
+<style type="text/css">
+.wrapper{ margin:0px auto; padding:20px; border:1px solid #CCC; background:#333; width:980px; font-size:12px;}
+</style>
+<link rel="shortcut icon" type="image/x-icon" href="img/an.ico"/>
+		<style type="text/css">
+			/*样式初始化*/
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			/*去除横向滚动条*/
+			body {
+				overflow-x: hidden;
+				overflow-y: hidden;
+				background-color: 000;
+				font-size:13px;
+				color: #ffffff;
+			}
+			/*将div铺满整个窗口*/
+			.box {
+				height: 100vh;
+				min-height: 520px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+background-color: 000;
+			}
+			/*设置大ul的大小及定位*/
+			.content {
+				position: relative;
+				width: 100%;
+				height: 100%;
+background-color: 000;
+			}
+			/*设置大li样式*/
+			.content li {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+			}
+			/*将第一张图片后的图片隐藏*/
+			#li1~li{display: none;}
+			/*设置大li背景图片*/
+			#li1 {background-image: url(https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/img/bg01.jpg);background-size:100%;}
+			#li2 {background-image: url(https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/img/bg02.jpg);background-size:100%;}
+			#li3 {background-image: url(https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/img/bg03.jpg);background-size:100%;}
+			#li4 {background-image: url(https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/img/bg04.jpg);background-size:100%;}
+			#li5 {background-image: url(https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/img/bg05.jpg);background-size:100%;}
+			#li6 {background-image: url(https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/img/bg06.jpg);background-size:100%;}
+			#li7 {background-image: url(https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/img/bg07.jpg);background-size:100%;}
+			#li8 {background-image: url(https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/img/bg08.jpg);background-size:100%;}
+			#li9 {background-image: url(https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/img/bg09.jpg);background-size:100%;}
+			/*点击a标签,切换大图片*/
+			#li1:target,
+			#li2:target,
+			#li3:target,
+			#li4:target,
+			#li5:target,
+			#li6:target,
+			#li7:target,
+			#li8:target,
+			#li9:target,
+				display: block;
+			}
+			
+			
+		
+		</style>
+<script data-ad-client="ca-pub-8742386847853865" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<noscript></head></noscript>
+
+<body bgcolor="#000000" Scroll=no>
+	
+<div id="QPlayer" style="z-index:99;">
+	<div id="pContent">
+	
+		<div id="player">
+			<span class="cover"></span>
+			<div class="ctrl">
+				<div class="musicTag marquee">
+					<strong>Title</strong>
+					 <span> - </span>
+					<span class="artist">Artist</span>
+				</div>
+				<div class="progress">
+					<div class="timer left">0:00</div>
+					<div class="contr">
+						<div class="rewind icon"></div>
+						<div class="playback icon"></div>
+						<div class="fastforward icon"></div>
+					</div>
+					<div class="right">
+						<div class="liebiao icon"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="ssBtn" style="background:#000 none repeat scroll 0% 0%">
+				<div class="adf"></div>
+		</div>
+	</div>
+	<ol id="playlist"></ol>
+</div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.marquee.min.js"></script>
+
+<script type="text/javascript">
+var	playlist = [
+{title:"Chunyy-爱在四月雪",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link1",cover:"./t.png",},
+{title:"Chunyy-安魂曲",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link2",cover:"./t.png",},
+{title:"Chunyy-安妮的歌",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link3",cover:"./t.png",},
+{title:"Chunyy-宝贝珍之歌",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link4",cover:"./t.png",},
+{title:"Chunyy-沉睡的森林",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link5",cover:"./t.png",},
+{title:"Chunyy-沉思曲",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link6",cover:"./t.png",},
+{title:"Chunyy-初恋的地方",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link7",cover:"./t.png",},
+{title:"Chunyy-春之声圆舞曲 古典钢琴",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link8",cover:"./t.png",},
+{title:"Chunyy-大溪地清流 米奴哀舞",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link9",cover:"./t.png",},
+{title:"Chunyy-第六感生死恋",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link10",cover:"./t.png",},
+{title:"Chunyy-断情殇",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link11",cover:"./t.png",},
+{title:"Chunyy-飞鼠溪",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link12",cover:"./t.png",},
+{title:"Chunyy-风的气息",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link13",cover:"./t.png",},
+{title:"Chunyy-风中之尘",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link14",cover:"./t.png",},
+{title:"Chunyy-格里格索尔维格之歌",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link15",cover:"./t.png",},
+{title:"Chunyy-和兰花在一起",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link16",cover:"./t.png",},
+{title:"Chunyy-很好听",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link17",cover:"./t.png",},
+{title:"Chunyy-火宵之月",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link18",cover:"./t.png",},
+{title:"Chunyy-卡布里的月光",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link19",cover:"./t.png",},
+{title:"Chunyy-卡农钢琴曲",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link20",cover:"./t.png",},
+{title:"Chunyy-蓝色的爱",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link21",cover:"./t.png",},
+{title:"Chunyy-梁祝之化蝶 笛子",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link22",cover:"./t.png",},
+{title:"Chunyy-绵雪",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link23",cover:"./t.png",},
+{title:"Chunyy-茉莉花",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link24",cover:"./t.png",},
+{title:"Chunyy-森林中的一天",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link25",cover:"./t.png",},
+{title:"Chunyy-似曾相识",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link26",cover:"./t.png",},
+{title:"Chunyy-守护你的天使",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link27",cover:"./t.png",},
+{title:"Chunyy-树蛙之歌",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link28",cover:"./t.png",},
+{title:"Chunyy-水之轮回",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link29",cover:"./t.png",},
+{title:"Chunyy-天鹅湖",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link30",cover:"./t.png",},
+{title:"Chunyy-万福玛丽亚",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link31",cover:"./t.png",},
+{title:"Chunyy-我的海洋",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link32",cover:"./t.png",},
+{title:"Chunyy-西班牙斗牛士进行曲",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link33",cover:"./t.png",},
+{title:"Chunyy-西藏的月",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link34",cover:"./t.png",},
+{title:"Chunyy-昔日情怀",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link35",cover:"./t.png",},
+{title:"Chunyy-夏日华尔兹",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link36",cover:"./t.png",},
+{title:"Chunyy-乡间晚风",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link37",cover:"./t.png",},
+{title:"Chunyy-相识也是缘份",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link38",cover:"./t.png",},
+{title:"Chunyy-小步舞曲",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link39",cover:"./t.png",},
+{title:"Chunyy-小雨落在你脸上",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link40",cover:"./t.png",},
+{title:"Chunyy-雪之梦",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link41",cover:"./t.png",},
+{title:"Chunyy-野鸟情歌",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link42",cover:"./t.png",},
+{title:"Chunyy-印象之旅",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link43",cover:"./t.png",},
+{title:"Chunyy-雨林深处",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link44",cover:"./t.png",},
+{title:"Chunyy-雨中漫步",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link45",cover:"./t.png",},
+{title:"Chunyy-月光下的凤尾竹",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link46",cover:"./t.png",},
+{title:"Chunyy-云淡风轻",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link47",cover:"./t.png",},
+{title:"Chunyy-只此一生",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link48",cover:"./t.png",},
+{title:"Chunyy-最终幻想",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link49",cover:"./t.png",},
+{title:"Joanie madden-The level plain",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link50",cover:"./t.png",},
+{title:"yiruma-雨的印记",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link51",cover:"./t.png",},
+{title:"爱尔兰风笛 漫步神秘园",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link52",cover:"./t.png",},
+{title:"爱尔兰口哨女皇madden-爱尔兰画眉",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link53",cover:"./t.png",},
+{title:"班得瑞-chariots of fire",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link54",cover:"./t.png",},
+{title:"班得瑞-diamonds",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link55",cover:"./t.png",},
+{title:"班得瑞-EI condor pasa",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link56",cover:"./t.png",},
+{title:"班得瑞-i want to know love is",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link57",cover:"./t.png",},
+{title:"班得瑞-i_swear",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link58",cover:"./t.png",},
+{title:"班得瑞-imagine",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link59",cover:"./t.png",},
+{title:"班得瑞-into red velvet",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link60",cover:"./t.png",},
+{title:"班得瑞-moment of fantasy",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link61",cover:"./t.png",},
+{title:"班得瑞-one moment in time",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link62",cover:"./t.png",},
+{title:"班得瑞-tenderness",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link63",cover:"./t.png",},
+{title:"班得瑞-the sounds of silence",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link64",cover:"./t.png",},
+{title:"班得瑞-tim's lullaby",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link65",cover:"./t.png",},
+{title:"班得瑞-安妮的仙境",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link66",cover:"./t.png",},
+{title:"班得瑞-变幻之风",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link67",cover:"./t.png",},
+{title:"班得瑞-晨光",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link68",cover:"./t.png",},
+{title:"班得瑞-初雪",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link69",cover:"./t.png",},
+{title:"班得瑞-春水",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link70",cover:"./t.png",},
+{title:"班得瑞-春野",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link71",cover:"./t.png",},
+{title:"班得瑞-非洲日落",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link72",cover:"./t.png",},
+{title:"班得瑞-风的呢喃",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link73",cover:"./t.png",},
+{title:"班得瑞-海王星",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link74",cover:"./t.png",},
+{title:"班得瑞-火战车",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link75",cover:"./t.png",},
+{title:"班得瑞-涟漪",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link76",cover:"./t.png",},
+{title:"班得瑞-马可波罗",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link77",cover:"./t.png",},
+{title:"班得瑞-满天星",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link78",cover:"./t.png",},
+{title:"班得瑞-秘密",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link79",cover:"./t.png",},
+{title:"班得瑞-排箫 老鹰之歌",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link80",cover:"./t.png",},
+{title:"班得瑞-清晨",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link81",cover:"./t.png",},
+{title:"班得瑞-日光海岸",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link82",cover:"./t.png",},
+{title:"班得瑞-天堂之门",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link83",cover:"./t.png",},
+{title:"班得瑞-微风山谷",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link84",cover:"./t.png",},
+{title:"班得瑞-无止境的见识",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link85",cover:"./t.png",},
+{title:"班得瑞-夏日华尔兹",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link86",cover:"./t.png",},
+{title:"班得瑞-仙境",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link87",cover:"./t.png",},
+{title:"班得瑞-依卡路斯的羽翼",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link88",cover:"./t.png",},
+{title:"班得瑞-忧郁的爱",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link89",cover:"./t.png",},
+{title:"班得瑞-月光",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link90",cover:"./t.png",},
+{title:"班得瑞-月光 ",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link91",cover:"./t.png",},
+{title:"班得瑞-追梦人",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link92",cover:"./t.png",},
+{title:"班得瑞-紫蝴蝶",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link93",cover:"./t.png",},
+{title:"班德瑞-巴格达的星星",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link94",cover:"./t.png",},
+{title:"贝多芬-悲怆奏鸣曲",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link95",cover:"./t.png",},
+{title:"贝多芬-命运交响乐",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link96",cover:"./t.png",},
+{title:"贝多芬-田园交响曲",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link97",cover:"./t.png",},
+{title:"贝多芬-月光奏鸣曲",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link98",cover:"./t.png",},
+{title:"杜普雷-殇",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link99",cover:"./t.png",},
+{title:"宫崎骏 龙猫-水晶音乐",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link100",cover:"./t.png",},
+{title:"久石让-天空之城",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link101",cover:"./t.png",},
+{title:"凯文柯恩-走过绿意",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link102",cover:"./t.png",},
+{title:"浪客剑心-In Memories “A boy meets The Man”",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link103",cover:"./t.png",},
+{title:"李斯特-钟",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link104",cover:"./t.png",},
+{title:"理查德 克莱德曼-爱的纪念",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link105",cover:"./t.png",},
+{title:"理查德 克莱德曼-爱的协奏曲",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link106",cover:"./t.png",},
+{title:"理查德 克莱德曼-爱之梦",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link107",cover:"./t.png",},
+{title:"理查德 克莱德曼-出埃及记",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link108",cover:"./t.png",},
+{title:"理查德 克莱德曼-给母亲的信",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link109",cover:"./t.png",},
+{title:"理查德 克莱德曼-海边的祈祷",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link110",cover:"./t.png",},
+{title:"理查德 克莱德曼-海边的星空",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link111",cover:"./t.png",},
+{title:"理查德 克莱德曼-欢乐颂",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link112",cover:"./t.png",},
+{title:"理查德 克莱德曼-欢乐之歌",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link113",cover:"./t.png",},
+{title:"理查德 克莱德曼-蓝色的爱",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link114",cover:"./t.png",},
+{title:"理查德 克莱德曼-蓝色狂想曲",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link115",cover:"./t.png",},
+{title:"理查德 克莱德曼-罗密欧与朱丽叶",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link116",cover:"./t.png",},
+{title:"理查德 克莱德曼-玫瑰色的人生",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link117",cover:"./t.png",},
+{title:"理查德 克莱德曼-梦中的婚礼",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link118",cover:"./t.png",},
+{title:"理查德 克莱德曼-梦中的鸟",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link119",cover:"./t.png",},
+{title:"理查德 克莱德曼-秘密的庭院",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link120",cover:"./t.png",},
+{title:"理查德 克莱德曼-乒乓之恋",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link121",cover:"./t.png",},
+{title:"理查德 克莱德曼-秋日私语",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link122",cover:"./t.png",},
+{title:"理查德 克莱德曼-柔如彩虹",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link123",cover:"./t.png",},
+{title:"理查德 克莱德曼-伤感乐曲",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link124",cover:"./t.png",},
+{title:"理查德 克莱德曼-少女的祈祷",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link125",cover:"./t.png",},
+{title:"理查德 克莱德曼-水边的阿狄丽娜",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link126",cover:"./t.png",},
+{title:"理查德 克莱德曼-思乡曲",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link127",cover:"./t.png",},
+{title:"理查德 克莱德曼-瓦妮莎的微笑",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link128",cover:"./t.png",},
+{title:"理查德 克莱德曼-忘却的悲伤",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link129",cover:"./t.png",},
+{title:"理查德 克莱德曼-威尼斯之旅",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link130",cover:"./t.png",},
+{title:"理查德 克莱德曼-午后的旅行",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link131",cover:"./t.png",},
+{title:"理查德 克莱德曼-星空",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link132",cover:"./t.png",},
+{title:"理查德 克莱德曼-野花",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link133",cover:"./t.png",},
+{title:"理查德 克莱德曼-英雄交响曲",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link134",cover:"./t.png",},
+{title:"理查德 克莱德曼-永远爱你",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link135",cover:"./t.png",},
+{title:"理查德 克莱德曼-致爱丽丝",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link136",cover:"./t.png",},
+{title:"绿钢琴 乐曲",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link137",cover:"./t.png",},
+{title:"马克西姆-克罗地亚狂想曲",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link138",cover:"./t.png",},
+{title:"马友友-天鹅 大提琴演奏",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link139",cover:"./t.png",},
+{title:"莫扎特 c大调小星星变奏曲",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link140",cover:"./t.png",},
+{title:"莫扎特-安魂曲",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link141",cover:"./t.png",},
+{title:"莫扎特-魔笛",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link142",cover:"./t.png",},
+{title:"莫扎特-土耳其进行曲",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link143",cover:"./t.png",},
+{title:"莫扎特-小步舞曲",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link144",cover:"./t.png",},
+{title:"莫扎特-摇篮曲",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link145",cover:"./t.png",},
+{title:"莫扎特-幽默曲",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link146",cover:"./t.png",},
+{title:"齐普利安·波隆贝斯库-永恒的记忆",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link147",cover:"./t.png",},
+{title:"犬夜叉-哀歌",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link148",cover:"./t.png",},
+{title:"犬夜叉-跨越时代的思念",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link149",cover:"./t.png",},
+{title:"神秘园-莲花",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link150",cover:"./t.png",},
+{title:"神秘园-夜曲",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link151",cover:"./t.png",},
+{title:"神秘园-月亮门",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link152",cover:"./t.png",},
+{title:"神秘园之歌-月亮门",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link153",cover:"./t.png",},
+{title:"神思者-Project",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link154",cover:"./t.png",},
+{title:"神思者-悲情城市",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link155",cover:"./t.png",},
+{title:"神思者-故宫的记忆",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link156",cover:"./t.png",},
+{title:"神思者-海之女神",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link157",cover:"./t.png",},
+{title:"舒伯特-圣母颂",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link158",cover:"./t.png",},
+{title:"舒曼-梦幻曲",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link159",cover:"./t.png",},
+{title:"威尔第 茶花女-普罗旺斯的陆地和海洋",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link160",cover:"./t.png",},
+{title:"乌鸦 片尾曲-月光石 Rurutia",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link161",cover:"./t.png",},
+{title:"喜多郎-飞天",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link162",cover:"./t.png",},
+{title:"喜多郎-菩提树",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link163",cover:"./t.png",},
+{title:"萧邦-幻想即兴曲",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link164",cover:"./t.png",},
+{title:"徐仁修-森林狂想曲",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link165",cover:"./t.png",},
+{title:"姚斯婷-寂静之声",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link166",cover:"./t.png",},
+{title:"约翰 施特劳斯-溜冰圆舞曲",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link167",cover:"./t.png",},
+{title:"约翰 施特劳斯-闲聊波尔卡",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link168",cover:"./t.png",},
+{title:"约翰·施特劳斯-蓝色多瑙河",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link169",cover:"./t.png",},
+{title:"约翰·施特劳斯-维也纳森林的故事",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link170",cover:"./t.png",},
+{title:"约纳森-杜鹃圆舞曲",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link171",cover:"./t.png",},
+{title:"宗次郎-故乡的原风景",artist:"",mp3:"https://greenapi.rryyz.com/api-music/chun.php?link=link172",cover:"./t.png",},
+
+];
+  var isRotate = true;
+  var autoplay = false;
+</script>
+<script src="js/player.js"></script>
+<script>
+
+function bgChange(){
+	var lis= $('.lib');
+	for(var i=0; i<lis.length; i+=2)
+	lis[i].style.background = 'rgba(246, 246, 246, 0.7)';
+}
+window.onload = bgChange;
+</script>
+
+
+
+		<div class="box" style="z-index:1;">
+			<ul class="content">
+				<li id="li1"></li>
+				<li id="li2"></li>
+				<li id="li3"></li>
+				<li id="li4"></li>
+				<li id="li5"></li>
+				<li id="li6"></li>
+				<li id="li7"></li>
+				<li id="li8"></li>
+				<li id="li9"></li>
+			</ul>
+		</div>
+
+<!-- 代码 开始 -->
+<div class="fish" style="position:absolute; width:1350px; height:500px; z-index:1; left: 20px; top: 40px;backgroud-color:000;">
+<table>
+	
+	<!-- 第1行 -->
+    <tr>
+     <td align="center" width="60"><a href="https://pan.111.gs" target="_blank"><img name="folder" src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/folder.gif" width="50" height="50" border="0" id="index_r2_c2" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="https://111.gs/photo/" target="_blank"><img name="pictures" src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/pictures.gif" width="50" height="50" border="0" id="index_r2_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="https://111.gs/vip/" target="_blank"><img name="vip" src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/vip.gif" width="50" height="50" border="0" id="index_r2_c6" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+    </tr>
+    <tr>
+     <td align="center" width="60">我的文档</td>
+     <td width="20"></td>
+     <td align="center" width="60">我的相册</td>
+     <td width="20"></td>
+     <td align="center" width="60">视频解析</td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+    </tr>
+    <tr>
+     <td>&nbsp;</td>
+    </tr>
+    
+<!-- 第2行 -->   
+    <tr>
+     <td align="center" width="60"><a href="https://yun.rryyz.com" target="_blank"><img name="computer" src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/computer.gif" width="50" height="50" border="0" id="index_r5_c2" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./china.html"><img name="poem" src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/zyxyy.gif" width="50" height="50" border="0" id="index_r5_c6" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./chun.html"><img name="music" src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/lxyy.gif" width="50" height="50" border="0" id="index_r11_c2" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+    </tr>
+    <tr>
+     <td align="center" width="60">我的电脑</td>
+     <td width="20"></td>
+     <td align="center" width="60">国语精选</td>
+     <td width="20"></td>
+     <td align="center" width="60">纯音乐</td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+    </tr>
+    <tr>
+     <td>&nbsp;</td>
+    </tr>
+    
+<!-- 第3行 -->
+    <tr>
+     <td align="center" width="60"><a href="https://111.gs/wuxia/" target="_blank"><img name="wuxia" src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/wuxia.gif" width="50" height="50" border="0" id="index_r8_c6" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./usa.html"><img name="down" src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/log.png" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./india.html"><img name="down" src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/wmcyy.gif" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+    </tr>
+    <tr>
+     <td align="center" width="60">武侠小说</td>
+     <td width="20"></td>
+     <td align="center" width="60">欧美音乐</td>
+     <td width="20"></td>
+     <td align="center" width="60">印度音乐</td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+    </tr>
+    <tr>
+     <td>&nbsp;</td>
+    </tr>
+    
+<!-- 第4行 -->
+    <tr>
+     <td align="center" width="60"><a href="https://blog1.hhhnn.com/" target="_blank"><img name="blog" src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/blog.gif" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./japan.html"><img name="share" src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/share.gif" width="50" height="50" border="0" id="index_r5_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./korea.html"><img name="share" src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/zrzs.gif" width="50" height="50" border="0" id="index_r5_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+    </tr>
+   <tr>
+    <td align="center" width="60">我的博客</td>
+    <td width="20"></td>
+    <td align="center" width="60">日本音乐</td>
+    <td width="20"></td>
+    <td align="center" width="60">韩国音乐</td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+   </tr>
+   <tr>
+    <td >&nbsp;</td>
+   </tr>
+<!-- 第5行 -->
+    <tr>
+     <td align="center" width="60"><a href="https://111.gs/book/" target="_blank"><img name="mail" src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/poem.gif" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./thai.html"><img name="mail" src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/mi.png" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./qing.html"><img name="mail" src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/qyy.gif" width="50" height="50" border="0" id="index_r11_c4" alt="" /></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+    </tr>
+   <tr>
+    <td align="center" width="60">古典诗词</td>
+    <td width="20"></td>
+    <td align="center" width="60">泰国音乐</td>
+    <td width="20"></td>
+    <td align="center" width="60">唯美纯音乐</td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+   </tr>
+   <tr>
+    <td >&nbsp;</td>
+   </tr>
+
+  </table>
+</div>
+
+
+<!-- 动态图 -->
+<div  style="position:absolute; width:581px; height:371px; z-index:1; left: 839px; top: 248px;backgroud-color:000;">
+<img src="./images/fish.gif" width="581" height="371" border="0" alt="">
+</div>
+
+<!-- 底部和按钮 -->
+<div  style="position:relative; width:100%; height:39; z-index:1; left:0px; bottom: 39px;">
+ <table style="border-collapse:collapse;width:100%; height:39;">
+ 	<tr>
+ 	 <td align="left"><img src="./images/bottom-left.jpg" width="109" height="39" border="0"></td>
+	 <td align="center" width="100%" height="39" border="0" background="./images/bottom-center.jpg"></td>
+   <td align="right"><img src="./images/bottom-right.jpg" width="273" height="39" border="0"></td>
+  </tr>
+ </table>
+</div>
+
+<div class="fish" style="position:absolute; width:50; height:50; z-index:1; left: 0px; bottom: -3px;backgroud-color:000;">
+<table>
+	<tr>
+		<td><a href="http://my.2345.ltd/" target="_blank"><img src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/space.gif" width="40" height="50" border="0" alt=""></a></td>
+		<td width="20">&nbsp;</td>
+		<td><a href="http://cloud.2345.ltd/" target="_blank"><img src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/space.gif" width="40" height="50" border="0" alt=""></a></td>
+		<td width="1050">&nbsp;</td>
+		<td><a href="http://wx.qq.com/?lightbox[iframe]=true&lightbox[width]=800&lightbox[height]=540" class="lightbox"><img src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		<td width="10">&nbsp;</td>
+		<td><a href="http://www.360.cn/" target="_blank"><img src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		<td width="7">&nbsp;</td>
+		<td><a href="http://odj.cc/" target="_blank"><img src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		<td width="6">&nbsp;</td>
+		<td><a href="http://odj.cc/" target="_blank"><img src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		<td width="4">&nbsp;</td>
+		<td><a href="http://odj.cc/" target="_blank"><img src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		
+			
+	</tr>
+</table>
+</div>
+
+
+<div class="fish" style="position:absolute; width:550px; height:20; z-index:1; right: 220px; bottom: -3px;backgroud-color:000;">
+ <table width="550px">
+	<tr>
+		<td align="right" width="100%" height="30px" >
+
+				
+
+		</td>
+  </tr>
+ </table>
+</div>
+
+
+</div>
+<!-- 代码 结束 -->
+	</body>
+
+</html>
