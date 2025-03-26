@@ -1,11 +1,11 @@
 ﻿$(function($){
-	// Settings
-	$(".maxsize").css({ top : ($(window).width() - $(".maxsize").height())/2  });
-	var repeat = localStorage.repeat || 0,
-		shuffle = localStorage.shuffle || 'true',
-		continous = true,
-		autoplay = true,
-		playlist = [
+// Settings
+$(".maxsize").css({ top : ($(window).width() - $(".maxsize").height())/2  });
+var repeat = localStorage.repeat || 0,
+shuffle = localStorage.shuffle || 'true',
+continous = true,
+autoplay = true,
+playlist = [
 {title:"ALin-给我一个理由忘记",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/ALin-给我一个理由忘记.mp3",},
 {title:"ALin-有一种悲伤",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/ALin-有一种悲伤.mp3",},
 {title:"AvrilLavigne-IamWithYou",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/AvrilLavigne-IamWithYou.mp3",},
@@ -21,6 +21,10 @@
 {title:"Ella[陈嘉桦]-都几岁了",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/Ella[陈嘉桦]-都几岁了.mp3",},
 {title:"Enya-May It Be",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/Enya-May It Be.mp3",},
 {title:"HITA-赤伶",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/HITA-赤伶.mp3",},
+{title:"HITA-牵丝戏",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/HITA-牵丝戏.mp3",},
+{title:"HITA-水龙吟",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/HITA-水龙吟.mp3",},
+{title:"HITA-昔言",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/HITA-昔言.mp3",},
+{title:"HITA-长恨歌",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/HITA-长恨歌.mp3",},
 {title:"Justin Bieber、Luis Fonsi、Daddy Yankee-Despacito(Remix)",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/Justin Bieber、Luis Fonsi、Daddy Yankee-Despacito(Remix).mp3",},
 {title:"JustinBieber-Baby",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/JustinBieber-Baby.mp3",},
 {title:"kiss-因为是女子",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/kiss-因为是女子.mp3",},
@@ -63,6 +67,7 @@
 {title:"阿桑-一直很安静",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/阿桑-一直很安静.mp3",},
 {title:"阿泱-氧气",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/阿泱-氧气.mp3",},
 {title:"阿悠悠-旧梦一场",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/阿悠悠-旧梦一场.mp3",},
+{title:"阿悠悠-你若三冬",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/阿悠悠-你若三冬.mp3",},
 {title:"艾辰-错位时空",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/艾辰-错位时空.mp3",},
 {title:"安琥-天使的翅膀",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/安琥-天使的翅膀.mp3",},
 {title:"半阳-一曲相思",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/半阳-一曲相思.mp3",},
@@ -105,6 +110,7 @@
 {title:"陈慧琳-记事本",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/陈慧琳-记事本.mp3",},
 {title:"陈慧娴-千千阙歌",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/陈慧娴-千千阙歌.mp3",},
 {title:"陈慧娴-人生何处不相逢",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/陈慧娴-人生何处不相逢.mp3",},
+{title:"陈乐基-月半小夜曲",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/陈乐基-月半小夜曲.mp3",},
 {title:"陈琳-爱就爱了",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/陈琳-爱就爱了.mp3",},
 {title:"陈琳-你的柔情我永远不懂",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/陈琳-你的柔情我永远不懂.mp3",},
 {title:"陈明-等你爱我",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/陈明-等你爱我.mp3",},
@@ -170,6 +176,7 @@
 {title:"等什么君-关山酒",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/等什么君-关山酒.mp3",},
 {title:"等什么君-江湖策马",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/等什么君-江湖策马.mp3",},
 {title:"等什么君-踏雪",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/等什么君-踏雪.mp3",},
+{title:"等什么君-一花一剑",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/等什么君-一花一剑.mp3",},
 {title:"邓丽君-独上西楼",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/邓丽君-独上西楼.mp3",},
 {title:"邓丽君-小城故事",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/邓丽君-小城故事.mp3",},
 {title:"邓丽欣、方力申-十分爱",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/邓丽欣、方力申-十分爱.mp3",},
@@ -239,6 +246,7 @@
 {title:"郭富城-樱花之恋",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/郭富城-樱花之恋.mp3",},
 {title:"郭美美-爱情女神",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/郭美美-爱情女神.mp3",},
 {title:"郭美美-不怕不怕",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/郭美美-不怕不怕.mp3",},
+{title:"国风新语、浮生梦、汐音社-探窗",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/国风新语、浮生梦、汐音社-探窗.mp3",},
 {title:"海伦-桥边姑娘",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/海伦-桥边姑娘.mp3",},
 {title:"海伦-游山恋",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/海伦-游山恋.mp3",},
 {title:"海鸣威-老人与海",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/海鸣威-老人与海.mp3",},
@@ -252,9 +260,9 @@
 {title:"韩雪-想起",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/韩雪-想起.mp3",},
 {title:"杭天琪-前门情思大碗茶",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/杭天琪-前门情思大碗茶.mp3",},
 {title:"浩瀚-分手在那个秋天",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/浩瀚-分手在那个秋天.mp3",},
-{title:"何晟铭-佛说",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/何晟铭-佛说.mp3",},
 {title:"何洁-你一定要幸福",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/何洁-你一定要幸福.mp3",},
 {title:"何璐-让她降落",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/何璐-让她降落.mp3",},
+{title:"何晟铭-佛说",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/何晟铭-佛说.mp3",},
 {title:"黑豹乐队-无地自容",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/黑豹乐队-无地自容.mp3",},
 {title:"侯旭-逃",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/侯旭-逃.mp3",},
 {title:"后弦、sara-你还欠我一个拥抱",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/后弦、sara-你还欠我一个拥抱.mp3",},
@@ -272,13 +280,14 @@
 {title:"黄安-新鸳鸯蝴蝶梦",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/黄安-新鸳鸯蝴蝶梦.mp3",},
 {title:"黄安-样样红",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/黄安-样样红.mp3",},
 {title:"黄磊-我想我是海",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/黄磊-我想我是海.mp3",},
-{title:"黄龄、T?ng Duy Tan-叹",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/黄龄、T?ng Duy Tan-叹.mp3",},
 {title:"黄龄、Tang Duy Tan-叹",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/黄龄、Tang Duy Tan-叹.mp3",},
 {title:"黄龄、许嵩-惊鸿一面",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/黄龄、许嵩-惊鸿一面.mp3",},
 {title:"黄龄-High歌",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/黄龄-High歌.mp3",},
+{title:"黄龄-达拉崩吧",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/黄龄-达拉崩吧.mp3",},
 {title:"黄龄-风月",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/黄龄-风月.mp3",},
 {title:"黄龄-牵丝戏（梦幻西游盘丝洞门派曲）",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/黄龄-牵丝戏（梦幻西游盘丝洞门派曲）.mp3",},
 {title:"黄龄-入画江南",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/黄龄-入画江南.mp3",},
+{title:"黄龄-三拜红尘凉",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/黄龄-三拜红尘凉.mp3",},
 {title:"黄龄-痒",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/黄龄-痒.mp3",},
 {title:"黄龄-夜舞",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/黄龄-夜舞.mp3",},
 {title:"黄龄-鸳鸯戏",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/黄龄-鸳鸯戏.mp3",},
@@ -346,6 +355,14 @@
 {title:"李克勤-月半小夜曲",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/李克勤-月半小夜曲.mp3",},
 {title:"李丽芬-爱江山更爱美人",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/李丽芬-爱江山更爱美人.mp3",},
 {title:"李丽芬-得意的笑",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/李丽芬-得意的笑.mp3",},
+{title:"李玟、周杰伦-刀马旦",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/李玟、周杰伦-刀马旦.mp3",},
+{title:"李玟-Baby对不起",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/李玟-Baby对不起.mp3",},
+{title:"李玟-DiDaDi",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/李玟-DiDaDi.mp3",},
+{title:"李玟-好心情",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/李玟-好心情.mp3",},
+{title:"李玟-美丽笨女人",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/李玟-美丽笨女人.mp3",},
+{title:"李玟-魔镜",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/李玟-魔镜.mp3",},
+{title:"李玟-想你的365天",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/李玟-想你的365天.mp3",},
+{title:"李玟-月光爱人",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/李玟-月光爱人.mp3",},
 {title:"李沁-小偷",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/李沁-小偷.mp3",},
 {title:"李琼-山路十八弯",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/李琼-山路十八弯.mp3",},
 {title:"李荣浩-不将就",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/李荣浩-不将就.mp3",},
@@ -358,14 +375,6 @@
 {title:"李圣杰-手放开",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/李圣杰-手放开.mp3",},
 {title:"李殊-原谅我过去不懂",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/李殊-原谅我过去不懂.mp3",},
 {title:"李殊-原谅我过去不懂精卫填海主题曲",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/李殊-原谅我过去不懂精卫填海主题曲.mp3",},
-{title:"李玟、周杰伦-刀马旦",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/李玟、周杰伦-刀马旦.mp3",},
-{title:"李玟-Baby对不起",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/李玟-Baby对不起.mp3",},
-{title:"李玟-DiDaDi",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/李玟-DiDaDi.mp3",},
-{title:"李玟-好心情",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/李玟-好心情.mp3",},
-{title:"李玟-美丽笨女人",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/李玟-美丽笨女人.mp3",},
-{title:"李玟-魔镜",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/李玟-魔镜.mp3",},
-{title:"李玟-想你的365天",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/李玟-想你的365天.mp3",},
-{title:"李玟-月光爱人",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/李玟-月光爱人.mp3",},
 {title:"李晓杰-朋友的酒",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/李晓杰-朋友的酒.mp3",},
 {title:"李孝利-10minutes",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/李孝利-10minutes.mp3",},
 {title:"李昕融、樊桐舟、李凯稠-你笑起来真好看",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/李昕融、樊桐舟、李凯稠-你笑起来真好看.mp3",},
@@ -596,6 +605,9 @@
 {title:"谭咏麟-再见亦是泪",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/谭咏麟-再见亦是泪.mp3",},
 {title:"汤潮-狼爱上羊",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/汤潮-狼爱上羊.mp3",},
 {title:"汤潮-美了美了",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/汤潮-美了美了.mp3",},
+{title:"唐伯虎Annie、伯爵Johnny-弱水三千",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/唐伯虎Annie、伯爵Johnny-弱水三千.mp3",},
+{title:"唐伯虎Annie-落",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/唐伯虎Annie-落.mp3",},
+{title:"唐伯虎Annie-青丝",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/唐伯虎Annie-青丝.mp3",},
 {title:"唐汉霄-烂泥",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/唐汉霄-烂泥.mp3",},
 {title:"唐磊-丁香花",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/唐磊-丁香花.mp3",},
 {title:"陶晶莹-太委屈",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/陶晶莹-太委屈.mp3",},
@@ -667,6 +679,7 @@
 {title:"魏新雨-余情未了",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/魏新雨-余情未了.mp3",},
 {title:"温奕心-一路生花",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/温奕心-一路生花.mp3",},
 {title:"闻人听書-虞兮叹",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/闻人听書-虞兮叹.mp3",},
+{title:"闻人听書-鸳鸯戏",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/闻人听書-鸳鸯戏.mp3",},
 {title:"乌达木-梦中的额吉",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/乌达木-梦中的额吉.mp3",},
 {title:"乌兰托娅-火红的萨日朗",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/乌兰托娅-火红的萨日朗.mp3",},
 {title:"乌兰托娅-套马杆",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/乌兰托娅-套马杆.mp3",},
@@ -895,10 +908,6 @@
 {title:"洋澜一-如果最后不是你",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-如果最后不是你.mp3",},
 {title:"洋澜一-伤口",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-伤口.mp3",},
 {title:"洋澜一-伤心太平洋",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-伤心太平洋.mp3",},
-{title:"洋澜一-谁",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-谁.mp3",},
-{title:"洋澜一-谁懂这首伤情的歌",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-谁懂这首伤情的歌.mp3",},
-{title:"洋澜一-谁都会",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-谁都会.mp3",},
-{title:"洋澜一-谁会懂我",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-谁会懂我.mp3",},
 {title:"洋澜一-深秋夜雨",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-深秋夜雨.mp3",},
 {title:"洋澜一-盛不盛开都是花",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-盛不盛开都是花.mp3",},
 {title:"洋澜一-盛夏的果实",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-盛夏的果实.mp3",},
@@ -906,6 +915,10 @@
 {title:"洋澜一-试图",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-试图.mp3",},
 {title:"洋澜一-是我爱过了头",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-是我爱过了头.mp3",},
 {title:"洋澜一-输不起的年纪",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-输不起的年纪.mp3",},
+{title:"洋澜一-谁",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-谁.mp3",},
+{title:"洋澜一-谁懂这首伤情的歌",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-谁懂这首伤情的歌.mp3",},
+{title:"洋澜一-谁都会",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-谁都会.mp3",},
+{title:"洋澜一-谁会懂我",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-谁会懂我.mp3",},
 {title:"洋澜一-思念从来没饶过谁",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-思念从来没饶过谁.mp3",},
 {title:"洋澜一-思念的弦",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-思念的弦.mp3",},
 {title:"洋澜一-思念及时雨",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-思念及时雨.mp3",},
@@ -925,8 +938,8 @@
 {title:"洋澜一-晚风吹散了我们",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-晚风吹散了我们.mp3",},
 {title:"洋澜一-万万千千个思念",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-万万千千个思念.mp3",},
 {title:"洋澜一-望故乡",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-望故乡.mp3",},
-{title:"洋澜一-唯独没有心疼我",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-唯独没有心疼我.mp3",},
 {title:"洋澜一-为你不远嫁",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-为你不远嫁.mp3",},
+{title:"洋澜一-唯独没有心疼我",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-唯独没有心疼我.mp3",},
 {title:"洋澜一-吻别",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-吻别.mp3",},
 {title:"洋澜一-稳稳的幸福",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-稳稳的幸福.mp3",},
 {title:"洋澜一-问(柔情版)",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/洋澜一-问(柔情版).mp3",},
@@ -1027,6 +1040,8 @@
 {title:"张含韵-酸酸甜甜就是我",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/张含韵-酸酸甜甜就是我.mp3",},
 {title:"张含韵-想唱就唱",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/张含韵-想唱就唱.mp3",},
 {title:"张含韵-一百万个可能",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/张含韵-一百万个可能.mp3",},
+{title:"张行-迟到",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/张行-迟到.mp3",},
+{title:"张行-站台",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/张行-站台.mp3",},
 {title:"张惠妹-BadBoy",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/张惠妹-BadBoy.mp3",},
 {title:"张惠妹-剪爱",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/张惠妹-剪爱.mp3",},
 {title:"张惠妹-姐妹",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/张惠妹-姐妹.mp3",},
@@ -1041,10 +1056,10 @@
 {title:"张杰-星星",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/张杰-星星.mp3",},
 {title:"张杰-雪龙吟",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/张杰-雪龙吟.mp3",},
 {title:"张杰-这,就是爱",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/张杰-这,就是爱.mp3",},
+{title:"张敬轩-断点",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/张敬轩-断点.mp3",},
 {title:"张靓颖-画心",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/张靓颖-画心.mp3",},
 {title:"张靓颖-如果这就是爱情",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/张靓颖-如果这就是爱情.mp3",},
 {title:"张靓颖-终于等到你",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/张靓颖-终于等到你.mp3",},
-{title:"张敬轩-断点",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/张敬轩-断点.mp3",},
 {title:"张明敏-龙的传人",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/张明敏-龙的传人.mp3",},
 {title:"张明敏-我的中国心",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/张明敏-我的中国心.mp3",},
 {title:"张娜拉-SweetDream韩文",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/张娜拉-SweetDream韩文.mp3",},
@@ -1080,8 +1095,6 @@
 {title:"张信哲-信仰",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/张信哲-信仰.mp3",},
 {title:"张信哲-用情",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/张信哲-用情.mp3",},
 {title:"张信哲-直觉",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/张信哲-直觉.mp3",},
-{title:"张行-迟到",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/张行-迟到.mp3",},
-{title:"张行-站台",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/张行-站台.mp3",},
 {title:"张学友-当我想起你",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/张学友-当我想起你.mp3",},
 {title:"张学友-饿狼传说",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/张学友-饿狼传说.mp3",},
 {title:"张学友-烦恼歌",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/张学友-烦恼歌.mp3",},
@@ -1335,8 +1348,8 @@
 {title:"周深-在意",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/周深-在意.mp3",},
 {title:"周深-照耀星河",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/周深-照耀星河.mp3",},
 {title:"周深-征途",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/周深-征途.mp3",},
-{title:"周深-直破穹苍",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/周深-直破穹苍.mp3",},
 {title:"周深-只为真相",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/周深-只为真相.mp3",},
+{title:"周深-直破穹苍",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/周深-直破穹苍.mp3",},
 {title:"周深-重生",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/周深-重生.mp3",},
 {title:"周深-逐月",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/周深-逐月.mp3",},
 {title:"周深-祝福",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://vercel.rryyz.com/free163person/音乐视听/精选/周深-祝福.mp3",},
@@ -1356,224 +1369,224 @@
 
 ];
 
-	// Load playlist
-	for (var i = 0; i < playlist.length; i++) {
-		var item = playlist[i];
-		$('#playlist').append('<li>' + item.artist + ' - ' + item.title + '</li>');
-	}
+// Load playlist
+for (var i = 0; i < playlist.length; i++) {
+var item = playlist[i];
+$('#playlist').append('<li>' + item.artist + ' - ' + item.title + '</li>');
+}
 
-	var time = new Date(),
-		currentTrack = shuffle === 'true' ? time.getTime() % playlist.length : 0,
-		audio, timeout, isPlaying, playCounts;
+var time = new Date(),
+currentTrack = shuffle === 'true' ? time.getTime() % playlist.length : 0,
+audio, timeout, isPlaying, playCounts;
 
-	var play = function () {
-		audio.play();
-		$('.playback').addClass('playing');
-		timeout = setInterval(updateProgress, 500);
-		isPlaying = true;
-	};
+var play = function () {
+audio.play();
+$('.playback').addClass('playing');
+timeout = setInterval(updateProgress, 500);
+isPlaying = true;
+};
 
-	var pause = function () {
-		audio.pause();
-		$('.playback').removeClass('playing');
-		clearInterval(updateProgress);
-		isPlaying = false;
-	};
+var pause = function () {
+audio.pause();
+$('.playback').removeClass('playing');
+clearInterval(updateProgress);
+isPlaying = false;
+};
 
-	// Update progress
-	var setProgress = function (value) {
-		var currentSec = parseInt(value % 60) < 10 ? '0' + parseInt(value % 60) : parseInt(value % 60),
-			ratio = value / audio.duration * 100;
+// Update progress
+var setProgress = function (value) {
+var currentSec = parseInt(value % 60) < 10 ? '0' + parseInt(value % 60) : parseInt(value % 60),
+ratio = value / audio.duration * 100;
 
-		$('.timer').html(parseInt(value / 60) + ':' + currentSec);
-		$('.progress .pace').css('width', ratio + '%');
-		$('.progress .slider a').css('left', ratio + '%');
-	};
+$('.timer').html(parseInt(value / 60) + ':' + currentSec);
+$('.progress .pace').css('width', ratio + '%');
+$('.progress .slider a').css('left', ratio + '%');
+};
 
-	var updateProgress = function () {
-		setProgress(audio.currentTime);
-	};
+var updateProgress = function () {
+setProgress(audio.currentTime);
+};
 
-	// Progress slider
-	$('.progress .slider').slider({
-		step: 0.1,
-		slide: function (event, ui) {
-			$(this).addClass('enable');
-			setProgress(audio.duration * ui.value / 100);
-			clearInterval(timeout);
-		},
-		stop: function (event, ui) {
-			audio.currentTime = audio.duration * ui.value / 100;
-			$(this).removeClass('enable');
-			timeout = setInterval(updateProgress, 500);
-		}
-	});
+// Progress slider
+$('.progress .slider').slider({
+step: 0.1,
+slide: function (event, ui) {
+$(this).addClass('enable');
+setProgress(audio.duration * ui.value / 100);
+clearInterval(timeout);
+},
+stop: function (event, ui) {
+audio.currentTime = audio.duration * ui.value / 100;
+$(this).removeClass('enable');
+timeout = setInterval(updateProgress, 500);
+}
+});
 
-	// Volume slider
-	var setVolume = function (value) {
-		audio.volume = localStorage.volume = value;
-		$('.volume .pace').css('width', value * 100 + '%');
-		$('.volume .slider a').css('left', value * 100 + '%');
-	};
+// Volume slider
+var setVolume = function (value) {
+audio.volume = localStorage.volume = value;
+$('.volume .pace').css('width', value * 100 + '%');
+$('.volume .slider a').css('left', value * 100 + '%');
+};
 
-	var volume = localStorage.volume || 0.5;
-	$('.volume .slider').slider({
-		max: 1,
-		min: 0,
-		step: 0.01,
-		value: volume,
-		slide: function (event, ui) {
-			setVolume(ui.value);
-			$(this).addClass('enable');
-			$('.mute').removeClass('enable');
-		},
-		stop: function () {
-			$(this).removeClass('enable');
-		}
-	}).children('.pace').css('width', volume * 100 + '%');
+var volume = localStorage.volume || 0.5;
+$('.volume .slider').slider({
+max: 1,
+min: 0,
+step: 0.01,
+value: volume,
+slide: function (event, ui) {
+setVolume(ui.value);
+$(this).addClass('enable');
+$('.mute').removeClass('enable');
+},
+stop: function () {
+$(this).removeClass('enable');
+}
+}).children('.pace').css('width', volume * 100 + '%');
 
-	$('.mute').click(function () {
-		if ($(this).hasClass('enable')) {
-			setVolume($(this).data('volume'));
-			$(this).removeClass('enable');
-		} else {
-			$(this).data('volume', audio.volume).addClass('enable');
-			setVolume(0);
-		}
-	});
+$('.mute').click(function () {
+if ($(this).hasClass('enable')) {
+setVolume($(this).data('volume'));
+$(this).removeClass('enable');
+} else {
+$(this).data('volume', audio.volume).addClass('enable');
+setVolume(0);
+}
+});
 
-	// Switch track
-	var switchTrack = function (i) {
-		if (i < 0) {
-			track = currentTrack = playlist.length - 1;
-		} else if (i >= playlist.length) {
-			track = currentTrack = 0;
-		} else {
-			track = i;
-		}
+// Switch track
+var switchTrack = function (i) {
+if (i < 0) {
+track = currentTrack = playlist.length - 1;
+} else if (i >= playlist.length) {
+track = currentTrack = 0;
+} else {
+track = i;
+}
 
-		$('audio').remove();
-		loadMusic(track);
-		if (isPlaying == true) play();
-	};
+$('audio').remove();
+loadMusic(track);
+if (isPlaying == true) play();
+};
 
-	// Shuffle
-	var shufflePlay = function () {
-		var time = new Date(),
-			lastTrack = currentTrack;
-		currentTrack = time.getTime() % playlist.length;
-		if (lastTrack == currentTrack) ++currentTrack;
-		switchTrack(currentTrack);
-	}
+// Shuffle
+var shufflePlay = function () {
+var time = new Date(),
+lastTrack = currentTrack;
+currentTrack = time.getTime() % playlist.length;
+if (lastTrack == currentTrack) ++currentTrack;
+switchTrack(currentTrack);
+}
 
-	// Fire when track ended
-	var ended = function () {
-		pause();
-		audio.currentTime = 0;
-		playCounts++;
-		if (continous == true) isPlaying = true;
-		if (repeat == 1) {
-			play();
-		} else {
-			if (shuffle === 'true') {
-				shufflePlay();
-			} else {
-				if (repeat == 2) {
-					switchTrack(++currentTrack);
-				} else {
-					if (currentTrack < playlist.length) switchTrack(++currentTrack);
-				}
-			}
-		}
-	}
+// Fire when track ended
+var ended = function () {
+pause();
+audio.currentTime = 0;
+playCounts++;
+if (continous == true) isPlaying = true;
+if (repeat == 1) {
+play();
+} else {
+if (shuffle === 'true') {
+shufflePlay();
+} else {
+if (repeat == 2) {
+switchTrack(++currentTrack);
+} else {
+if (currentTrack < playlist.length) switchTrack(++currentTrack);
+}
+}
+}
+}
 
-	var beforeLoad = function () {
-		var endVal = this.seekable && this.seekable.length ? this.seekable.end(0) : 0;
-		$('.progress .loaded').css('width', (100 / (this.duration || 1) * endVal) + '%');
-	}
+var beforeLoad = function () {
+var endVal = this.seekable && this.seekable.length ? this.seekable.end(0) : 0;
+$('.progress .loaded').css('width', (100 / (this.duration || 1) * endVal) + '%');
+}
 
-	// Fire when track loaded completely
-	var afterLoad = function () {
-		if (autoplay == true) play();
-	}
+// Fire when track loaded completely
+var afterLoad = function () {
+if (autoplay == true) play();
+}
 
-	// Load track
-	var loadMusic = function (i) {
-		var item = playlist[i],
-			newaudio = $('<audio>').html('<source src="' + item.mp3 + '"><source src="' + item.ogg + '">').appendTo('#player');
+// Load track
+var loadMusic = function (i) {
+var item = playlist[i],
+newaudio = $('<audio>').html('<source src="' + item.mp3 + '"><source src="' + item.ogg + '">').appendTo('#player');
 
-		$('.cover').html('<img src="' + item.cover + '" alt="' + item.album + '">');
-		$('.tag').html('<strong>' + item.title + '</strong><span class="artist">' + item.artist + '</span><span class="album">' + item.album + '</span>');
-		$('#playlist li').removeClass('playing').eq(i).addClass('playing');
-		audio = newaudio[0];
-		audio.volume = $('.mute').hasClass('enable') ? 0 : volume;
-		audio.addEventListener('progress', beforeLoad, false);
-		audio.addEventListener('durationchange', beforeLoad, false);
-		audio.addEventListener('canplay', afterLoad, false);
-		audio.addEventListener('ended', ended, false);
-	}
+$('.cover').html('<img src="' + item.cover + '" alt="' + item.album + '">');
+$('.tag').html('<strong>' + item.title + '</strong><span class="artist">' + item.artist + '</span><span class="album">' + item.album + '</span>');
+$('#playlist li').removeClass('playing').eq(i).addClass('playing');
+audio = newaudio[0];
+audio.volume = $('.mute').hasClass('enable') ? 0 : volume;
+audio.addEventListener('progress', beforeLoad, false);
+audio.addEventListener('durationchange', beforeLoad, false);
+audio.addEventListener('canplay', afterLoad, false);
+audio.addEventListener('ended', ended, false);
+}
 
-	loadMusic(currentTrack);
-	$('.playback').on('click', function () {
-		if ($(this).hasClass('playing')) {
-			pause();
-		} else {
-			play();
-		}
-	});
-	$('.rewind').on('click', function () {
-		if (shuffle === 'true') {
-			shufflePlay();
-		} else {
-			switchTrack(--currentTrack);
-		}
-	});
-	$('.fastforward').on('click', function () {
-		if (shuffle === 'true') {
-			shufflePlay();
-		} else {
-			switchTrack(++currentTrack);
-		}
-	});
-	$('#playlist li').each(function (i) {
-		var _i = i;
-		$(this).on('click', function () {
-			switchTrack(_i);
-		});
-	});
+loadMusic(currentTrack);
+$('.playback').on('click', function () {
+if ($(this).hasClass('playing')) {
+pause();
+} else {
+play();
+}
+});
+$('.rewind').on('click', function () {
+if (shuffle === 'true') {
+shufflePlay();
+} else {
+switchTrack(--currentTrack);
+}
+});
+$('.fastforward').on('click', function () {
+if (shuffle === 'true') {
+shufflePlay();
+} else {
+switchTrack(++currentTrack);
+}
+});
+$('#playlist li').each(function (i) {
+var _i = i;
+$(this).on('click', function () {
+switchTrack(_i);
+});
+});
 
-	if (shuffle === 'true') $('.shuffle').addClass('enable');
-	if (repeat == 1) {
-		$('.repeat').addClass('once');
-	} else if (repeat == 2) {
-		$('.repeat').addClass('all');
-	}
+if (shuffle === 'true') $('.shuffle').addClass('enable');
+if (repeat == 1) {
+$('.repeat').addClass('once');
+} else if (repeat == 2) {
+$('.repeat').addClass('all');
+}
 
-	$('.repeat').on('click', function () {
-		if ($(this).hasClass('once')) {
-			repeat = localStorage.repeat = 2;
-			$(this).removeClass('once').addClass('all');
-		} else if ($(this).hasClass('all')) {
-			repeat = localStorage.repeat = 0;
-			$(this).removeClass('all');
-		} else {
-			repeat = localStorage.repeat = 1;
-			$(this).addClass('once');
-		}
-	});
+$('.repeat').on('click', function () {
+if ($(this).hasClass('once')) {
+repeat = localStorage.repeat = 2;
+$(this).removeClass('once').addClass('all');
+} else if ($(this).hasClass('all')) {
+repeat = localStorage.repeat = 0;
+$(this).removeClass('all');
+} else {
+repeat = localStorage.repeat = 1;
+$(this).addClass('once');
+}
+});
 
-	$('.shuffle').on('click', function () {
-		if ($(this).hasClass('enable')) {
-			shuffle = localStorage.shuffle = 'false';
-			$(this).removeClass('enable');
-		} else {
-			shuffle = localStorage.shuffle = 'true';
-			$(this).addClass('enable');
-		}
-	});
-		$(".download img").hover(function(){
-		$(this).attr({ "src" : "img/link2.png" });
-	}, function(){
-		$(this).attr({ "src" : "img/link1.png" });
-	});
+$('.shuffle').on('click', function () {
+if ($(this).hasClass('enable')) {
+shuffle = localStorage.shuffle = 'false';
+$(this).removeClass('enable');
+} else {
+shuffle = localStorage.shuffle = 'true';
+$(this).addClass('enable');
+}
+});
+$(".download img").hover(function(){
+$(this).attr({ "src" : "img/link2.png" });
+}, function(){
+$(this).attr({ "src" : "img/link1.png" });
+});
 });
