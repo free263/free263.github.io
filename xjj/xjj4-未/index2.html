@@ -8,26 +8,23 @@
     <meta name="renderer" content="webkit">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>随机观看小姐姐视频</title>
-    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="stylesheet" href="../assets/style.css">
 <noscript></head></noscript>
 <body>
     <section id="main">
-        <video id="player" src="https://www.cunshao.com/666666/api/web.php" controls="" webkit-playsinline="" playsinline=""></video>
+        <video id="player" src="https://api.rryyz.com/api/az/az2.php" controls="" webkit-playsinline="" playsinline=""></video>
     </section>
     <section id="buttons">
         <button id="switch">连续: 开</button>
         <button id="next">下一个</button>
         <select id="mySelect">
-		<option value="index.html" style="color:white;background-color:blue;">回首页</option>
-		<option value="./net/index1.html">网络线路</option>
-		<option value="./xjj1/index1.html">小姐姐1</option>
-		<option value="./xjj2/index1.html">小姐姐2</option>
-		<option value="./xjj3/index1.html">小姐姐3</option>
-		<option value="./xjj4/index1.html">小姐姐4</option>
-		<option value="./xjj5/index1.html">小姐姐5</option>
-		<option value="./xjj6/index1.html">小姐姐6</option>
-		<option value="./model/chenger.html">最美车模</option>
-		<option value="./ai/index1.html">AI美图</option>
+		<option value="#">--选择--</option>
+		<option value="../index.html"style="color:red;">回首页</option>
+		<option value="index1.html">小姐姐4-1</option>
+		<option value="index2.html" style="color:white;background-color:blue;">小姐姐4-2</option>
+		<option value="index3.html">小姐姐4-3</option>
+		<option value="index4.html">小姐姐4-4</option>
+		<option value="index5.html">小姐姐4-5</option>
 		</select>
     </section>
 	<script>
@@ -53,7 +50,7 @@ document.getElementById('mySelect').addEventListener('change', function() {
         var auto = true;
         var player = get('player');
         var randomm = function () {
-            player.src = 'https://www.cunshao.com/666666/api/web.php?_t=' + Math.random();
+            player.src = 'https://api.rryyz.com/api/az/az2.php?_t=' + Math.random();
             player.play();
         }
         bind(get('next'), 'click', randomm);
