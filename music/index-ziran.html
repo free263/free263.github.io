@@ -1,0 +1,622 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>听松阁桌面</title>
+<link type="text/css" rel="stylesheet" href="images/main.css">
+
+<link rel="stylesheet" href="css/player.css">
+
+
+<!--[if IE 6]>
+<link rel="stylesheet" type="text/css" href="images/ie6.css" />
+<![endif]-->
+<script src="images/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="images/lightbox.min.js"></script>
+<style type="text/css">
+.wrapper{ margin:0px auto; padding:20px; border:1px solid #CCC; background:#333; width:980px; font-size:12px;}
+</style>
+<link rel="shortcut icon" type="image/x-icon" href="img/an.ico"/>
+		<style type="text/css">
+			/*样式初始化*/
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			/*去除横向滚动条*/
+			body {
+				overflow-x: hidden;
+				overflow-y: hidden;
+				background-color: 000;
+				font-size:13px;
+				color: #ffffff;
+			}
+			/*将div铺满整个窗口*/
+			.box {
+				height: 100vh;
+				min-height: 520px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+background-color: 000;
+			}
+			/*设置大ul的大小及定位*/
+			.content {
+				position: relative;
+				width: 100%;
+				height: 100%;
+background-color: 000;
+			}
+			/*设置大li样式*/
+			.content li {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+			}
+			/*将第一张图片后的图片隐藏*/
+			#li1~li{display: none;}
+			/*设置大li背景图片*/
+			#li1 {background-image: url(https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/img/bg01.jpg);background-size:100%;}
+			#li2 {background-image: url(https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/img/bg02.jpg);background-size:100%;}
+			#li3 {background-image: url(https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/img/bg03.jpg);background-size:100%;}
+			#li4 {background-image: url(https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/img/bg04.jpg);background-size:100%;}
+			#li5 {background-image: url(https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/img/bg05.jpg);background-size:100%;}
+			#li6 {background-image: url(https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/img/bg06.jpg);background-size:100%;}
+			#li7 {background-image: url(https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/img/bg07.jpg);background-size:100%;}
+			#li8 {background-image: url(https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/img/bg08.jpg);background-size:100%;}
+			#li9 {background-image: url(https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/img/bg09.jpg);background-size:100%;}
+			/*点击a标签,切换大图片*/
+			#li1:target,
+			#li2:target,
+			#li3:target,
+			#li4:target,
+			#li5:target,
+			#li6:target,
+			#li7:target,
+			#li8:target,
+			#li9:target,
+				display: block;
+			}
+			
+			
+		
+		</style>
+<script data-ad-client="ca-pub-8742386847853865" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<noscript></head></noscript>
+
+<body bgcolor="#000000" Scroll=no>
+	
+<div id="QPlayer" style="z-index:99;">
+	<div id="pContent">
+	
+		<div id="player">
+			<span class="cover"></span>
+			<div class="ctrl">
+				<div class="musicTag marquee">
+					<strong>Title</strong>
+					 <span> - </span>
+					<span class="artist">Artist</span>
+				</div>
+				<div class="progress">
+					<div class="timer left">0:00</div>
+					<div class="contr">
+						<div class="rewind icon"></div>
+						<div class="playback icon"></div>
+						<div class="fastforward icon"></div>
+					</div>
+					<div class="right">
+						<div class="liebiao icon"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="ssBtn" style="background:#000 none repeat scroll 0% 0%">
+				<div class="adf"></div>
+		</div>
+	</div>
+	<ol id="playlist"></ol>
+</div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.marquee.min.js"></script>
+
+<script type="text/javascript">
+var	playlist = [
+{title:"001.阵雨（雨声、电视卡顿、钢琴、马林巴、弦乐器、竖琴、钢片琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/001.阵雨（雨声、电视卡顿、钢琴、马林巴、弦乐器、竖琴、钢片琴）.mp3",cover:"t.png",},
+{title:"002.下雨天（下雨、钢琴、钢片琴、长笛、单簧管）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/002.下雨天（下雨、钢琴、钢片琴、长笛、单簧管）.mp3",cover:"t.png",},
+{title:"003.山里农家（风吹稻田、鸟鸣、马林巴、钢片琴、钢琴、弦乐器）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/003.山里农家（风吹稻田、鸟鸣、马林巴、钢片琴、钢琴、弦乐器）.mp3",cover:"t.png",},
+{title:"004.心语（海浪、钢琴、大提琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/004.心语（海浪、钢琴、大提琴）.mp3",cover:"t.png",},
+{title:"005.梦见你（呼吸声、呼噜声、钢琴、弦乐器）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/005.梦见你（呼吸声、呼噜声、钢琴、弦乐器）.mp3",cover:"t.png",},
+{title:"006.小晴（潮汐、鸟鸣、马林巴、钢琴、钢片琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/006.小晴（潮汐、鸟鸣、马林巴、钢琴、钢片琴）.mp3",cover:"t.png",},
+{title:"007.下班（轨道的当啷声、脚步声、吉他、钟琴、贝斯、长笛、架子鼓、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/007.下班（轨道的当啷声、脚步声、吉他、钟琴、贝斯、长笛、架子鼓、钢琴）.mp3",cover:"t.png",},
+{title:"008.雨季（雨声、马林巴、钢片琴、竖琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/008.雨季（雨声、马林巴、钢片琴、竖琴）.mp3",cover:"t.png",},
+{title:"009.再遇（雨声、钢琴、马林巴、管风琴、竖琴、弦乐、小钹）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/009.再遇（雨声、钢琴、马林巴、管风琴、竖琴、弦乐、小钹）.mp3",cover:"t.png",},
+{title:"010.渔歌（钓鱼、水流、竖琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/010.渔歌（钓鱼、水流、竖琴）.mp3",cover:"t.png",},
+{title:"011.摇篮（潮汐、虫鸣、钢琴)",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/011.摇篮（潮汐、虫鸣、钢琴).mp3",cover:"t.png",},
+{title:"012.轻轻的脚步声（鸟鸣、狗吠、脚步声、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/012.轻轻的脚步声（鸟鸣、狗吠、脚步声、钢琴）.mp3",cover:"t.png",},
+{title:"013.等你（下雨、拨打电话、钢琴、马林巴、竖琴、钢片琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/013.等你（下雨、拨打电话、钢琴、马林巴、竖琴、钢片琴）.mp3",cover:"t.png",},
+{title:"014.长路慢行（海浪、钢琴、长笛、弦乐器、钢片琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/014.长路慢行（海浪、钢琴、长笛、弦乐器、钢片琴）.mp3",cover:"t.png",},
+{title:"015.凉风有信（淅淅沥沥的下雨、脚步声、钢琴、马林巴、钟琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/015.凉风有信（淅淅沥沥的下雨、脚步声、钢琴、马林巴、钟琴）.mp3",cover:"t.png",},
+{title:"016.为你撑伞（雨水、吉他、竖琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/016.为你撑伞（雨水、吉他、竖琴）.mp3",cover:"t.png",},
+{title:"017.房前清泉（泉水叮咚、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/017.房前清泉（泉水叮咚、钢琴）.mp3",cover:"t.png",},
+{title:"018.浪漫篝火（篝火、钢琴、长笛、双簧管、贝斯）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/018.浪漫篝火（篝火、钢琴、长笛、双簧管、贝斯）.mp3",cover:"t.png",},
+{title:"019.从前慢（虫鸣、钢琴、大提琴、钢片琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/019.从前慢（虫鸣、钢琴、大提琴、钢片琴）.mp3",cover:"t.png",},
+{title:"020.我爱我家（猫咪、篝火、钢琴、钢片琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/020.我爱我家（猫咪、篝火、钢琴、钢片琴）.mp3",cover:"t.png",},
+{title:"021.蒲公英的幻想（溪水、鸟鸣、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/021.蒲公英的幻想（溪水、鸟鸣、钢琴）.mp3",cover:"t.png",},
+{title:"022.流水潺潺（溪水、竖琴、钢琴、钢片琴、钟琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/022.流水潺潺（溪水、竖琴、钢琴、钢片琴、钟琴）.mp3",cover:"t.png",},
+{title:"023.在月亮下跳舞吧（清风、雨水、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/023.在月亮下跳舞吧（清风、雨水、钢琴）.mp3",cover:"t.png",},
+{title:"024.像从前那样（虫鸣、鸟鸣、钢琴、和声）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/024.像从前那样（虫鸣、鸟鸣、钢琴、和声）.mp3",cover:"t.png",},
+{title:"025.夏风之声（潮汐、蝉鸣、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/025.夏风之声（潮汐、蝉鸣、钢琴）.mp3",cover:"t.png",},
+{title:"026.星星、月亮与满满（流水潺潺、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/026.星星、月亮与满满（流水潺潺、钢琴）.mp3",cover:"t.png",},
+{title:"027.月光洒向海面（海水、浪花、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/027.月光洒向海面（海水、浪花、钢琴）.mp3",cover:"t.png",},
+{title:"028.闲逛（鸟鸣、水滴、脚步声、钢琴、长笛）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/028.闲逛（鸟鸣、水滴、脚步声、钢琴、长笛）.mp3",cover:"t.png",},
+{title:"029.踏上稻乡（鸟鸣、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/029.踏上稻乡（鸟鸣、钢琴）.mp3",cover:"t.png",},
+{title:"030.我们的时光（时钟、钟琴、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/030.我们的时光（时钟、钟琴、钢琴）.mp3",cover:"t.png",},
+{title:"031.仲夏夜的梦境（蟋蟀鸟鸣、钢琴、大提琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/031.仲夏夜的梦境（蟋蟀鸟鸣、钢琴、大提琴）.mp3",cover:"t.png",},
+{title:"032.湛蓝天空（流水声、鸟鸣、萨克斯、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/032.湛蓝天空（流水声、鸟鸣、萨克斯、钢琴）.mp3",cover:"t.png",},
+{title:"033.乡间小路（林中清溪、竖笛、大提琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/033.乡间小路（林中清溪、竖笛、大提琴）.mp3",cover:"t.png",},
+{title:"034.澄澈心灵（夏夜蟋蟀蝉鸣、大提琴、钢琴、木吉他）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/034.澄澈心灵（夏夜蟋蟀蝉鸣、大提琴、钢琴、木吉他）.mp3",cover:"t.png",},
+{title:"035.路在前方（鸟鸣、钢琴、木吉他、大提琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/035.路在前方（鸟鸣、钢琴、木吉他、大提琴）.mp3",cover:"t.png",},
+{title:"036.早安（鸟鸣、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/036.早安（鸟鸣、钢琴）.mp3",cover:"t.png",},
+{title:"037.秘境岛屿（海浪、长笛、木吉他）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/037.秘境岛屿（海浪、长笛、木吉他）.mp3",cover:"t.png",},
+{title:"038.老街（山涧鸟鸣、钢琴、大提琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/038.老街（山涧鸟鸣、钢琴、大提琴）.mp3",cover:"t.png",},
+{title:"039.悠闲假期（流水、鸟鸣、木吉他、钢琴、提琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/039.悠闲假期（流水、鸟鸣、木吉他、钢琴、提琴）.mp3",cover:"t.png",},
+{title:"040.宁静港湾（水边鸟鸣、木吉他、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/040.宁静港湾（水边鸟鸣、木吉他、钢琴）.mp3",cover:"t.png",},
+{title:"041.在花园里劳作（浇水、狗吠、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/041.在花园里劳作（浇水、狗吠、钢琴）.mp3",cover:"t.png",},
+{title:"042.放下烦忧（海浪、木吉他、大提琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/042.放下烦忧（海浪、木吉他、大提琴）.mp3",cover:"t.png",},
+{title:"043.时光的痕迹（沥沥小雨、纯钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/043.时光的痕迹（沥沥小雨、纯钢琴）.mp3",cover:"t.png",},
+{title:"044.黎明（溪水潺潺、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/044.黎明（溪水潺潺、钢琴）.mp3",cover:"t.png",},
+{title:"045.送别（风声、流水、钢琴、提琴、口琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/045.送别（风声、流水、钢琴、提琴、口琴）.mp3",cover:"t.png",},
+{title:"046.小森林（鸟鸣、树叶、钢片琴、马林巴、长笛、竖琴、小提琴、大提琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/046.小森林（鸟鸣、树叶、钢片琴、马林巴、长笛、竖琴、小提琴、大提琴）.mp3",cover:"t.png",},
+{title:"047.心若无尘（水波、竖琴、短笛）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/047.心若无尘（水波、竖琴、短笛）.mp3",cover:"t.png",},
+{title:"048.远走（鸟鸣、钢琴、提琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/048.远走（鸟鸣、钢琴、提琴）.mp3",cover:"t.png",},
+{title:"049.流星花园（鸟鸣、孩子笑声、钢琴、贝斯、钢片琴、大提琴、小提琴、中提琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/049.流星花园（鸟鸣、孩子笑声、钢琴、贝斯、钢片琴、大提琴、小提琴、中提琴）.mp3",cover:"t.png",},
+{title:"050.兜风（脚步声、汽车、风声、电子琴、马林巴、钢片琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/050.兜风（脚步声、汽车、风声、电子琴、马林巴、钢片琴）.mp3",cover:"t.png",},
+{title:"051.小可爱（宝宝笑声、钢琴、钢片琴、长笛、黑管）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/051.小可爱（宝宝笑声、钢琴、钢片琴、长笛、黑管）.mp3",cover:"t.png",},
+{title:"052.舞动的花朵（风、鸟鸣、钢琴、钟琴、马林巴、钢片琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/052.舞动的花朵（风、鸟鸣、钢琴、钟琴、马林巴、钢片琴）.mp3",cover:"t.png",},
+{title:"053.明天之后（微风、长笛、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/053.明天之后（微风、长笛、钢琴）.mp3",cover:"t.png",},
+{title:"054.家乡（脚步声、电车、钢琴、贝斯、钟琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/054.家乡（脚步声、电车、钢琴、贝斯、钟琴）.mp3",cover:"t.png",},
+{title:"055.躲雨（雨声、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/055.躲雨（雨声、钢琴）.mp3",cover:"t.png",},
+{title:"056.寻找自我之旅（鸟鸣、自行车、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/056.寻找自我之旅（鸟鸣、自行车、钢琴）.mp3",cover:"t.png",},
+{title:"057.冬至（落叶、钢琴、长笛、单簧管）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/057.冬至（落叶、钢琴、长笛、单簧管）.mp3",cover:"t.png",},
+{title:"058.暖暖的东风（鸟鸣、脚步声、钢琴、钟琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/058.暖暖的东风（鸟鸣、脚步声、钢琴、钟琴）.mp3",cover:"t.png",},
+{title:"059.壁炉（火苗、小猫、钢琴、弦乐器）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/059.壁炉（火苗、小猫、钢琴、弦乐器）.mp3",cover:"t.png",},
+{title:"060.梦游记（虫鸣、弦乐四重奏、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/060.梦游记（虫鸣、弦乐四重奏、钢琴）.mp3",cover:"t.png",},
+{title:"061.我们一家人（鸟鸣、小狗、小猫、钢琴、贝斯）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/061.我们一家人（鸟鸣、小狗、小猫、钢琴、贝斯）.mp3",cover:"t.png",},
+{title:"062.冬日清晨（流水、竖琴、长笛、钢片琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/062.冬日清晨（流水、竖琴、长笛、钢片琴）.mp3",cover:"t.png",},
+{title:"063.蓝色海岸线（海浪、潮汐、钢琴、大提琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/063.蓝色海岸线（海浪、潮汐、钢琴、大提琴）.mp3",cover:"t.png",},
+{title:"064.从冬眠中醒来（流水、钢琴、钟琴、长笛）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/064.从冬眠中醒来（流水、钢琴、钟琴、长笛）.mp3",cover:"t.png",},
+{title:"065.当春天来到（鸟鸣、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/065.当春天来到（鸟鸣、钢琴）.mp3",cover:"t.png",},
+{title:"066.森林晨景（鸟鸣、宝宝学语声、木吉他、钢琴、长笛）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/066.森林晨景（鸟鸣、宝宝学语声、木吉他、钢琴、长笛）.mp3",cover:"t.png",},
+{title:"067.向着光亮那方（流水、鸟鸣、钢琴、长笛）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/067.向着光亮那方（流水、鸟鸣、钢琴、长笛）.mp3",cover:"t.png",},
+{title:"068.夜晚的星（蟋蟀、虫鸣、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/068.夜晚的星（蟋蟀、虫鸣、钢琴）.mp3",cover:"t.png",},
+{title:"069.日不落（蛙鸣、木吉他、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/069.日不落（蛙鸣、木吉他、钢琴）.mp3",cover:"t.png",},
+{title:"070.喜鹊成双（水波、深山鸟鸣、爵士钢琴、萨克斯）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/070.喜鹊成双（水波、深山鸟鸣、爵士钢琴、萨克斯）.mp3",cover:"t.png",},
+{title:"071.夏日微风（习习凉风、宝宝笑声、纯钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/071.夏日微风（习习凉风、宝宝笑声、纯钢琴）.mp3",cover:"t.png",},
+{title:"072.万事顺心（鸟鸣、风声、水声、钢琴、小提琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/072.万事顺心（鸟鸣、风声、水声、钢琴、小提琴）.mp3",cover:"t.png",},
+{title:"073.晨思前奏曲（篝火冉冉、纯钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/073.晨思前奏曲（篝火冉冉、纯钢琴）.mp3",cover:"t.png",},
+{title:"074.从你的全世界路过（海鸟、潮汐、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/074.从你的全世界路过（海鸟、潮汐、钢琴）.mp3",cover:"t.png",},
+{title:"075.世界尽头与冷酷仙境（海风、波涛、钢琴、提琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/075.世界尽头与冷酷仙境（海风、波涛、钢琴、提琴）.mp3",cover:"t.png",},
+{title:"076.想见你（缓缓流水、钢琴、大提琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/076.想见你（缓缓流水、钢琴、大提琴）.mp3",cover:"t.png",},
+{title:"077.牵牛花（啾啾鸟鸣、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/077.牵牛花（啾啾鸟鸣、钢琴）.mp3",cover:"t.png",},
+{title:"078.雨后的天空（春雷、蛙鸣、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/078.雨后的天空（春雷、蛙鸣、钢琴）.mp3",cover:"t.png",},
+{title:"079.日出（早晨山顶、钢琴、竖笛）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/079.日出（早晨山顶、钢琴、竖笛）.mp3",cover:"t.png",},
+{title:"080.山顶日出（流水声、手风琴、短笛、提琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/080.山顶日出（流水声、手风琴、短笛、提琴）.mp3",cover:"t.png",},
+{title:"081.念念回首（涟漪、翠鸟声、纯钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/081.念念回首（涟漪、翠鸟声、纯钢琴）.mp3",cover:"t.png",},
+{title:"082.江河共余生（鸟鸣、微风、钢琴、小提琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/082.江河共余生（鸟鸣、微风、钢琴、小提琴）.mp3",cover:"t.png",},
+{title:"083.待凛冬离去（春日鸟鸣、钢琴、小提琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/083.待凛冬离去（春日鸟鸣、钢琴、小提琴）.mp3",cover:"t.png",},
+{title:"084.候鸟的生活（森林鸟鸣、钢琴、大提琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/084.候鸟的生活（森林鸟鸣、钢琴、大提琴）.mp3",cover:"t.png",},
+{title:"085.星河长明（仲夏虫鸣、纯钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/085.星河长明（仲夏虫鸣、纯钢琴）.mp3",cover:"t.png",},
+{title:"086.晚歌（虫鸣、纯钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/086.晚歌（虫鸣、纯钢琴）.mp3",cover:"t.png",},
+{title:"087.萤火虫之歌（虫鸣、钢琴、竖琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/087.萤火虫之歌（虫鸣、钢琴、竖琴）.mp3",cover:"t.png",},
+{title:"088.童年梦境（蟋蟀、虫鸣、纯钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/088.童年梦境（蟋蟀、虫鸣、纯钢琴）.mp3",cover:"t.png",},
+{title:"089.童年梦境（蟋蟀、虫鸣、纯钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/089.童年梦境（蟋蟀、虫鸣、纯钢琴）.mp3",cover:"t.png",},
+{title:"090.漂浮的云（鸟鸣、钢琴、八音盒、小提琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/090.漂浮的云（鸟鸣、钢琴、八音盒、小提琴）.mp3",cover:"t.png",},
+{title:"091.风平浪静（柔情海浪、大提琴、铁琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/091.风平浪静（柔情海浪、大提琴、铁琴）.mp3",cover:"t.png",},
+{title:"092.一路向北（风浪、长笛、小提琴、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/092.一路向北（风浪、长笛、小提琴、钢琴）.mp3",cover:"t.png",},
+{title:"093.飘雪（风浪、钢琴、木吉他、小提琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/093.飘雪（风浪、钢琴、木吉他、小提琴）.mp3",cover:"t.png",},
+{title:"094.风中的信（蟋蟀、晚风、钢琴、小提琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/094.风中的信（蟋蟀、晚风、钢琴、小提琴）.mp3",cover:"t.png",},
+{title:"095.日落的时候（山野虫鸣、木吉他、钢琴、小提琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/095.日落的时候（山野虫鸣、木吉他、钢琴、小提琴）.mp3",cover:"t.png",},
+{title:"096.心安（缓缓流水、微风、竖琴、长笛、钢琴、大提琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/096.心安（缓缓流水、微风、竖琴、长笛、钢琴、大提琴）.mp3",cover:"t.png",},
+{title:"097.爱你 是我做过最好的事（水波、鸟鸣、木吉他、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/097.爱你 是我做过最好的事（水波、鸟鸣、木吉他、钢琴）.mp3",cover:"t.png",},
+{title:"098.看海（海浪、海鸟、木吉他、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/098.看海（海浪、海鸟、木吉他、钢琴）.mp3",cover:"t.png",},
+{title:"099.我好想你（微风习习、钢琴、木吉他）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/099.我好想你（微风习习、钢琴、木吉他）.mp3",cover:"t.png",},
+{title:"100.青青草原的傍晚（3D音效、虫鸣、短笛、竖琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/100.青青草原的傍晚（3D音效、虫鸣、短笛、竖琴）.mp3",cover:"t.png",},
+{title:"101.湖畔夜色（3D湖水声、鸟鸣、萨克斯、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/101.湖畔夜色（3D湖水声、鸟鸣、萨克斯、钢琴）.mp3",cover:"t.png",},
+{title:"102.潮起潮落（海风、海浪、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/102.潮起潮落（海风、海浪、钢琴）.mp3",cover:"t.png",},
+{title:"103.夏天的故事（山林声音、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/103.夏天的故事（山林声音、钢琴）.mp3",cover:"t.png",},
+{title:"104.春天森林（大自然声音、钢琴、木吉他、大提琴、小提琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/104.春天森林（大自然声音、钢琴、木吉他、大提琴、小提琴）.mp3",cover:"t.png",},
+{title:"105.月亮的梦（3D音效、雷雨、八音盒）戴耳机听更妙噢",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/105.月亮的梦（3D音效、雷雨、八音盒）戴耳机听更妙噢.mp3",cover:"t.png",},
+{title:"106.风雨之后彩虹漫天（3D音效、雷雨、钢琴、大提琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/106.风雨之后彩虹漫天（3D音效、雷雨、钢琴、大提琴）.mp3",cover:"t.png",},
+{title:"107.山涧小溪缓缓流淌（3D纯大自然声音）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/107.山涧小溪缓缓流淌（3D纯大自然声音）.mp3",cover:"t.png",},
+{title:"108.窗外大海（温柔海浪、3D脑波音乐）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/108.窗外大海（温柔海浪、3D脑波音乐）.mp3",cover:"t.png",},
+{title:"109.静夜思（3D舒睡轻音乐）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/109.静夜思（3D舒睡轻音乐）.mp3",cover:"t.png",},
+{title:"110.朝幸福奔去（3D舒睡轻音乐）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/110.朝幸福奔去（3D舒睡轻音乐）.mp3",cover:"t.png",},
+{title:"111.人间最美是安静（3D纯音乐）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/111.人间最美是安静（3D纯音乐）.mp3",cover:"t.png",},
+{title:"112.森林雨后（涓涓溪流、钢琴、大提琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/112.森林雨后（涓涓溪流、钢琴、大提琴）.mp3",cover:"t.png",},
+{title:"113.天冷了给你拥抱（3D风声、八音盒）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/113.天冷了给你拥抱（3D风声、八音盒）.mp3",cover:"t.png",},
+{title:"114.愿你快乐无忧（海浪、八音盒、钢琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/114.愿你快乐无忧（海浪、八音盒、钢琴）.mp3",cover:"t.png",},
+{title:"115.彼岸烟火（3D舒眠纯音乐）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/115.彼岸烟火（3D舒眠纯音乐）.mp3",cover:"t.png",},
+{title:"116.回到过去（浪花、钢琴、竖笛、大提琴）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/116.回到过去（浪花、钢琴、竖笛、大提琴）.mp3",cover:"t.png",},
+{title:"117.北极的风（3D纯大自然声音）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/117.北极的风（3D纯大自然声音）.mp3",cover:"t.png",},
+{title:"118.心事如浮萍（3D安眠轻音乐）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/118.心事如浮萍（3D安眠轻音乐）.mp3",cover:"t.png",},
+{title:"119.水滴声声（3D舒眠大自然轻音乐）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/119.水滴声声（3D舒眠大自然轻音乐）.mp3",cover:"t.png",},
+{title:"120.牵着你的手到世界尽头（3D晚安轻音乐）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/120.牵着你的手到世界尽头（3D晚安轻音乐）.mp3",cover:"t.png",},
+{title:"121.深海中的水流（3D纯大自然声音）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/121.深海中的水流（3D纯大自然声音）.mp3",cover:"t.png",},
+{title:"122.窗外是雨天（3D纯音乐）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/122.窗外是雨天（3D纯音乐）.mp3",cover:"t.png",},
+{title:"123.为你留了一盏灯（3D纯音乐）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/123.为你留了一盏灯（3D纯音乐）.mp3",cover:"t.png",},
+{title:"124.星空下的篝火（3D大自然声音）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/124.星空下的篝火（3D大自然声音）.mp3",cover:"t.png",},
+{title:"125.呼吸在海平面下10米（3D大自然声音）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/125.呼吸在海平面下10米（3D大自然声音）.mp3",cover:"t.png",},
+{title:"126.水下气泡（3D大自然声音）",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/126.水下气泡（3D大自然声音）.mp3",cover:"t.png",},
+{title:"127.海上栈桥",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/127.海上栈桥.mp3",cover:"t.png",},
+{title:"128.回家的路",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/128.回家的路.mp3",cover:"t.png",},
+{title:"129.夏夜",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/129.夏夜.mp3",cover:"t.png",},
+{title:"130.夏日绿荫",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/130.夏日绿荫.mp3",cover:"t.png",},
+{title:"131.海边微风起",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/131.海边微风起.mp3",cover:"t.png",},
+{title:"132.海鸥岛",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/132.海鸥岛.mp3",cover:"t.png",},
+{title:"133.大海",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/133.大海.mp3",cover:"t.png",},
+{title:"134.山野",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/134.山野.mp3",cover:"t.png",},
+{title:"135.泉眼无声惜细流",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/135.泉眼无声惜细流.mp3",cover:"t.png",},
+{title:"136.风吹雨成夏",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/136.风吹雨成夏.mp3",cover:"t.png",},
+{title:"137.雷雨",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/137.雷雨.mp3",cover:"t.png",},
+{title:"138.北极",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/138.北极.mp3",cover:"t.png",},
+{title:"139.山涧",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/139.山涧.mp3",cover:"t.png",},
+{title:"140.划船",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/140.划船.mp3",cover:"t.png",},
+{title:"141.海底世界",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/141.海底世界.mp3",cover:"t.png",},
+{title:"142.篝火",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/142.篝火.mp3",cover:"t.png",},
+{title:"143.山顶日落",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/143.山顶日落.mp3",cover:"t.png",},
+{title:"144.雪地",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/144.雪地.mp3",cover:"t.png",},
+{title:"145.林中小溪",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/145.林中小溪.mp3",cover:"t.png",},
+{title:"146.走在沙滩上",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/146.走在沙滩上.mp3",cover:"t.png",},
+{title:"147.小森林",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/147.小森林.mp3",cover:"t.png",},
+{title:"148.小可爱",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/148.小可爱.mp3",cover:"t.png",},
+{title:"149.舞动的花朵",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/149.舞动的花朵.mp3",cover:"t.png",},
+{title:"150.回归校园",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/150.回归校园.mp3",cover:"t.png",},
+{title:"151.从冬眠中醒来",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/151.从冬眠中醒来.mp3",cover:"t.png",},
+{title:"152.当春天来到",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/152.当春天来到.mp3",cover:"t.png",},
+{title:"153.家乡",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/153.家乡.mp3",cover:"t.png",},
+{title:"154.早春",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/154.早春.mp3",cover:"t.png",},
+{title:"155.冬日清晨",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/155.冬日清晨.mp3",cover:"t.png",},
+{title:"156.妈妈的厨房",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/156.妈妈的厨房.mp3",cover:"t.png",},
+{title:"157.初夏",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/157.初夏.mp3",cover:"t.png",},
+{title:"158.破晓",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/158.破晓.mp3",cover:"t.png",},
+{title:"159.我们一家人",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/159.我们一家人.mp3",cover:"t.png",},
+{title:"160.流星花园",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/160.流星花园.mp3",cover:"t.png",},
+{title:"161.雪之华",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/161.雪之华.mp3",cover:"t.png",},
+{title:"162.暖暖的东风",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/162.暖暖的东风.mp3",cover:"t.png",},
+{title:"163.平安夜",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/163.平安夜.mp3",cover:"t.png",},
+{title:"164.星语心愿",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/164.星语心愿.mp3",cover:"t.png",},
+{title:"165.雪落下的声音",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/165.雪落下的声音.mp3",cover:"t.png",},
+{title:"166.初雪",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/166.初雪.mp3",cover:"t.png",},
+{title:"167.梦见你",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/167.梦见你.mp3",cover:"t.png",},
+{title:"168.轻轻的脚步声",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/168.轻轻的脚步声.mp3",cover:"t.png",},
+{title:"169.下班",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/169.下班.mp3",cover:"t.png",},
+{title:"170.冬至",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/170.冬至.mp3",cover:"t.png",},
+{title:"171.我爱我家",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/171.我爱我家.mp3",cover:"t.png",},
+{title:"172.蓝色海岸线",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/172.蓝色海岸线.mp3",cover:"t.png",},
+{title:"173.淋雨一直走",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/173.淋雨一直走.mp3",cover:"t.png",},
+{title:"174.下个路口",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/174.下个路口.mp3",cover:"t.png",},
+{title:"175.山里农家",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/175.山里农家.mp3",cover:"t.png",},
+{title:"176.梦游记",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/176.梦游记.mp3",cover:"t.png",},
+{title:"177.旅行的诗",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/177.旅行的诗.mp3",cover:"t.png",},
+{title:"178.渔歌",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/178.渔歌.mp3",cover:"t.png",},
+{title:"179.浪漫篝火",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/179.浪漫篝火.mp3",cover:"t.png",},
+{title:"180.壁炉",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/180.壁炉.mp3",cover:"t.png",},
+{title:"181.凉风有信",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/181.凉风有信.mp3",cover:"t.png",},
+{title:"182.等你回来",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/182.等你回来.mp3",cover:"t.png",},
+{title:"183.此刻的温柔",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/183.此刻的温柔.mp3",cover:"t.png",},
+{title:"184.从前慢",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/184.从前慢.mp3",cover:"t.png",},
+{title:"185.长路慢行",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/185.长路慢行.mp3",cover:"t.png",},
+{title:"186.冬眠",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/186.冬眠.mp3",cover:"t.png",},
+{title:"187.再遇",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/187.再遇.mp3",cover:"t.png",},
+{title:"188.种星星的人",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/188.种星星的人.mp3",cover:"t.png",},
+{title:"189.好想你",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/189.好想你.mp3",cover:"t.png",},
+{title:"190.流水潺潺",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/190.流水潺潺.mp3",cover:"t.png",},
+{title:"191.心语",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/191.心语.mp3",cover:"t.png",},
+{title:"192.海底总动员",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/192.海底总动员.mp3",cover:"t.png",},
+{title:"193.寻找自我之旅",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/193.寻找自我之旅.mp3",cover:"t.png",},
+{title:"194.老电影",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/194.老电影.mp3",cover:"t.png",},
+{title:"195.雨城",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/195.雨城.mp3",cover:"t.png",},
+{title:"196.在水一方",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/196.在水一方.mp3",cover:"t.png",},
+{title:"197.仲夏夜之梦",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/197.仲夏夜之梦.mp3",cover:"t.png",},
+{title:"198.直到春天过去",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/198.直到春天过去.mp3",cover:"t.png",},
+{title:"199.等你",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/199.等你.mp3",cover:"t.png",},
+{title:"200.阵雨",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/200.阵雨.mp3",cover:"t.png",},
+{title:"201.闲逛",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/201.闲逛.mp3",cover:"t.png",},
+{title:"202.小晴",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/202.小晴.mp3",cover:"t.png",},
+{title:"203.躲雨",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/203.躲雨.mp3",cover:"t.png",},
+{title:"204.兜风",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/204.兜风.mp3",cover:"t.png",},
+{title:"205.雨季",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/205.雨季.mp3",cover:"t.png",},
+{title:"206.下雨天",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/206.下雨天.mp3",cover:"t.png",},
+{title:"207.为你撑伞",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/207.为你撑伞.mp3",cover:"t.png",},
+{title:"208.我们的时光",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/208.我们的时光.mp3",cover:"t.png",},
+{title:"209.早安",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/209.早安.mp3",cover:"t.png",},
+{title:"210.在花园里劳作",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/210.在花园里劳作.mp3",cover:"t.png",},
+{title:"211.雨中蛙声 - 雨下大了蛙声也渐渐变小",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/211.雨中蛙声 - 雨下大了蛙声也渐渐变小.mp3",cover:"t.png",},
+{title:"212.雨后-树下的雨滴稀稀疏疏",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/212.雨后-树下的雨滴稀稀疏疏.mp3",cover:"t.png",},
+{title:"213.下雨天 - 车里无转向灯 带耳机效果超赞",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/213.下雨天 - 车里无转向灯 带耳机效果超赞.mp3",cover:"t.png",},
+{title:"214.下雨天 - 车里打着转向灯 带耳机效果超赞",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/214.下雨天 - 车里打着转向灯 带耳机效果超赞.mp3",cover:"t.png",},
+{title:"215.棕叶下的雨 关注声谷 众公号了解自然录音",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/215.棕叶下的雨 关注声谷 众公号了解自然录音.mp3",cover:"t.png",},
+{title:"216.深夜的雨声 大自然声音",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/216.深夜的雨声 大自然声音.mp3",cover:"t.png",},
+{title:"217.深夜林中细雨 大自然的声音 纯音乐",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/217.深夜林中细雨 大自然的声音 纯音乐.mp3",cover:"t.png",},
+{title:"218.雨声行人鸟儿飞机 舒适自然 大自然的声音 纯音乐",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/218.雨声行人鸟儿飞机 舒适自然 大自然的声音 纯音乐.mp3",cover:"t.png",},
+{title:"219.亭子下的雨声 大自然的声音 纯音乐［声谷］",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/219.亭子下的雨声 大自然的声音 纯音乐［声谷］.mp3",cover:"t.png",},
+{title:"220.台风来时 大自然的声音 纯音乐［声谷］",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/220.台风来时 大自然的声音 纯音乐［声谷］.mp3",cover:"t.png",},
+{title:"221.云栖竹林听雨 午后禅定 大自然的声音 纯音乐 [声谷]",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/221.云栖竹林听雨 午后禅定 大自然的声音 纯音乐 [声谷].mp3",cover:"t.png",},
+{title:"222.清晨的雨声 大自然的声音 纯音乐［声谷］",artist:"",mp3:"https://vercel.rryyz.com/free163person/音乐视听/自然之声/222.清晨的雨声 大自然的声音 纯音乐［声谷］.mp3",cover:"t.png",},
+
+];
+  var isRotate = true;
+  var autoplay = false;
+</script>
+<script src="js/player.js"></script>
+<script>
+
+function bgChange(){
+	var lis= $('.lib');
+	for(var i=0; i<lis.length; i+=2)
+	lis[i].style.background = 'rgba(246, 246, 246, 0.7)';
+}
+window.onload = bgChange;
+</script>
+
+
+
+		<div class="box" style="z-index:1;">
+			<ul class="content">
+				<li id="li1"></li>
+				<li id="li2"></li>
+				<li id="li3"></li>
+				<li id="li4"></li>
+				<li id="li5"></li>
+				<li id="li6"></li>
+				<li id="li7"></li>
+				<li id="li8"></li>
+				<li id="li9"></li>
+			</ul>
+		</div>
+
+<!-- 代码 开始 -->
+<div class="fish" style="position:absolute; width:1350px; height:500px; z-index:1; left: 20px; top: 40px;backgroud-color:000;">
+<table>
+	
+	<!-- 第1行 -->
+    <tr>
+     <td align="center" width="60"><a href="https://yun.rryyz.com/" target="_blank"><img name="folder" src="./img/icon-folder.gif" width="50" height="50" border="0" id="index_r2_c2" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./index-weimei.html"><img name="pictures" src="./img/icon-weimei.png" width="50" height="50" border="0" id="index_r2_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./index-in.html"><img name="vip" src="./img/icon-in.png" width="50" height="50" border="0" id="index_r2_c6" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+    </tr>
+    <tr>
+     <td align="center" width="60">我的文档</td>
+     <td width="20"></td>
+     <td align="center" width="60">唯美纯音乐</td>
+     <td width="20"></td>
+     <td align="center" width="60">印度音乐</td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+    </tr>
+    <tr>
+     <td>&nbsp;</td>
+    </tr>
+    
+<!-- 第2行 -->   
+    <tr>
+     <td align="center" width="60"><a href="https://vercel.rryyz.com/" target="_blank"><img name="computer" src="./img/icon-computer.gif" width="50" height="50" border="0" id="index_r5_c2" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./index-kr.html"><img name="poem" src="./img/icon-korea.gif" width="50" height="50" border="0" id="index_r5_c6" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./index-zyx.html"><img name="music" src="./img/icon-zyx.gif" width="50" height="50" border="0" id="index_r11_c2" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+    </tr>
+    <tr>
+     <td align="center" width="60">我的电脑</td>
+     <td width="20"></td>
+     <td align="center" width="60">韩国音乐</td>
+     <td width="20"></td>
+     <td align="center" width="60">治愈放空舒缓音乐</td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+    </tr>
+    <tr>
+     <td>&nbsp;</td>
+    </tr>
+    
+<!-- 第3行 -->
+    <tr>
+     <td align="center" width="60"><a href="http://blog1.hhhnn.com/" target="_blank"><img name="wuxia" src="./img/icon-blog.gif" width="50" height="50" border="0" id="index_r8_c6" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./index-us.html"><img name="down" src="./img/icon-usa.gif" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./index-ziran.html"><img name="down" src="./img/icon-ziran.png" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+    </tr>
+    <tr>
+     <td align="center" width="60">我的博客</td>
+     <td width="20"></td>
+     <td align="center" width="60">欧美音乐</td>
+     <td width="20"></td>
+     <td align="center" width="60">自然之声</td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+    </tr>
+    <tr>
+     <td>&nbsp;</td>
+    </tr>
+    
+<!-- 第4行 -->
+    <tr>
+     <td align="center" width="60"><a href="./index.html"><img name="blog" src="./img/icon-china.png" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./index-jp.html"><img name="share" src="./img/icon-japan.gif" width="50" height="50" border="0" id="index_r5_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./index-zhou.html"><img name="share" src="./img/icon-zhou.png" width="50" height="50" border="0" id="index_r5_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+    </tr>
+   <tr>
+    <td align="center" width="60">国语精选</td>
+    <td width="20"></td>
+    <td align="center" width="60">日本音乐</td>
+    <td width="20"></td>
+    <td align="center" width="60">周深</td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+   </tr>
+   <tr>
+    <td >&nbsp;</td>
+   </tr>
+<!-- 第5行 -->
+    <tr>
+     <td align="center" width="60"><a href="./index-chun.html"><img name="mail" src="./img/icon-chun.gif" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./index-th.html"><img name="mail" src="./img/icon-thai.png" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./index-yang.html"><img name="mail" src="./img/icon-yang.png" width="50" height="50" border="0" id="index_r11_c4" alt="" /></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+    </tr>
+   <tr>
+    <td align="center" width="60">纯音乐</td>
+    <td width="20"></td>
+    <td align="center" width="60">泰国音乐</td>
+    <td width="20"></td>
+    <td align="center" width="60">洋澜一</td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+   </tr>
+   <tr>
+    <td >&nbsp;</td>
+   </tr>
+
+  </table>
+</div>
+
+
+<!-- 动态图 -->
+<div  style="position:absolute; width:581px; height:371px; z-index:1; left: 839px; top: 248px;backgroud-color:000;">
+<img src="./images/fish.gif" width="581" height="371" border="0" alt="">
+</div>
+
+<!-- 底部和按钮 -->
+<div  style="position:relative; width:100%; height:39; z-index:1; left:0px; bottom: 39px;">
+ <table style="border-collapse:collapse;width:100%; height:39;">
+ 	<tr>
+ 	 <td align="left"><img src="./images/bottom-left.jpg" width="109" height="39" border="0"></td>
+	 <td align="center" width="100%" height="39" border="0" background="./images/bottom-center.jpg"></td>
+   <td align="right"><img src="./images/bottom-right.jpg" width="273" height="39" border="0"></td>
+  </tr>
+ </table>
+</div>
+
+<div class="fish" style="position:absolute; width:50; height:50; z-index:1; left: 0px; bottom: -3px;backgroud-color:000;">
+<table>
+	<tr>
+		<td><a href="http://my.2345.ltd/"><img src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/space.gif" width="40" height="50" border="0" alt=""></a></td>
+		<td width="20">&nbsp;</td>
+		<td><a href="http://cloud.2345.ltd/"><img src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/space.gif" width="40" height="50" border="0" alt=""></a></td>
+		<td width="1050">&nbsp;</td>
+		<td><a href="http://wx.qq.com/?lightbox[iframe]=true&lightbox[width]=800&lightbox[height]=540" class="lightbox"><img src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		<td width="10">&nbsp;</td>
+		<td><a href="http://www.360.cn/"><img src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		<td width="7">&nbsp;</td>
+		<td><a href="http://odj.cc/"><img src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		<td width="6">&nbsp;</td>
+		<td><a href="http://odj.cc/"><img src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		<td width="4">&nbsp;</td>
+		<td><a href="http://odj.cc/"><img src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		
+			
+	</tr>
+</table>
+</div>
+
+
+<div class="fish" style="position:absolute; width:550px; height:20; z-index:1; right: 220px; bottom: -3px;backgroud-color:000;">
+ <table width="550px">
+	<tr>
+		<td align="right" width="100%" height="30px" >
+
+				
+
+		</td>
+  </tr>
+ </table>
+</div>
+
+
+</div>
+<!-- 代码 结束 -->
+	</body>
+
+</html>
