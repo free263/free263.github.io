@@ -1,0 +1,6 @@
+{"name":"\u552f\u7f8e\u7eaf\u97f3\u4e50","cover":"./music/weimei.jpg","category":10,"musics":[{"id":[10,1],"name":"001.\u534a\u5c71\u542c\u96e8\uff0c\u653e\u7a7a\u81ea\u5df1\uff08\u53e4\u7434\uff09-\u552f\u7f8e\u7eaf\u97f3\u4e50","src":"https://vercel.rryyz.com/free163person/\u97f3\u4e50\u89c6\u542c/\u552f\u7f8e\u7eaf\u97f3\u4e50/001.\u534a\u5c71\u542c\u96e8\uff0c\u653e\u7a7a\u81ea\u5df1\uff08\u53e4\u7434\uff09-\u552f\u7f8e\u7eaf\u97f3\u4e50.mp3"}]}
+]')}
+
+
+多行转维一行
+notepad++批量替换，正则表达式方式，\r\n替换为空
