@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-transform"> 
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="referrer" content="never">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>随机观看小姐姐视频</title>
+    <link rel="stylesheet" href="../assets/style.css">
+<noscript></head></noscript>
+<body>
+    <section id="main">
+        <video id="player" src="https://api.rryyz.com/api-xjj/126/xjj6-4.php" controls="" webkit-playsinline="" playsinline=""></video>
+    </section>
+    <section id="buttons">
+        <button id="switch">连续: 开</button>
+        <button id="next">下一个</button>
+        <select id="mySelect">
+		<option value="#">--选择--</option>
+		<option value="../index.html"style="color:red;">回首页</option>
+		<option value="index1.html">小姐姐6-1</option>
+		<option value="index2.html">小姐姐6-2</option>
+		<option value="index3.html">小姐姐6-3</option>
+		<option value="index4.html" style="color:white;background-color:blue;">小姐姐6-4</option>
+		<option value="index5.html">小姐姐6-5</option>
+		<option value="index6.html">小姐姐6-6</option>
+		</select>
+    </section>
+	<script>
+document.getElementById('mySelect').addEventListener('change', function() {
+  var url = this.value;
+  if (url) {
+    window.open(url, '_self');
+  }
+});
+</script>
+
+    <script>
+    (function (window, document) {
+        if (top != self) {
+            window.top.location.replace(self.location.href);
+        }
+        var get = function (id) {
+            return document.getElementById(id);
+        }
+        var bind = function (element, event, callback) {
+            return element.addEventListener(event, callback);
+        }
+        var auto = true;
+        var player = get('player');
+        var randomm = function () {
+            player.src = 'https://api.rryyz.com/api-xjj/126/xjj6-4.php?_t=' + Math.random();
+            player.play();
+        }
+        bind(get('next'), 'click', randomm);
+        bind(player, 'error', function () {
+            randomm();
+        });
+        bind(get('switch'), 'click', function () {
+            auto = !auto;
+            this.innerText = '连续: ' + (auto ? '开' : '关');
+        });
+        bind(player, 'ended', function () {
+            if (auto) randomm();
+        });
+    })(window, document);
+    </script>
+	<script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?a8569fd6981018f096d774868306a054";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script>
+
+</body></html>
