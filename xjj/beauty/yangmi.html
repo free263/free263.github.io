@@ -12,7 +12,7 @@
 <noscript></head></noscript>
 <body>
     <section id="main">
-        <video id="player" src="https://api.rryyz.com/api-xjj/126/model-chenger.php" controls="" webkit-playsinline="" playsinline=""></video>
+        <video id="player" src="https://api.rryyz.com/api-xjj/126/star-yangmi.php" controls="" webkit-playsinline="" playsinline=""></video>
     </section>
     <section id="buttons">
         <button id="switch">连续: 开</button>
@@ -20,8 +20,15 @@
         <select id="mySelect">
 		<option value="#">--选择--</option>
 		<option value="../index.html"style="color:red;">回首页</option>
-		<option value="chenger.html" style="color:white;background-color:blue;">程儿</option>
+		<option value="chenger.html">程儿</option>
 		<option value="liqingqing.html">陈青青</option>
+		<option value="angelababy.html">Angelababy</option>
+		<option value="bailu.html">白鹿</option>
+		<option value="chenlijun.html">陈丽君</option>
+		<option value="dengziqi.html">邓紫棋</option>
+		<option value="dilireba.html">迪丽热巴</option>
+		<option value="yangmi.html" style="color:white;background-color:blue;">杨幂</option>
+		<option value="maisuier.html">麦穗儿程晨</option>	
 		</select>
     </section>
 	<script>
@@ -47,7 +54,7 @@ document.getElementById('mySelect').addEventListener('change', function() {
         var auto = true;
         var player = get('player');
         var randomm = function () {
-            player.src = 'https://api.rryyz.com/api-xjj/126/model-chenger.php?_t=' + Math.random();
+            player.src = 'https://api.rryyz.com/api-xjj/126/star-yangmi.php?_t=' + Math.random();
             player.play();
         }
         bind(get('next'), 'click', randomm);
