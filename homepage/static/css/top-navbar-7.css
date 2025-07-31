@@ -1,0 +1,221 @@
+	/* Body Class This is demo purpose only */
+	
+	.demo {
+	    position: relative;
+	    color: #333;
+	    font-family: 'Open Sans', sans-serif;
+	    line-height: 25px;
+	    background: #f0f0f0;
+	}
+	/*  Navigation  */
+	
+	.menu-right {
+	    float: right;
+	}
+	/* Navbar Style*/
+	
+	.navbar-inverse {
+	    margin-bottom: 0;
+	    -webkit-border-radius: 0;
+	    -moz-border-radius: 0;
+	    border-radius: 0;
+	    -webkit-transition: background .5s ease-in-out, padding .5s ease-in-out;
+	    -moz-transition: background .5s ease-in-out, padding .5s ease-in-out;
+	    transition: background .5s ease-in-out, padding .5s ease-in-out;
+	    border: none;
+	    background-color: rgba(0, 0, 0, 0.4);
+	}
+	/* Navbar List Hyperlist */
+	
+	.navbar-inverse .navbar-nav > li > a {
+	    color: #fff;
+	    display: block;
+	    -webkit-transition: all 100ms ease-in-out;
+	    -moz-transition: all 100ms ease-in-out;
+	    -o-transition: all 100ms ease-in-out;
+	    -ms-transition: all 100ms ease-in-out;
+	    transition: all 100ms ease-in-out;
+	}
+	.navbar-inverse .navbar-nav > li > a,
+	.navbar-inverse .navbar-nav > li {
+	    -webkit-transition: all 400ms linear;
+	    -moz-transition: all 400ms linear;
+	    -o-transition: all 400ms linear;
+	    -ms-transition: all 400ms linear;
+	    transition: all 400ms linear;
+		text-align: center;
+	}
+	/* Toggle List */
+	
+	.navbar-toggle {
+	    padding: 4px 6px;
+	    font-size: 16px;
+	    color: #fff;
+	}
+	.navbar-toggle:focus,
+	.navbar-toggle:active {
+	    outline: 0;
+	}
+	.navbar-inverse .navbar-toggle {
+	    background: #708090 ;
+	    border: none;
+	}
+	/* Navbar List */
+	
+	.navbar-nav {
+	    margin: 0;
+	}
+	.scroll-fixed-navbar {
+	    padding-bottom: 0;
+	}
+	/* Navbar Active Hover */
+	
+	.navbar-inverse .navbar-nav > .active > a,
+	.navbar-inverse .navbar-nav > .active > a:hover,
+	.navbar-inverse .navbar-nav > .active > a:focus {
+	    background-color: transparent;
+	}
+	/* Navbar Brand Link */
+	
+	.navbar > .container .navbar-brand {
+	    margin-left: 0;
+	}
+	.navbar-brand {
+	    height: auto;
+	}
+	/* Top Scroll Fixed */
+	
+	.scroll-fixed-navbar {
+	    padding: 5px 0;
+	    background-color: #f0f0f0;
+	    -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.40);
+	    -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.40);
+	    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.40);
+	}
+	.scroll-fixed-navbar .navbar-nav > li > a, .scroll-fixed-navbar a.navbar-brand{
+	    color: #333;
+	}
+	/* Navbar Top Scroll */
+	
+	.scroll-fixed-navbar .navbar-nav > li > a:hover,
+	.scroll-fixed-navbar .navbar-nav > li.active > a,
+	.scroll-fixed-navbar .navbar-nav > li.active > a:hover .scroll-fixed-navbar .navbar-nav > li >a:focus .navbar-inverse .navbar-nav>li>a:focus {
+	    color: #fff;
+	    background: #708090 !important;
+	    padding: 5px 10px;
+	    margin: 10px 0px;
+	    border-radius: 50px;
+	}
+	/* Navbar Inverse List */
+	
+	.navbar-inverse .navbar-nav>li>a:focus,
+	.navbar-inverse .navbar-nav>li>a:hover {
+	    color: #fff;
+	    background: #708090 !important;
+	    padding: 5px 10px;
+	    margin: 10px 0px;
+	    border-radius: 50px;
+		text-align:center;
+	}
+	/* Navbar Color */
+	
+	.navbar-inverse .navbar-brand {
+	    color: #f0f0f0;
+	}
+	/* Toggle List */
+	
+	.navbar-toggle {
+	    position: relative;
+	    float: right;
+	    background-color: transparent;
+	    padding: 10px;
+	    margin: 13px 30px 13px 0;
+	    border: none;
+	    color: #fff;
+	    border: 2px solid #fff;
+	}
+	/* Icon Bar List */
+	
+	.navbar-toggle .icon-bar {
+	    background-color: #fff;
+	}
+	/* Collapse List */
+	
+	.navbar-inverse .navbar-collapse,
+	.navbar-inverse .navbar-form {
+	    border-color: rgba(0, 0, 0, 0.1);
+	}
+	/* Content Section */
+	
+	#bsec #home,
+	#bsec #about,
+	#bsec #service,
+	#bsec #product,
+	#bsec #portfolio,
+	#bsec #contact {
+	    padding-top: 15px;
+	}
+	/* Horizantal link CSS */
+	
+	#bsec hr {
+	    margin-top: 10px !important;
+	    margin-bottom: 0px !important;
+	    border: 0;
+	    border-top: 2px solid #ccc;
+	}
+	/* Heading CSS */
+	
+	#bsec #home h4,
+	#bsec #about h4,
+	#bsec #service h4,
+	#bsec #product h4,
+	#bsec #portfolio h4,
+	#bsec #contact h4 {
+	    text-transform: capitalize;
+	    font-family: 'Open Sans', sans-serif;
+	    font-size: 15px;
+	    font-weight: bold;
+	    line-height: 25px;
+	    color: #696969;
+	}
+	/* Padding Top and Bottom */
+	
+	#bsec .pad-top {
+	    padding-top: 50px;
+	}
+	#bsec .pad-bot {
+	    padding-bottom: 50px;
+	}
+		/* Smartphones (portrait and landscape) --  --  --  --  -- - */
+@media screen
+and (min-width: 304px) 
+and (max-width: 667px) {
+    /* Styles */
+
+.menu-right {
+    float: left;
+}
+.navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:hover {
+    text-align: center;
+}
+.navbar-brand {
+    float: left;
+    height: 50px;
+    padding: 20px 15px;
+    font-size: 18px;
+    line-height: 20px;
+}
+	.navbar-inverse .navbar-nav > li > a,
+	.navbar-inverse .navbar-nav > li {
+		text-align: center;
+	}
+}
+/* iPads (portrait and landscape) --  --  --  --  -- - */
+@media screen
+and (min-width: 668px)
+and (max-width: 1223px) {
+    /* Styles */
+	.menu-right {
+    float: left;
+}
+}

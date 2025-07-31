@@ -1,0 +1,215 @@
+
+	/* Body Class This is demo purpose only */
+	
+	.demo {
+	    position: relative;
+	    color: #333;
+	    font-family: 'Open Sans', sans-serif;
+	    line-height: 25px;
+	    background: #f0f0f0;
+	}
+	/* Nabar Bar a Link color */
+	
+	a {
+	    color: #282828;
+	    text-decoration: none;
+	    transition: all 0.3s;
+	    cursor: pointer
+	}
+	/* Site Nabar Style */
+	
+	.site-navbar {
+	    min-height: 50px;
+	    padding: 45px 0 20px;
+	    border: 0;
+	    transition: all 0.3s
+	}
+	/* Navbar Radius */
+	
+	.site-navbar .container {
+	    border-radius: 4px;
+	    background: rgba(0, 0, 0, 0.3);
+	}
+	/* Navbar a Link */
+	
+	.site-navbar a {
+	    color: #fff;
+	    text-transform: capitalize;
+	    font-family: 'Open Sans', sans-serif;
+	    font-size: 1.5em;
+	}
+	/* Navbar Active */
+	
+	.site-navbar .active,
+	.site-navbar .active a {
+	    color: #ffff00;
+	    background: transparent;
+	    font-size: 14px;
+	    font-family: 'Open Sans', sans-serif;
+	}
+	/* List Font Size */
+	
+	.navbar-nav>li>a {
+	    font-size: 14px;
+	    font-family: 'Open Sans', sans-serif;
+	}
+	/* Site Navbar List Color */
+	
+	.site-navbar li a.current:hover {
+	    color: #fc490c;
+	    background: transparent
+	}
+	.site-navbar li a:hover {
+	    color: #fff;
+	    background: #989898;
+	    border-top-right-radius: 3px;
+	    border-bottom-right-radius: 3px;
+	}
+	.site-navbar li a:focus {
+	    background: transparent
+	}
+	/* Navbar Brand */
+	
+	.site-navbar .navbar-brand {
+	    padding-top: 0
+	}
+	/* Toggle Case */
+	
+	.site-navbar .navbar-toggle .icon-bar {
+	    background: #fff
+	}
+	.site-navbar .navbar-toggle {
+	    border: 1px solid #fff;
+	    border-radius: 0
+	}
+	/* Navbar Font size */
+	
+	.site-navbar a.navbar-brand {
+	    padding: 0 0 0 15px;
+	    text-transform: uppercase;
+	    font-size: 20px;
+	    font-weight: bold;
+	    line-height: 51px
+	}
+	/* Span Style */
+	
+	.site-navbar a.navbar-brand span {
+	    color: #fc490c
+	}
+	.sticky {
+	    z-index: 100000;
+	    padding: 12px 0;
+	    background: #a9a9a9;
+	    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+	}
+	@media only screen and (max-width: 768px) {
+	    /* Site Navbar Style */
+	    
+	    .site-navbar {
+	        margin-bottom: 0;
+	        padding: 0;
+	        background: #fff
+	    }
+	    /* Brand Navbar */
+	    
+	    .site-navbar a.navbar-brand {
+	        font-size: 2.3em
+	    }
+	    .site-navbar .container {
+	        padding-right: 15px;
+	        padding-left: 15px;
+	        border-radius: 0;
+	        background: #fff
+	    }
+	    /* Ico Backgroud */
+	    
+	    .site-navbar .navbar-toggle .icon-bar {
+	        background: #000
+	    }
+	}
+	@media only screen and (max-width: 480px) {
+	    /* Container Padding */
+	    
+	    .container {
+	        padding-right: 30px;
+	        padding-left: 30px
+	    }
+	    .site-navbar {
+	        margin-bottom: 0;
+	        padding: 0
+	    }
+	    /* Navbar Brand Fontsize */
+	    
+	    .site-navbar a.navbar-brand {
+	        font-size: 2.3em
+	    }
+	    .site-navbar .container {
+	        padding-right: 15px;
+	        padding-left: 15px;
+	        border-radius: 0;
+	        background: #fff
+	    }
+	    /* Icon Bar Style */
+	    
+	    .site-navbar .navbar-toggle .icon-bar {
+	        background: #000
+	    }
+	}
+	/* Content Section */
+	
+	#bsec #home,
+	#bsec #about,
+	#bsec #service,
+	#bsec #product,
+	#bsec #portfolio,
+	#bsec #contact {
+	    padding-top: 40px;
+	}
+	/* Horizantal link CSS */
+	
+	#bsec hr {
+	    margin-top: 10px !important;
+	    margin-bottom: 0px !important;
+	    border: 0;
+	    border-top: 2px solid #ccc;
+	}
+	/* Heading CSS */
+	
+	#bsec #home h4,
+	#bsec #about h4,
+	#bsec #service h4,
+	#bsec #product h4,
+	#bsec #portfolio h4,
+	#bsec #contact h4 {
+	    text-transform: capitalize;
+	    font-family: 'Open Sans', sans-serif;
+	    font-size: 15px;
+	    font-weight: bold;
+	    line-height: 25px;
+	    color: #696969;
+	}
+	/* Padding Top and Bottom */
+	
+	#bsec .pad-top {
+	    padding-top: 50px;
+	}
+	#bsec .pad-bot {
+	    padding-bottom: 50px;
+	}
+	/* Smartphones (portrait and landscape) --  --  --  --  -- - */
+@media screen
+and (min-width: 304px) 
+and (max-width: 667px) {
+    /* Styles */
+	.site-navbar a {
+    color: #333;
+    text-transform: capitalize;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.5em;
+}
+.site-navbar a.navbar-brand {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+}
