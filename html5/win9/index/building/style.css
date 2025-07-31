@@ -1,0 +1,10 @@
+.Hero {
+  width: 100%;
+  text-align: center;
+}
+
+.Buildings {
+  max-width: 800px;
+  visibility: hidden;
+  overflow: visible;
+}

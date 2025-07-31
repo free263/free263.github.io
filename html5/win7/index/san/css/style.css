@@ -1,0 +1,1088 @@
+*{margin:0;padding:0;list-style-type:none;}
+body {
+  background: #73e8ff;
+  height: 100vh;
+  overflow: hidden;
+  display: -webkit-box;
+  display: flex;
+  font-family: 'Varela Round', sans-serif;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-perspective: 800px;
+          perspective: 800px;
+  background-image: url('../images/bg.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.title {
+  font-size: 60px;
+  color: #fff;
+  -webkit-transform: rotateX(40deg);
+          transform: rotateX(40deg);
+}
+
+div {
+  position: absolute;
+  z-index:1;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
+
+.camera.-x {
+  -webkit-transform: rotateX(130deg);
+          transform: rotateX(130deg);
+		   position: absolute;
+  z-index:1;
+}
+
+.pole {
+  top: 60px;
+  left: -3px;
+  width: 6px;
+  height: 200px;
+  background: #000;
+  -webkit-transform-origin: 50% 0;
+          transform-origin: 50% 0;
+  -webkit-transform: rotateX(-90deg) translateY(2px);
+          transform: rotateX(-90deg) translateY(2px);
+  border-radius: 999px;
+}
+.pole .hand {
+  -webkit-transform: translateX(-8px) rotateY(180deg);
+          transform: translateX(-8px) rotateY(180deg);
+  bottom: -0.9em;
+  color: #000;
+  font-size: 80px;
+}
+
+.bones {
+  -webkit-transform-origin: 0 60px;
+          transform-origin: 0 60px;
+  -webkit-transform: rotateZ(22.5deg);
+          transform: rotateZ(22.5deg);
+}
+.bones .bone {
+  top: 60px;
+  width: 2px;
+  height: 110px;
+  background: #000;
+  -webkit-transform-origin: 1px 0;
+          transform-origin: 1px 0;
+}
+.bones .bone:nth-child(1) {
+  -webkit-transform: rotateZ(45deg) translateZ(-75px) rotateX(20deg);
+          transform: rotateZ(45deg) translateZ(-75px) rotateX(20deg);
+}
+.bones .bone:nth-child(2) {
+  -webkit-transform: rotateZ(90deg) translateZ(-75px) rotateX(20deg);
+          transform: rotateZ(90deg) translateZ(-75px) rotateX(20deg);
+}
+.bones .bone:nth-child(3) {
+  -webkit-transform: rotateZ(135deg) translateZ(-75px) rotateX(20deg);
+          transform: rotateZ(135deg) translateZ(-75px) rotateX(20deg);
+}
+.bones .bone:nth-child(4) {
+  -webkit-transform: rotateZ(180deg) translateZ(-75px) rotateX(20deg);
+          transform: rotateZ(180deg) translateZ(-75px) rotateX(20deg);
+}
+.bones .bone:nth-child(5) {
+  -webkit-transform: rotateZ(225deg) translateZ(-75px) rotateX(20deg);
+          transform: rotateZ(225deg) translateZ(-75px) rotateX(20deg);
+}
+.bones .bone:nth-child(6) {
+  -webkit-transform: rotateZ(270deg) translateZ(-75px) rotateX(20deg);
+          transform: rotateZ(270deg) translateZ(-75px) rotateX(20deg);
+}
+.bones .bone:nth-child(7) {
+  -webkit-transform: rotateZ(315deg) translateZ(-75px) rotateX(20deg);
+          transform: rotateZ(315deg) translateZ(-75px) rotateX(20deg);
+}
+.bones .bone:nth-child(8) {
+  -webkit-transform: rotateZ(360deg) translateZ(-75px) rotateX(20deg);
+          transform: rotateZ(360deg) translateZ(-75px) rotateX(20deg);
+}
+
+.umbrella .body {
+  -webkit-transform-origin: 0 60px;
+          transform-origin: 0 60px;
+}
+.umbrella .arm {
+  -webkit-transform-origin: 0 60px;
+          transform-origin: 0 60px;
+}
+.umbrella .arm .cloth {
+  -webkit-transform-origin: 0 60px;
+          transform-origin: 0 60px;
+}
+.umbrella .arm .cloth.-cloth1 {
+  width: 122px;
+  height: 120px;
+  -webkit-clip-path: polygon(-1px 50%, 100% 10.3%, 100% 89.7%);
+          clip-path: polygon(-1px 50%, 100% 10.3%, 100% 89.7%);
+}
+.umbrella .arm .cloth.-cloth2 {
+  left: 120px;
+  width: 40px;
+  height: 120px;
+  -webkit-clip-path: polygon(0 89.5%, 0 10.5%, 100% 0, 100% 100%);
+          clip-path: polygon(0 89.5%, 0 10.5%, 100% 0, 100% 100%);
+}
+.umbrella .arm:nth-child(1) {
+  -webkit-transform: rotateZ(45deg) rotateY(20deg);
+          transform: rotateZ(45deg) rotateY(20deg);
+}
+.umbrella .arm:nth-child(1) .-cloth2 {
+  -webkit-transform: rotateY(20deg);
+          transform: rotateY(20deg);
+}
+.umbrella .arm:nth-child(2) {
+  -webkit-transform: rotateZ(90deg) rotateY(20deg);
+          transform: rotateZ(90deg) rotateY(20deg);
+}
+.umbrella .arm:nth-child(2) .-cloth2 {
+  -webkit-transform: rotateY(20deg);
+          transform: rotateY(20deg);
+}
+.umbrella .arm:nth-child(3) {
+  -webkit-transform: rotateZ(135deg) rotateY(20deg);
+          transform: rotateZ(135deg) rotateY(20deg);
+}
+.umbrella .arm:nth-child(3) .-cloth2 {
+  -webkit-transform: rotateY(20deg);
+          transform: rotateY(20deg);
+}
+.umbrella .arm:nth-child(4) {
+  -webkit-transform: rotateZ(180deg) rotateY(20deg);
+          transform: rotateZ(180deg) rotateY(20deg);
+}
+.umbrella .arm:nth-child(4) .-cloth2 {
+  -webkit-transform: rotateY(20deg);
+          transform: rotateY(20deg);
+}
+.umbrella .arm:nth-child(5) {
+  -webkit-transform: rotateZ(225deg) rotateY(20deg);
+          transform: rotateZ(225deg) rotateY(20deg);
+}
+.umbrella .arm:nth-child(5) .-cloth2 {
+  -webkit-transform: rotateY(20deg);
+          transform: rotateY(20deg);
+}
+.umbrella .arm:nth-child(6) {
+  -webkit-transform: rotateZ(270deg) rotateY(20deg);
+          transform: rotateZ(270deg) rotateY(20deg);
+}
+.umbrella .arm:nth-child(6) .-cloth2 {
+  -webkit-transform: rotateY(20deg);
+          transform: rotateY(20deg);
+}
+.umbrella .arm:nth-child(7) {
+  -webkit-transform: rotateZ(315deg) rotateY(20deg);
+          transform: rotateZ(315deg) rotateY(20deg);
+}
+.umbrella .arm:nth-child(7) .-cloth2 {
+  -webkit-transform: rotateY(20deg);
+          transform: rotateY(20deg);
+}
+.umbrella .arm:nth-child(8) {
+  -webkit-transform: rotateZ(360deg) rotateY(20deg);
+          transform: rotateZ(360deg) rotateY(20deg);
+}
+.umbrella .arm:nth-child(8) .-cloth2 {
+  -webkit-transform: rotateY(20deg);
+          transform: rotateY(20deg);
+}
+.umbrella:nth-child(1) {
+  top: 347px;
+  left: 768px;
+  -webkit-animation: fly 29500ms -16295ms linear infinite;
+          animation: fly 29500ms -16295ms linear infinite;
+}
+.umbrella:nth-child(1) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#c16da6), to(#f39fd8));
+  background: linear-gradient(180deg, #c16da6, #f39fd8);
+}
+.umbrella:nth-child(1) .hand {
+  color: #f39fd8;
+}
+.umbrella:nth-child(1) .body {
+  -webkit-animation: rotate 12826ms -10871ms linear infinite;
+          animation: rotate 12826ms -10871ms linear infinite;
+}
+.umbrella:nth-child(2) {
+  top: 327px;
+  left: 244px;
+  -webkit-animation: fly 29500ms -3633ms linear infinite;
+          animation: fly 29500ms -3633ms linear infinite;
+}
+.umbrella:nth-child(2) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#af1a17), to(#e14c49));
+  background: linear-gradient(180deg, #af1a17, #e14c49);
+}
+.umbrella:nth-child(2) .hand {
+  color: #e14c49;
+}
+.umbrella:nth-child(2) .body {
+  -webkit-animation: rotate 23576ms -16677ms linear infinite;
+          animation: rotate 23576ms -16677ms linear infinite;
+}
+.umbrella:nth-child(3) {
+  top: -793px;
+  left: 164px;
+  -webkit-animation: fly 29500ms -22383ms linear infinite;
+          animation: fly 29500ms -22383ms linear infinite;
+}
+.umbrella:nth-child(3) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#21509a), to(#5382cc));
+  background: linear-gradient(180deg, #21509a, #5382cc);
+}
+.umbrella:nth-child(3) .hand {
+  color: #5382cc;
+}
+.umbrella:nth-child(3) .body {
+  -webkit-animation: rotate 10936ms -21562ms linear infinite;
+          animation: rotate 10936ms -21562ms linear infinite;
+}
+.umbrella:nth-child(4) {
+  top: -1156px;
+  left: 726px;
+  -webkit-animation: fly 29500ms -9642ms linear infinite;
+          animation: fly 29500ms -9642ms linear infinite;
+}
+.umbrella:nth-child(4) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#597e81), to(#8bb0b3));
+  background: linear-gradient(180deg, #597e81, #8bb0b3);
+}
+.umbrella:nth-child(4) .hand {
+  color: #8bb0b3;
+}
+.umbrella:nth-child(4) .body {
+  -webkit-animation: rotate 16817ms -87056ms linear infinite;
+          animation: rotate 16817ms -87056ms linear infinite;
+}
+.umbrella:nth-child(5) {
+  top: -1247px;
+  left: -392px;
+  -webkit-animation: fly 29500ms -12273ms linear infinite;
+          animation: fly 29500ms -12273ms linear infinite;
+}
+.umbrella:nth-child(5) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#969d3a), to(#c8cf6c));
+  background: linear-gradient(180deg, #969d3a, #c8cf6c);
+}
+.umbrella:nth-child(5) .hand {
+  color: #c8cf6c;
+}
+.umbrella:nth-child(5) .body {
+  -webkit-animation: rotate 24085ms -2723ms linear infinite;
+          animation: rotate 24085ms -2723ms linear infinite;
+}
+.umbrella:nth-child(6) {
+  top: -1157px;
+  left: -642px;
+  -webkit-animation: fly 29500ms -24875ms linear infinite;
+          animation: fly 29500ms -24875ms linear infinite;
+}
+.umbrella:nth-child(6) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#4f60ad), to(#8192df));
+  background: linear-gradient(180deg, #4f60ad, #8192df);
+}
+.umbrella:nth-child(6) .hand {
+  color: #8192df;
+}
+.umbrella:nth-child(6) .body {
+  -webkit-animation: rotate 14816ms -26157ms linear infinite;
+          animation: rotate 14816ms -26157ms linear infinite;
+}
+.umbrella:nth-child(7) {
+  top: -736px;
+  left: 787px;
+  -webkit-animation: fly 29500ms -8822ms linear infinite;
+          animation: fly 29500ms -8822ms linear infinite;
+}
+.umbrella:nth-child(7) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#25a881), to(#57dab3));
+  background: linear-gradient(180deg, #25a881, #57dab3);
+}
+.umbrella:nth-child(7) .hand {
+  color: #57dab3;
+}
+.umbrella:nth-child(7) .body {
+  -webkit-animation: rotate 17695ms -24428ms linear infinite;
+          animation: rotate 17695ms -24428ms linear infinite;
+}
+.umbrella:nth-child(8) {
+  top: -296px;
+  left: -234px;
+  -webkit-animation: fly 29500ms -1523ms linear infinite;
+          animation: fly 29500ms -1523ms linear infinite;
+}
+.umbrella:nth-child(8) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#024d32), to(#347f64));
+  background: linear-gradient(180deg, #024d32, #347f64);
+}
+.umbrella:nth-child(8) .hand {
+  color: #347f64;
+}
+.umbrella:nth-child(8) .body {
+  -webkit-animation: rotate 19875ms -58467ms linear infinite;
+          animation: rotate 19875ms -58467ms linear infinite;
+}
+.umbrella:nth-child(9) {
+  top: 202px;
+  left: -278px;
+  -webkit-animation: fly 29500ms -6265ms linear infinite;
+          animation: fly 29500ms -6265ms linear infinite;
+}
+.umbrella:nth-child(9) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#219fab), to(#53d1dd));
+  background: linear-gradient(180deg, #219fab, #53d1dd);
+}
+.umbrella:nth-child(9) .hand {
+  color: #53d1dd;
+}
+.umbrella:nth-child(9) .body {
+  -webkit-animation: rotate 15673ms -97177ms linear infinite;
+          animation: rotate 15673ms -97177ms linear infinite;
+}
+.umbrella:nth-child(10) {
+  top: -426px;
+  left: -602px;
+  -webkit-animation: fly 29500ms -2486ms linear infinite;
+          animation: fly 29500ms -2486ms linear infinite;
+}
+.umbrella:nth-child(10) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#6dc421), to(#9ff653));
+  background: linear-gradient(180deg, #6dc421, #9ff653);
+}
+.umbrella:nth-child(10) .hand {
+  color: #9ff653;
+}
+.umbrella:nth-child(10) .body {
+  -webkit-animation: rotate 10711ms -44658ms linear infinite;
+          animation: rotate 10711ms -44658ms linear infinite;
+}
+.umbrella:nth-child(11) {
+  top: -1482px;
+  left: 846px;
+  -webkit-animation: fly 29500ms -16392ms linear infinite;
+          animation: fly 29500ms -16392ms linear infinite;
+}
+.umbrella:nth-child(11) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#516c59), to(#839e8b));
+  background: linear-gradient(180deg, #516c59, #839e8b);
+}
+.umbrella:nth-child(11) .hand {
+  color: #839e8b;
+}
+.umbrella:nth-child(11) .body {
+  -webkit-animation: rotate 20946ms -47962ms linear infinite;
+          animation: rotate 20946ms -47962ms linear infinite;
+}
+.umbrella:nth-child(12) {
+  top: 45px;
+  left: -186px;
+  -webkit-animation: fly 29500ms -19033ms linear infinite;
+          animation: fly 29500ms -19033ms linear infinite;
+}
+.umbrella:nth-child(12) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#1b4a43), to(#4d7c75));
+  background: linear-gradient(180deg, #1b4a43, #4d7c75);
+}
+.umbrella:nth-child(12) .hand {
+  color: #4d7c75;
+}
+.umbrella:nth-child(12) .body {
+  -webkit-animation: rotate 22473ms -54156ms linear infinite;
+          animation: rotate 22473ms -54156ms linear infinite;
+}
+.umbrella:nth-child(13) {
+  top: -1405px;
+  left: 76px;
+  -webkit-animation: fly 29500ms -22939ms linear infinite;
+          animation: fly 29500ms -22939ms linear infinite;
+}
+.umbrella:nth-child(13) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#4a9010), to(#7cc242));
+  background: linear-gradient(180deg, #4a9010, #7cc242);
+}
+.umbrella:nth-child(13) .hand {
+  color: #7cc242;
+}
+.umbrella:nth-child(13) .body {
+  -webkit-animation: rotate 22602ms -9905ms linear infinite;
+          animation: rotate 22602ms -9905ms linear infinite;
+}
+.umbrella:nth-child(14) {
+  top: -164px;
+  left: -17px;
+  -webkit-animation: fly 29500ms -10789ms linear infinite;
+          animation: fly 29500ms -10789ms linear infinite;
+}
+.umbrella:nth-child(14) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#8e4da7), to(#c07fd9));
+  background: linear-gradient(180deg, #8e4da7, #c07fd9);
+}
+.umbrella:nth-child(14) .hand {
+  color: #c07fd9;
+}
+.umbrella:nth-child(14) .body {
+  -webkit-animation: rotate 18803ms -83944ms linear infinite;
+          animation: rotate 18803ms -83944ms linear infinite;
+}
+.umbrella:nth-child(15) {
+  top: -1268px;
+  left: 393px;
+  -webkit-animation: fly 29500ms -22144ms linear infinite;
+          animation: fly 29500ms -22144ms linear infinite;
+}
+.umbrella:nth-child(15) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#5d7925), to(#8fab57));
+  background: linear-gradient(180deg, #5d7925, #8fab57);
+}
+.umbrella:nth-child(15) .hand {
+  color: #8fab57;
+}
+.umbrella:nth-child(15) .body {
+  -webkit-animation: rotate 25933ms -21647ms linear infinite;
+          animation: rotate 25933ms -21647ms linear infinite;
+}
+.umbrella:nth-child(16) {
+  top: -1052px;
+  left: 319px;
+  -webkit-animation: fly 29500ms -5200ms linear infinite;
+          animation: fly 29500ms -5200ms linear infinite;
+}
+.umbrella:nth-child(16) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#2a89bb), to(#5cbbed));
+  background: linear-gradient(180deg, #2a89bb, #5cbbed);
+}
+.umbrella:nth-child(16) .hand {
+  color: #5cbbed;
+}
+.umbrella:nth-child(16) .body {
+  -webkit-animation: rotate 10057ms -95187ms linear infinite;
+          animation: rotate 10057ms -95187ms linear infinite;
+}
+.umbrella:nth-child(17) {
+  top: -1259px;
+  left: -747px;
+  -webkit-animation: fly 29500ms -23786ms linear infinite;
+          animation: fly 29500ms -23786ms linear infinite;
+}
+.umbrella:nth-child(17) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#999157), to(#cbc389));
+  background: linear-gradient(180deg, #999157, #cbc389);
+}
+.umbrella:nth-child(17) .hand {
+  color: #cbc389;
+}
+.umbrella:nth-child(17) .body {
+  -webkit-animation: rotate 15446ms -67222ms linear infinite;
+          animation: rotate 15446ms -67222ms linear infinite;
+}
+.umbrella:nth-child(18) {
+  top: -1456px;
+  left: 501px;
+  -webkit-animation: fly 29500ms -16291ms linear infinite;
+          animation: fly 29500ms -16291ms linear infinite;
+}
+.umbrella:nth-child(18) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#063c2d), to(#386e5f));
+  background: linear-gradient(180deg, #063c2d, #386e5f);
+}
+.umbrella:nth-child(18) .hand {
+  color: #386e5f;
+}
+.umbrella:nth-child(18) .body {
+  -webkit-animation: rotate 23033ms -96831ms linear infinite;
+          animation: rotate 23033ms -96831ms linear infinite;
+}
+.umbrella:nth-child(19) {
+  top: 162px;
+  left: -969px;
+  -webkit-animation: fly 29500ms -3124ms linear infinite;
+          animation: fly 29500ms -3124ms linear infinite;
+}
+.umbrella:nth-child(19) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#907d60), to(#c2af92));
+  background: linear-gradient(180deg, #907d60, #c2af92);
+}
+.umbrella:nth-child(19) .hand {
+  color: #c2af92;
+}
+.umbrella:nth-child(19) .body {
+  -webkit-animation: rotate 27802ms -39665ms linear infinite;
+          animation: rotate 27802ms -39665ms linear infinite;
+}
+.umbrella:nth-child(20) {
+  top: -306px;
+  left: 754px;
+  -webkit-animation: fly 29500ms -1155ms linear infinite;
+          animation: fly 29500ms -1155ms linear infinite;
+}
+.umbrella:nth-child(20) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#587a9c), to(#8aacce));
+  background: linear-gradient(180deg, #587a9c, #8aacce);
+}
+.umbrella:nth-child(20) .hand {
+  color: #8aacce;
+}
+.umbrella:nth-child(20) .body {
+  -webkit-animation: rotate 21463ms -96038ms linear infinite;
+          animation: rotate 21463ms -96038ms linear infinite;
+}
+.umbrella:nth-child(21) {
+  top: -1331px;
+  left: 223px;
+  -webkit-animation: fly 29500ms -10360ms linear infinite;
+          animation: fly 29500ms -10360ms linear infinite;
+}
+.umbrella:nth-child(21) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#39176e), to(#6b49a0));
+  background: linear-gradient(180deg, #39176e, #6b49a0);
+}
+.umbrella:nth-child(21) .hand {
+  color: #6b49a0;
+}
+.umbrella:nth-child(21) .body {
+  -webkit-animation: rotate 29297ms -39192ms linear infinite;
+          animation: rotate 29297ms -39192ms linear infinite;
+}
+.umbrella:nth-child(22) {
+  top: 457px;
+  left: -16px;
+  -webkit-animation: fly 29500ms -27473ms linear infinite;
+          animation: fly 29500ms -27473ms linear infinite;
+}
+.umbrella:nth-child(22) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#b57c8a), to(#e7aebc));
+  background: linear-gradient(180deg, #b57c8a, #e7aebc);
+}
+.umbrella:nth-child(22) .hand {
+  color: #e7aebc;
+}
+.umbrella:nth-child(22) .body {
+  -webkit-animation: rotate 25557ms -64768ms linear infinite;
+          animation: rotate 25557ms -64768ms linear infinite;
+}
+.umbrella:nth-child(23) {
+  top: -317px;
+  left: -341px;
+  -webkit-animation: fly 29500ms -7446ms linear infinite;
+          animation: fly 29500ms -7446ms linear infinite;
+}
+.umbrella:nth-child(23) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#a229b9), to(#d45beb));
+  background: linear-gradient(180deg, #a229b9, #d45beb);
+}
+.umbrella:nth-child(23) .hand {
+  color: #d45beb;
+}
+.umbrella:nth-child(23) .body {
+  -webkit-animation: rotate 26426ms -15503ms linear infinite;
+          animation: rotate 26426ms -15503ms linear infinite;
+}
+.umbrella:nth-child(24) {
+  top: -483px;
+  left: -716px;
+  -webkit-animation: fly 29500ms -3130ms linear infinite;
+          animation: fly 29500ms -3130ms linear infinite;
+}
+.umbrella:nth-child(24) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#817777), to(#b3a9a9));
+  background: linear-gradient(180deg, #817777, #b3a9a9);
+}
+.umbrella:nth-child(24) .hand {
+  color: #b3a9a9;
+}
+.umbrella:nth-child(24) .body {
+  -webkit-animation: rotate 15849ms -57639ms linear infinite;
+          animation: rotate 15849ms -57639ms linear infinite;
+}
+.umbrella:nth-child(25) {
+  top: -1429px;
+  left: 147px;
+  -webkit-animation: fly 29500ms -14419ms linear infinite;
+          animation: fly 29500ms -14419ms linear infinite;
+}
+.umbrella:nth-child(25) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#51a0b6), to(#83d2e8));
+  background: linear-gradient(180deg, #51a0b6, #83d2e8);
+}
+.umbrella:nth-child(25) .hand {
+  color: #83d2e8;
+}
+.umbrella:nth-child(25) .body {
+  -webkit-animation: rotate 26525ms -82433ms linear infinite;
+          animation: rotate 26525ms -82433ms linear infinite;
+}
+.umbrella:nth-child(26) {
+  top: 349px;
+  left: -749px;
+  -webkit-animation: fly 29500ms -2177ms linear infinite;
+          animation: fly 29500ms -2177ms linear infinite;
+}
+.umbrella:nth-child(26) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#a8af6b), to(#dae19d));
+  background: linear-gradient(180deg, #a8af6b, #dae19d);
+}
+.umbrella:nth-child(26) .hand {
+  color: #dae19d;
+}
+.umbrella:nth-child(26) .body {
+  -webkit-animation: rotate 26290ms -26219ms linear infinite;
+          animation: rotate 26290ms -26219ms linear infinite;
+}
+.umbrella:nth-child(27) {
+  top: -777px;
+  left: 718px;
+  -webkit-animation: fly 29500ms -25410ms linear infinite;
+          animation: fly 29500ms -25410ms linear infinite;
+}
+.umbrella:nth-child(27) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#274390), to(#5975c2));
+  background: linear-gradient(180deg, #274390, #5975c2);
+}
+.umbrella:nth-child(27) .hand {
+  color: #5975c2;
+}
+.umbrella:nth-child(27) .body {
+  -webkit-animation: rotate 26539ms -79173ms linear infinite;
+          animation: rotate 26539ms -79173ms linear infinite;
+}
+.umbrella:nth-child(28) {
+  top: -53px;
+  left: 172px;
+  -webkit-animation: fly 29500ms -29261ms linear infinite;
+          animation: fly 29500ms -29261ms linear infinite;
+}
+.umbrella:nth-child(28) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#50805c), to(#82b28e));
+  background: linear-gradient(180deg, #50805c, #82b28e);
+}
+.umbrella:nth-child(28) .hand {
+  color: #82b28e;
+}
+.umbrella:nth-child(28) .body {
+  -webkit-animation: rotate 25979ms -70689ms linear infinite;
+          animation: rotate 25979ms -70689ms linear infinite;
+}
+.umbrella:nth-child(29) {
+  top: -537px;
+  left: -677px;
+  -webkit-animation: fly 29500ms -2386ms linear infinite;
+          animation: fly 29500ms -2386ms linear infinite;
+}
+.umbrella:nth-child(29) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#6c4dc6), to(#9e7ff8));
+  background: linear-gradient(180deg, #6c4dc6, #9e7ff8);
+}
+.umbrella:nth-child(29) .hand {
+  color: #9e7ff8;
+}
+.umbrella:nth-child(29) .body {
+  -webkit-animation: rotate 17159ms -38463ms linear infinite;
+          animation: rotate 17159ms -38463ms linear infinite;
+}
+.umbrella:nth-child(30) {
+  top: -960px;
+  left: -950px;
+  -webkit-animation: fly 29500ms -8199ms linear infinite;
+          animation: fly 29500ms -8199ms linear infinite;
+}
+.umbrella:nth-child(30) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#7d186d), to(#af4a9f));
+  background: linear-gradient(180deg, #7d186d, #af4a9f);
+}
+.umbrella:nth-child(30) .hand {
+  color: #af4a9f;
+}
+.umbrella:nth-child(30) .body {
+  -webkit-animation: rotate 12850ms -63919ms linear infinite;
+          animation: rotate 12850ms -63919ms linear infinite;
+}
+.umbrella:nth-child(31) {
+  top: -844px;
+  left: 9px;
+  -webkit-animation: fly 29500ms -27376ms linear infinite;
+          animation: fly 29500ms -27376ms linear infinite;
+}
+.umbrella:nth-child(31) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#b47f47), to(#e6b179));
+  background: linear-gradient(180deg, #b47f47, #e6b179);
+}
+.umbrella:nth-child(31) .hand {
+  color: #e6b179;
+}
+.umbrella:nth-child(31) .body {
+  -webkit-animation: rotate 15369ms -80082ms linear infinite;
+          animation: rotate 15369ms -80082ms linear infinite;
+}
+.umbrella:nth-child(32) {
+  top: -1275px;
+  left: -942px;
+  -webkit-animation: fly 29500ms -263ms linear infinite;
+          animation: fly 29500ms -263ms linear infinite;
+}
+.umbrella:nth-child(32) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#016a50), to(#339c82));
+  background: linear-gradient(180deg, #016a50, #339c82);
+}
+.umbrella:nth-child(32) .hand {
+  color: #339c82;
+}
+.umbrella:nth-child(32) .body {
+  -webkit-animation: rotate 27923ms -87063ms linear infinite;
+          animation: rotate 27923ms -87063ms linear infinite;
+}
+.umbrella:nth-child(33) {
+  top: 85px;
+  left: 15px;
+  -webkit-animation: fly 29500ms -6711ms linear infinite;
+          animation: fly 29500ms -6711ms linear infinite;
+}
+.umbrella:nth-child(33) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#2e23bd), to(#6055ef));
+  background: linear-gradient(180deg, #2e23bd, #6055ef);
+}
+.umbrella:nth-child(33) .hand {
+  color: #6055ef;
+}
+.umbrella:nth-child(33) .body {
+  -webkit-animation: rotate 10679ms -1158ms linear infinite;
+          animation: rotate 10679ms -1158ms linear infinite;
+}
+.umbrella:nth-child(34) {
+  top: 473px;
+  left: 592px;
+  -webkit-animation: fly 29500ms -10912ms linear infinite;
+          animation: fly 29500ms -10912ms linear infinite;
+}
+.umbrella:nth-child(34) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#4e52c6), to(#8084f8));
+  background: linear-gradient(180deg, #4e52c6, #8084f8);
+}
+.umbrella:nth-child(34) .hand {
+  color: #8084f8;
+}
+.umbrella:nth-child(34) .body {
+  -webkit-animation: rotate 24941ms -41517ms linear infinite;
+          animation: rotate 24941ms -41517ms linear infinite;
+}
+.umbrella:nth-child(35) {
+  top: -1084px;
+  left: -503px;
+  -webkit-animation: fly 29500ms -16413ms linear infinite;
+          animation: fly 29500ms -16413ms linear infinite;
+}
+.umbrella:nth-child(35) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#360ead), to(#6840df));
+  background: linear-gradient(180deg, #360ead, #6840df);
+}
+.umbrella:nth-child(35) .hand {
+  color: #6840df;
+}
+.umbrella:nth-child(35) .body {
+  -webkit-animation: rotate 10120ms -2609ms linear infinite;
+          animation: rotate 10120ms -2609ms linear infinite;
+}
+.umbrella:nth-child(36) {
+  top: -129px;
+  left: -212px;
+  -webkit-animation: fly 29500ms -8078ms linear infinite;
+          animation: fly 29500ms -8078ms linear infinite;
+}
+.umbrella:nth-child(36) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#74b303), to(#a6e535));
+  background: linear-gradient(180deg, #74b303, #a6e535);
+}
+.umbrella:nth-child(36) .hand {
+  color: #a6e535;
+}
+.umbrella:nth-child(36) .body {
+  -webkit-animation: rotate 21847ms -31666ms linear infinite;
+          animation: rotate 21847ms -31666ms linear infinite;
+}
+.umbrella:nth-child(37) {
+  top: -1419px;
+  left: -223px;
+  -webkit-animation: fly 29500ms -13502ms linear infinite;
+          animation: fly 29500ms -13502ms linear infinite;
+}
+.umbrella:nth-child(37) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#a51276), to(#d744a8));
+  background: linear-gradient(180deg, #a51276, #d744a8);
+}
+.umbrella:nth-child(37) .hand {
+  color: #d744a8;
+}
+.umbrella:nth-child(37) .body {
+  -webkit-animation: rotate 24039ms -50559ms linear infinite;
+          animation: rotate 24039ms -50559ms linear infinite;
+}
+.umbrella:nth-child(38) {
+  top: -1007px;
+  left: -154px;
+  -webkit-animation: fly 29500ms -16368ms linear infinite;
+          animation: fly 29500ms -16368ms linear infinite;
+}
+.umbrella:nth-child(38) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#768464), to(#a8b696));
+  background: linear-gradient(180deg, #768464, #a8b696);
+}
+.umbrella:nth-child(38) .hand {
+  color: #a8b696;
+}
+.umbrella:nth-child(38) .body {
+  -webkit-animation: rotate 24629ms -98841ms linear infinite;
+          animation: rotate 24629ms -98841ms linear infinite;
+}
+.umbrella:nth-child(39) {
+  top: -324px;
+  left: -230px;
+  -webkit-animation: fly 29500ms -8250ms linear infinite;
+          animation: fly 29500ms -8250ms linear infinite;
+}
+.umbrella:nth-child(39) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#6aaa43), to(#9cdc75));
+  background: linear-gradient(180deg, #6aaa43, #9cdc75);
+}
+.umbrella:nth-child(39) .hand {
+  color: #9cdc75;
+}
+.umbrella:nth-child(39) .body {
+  -webkit-animation: rotate 28391ms -7415ms linear infinite;
+          animation: rotate 28391ms -7415ms linear infinite;
+}
+.umbrella:nth-child(40) {
+  top: -635px;
+  left: -937px;
+  -webkit-animation: fly 29500ms -13130ms linear infinite;
+          animation: fly 29500ms -13130ms linear infinite;
+}
+.umbrella:nth-child(40) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#55665c), to(#87988e));
+  background: linear-gradient(180deg, #55665c, #87988e);
+}
+.umbrella:nth-child(40) .hand {
+  color: #87988e;
+}
+.umbrella:nth-child(40) .body {
+  -webkit-animation: rotate 25721ms -74384ms linear infinite;
+          animation: rotate 25721ms -74384ms linear infinite;
+}
+.umbrella:nth-child(41) {
+  top: 171px;
+  left: 237px;
+  -webkit-animation: fly 29500ms -13935ms linear infinite;
+          animation: fly 29500ms -13935ms linear infinite;
+}
+.umbrella:nth-child(41) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#248eb8), to(#56c0ea));
+  background: linear-gradient(180deg, #248eb8, #56c0ea);
+}
+.umbrella:nth-child(41) .hand {
+  color: #56c0ea;
+}
+.umbrella:nth-child(41) .body {
+  -webkit-animation: rotate 25230ms -56755ms linear infinite;
+          animation: rotate 25230ms -56755ms linear infinite;
+}
+.umbrella:nth-child(42) {
+  top: -783px;
+  left: 967px;
+  -webkit-animation: fly 29500ms -28015ms linear infinite;
+          animation: fly 29500ms -28015ms linear infinite;
+}
+.umbrella:nth-child(42) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#1d7182), to(#4fa3b4));
+  background: linear-gradient(180deg, #1d7182, #4fa3b4);
+}
+.umbrella:nth-child(42) .hand {
+  color: #4fa3b4;
+}
+.umbrella:nth-child(42) .body {
+  -webkit-animation: rotate 18590ms -32536ms linear infinite;
+          animation: rotate 18590ms -32536ms linear infinite;
+}
+.umbrella:nth-child(43) {
+  top: -276px;
+  left: 709px;
+  -webkit-animation: fly 29500ms -22692ms linear infinite;
+          animation: fly 29500ms -22692ms linear infinite;
+}
+.umbrella:nth-child(43) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#1a3a61), to(#4c6c93));
+  background: linear-gradient(180deg, #1a3a61, #4c6c93);
+}
+.umbrella:nth-child(43) .hand {
+  color: #4c6c93;
+}
+.umbrella:nth-child(43) .body {
+  -webkit-animation: rotate 17421ms -66158ms linear infinite;
+          animation: rotate 17421ms -66158ms linear infinite;
+}
+.umbrella:nth-child(44) {
+  top: 248px;
+  left: -967px;
+  -webkit-animation: fly 29500ms -11366ms linear infinite;
+          animation: fly 29500ms -11366ms linear infinite;
+}
+.umbrella:nth-child(44) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#44260c), to(#76583e));
+  background: linear-gradient(180deg, #44260c, #76583e);
+}
+.umbrella:nth-child(44) .hand {
+  color: #76583e;
+}
+.umbrella:nth-child(44) .body {
+  -webkit-animation: rotate 18010ms -6862ms linear infinite;
+          animation: rotate 18010ms -6862ms linear infinite;
+}
+.umbrella:nth-child(45) {
+  top: -1474px;
+  left: -352px;
+  -webkit-animation: fly 29500ms -22793ms linear infinite;
+          animation: fly 29500ms -22793ms linear infinite;
+}
+.umbrella:nth-child(45) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#3f2292), to(#7154c4));
+  background: linear-gradient(180deg, #3f2292, #7154c4);
+}
+.umbrella:nth-child(45) .hand {
+  color: #7154c4;
+}
+.umbrella:nth-child(45) .body {
+  -webkit-animation: rotate 20998ms -50444ms linear infinite;
+          animation: rotate 20998ms -50444ms linear infinite;
+}
+.umbrella:nth-child(46) {
+  top: -881px;
+  left: 996px;
+  -webkit-animation: fly 29500ms -14610ms linear infinite;
+          animation: fly 29500ms -14610ms linear infinite;
+}
+.umbrella:nth-child(46) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#3aae63), to(#6ce095));
+  background: linear-gradient(180deg, #3aae63, #6ce095);
+}
+.umbrella:nth-child(46) .hand {
+  color: #6ce095;
+}
+.umbrella:nth-child(46) .body {
+  -webkit-animation: rotate 26539ms -65842ms linear infinite;
+          animation: rotate 26539ms -65842ms linear infinite;
+}
+.umbrella:nth-child(47) {
+  top: -867px;
+  left: 87px;
+  -webkit-animation: fly 29500ms -9088ms linear infinite;
+          animation: fly 29500ms -9088ms linear infinite;
+}
+.umbrella:nth-child(47) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#5f320e), to(#916440));
+  background: linear-gradient(180deg, #5f320e, #916440);
+}
+.umbrella:nth-child(47) .hand {
+  color: #916440;
+}
+.umbrella:nth-child(47) .body {
+  -webkit-animation: rotate 25090ms -9749ms linear infinite;
+          animation: rotate 25090ms -9749ms linear infinite;
+}
+.umbrella:nth-child(48) {
+  top: 471px;
+  left: -187px;
+  -webkit-animation: fly 29500ms -19466ms linear infinite;
+          animation: fly 29500ms -19466ms linear infinite;
+}
+.umbrella:nth-child(48) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#3e1e18), to(#70504a));
+  background: linear-gradient(180deg, #3e1e18, #70504a);
+}
+.umbrella:nth-child(48) .hand {
+  color: #70504a;
+}
+.umbrella:nth-child(48) .body {
+  -webkit-animation: rotate 28314ms -59637ms linear infinite;
+          animation: rotate 28314ms -59637ms linear infinite;
+}
+.umbrella:nth-child(49) {
+  top: -914px;
+  left: -798px;
+  -webkit-animation: fly 29500ms -27515ms linear infinite;
+          animation: fly 29500ms -27515ms linear infinite;
+}
+.umbrella:nth-child(49) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#c35551), to(#f58783));
+  background: linear-gradient(180deg, #c35551, #f58783);
+}
+.umbrella:nth-child(49) .hand {
+  color: #f58783;
+}
+.umbrella:nth-child(49) .body {
+  -webkit-animation: rotate 21518ms -94224ms linear infinite;
+          animation: rotate 21518ms -94224ms linear infinite;
+}
+.umbrella:nth-child(50) {
+  top: -1011px;
+  left: -769px;
+  -webkit-animation: fly 29500ms -7984ms linear infinite;
+          animation: fly 29500ms -7984ms linear infinite;
+}
+.umbrella:nth-child(50) .cloth {
+  background: -webkit-gradient(linear, left top, left bottom, from(#61ab5e), to(#93dd90));
+  background: linear-gradient(180deg, #61ab5e, #93dd90);
+}
+.umbrella:nth-child(50) .hand {
+  color: #93dd90;
+}
+.umbrella:nth-child(50) .body {
+  -webkit-animation: rotate 29202ms -63232ms linear infinite;
+          animation: rotate 29202ms -63232ms linear infinite;
+}
+
+@-webkit-keyframes rotate {
+  0% {
+    -webkit-transform: rotateZ(0deg);
+            transform: rotateZ(0deg);
+  }
+  100% {
+    -webkit-transform: rotateZ(360deg);
+            transform: rotateZ(360deg);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    -webkit-transform: rotateZ(0deg);
+            transform: rotateZ(0deg);
+  }
+  100% {
+    -webkit-transform: rotateZ(360deg);
+            transform: rotateZ(360deg);
+  }
+}
+@-webkit-keyframes fly {
+  0% {
+    -webkit-transform: translateZ(-1200px);
+            transform: translateZ(-1200px);
+  }
+  100% {
+    -webkit-transform: translateZ(4000px);
+            transform: translateZ(4000px);
+  }
+}
+@keyframes fly {
+  0% {
+    -webkit-transform: translateZ(-1200px);
+            transform: translateZ(-1200px);
+  }
+  100% {
+    -webkit-transform: translateZ(4000px);
+            transform: translateZ(4000px);
+  }
+}

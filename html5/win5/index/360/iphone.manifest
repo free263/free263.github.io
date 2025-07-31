@@ -1,0 +1,18 @@
+CACHE MANIFEST
+# Cache manifest version 1.0.0
+# RM Pano viewer 1.0.0
+# Copyright (c) 2007-2011 http://www.86rm.com/
+
+iphone.html
+rmpano.js
+rmpano.license.js
+img/iphone.js
+img/control/icon.png
+img/control/button.png
+img/cube/4/f.jpg
+img/cube/4/r.jpg
+img/cube/4/b.jpg
+img/cube/4/l.jpg
+img/cube/4/u.jpg
+img/cube/4/d.jpg
+img/cube/4/preview.jpg

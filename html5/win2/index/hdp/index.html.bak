@@ -1,0 +1,332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>左右全屏流畅滑动幻灯片</title>
+<link rel="stylesheet" type="text/css" media="screen" href="css/lanrenzhijia.css" />
+<!--[if lt IE 8]><link rel="stylesheet" type="text/css" media="screen" href="css/lanrenzhijia-ie.css" /><![endif]-->
+<link href="http://fonts.googleapis.com/css?family=Play:400,700" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="http://www.lanrenzhijia.com/ajaxjs/1.7.1/jquery-1.7.1.min.js"></script>
+<script type="text/javascript">
+	if (typeof jQuery == 'undefined'){
+	    document.write(unescape("%3Cscript src=js/jquery.js type='text/javascript'%3E%3C/script%3E"));
+	}
+	</script>
+<script type="text/javascript" src="js/sequence.jquery-min.js"></script>
+<script type="text/javascript">	
+		$(document).ready(function(){
+			var options = {
+				autoPlay: false,
+				autoPlayDirection: 1,
+				nextButton: ".next",
+				prevButton: ".prev",
+				prependNextButton: false,
+				prependPrevButton: false,
+				pauseIcon: false,
+				animateStartingFrameIn: false, 
+				delayDuringOutInTransitions: false
+			};
+
+			var slideShow = $("#slideshow").sequence(options).data("sequence");
+			
+			$(".prev, .next").show();
+		})
+	</script>
+
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.2.0/css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/menu_bubble.css" />
+		<script src="js/snap.svg-min.js"></script>
+<!--[if IE]>
+  		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+<style type="text/css">
+.wrapper{ margin:0px auto; padding:20px; border:1px solid #CCC; background:#333; width:980px; font-size:12px;}
+</style>
+<link rel="shortcut icon" type="image/x-icon" href="img/an.ico"/>
+		<style type="text/css">
+			/*样式初始化*/
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			/*去除横向滚动条*/
+			body {
+				overflow-x: hidden;
+				overflow-y: hidden;
+				background-color: 000;
+				font-size:13px;
+				color: #ffffff;
+			}
+			/*将div铺满整个窗口*/
+			.box {
+				height: 100vh;
+				min-height: 520px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+background-color: 000;
+			}
+			/*设置大ul的大小及定位*/
+			.content {
+				position: relative;
+				width: 100%;
+				height: 100%;
+background-color: 000;
+			}
+			/*设置大li样式*/
+			.content li {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+			}
+
+		</style>
+<script data-ad-client="ca-pub-8742386847853865" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<noscript></head></noscript>
+
+<body>
+	
+<div style="position:absolute; width:100px; height:100%; z-index:2; left: 0px; top: 0px;">
+			<div class="menu-wrap">
+				<nav class="menu">
+					<div class="icon-list" >
+						<a href="../../"><i class="fa fa-fw fa-star-o"></i><span>仿苹果电脑桌面</span></a>
+						<a href="../../index/jeep/"><i class="fa fa-fw fa-bell-o"></i><span>超酷吉普车动画</span></a>
+						<a href="../../index/haikui/"><i class="fa fa-fw fa-envelope-o"></i><span>酷炫海葵动画特效</span></a>
+						<a href="../../index/wht/"><i class="fa fa-fw fa-comment-o"></i><span>万花筒导航</span></a>
+						<a href="../../index/newyear/"><i class="fa fa-fw fa-newspaper-o"></i><span>新年倒计时特效</span></a>
+						<a href="../../index/lunbo/"><i class="fa fa-fw fa-star-o"></i><span>焦点图片轮播特效</span></a>
+						<a href="../../index/lunbo3D/"><i class="fa fa-fw fa-bell-o"></i><span>全屏3D旋转特效</span></a>
+						<a href="../../index/yanhua/"><i class="fa fa-fw fa-newspaper-o"></i><span>烟花绽放场景特效</span></a>
+						<a href="../../index/baiye/"><i class="fa fa-fw fa-star-o"></i><span>百叶窗轮播特效</span></a>
+						<a href="../../index/window/"><i class="fa fa-fw fa-bell-o"></i><span>窗户玻璃雨滴特效</span></a>
+						<a href="../../index/snow3/"><i class="fa fa-fw fa-newspaper-o"></i><span>网页下雪特效</span></a>
+						<a href="../../index/windows/"><i class="fa fa-fw fa-newspaper-o"></i><span>窗外星空特效</span></a>
+						<a href="../../index/3Dturn/"><i class="fa fa-fw fa-newspaper-o"></i><span>3D图片全屏翻转</span></a>
+						<a href="../../index/hdp/"><i class="fa fa-fw fa-bell-o"></i><span>左右流畅幻灯片</span></a>
+					</div>
+				</nav>
+				<button class="close-button" id="close-button">Close Menu</button>
+				<div class="morph-shape" id="morph-shape" data-morph-open="M-7.312,0H15c0,0,66,113.339,66,399.5C81,664.006,15,800,15,800H-7.312V0z;M-7.312,0H100c0,0,0,113.839,0,400c0,264.506,0,400,0,400H-7.312V0z">
+					<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 800" preserveAspectRatio="none">
+						<path d="M-7.312,0H0c0,0,0,113.839,0,400c0,264.506,0,400,0,400h-7.312V0z"/>
+					</svg>
+				</div>
+			</div>
+			<button class="menu-button" id="open-button">Open Menu</button>
+			<div class="content-wrap">
+	
+					
+
+<!-- 代码 开始 -->
+<div class="fish" style="position:absolute; width:300px; height:500px; z-index:2; left: 40px; top: 50px;backgroud-color:000;">
+<table>
+	<!-- 第1行 -->
+    <tr>
+     <td width="40"></td>
+     <td align="center" width="60"><a href="http://cloud.2345.ltd/" target="_blank"><img name="folder" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/folder.gif" width="50" height="50" border="0" id="index_r2_c2" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="http://660000.xyz" target="_blank"><img name="pictures" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/pictures.gif" width="50" height="50" border="0" id="index_r2_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="http://vip.2345.ltd/" target="_blank"><img name="vip" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/vip.gif" width="50" height="50" border="0" id="index_r2_c6" alt="" /></a></td>
+     <td width="20"></td>
+     
+    </tr>
+    <tr>
+     <td width="40"></td>
+     <td align="center" width="60">我的文档</td>
+     <td width="20"></td>
+     <td align="center" width="60">我的相册</td>
+     <td width="20"></td>
+     <td align="center" width="60">视频解析</td>
+     <td width="20"></td>
+     
+    </tr>
+    <tr>
+     <td>&nbsp;</td>
+    </tr>
+    
+<!-- 第2行 -->   
+    <tr>
+     <td width="40"></td>
+     <td align="center" width="60"><a href="http://pan.2345.ltd/" target="_blank"><img name="computer" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/computer.gif" width="50" height="50" border="0" id="index_r5_c2" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="http://www.free163.com/" target="_blank"><img name="poem" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/poem.gif" width="50" height="50" border="0" id="index_r5_c6" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="http://www.odj.cc" target="_blank"><img name="music" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/lxyy.gif" width="50" height="50" border="0" id="index_r11_c2" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     
+    </tr>
+    <tr>
+     <td width="40"></td>
+     <td align="center" width="60">我的电脑</td>
+     <td width="20"></td>
+     <td align="center" width="60">古典诗词</td>
+     <td width="20"></td>
+     <td align="center" width="60">在线音乐</td>
+     <td width="20"></td>
+    
+    </tr>
+    <tr>
+     <td>&nbsp;</td>
+    </tr>
+    
+<!-- 第3行 -->
+    <tr>
+     <td width="40"></td>
+     <td align="center" width="60"><a href="http://www.book.ga" target="_blank"><img name="wuxia" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/wuxia.gif" width="50" height="50" border="0" id="index_r8_c6" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="http://www.free163.tk" target="_blank"><img name="down" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/log.png" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="http://alist.2345.ltd" target="_blank"><img name="down" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/aliyun.gif" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+   
+    </tr>
+    <tr>
+     <td width="40"></td>
+     <td align="center" width="60">武侠小说</td>
+     <td width="20"></td>
+     <td align="center" width="60">听松阁</td>
+     <td width="20"></td>
+     <td align="center" width="60">阿里云盘</td>
+     <td width="20"></td>
+     
+    </tr>
+    <tr>
+     <td>&nbsp;</td>
+    </tr>
+    
+<!-- 第4行 -->
+    <tr>
+     <td width="40"></td>
+     <td align="center" width="60"><a href="http://skycz.com/" target="_blank"><img name="blog" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/blog.gif" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="http://kylehao.ysepan.com/" target="_blank"><img name="share" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/share.gif" width="50" height="50" border="0" id="index_r5_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="http://44444.ltd/" target="_blank"><img name="share" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/dys.gif" width="50" height="50" border="0" id="index_r5_c4" alt="" /></a></td>
+     <td width="20"></td>
+    
+    </tr>
+   <tr>
+   	<td width="40"></td>
+    <td align="center" width="60">我的博客</td>
+    <td width="20"></td>
+    <td align="center" width="60">文件分享</td>
+    <td width="20"></td>
+    <td align="center" width="60">德云社</td>
+    <td width="20"></td>
+  
+   </tr>
+   <tr>
+    <td >&nbsp;</td>
+   </tr>
+<!-- 第5行 -->
+    <tr>
+     <td width="40"></td>
+     <td align="center" width="60"><a href="http://mail.pu.cx/" target="_blank"><img name="mail" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/mail.gif" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="http://www.kkkk.info/" target="_blank"><img name="mail" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/mi.png" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     
+    </tr>
+   <tr>
+   	<td width="40"></td>
+    <td align="center" width="60">我的邮局</td>
+    <td width="20"></td>
+    <td align="center" width="60">我的米表</td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    
+   </tr>
+   <tr>
+    <td >&nbsp;</td>
+   </tr>
+
+  </table>
+</div>
+
+
+
+
+<!-- 底部和按钮 -->
+<div  style="position:fixed; width:100%; height:39; z-index:4; left:0px; bottom: -3px;">
+ <table style="border-collapse:collapse;width:100%; height:39;">
+ 	<tr>
+ 	 <td align="left"><img src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/images/bottom-left.jpg" width="109" height="39" border="0"></td>
+	 <td align="center" width="100%" height="39" border="0" background="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/images/bottom-center.jpg"></td>
+   <td align="right"><img src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/images/bottom-right.jpg" width="273" height="39" border="0"></td>
+  </tr>
+ </table>
+</div>
+
+<div class="fish" style="position:absolute; width:50; height:50; z-index:7; left: 0px; bottom: -3px;backgroud-color:000;">
+<table>
+	<tr>
+		<td><a href="http://my.2345.ltd" target="_blank"><img src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/space.gif" width="40" height="50" border="0" alt=""></a></td>
+		<td width="20">&nbsp;</td>
+		<td><a href="http://cloud.2345.ltd" target="_blank"><img src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/space.gif" width="40" height="50" border="0" alt=""></a></td>
+		<td width="1050">&nbsp;</td>
+		<td><a href="http://wx.qq.com/" target="_blank"><img src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		<td width="10">&nbsp;</td>
+		<td><a href="http://www.360.cn" target="_blank"><img src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		<td width="7">&nbsp;</td>
+		<td><a href="http://odj.cc" target="_blank"><img src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		<td width="6">&nbsp;</td>
+		<td><a href="http://odj.cc" target="_blank"><img src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		<td width="4">&nbsp;</td>
+		<td><a href="http://odj.cc" target="_blank"><img src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		
+			
+	</tr>
+</table>
+</div>
+
+
+</div>
+<!-- 代码 结束 -->
+</div></div></div>
+
+</div>
+			</div><!-- /content-wrap -->
+		</div><!-- /container -->
+		<script src="js/classie.js"></script>
+		<script src="js/main4.js"></script>
+		
+		
+<div id="header" style="position:absolute; width:100%; height:100%; z-index:1; left: 0px; top: 0px;">
+  <div id="slideshow"> <img class="prev" src="https://jihulab.com/free163/windows2-fff.cool/-/raw/019fd51454837ef90f67af54e1d1a4f5059bc63f/pc/index/hdp/images/images/bt-prev.png" alt="Previous" /> <img class="next" src="https://jihulab.com/free163/windows2-fff.cool/-/raw/019fd51454837ef90f67af54e1d1a4f5059bc63f/pc/index/hdp/images/images/bt-next.png" alt="Next" />
+    <ul>
+      <li>
+        <div class="info animate-in">
+          <h2>Built using Sequence.js</h2>
+          <p>The jQuery Slider Plugin with Infinite Style</p>
+        </div>
+        <img class="sky animate-in" src="https://jihulab.com/free163/windows2-fff.cool/-/raw/019fd51454837ef90f67af54e1d1a4f5059bc63f/pc/index/hdp/images/images/bg-clouds.png" alt="Blue Sky" /> <img class="balloon animate-in" src="https://jihulab.com/free163/windows2-fff.cool/-/raw/019fd51454837ef90f67af54e1d1a4f5059bc63f/pc/index/hdp/images/images/balloon.png" alt="Balloon" /> </li>
+      <li>
+        <div class="info">
+          <h2>Creative Control</h2>
+          <p>Create unique sliders using CSS3 transitions -- no jQuery knowledge required!</p>
+        </div>
+        <img class="sky" src="https://jihulab.com/free163/windows2-fff.cool/-/raw/019fd51454837ef90f67af54e1d1a4f5059bc63f/pc/index/hdp/images/images/bg-clouds.png" alt="Blue Sky" /> <img class="aeroplane" src="https://jihulab.com/free163/windows2-fff.cool/-/raw/019fd51454837ef90f67af54e1d1a4f5059bc63f/pc/index/hdp/images/images/aeroplane.png" alt="Aeroplane" /> </li>
+      <li>
+        <div class="info">
+          <h2>Cutting Edge</h2>
+          <p>Supports modern browsers, old browsers (IE7+), touch devices and responsive designs</p>
+        </div>
+        <img class="sky" src="https://jihulab.com/free163/windows2-fff.cool/-/raw/019fd51454837ef90f67af54e1d1a4f5059bc63f/pc/index/hdp/images/images/bg-clouds.png" alt="Blue Sky" /> <img class="kite" src="https://jihulab.com/free163/windows2-fff.cool/-/raw/019fd51454837ef90f67af54e1d1a4f5059bc63f/pc/index/hdp/images/images/kite.png" alt="Kite" /> </li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

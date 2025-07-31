@@ -1,0 +1,2733 @@
+html,body{
+	width:100%;
+	height:100%;
+  padding:0;
+  margin:0;
+  overflow:hidden;
+}
+.css_lab {
+	width:100%;
+	height:100%;
+	background:#aaa;
+}
+
+.css_lab *,
+.css_lab *:before,
+.css_lab *:after{
+	display:block;
+	content:"";
+	position:absolute;
+	-webkit-transition:0.5s;
+	-o-transition:0.5s;
+	transition:0.5s;
+  margin:0;
+  padding:0;
+}
+
+.woman{
+	width:120px;
+	height:370px;
+	top:50%;
+	left:50%;
+	margin-top:-180px;
+	margin-left:-60px;
+	-webkit-transform:scale(1);
+	    -ms-transform:scale(1);
+	        transform:scale(1);
+}
+.dog{
+	width:120px;
+	height:120px;
+	top:50%;
+	left:50%;
+	margin-top:55px;
+	margin-left:30px;
+	-webkit-transform:scale(1.5);
+	    -ms-transform:scale(1.5);
+	        transform:scale(1.5);
+}
+.cat{
+	width:100px;
+	height:100px;
+	top:50%;
+	left:50%;
+	margin-top:85px;
+	margin-left:20px;
+	-webkit-transform:scale(1);
+	    -ms-transform:scale(1);
+	        transform:scale(1);
+}
+
+.woman .head{
+	width:42px;
+	height:50px;
+	top:25px;
+	left:48px;
+	z-index:1;
+}
+.woman .face{
+	width:40px;
+	height:48px;
+	background:#333;
+	border-radius:60px 80px 120px 30px/40px 70px 120px 40px;
+	top:0px;
+	left:-1px;
+	-webkit-transform:rotate(3deg);
+	    -ms-transform:rotate(3deg);
+	        transform:rotate(3deg);
+	border-top:1px solid #333;
+}
+
+.woman .face p:nth-child(1){
+	width:10px;
+	height:20px;
+	top:5px;
+	left:-3px;
+	background:#333;
+	border-radius:30px 0 0 20px/60px 0 0 40px;
+	-webkit-transform:rotate(4deg);
+	    -ms-transform:rotate(4deg);
+	        transform:rotate(4deg);
+}
+
+.woman .face p:nth-child(1):before{
+	width:10px;
+	height:16px;
+	background:#333;
+	border-radius:0 0 2px 4px/0 0 2px 2px;
+	top:15px;
+	left:1px;
+	-webkit-transform:rotate(21deg) skewX(-10deg);
+	    -ms-transform:rotate(21deg) skewX(-10deg);
+	        transform:rotate(21deg) skewX(-10deg);
+	/*box-shadow:5px 3px 0 #333,9px 7px 0#333;*/
+}
+
+.woman .face p:nth-child(1):after{
+	width:6px;
+	height:6px;
+	border-radius:0 0 0 50%;
+	border-bottom:0.5px solid #333;
+	top:13px;
+	left:-1px;
+	-webkit-transform:rotate(10deg);
+	    -ms-transform:rotate(10deg);
+	        transform:rotate(10deg);
+}
+
+.woman .face p:nth-child(2){
+	width:10px;
+	height:7px;
+	border-radius:50% 0 0 50%;
+	background:#333;
+	top:41px;
+	left:0px;
+}
+
+.woman .face p:nth-child(3){
+	width:35px;
+	height:40px;
+	overflow:hidden;
+	top:40px;
+	left:7px;
+}
+
+.woman .face p:nth-child(3):before,
+.woman .face p:nth-child(3):after{
+	width:40px;
+	height:40px;
+	border-radius:50%;
+	border:12px solid #333;
+	left:-43px;
+	top:-12px;
+}
+
+.woman .face p:nth-child(3):after{
+	width:80px;
+	height:80px;
+	left:11px;
+	top:-56px;
+}
+.woman .face p:nth-child(4){
+	width:5px;
+	height:10px;
+	background:#333;
+	border-radius:0 0 2px 4px/0 0 2px 2px;
+	top:29px;
+	left:-1px;
+	-webkit-transform:rotate(15deg) skewX(-10deg);
+	    -ms-transform:rotate(15deg) skewX(-10deg);
+	        transform:rotate(15deg) skewX(-10deg);
+}
+.woman .face p:nth-child(4):before{
+	width:5px;
+	height:10px;
+	background:#333;
+	border-radius:0 0 2px 2px/0 0 2px 4px;
+	top:3px;
+	left:3px;
+	-webkit-transform:rotate(6deg) skewX(-10deg);
+	    -ms-transform:rotate(6deg) skewX(-10deg);
+	        transform:rotate(6deg) skewX(-10deg);
+}
+
+.woman .hair p:nth-child(1){
+	width:10px;
+	border-right:2px solid #996;
+	height:60px;
+	border-radius:0 50% 30px 0;
+	top:9px;
+	left:28px;
+	-webkit-transform:rotate(-6deg);
+	    -ms-transform:rotate(-6deg);
+	        transform:rotate(-6deg);
+}
+
+.woman .hair p:nth-child(1):before,
+.woman .hair p:nth-child(1):after{
+	width:10px;
+	border-left:3px solid #996;
+	height:20px;
+	border-radius:0 50% 0 30px;
+	top:51px;
+	left:10px;
+	-webkit-transform:rotate(14deg);
+	    -ms-transform:rotate(14deg);
+	        transform:rotate(14deg);
+}
+
+.woman .hair p:nth-child(1):after{
+	border-left:0px solid #996;
+	border-right:2px solid #996;
+	height:60px;
+	border-radius:0 50% 30px 0;
+	top:1px;
+	left:-5px;
+	-webkit-transform:rotate(-26deg);
+	    -ms-transform:rotate(-26deg);
+	        transform:rotate(-26deg);
+}
+
+.woman .hair p:nth-child(2){
+	width:16px;
+	height:22px;
+	border-radius:50%;
+	border-left:2px solid #996;
+	top:0px;
+	left:-4px;
+	-webkit-transform:rotate(45deg);
+	    -ms-transform:rotate(45deg);
+	        transform:rotate(45deg);
+}
+.woman .hair p:nth-child(2):before,
+.woman .hair p:nth-child(2):after{
+	width:24px;
+	height:20px;
+	border-radius:50%;
+	border-left:1px solid #996;
+	top:2px;
+	left:-3px;
+	-webkit-transform:rotate(-9deg);
+	    -ms-transform:rotate(-9deg);
+	        transform:rotate(-9deg);
+}
+
+.woman .hair p:nth-child(2):after{
+	width:13px;
+	height:18px;
+	top:6px;
+	left:-2px;
+	-webkit-transform:rotate(-25deg);
+	    -ms-transform:rotate(-25deg);
+	        transform:rotate(-25deg);
+}
+.woman .hair p:nth-child(3){
+	width:10px;
+	height:17px;
+	border-left:2px solid #996;
+	border-radius:50% 0 0 30px;
+	top:55px;
+	left:38px;
+	-webkit-transform:rotate(7deg);
+	    -ms-transform:rotate(7deg);
+	        transform:rotate(7deg);
+}
+.woman .hair p:nth-child(3):before,
+.woman .hair p:nth-child(3):after{
+	width:10px;
+	height:30px;
+	border-radius:50%;
+	border-right:2px solid #996;
+	top:-23px;
+	left:-10px;
+	-webkit-transform:rotate(-25deg);
+	    -ms-transform:rotate(-25deg);
+	        transform:rotate(-25deg);
+}
+.woman .hair p:nth-child(3):after{
+	width:21px;
+	height:23px;
+	top:0px;
+	left:-14px;
+	-webkit-transform:rotate(-6deg);
+	    -ms-transform:rotate(-6deg);
+	        transform:rotate(-6deg);
+}
+.woman .hair p:nth-child(4){
+	width:23px;
+	height:46px;
+	border-radius:0 0 10px 50px;
+	background:#996;
+	top:16px;
+	left:12px;
+	-webkit-transform:rotate(-3deg);
+	    -ms-transform:rotate(-3deg);
+	        transform:rotate(-3deg);
+}
+.woman .hair p:nth-child(4):before{
+	width:45px;
+	height:28px;
+	background:#996;
+	border-radius:60px 56px 0 30px/40px 50px 0 21px;
+	top:-17px;
+	left:-14px;
+	-webkit-transform:rotate(14deg);
+	    -ms-transform:rotate(14deg);
+	        transform:rotate(14deg);
+}
+.woman .hair p:nth-child(4):after{
+	width:20px;
+	height:41px;
+	border-radius:0 0 30px 20px;
+	border-left:2px solid #996;
+	border-bottom:1px solid #996;
+	top:3px;
+	left:0px;
+	-webkit-transform:rotate(3deg);
+	    -ms-transform:rotate(3deg);
+	        transform:rotate(3deg);
+}
+.woman .hair p:nth-child(5){
+	width:40px;
+	height:20px;
+	top:24px;
+	left:1px;
+	overflow:hidden;
+}
+.woman .hair p:nth-child(5):before{
+	width:30px;
+	height:40px;
+	top:-10px;
+	left:-29px;
+	border:10px solid #996;
+	border-radius:20px;
+	-webkit-transform:rotate(-11deg);
+	    -ms-transform:rotate(-11deg);
+	        transform:rotate(-11deg);
+}
+.woman .hair p:nth-child(5):after{
+	width:30px;
+	height:40px;
+	top:-17px;
+	left:30px;
+	border:10px solid #996;
+	border-radius:20px;
+	-webkit-transform:rotate(-11deg);
+	    -ms-transform:rotate(-11deg);
+	        transform:rotate(-11deg);
+}
+.woman .hair p:nth-child(6){
+	width:10px;
+	height:22px;
+	top:43px;
+	left:34px;
+	background:#996;
+	border-radius:0 0 7px 11px;
+	-webkit-transform:rotate(-10deg);
+	    -ms-transform:rotate(-10deg);
+	        transform:rotate(-10deg);
+}
+.woman .hair p:nth-child(7){
+	width:3px;
+	height:9px;
+	top:25px;
+	left:22px;
+	border-radius:0 10px 30px 0/0 20px 50px 0;
+	background:#333;
+	-webkit-transform:rotate(5deg);
+	    -ms-transform:rotate(5deg);
+	        transform:rotate(5deg);
+}
+.woman .hair p:nth-child(7):before{
+	width:20px;
+	height:40px;
+	top:-11px;
+	left:-23px;
+	border:0px solid transparent;
+	border-right:5px solid #996;
+	border-radius:20px;
+	-webkit-transform:rotate(-11deg);
+	    -ms-transform:rotate(-11deg);
+	        transform:rotate(-11deg);
+}
+.woman .hair p:nth-child(7):after{
+	width:1px;
+	height:5px;
+	border-radius:2px;
+	background:#fff;
+	top:-9px;
+	left:-10px;
+	-webkit-transform:rotate(-20deg);
+	    -ms-transform:rotate(-20deg);
+	        transform:rotate(-20deg);
+	-webkit-box-shadow:3px 1px 0 #fff,6px 2px 0 #fff,9px 2px #fff,12px 2px 0 #fff,15px 1px 0 #fff;
+	        box-shadow:3px 1px 0 #fff,6px 2px 0 #fff,9px 2px #fff,12px 2px 0 #fff,15px 1px 0 #fff;
+}
+
+.woman .hair2 p:nth-child(1){
+	width:50px;
+	height:25px;
+	border-radius:10px 50%;
+	border-left:6px solid #754;
+	top:13px;
+	left:-13px;
+	-webkit-transform:rotate(40deg);
+	    -ms-transform:rotate(40deg);
+	        transform:rotate(40deg);
+}
+.woman .hair2 p:nth-child(1):before{
+	width:45px;
+	height:31px;
+	border-radius:50px 35px 10px 50% /40px 55px 0 20px;
+	background: #754;
+	top:-15px;
+	left:-1px;
+	-webkit-transform:rotate(3deg);
+	    -ms-transform:rotate(3deg);
+	        transform:rotate(3deg);
+}
+.woman .hair2 p:nth-child(1):after{
+	width:21px;
+	height:15px;
+	border-radius:30px 60px 0 0;
+	background:#333;
+	top:6px;
+	left:24px;
+	-webkit-transform:rotate(18deg);
+	    -ms-transform:rotate(18deg);
+	        transform:rotate(18deg);
+}
+.woman .hair2 p:nth-child(2){
+	width:20px;
+	height:27px;
+	top:13px;
+	left:28px;
+	border-right:7px solid #754;
+	border-radius:0 10px 20px 0;
+	-webkit-transform:rotate(-40deg);
+	    -ms-transform:rotate(-40deg);
+	        transform:rotate(-40deg);
+}
+.woman .hair2 p:nth-child(2):before{
+	width:40px;
+	height:30px;
+	top:20px;
+	left:-3px;
+	border-left:9px solid #754;
+	border-radius:50px 0 0 30px;
+	-webkit-transform:rotate(27deg);
+	    -ms-transform:rotate(27deg);
+	        transform:rotate(27deg);
+}
+.woman .hair2 p:nth-child(2):after{
+	width:38px;
+	height:28px;
+	top:29px;
+	left:-6px;
+	border-left:10px solid #754;
+	border-radius:10px 0 0 20px;
+	-webkit-transform:rotate(49deg);
+	    -ms-transform:rotate(49deg);
+	        transform:rotate(49deg);
+}
+.woman .hair2 p:nth-child(3){
+	width:9px;
+	height:22px;
+	top:12px;
+	left:38px;
+	overflow:hidden;
+	-webkit-transform:rotate(-22deg);
+	    -ms-transform:rotate(-22deg);
+	        transform:rotate(-22deg);
+}
+.woman .hair2 p:nth-child(3):before{
+	width:13px;
+	height:25px;
+	border:10px solid #754;
+	left:-21px;
+	top:-9px;
+	border-radius:50%;
+	-webkit-transform:rotate(54deg);
+	    -ms-transform:rotate(54deg);
+	        transform:rotate(54deg);
+}
+
+.woman .hair3 p:nth-child(1){
+	width:15px;
+	height:15px;
+	border-radius:30px 20px 30px 20px/20px 30px 20px 20px;
+	background:#545;
+	top:8px;
+	left:40px;
+}
+.woman .hair3 p:nth-child(1):before{
+	width: 50px;
+	height: 29px;
+	border-radius: 0 0 0 25px;
+	border-left: 14px solid #545;
+	top:15px;
+	left: -5px;
+	-webkit-transform: rotate(20deg);
+	    -ms-transform: rotate(20deg);
+	        transform: rotate(20deg);
+}
+.woman .hair3 p:nth-child(1):after{
+	width:3px;
+	height:10px;
+	border-radius:50%;
+	background:#545;
+	top:3px;
+	left:-1px;
+	-webkit-transform:rotate(-5deg);
+	    -ms-transform:rotate(-5deg);
+	        transform:rotate(-5deg);
+}
+.woman .hair3 p:nth-child(2){
+	width:50px;
+	height:25px;
+	border-radius:10px 50%;
+	border-left:6px solid #545;
+	top:11px;
+	left:-12px;
+	-webkit-transform:rotate(45deg);
+	    -ms-transform:rotate(45deg);
+	        transform:rotate(45deg);
+}
+.woman .hair3 p:nth-child(2):before{
+	width:45px;
+	height:31px;
+	border-radius:50px 35px 10px 50% /40px 55px 0 20px;
+	background: #545;
+	top:-13px;
+	left:-1px;
+	-webkit-transform:rotate(-2deg);
+	    -ms-transform:rotate(-2deg);
+	        transform:rotate(-2deg);
+}
+.woman .hair3 p:nth-child(2):after{
+	width:21px;
+	height:15px;
+	border-radius:30px 60px 0 0;
+	background:#333;
+	top:7px;
+	left:25px;
+	-webkit-transform:rotate(15deg);
+	    -ms-transform:rotate(15deg);
+	        transform:rotate(15deg);
+}
+.woman .hair3 p:nth-child(3){
+	width:20px;
+	height:35px;
+	top:18px;
+	left:35px;
+	border-right:6px solid #545;
+	border-radius:0 5px 20px 0;
+	-webkit-transform:rotate(-35deg);
+	    -ms-transform:rotate(-35deg);
+	        transform:rotate(-35deg);
+}
+
+.woman .hair4 p:nth-child(1){
+	width:35px;
+	height:20px;
+	border-radius:70px 50px 0 25px/50px 10px 0 30px;
+	background:#444;
+	top:-4px;
+	left:-3px;
+	-webkit-transform:rotate(15deg);
+	    -ms-transform:rotate(15deg);
+	        transform:rotate(15deg);
+}
+.woman .hair4 p:nth-child(1):before{
+	width:20px;
+	height:45px;
+	border-radius:0 50px 35px 0/0 50px 30px 0;
+	background:#444;
+	top:-6px;
+	left:24px;
+	-webkit-transform:rotate(-40deg);
+	    -ms-transform:rotate(-40deg);
+	        transform:rotate(-40deg);
+}
+.woman .hair4 p:nth-child(1):after{
+	width:20px;
+	height:30px;
+	border-radius:50px 50px 20px 10px/50px 90px 5px 10px;
+	background:#444;
+	top:-8px;
+	left:27px;
+	-webkit-transform:rotate(-30deg);
+	    -ms-transform:rotate(-30deg);
+	        transform:rotate(-30deg);
+}
+.woman .hair4 p:nth-child(2){
+	width:1px;
+	height:0px;
+	top:-7px;
+	left:23px;
+	border-top:10px solid #a22;
+	border-left:1px solid transparent;
+	border-right:1px solid transparent;
+	-webkit-transform:rotate(-5deg);
+	    -ms-transform:rotate(-5deg);
+	        transform:rotate(-5deg);
+}
+.woman .hair4 p:nth-child(2):before{
+	width:12px;
+	height:12px;
+	background:#444;
+	border-radius:50%;
+	top:17px;
+	left:11px;
+}
+.woman .hair4 p:nth-child(2):after{
+
+}
+.woman .hair4 p:nth-child(3){
+	width:30px;
+	height:20px;
+	overflow:hidden;
+	border-radius:50%;
+	top:9px;
+	left:-3px;
+	-webkit-transform:rotate(-10deg);
+	    -ms-transform:rotate(-10deg);
+	        transform:rotate(-10deg);
+}
+.woman .hair4 p:nth-child(3):before{
+	width:30px;
+	height:40px;
+	border:20px solid #444;
+	border-radius:50%;
+	top:-20px;
+	left:-40px;
+}
+.woman .hair4 p:nth-child(4){
+	width:0px;
+	height:0;
+	top:28px;
+	left:9px;
+	border:1px solid transparent;
+	border-top:5px solid #444;
+	border-right:2px solid transparent;
+}
+.woman .hair4 p:nth-child(4):before{
+	width:1px;
+	height:6px;
+	top:-29px;
+	left:-2px;
+	background:#eec;
+	border-radius:2px;
+	-webkit-box-shadow:2px -1px 0 #eec,-2px 0px 0 #eec,-2px 1px 0 #eec,-2px -1px 0 #eec,25px 28px 0 #444;
+	        box-shadow:2px -1px 0 #eec,-2px 0px 0 #eec,-2px 1px 0 #eec,-2px -1px 0 #eec,25px 28px 0 #444;
+	-webkit-transform:rotate(10deg);
+	    -ms-transform:rotate(10deg);
+	        transform:rotate(10deg);
+}
+.woman .hair4 p:nth-child(4):after{
+	width:3px;
+	height:3px;
+	border-radius:50%;
+	top:-34px;
+	left:-2px;
+	background:#ecc;
+	-webkit-box-shadow:2px 2px 0 #ecc,-2px 2px 0 #ecc,0px 4px 0 #ecc,
+		25px 4px 0 #ecc,27px 6px 0 #ecc,23px 6px 0 #ecc,25px 8px 0 #ecc;
+	        box-shadow:2px 2px 0 #ecc,-2px 2px 0 #ecc,0px 4px 0 #ecc,
+		25px 4px 0 #ecc,27px 6px 0 #ecc,23px 6px 0 #ecc,25px 8px 0 #ecc;
+}
+.woman .hair4 p:nth-child(5){
+	width:1px;
+	height:7px;
+	top:28px;
+	left:43px;
+	background:#a22;
+	-webkit-transform:rotate(-10deg);
+	    -ms-transform:rotate(-10deg);
+	        transform:rotate(-10deg);
+}
+.woman .hair4 p:nth-child(5):before{
+	width:1px;
+	height:8px;
+	top:-1px;
+	left:3px;
+	background:#a22;
+	-webkit-transform:rotate(-14deg);
+	    -ms-transform:rotate(-14deg);
+	        transform:rotate(-14deg);
+}
+.woman .hair4 p:nth-child(5):after{
+	width:2px;
+	height:2px;
+	border-radius:50%;
+	top:4px;
+	left:-1px;
+	background:#a22;
+	-webkit-box-shadow:4px -1px 0 #a22;
+	        box-shadow:4px -1px 0 #a22;
+}
+
+.woman .body{
+	width:37px;
+	height:80px;
+	background:#333;
+	border-radius:20px 20px 30px 4px/70px 40px 90px 20px;
+	top:84px;
+	left:49px;
+	-webkit-transform:rotate(10deg);
+	    -ms-transform:rotate(10deg);
+	        transform:rotate(10deg);
+}
+
+.woman .body p:nth-child(1){
+	width:25px;
+	height:45px;
+	background:#333;
+	border-radius:0 50px 30px 0/0px 50px 35px 0;
+	top:75px;
+	left:22px;
+	-webkit-transform:rotate(-10deg);
+	    -ms-transform:rotate(-10deg);
+	        transform:rotate(-10deg);
+}
+
+.woman .body p:nth-child(1):before{
+	width:20px;
+	height:28px;
+	background:#333;
+	border-radius:0 0 2px 20px/0 0 2px 15px;
+	top:-60px;
+	left:-19px;
+	-webkit-transform:rotate(39deg) skewX(-10deg);
+	    -ms-transform:rotate(39deg) skewX(-10deg);
+	        transform:rotate(39deg) skewX(-10deg);
+}
+
+.woman .body p:nth-child(1):after{
+	width:27px;
+	height:85px;
+	background:#333;
+	border-radius:50px 0 0 50px/90px 0 0 75px;
+	top:-46px;
+	left:-23px;
+	-webkit-transform:rotate(5deg);
+	    -ms-transform:rotate(5deg);
+	        transform:rotate(5deg);
+}
+
+.woman .body p:nth-child(2){
+	width:15px;
+	height:15px;
+	top:68px;
+	right:0;
+	overflow:hidden;
+	-webkit-transform:rotate(-10deg);
+	    -ms-transform:rotate(-10deg);
+	        transform:rotate(-10deg);
+}
+
+.woman .body p:nth-child(2):before{
+	width:26px;
+	height:26px;
+	border:10px solid #333;
+	border-radius:50%;
+	top:-18px;
+	left:-1px;
+}
+
+
+.woman .arm_r{
+	width:100px;
+	height:100px;
+	top:88px;
+	left:0;
+	-webkit-transform-origin:75px 18px;
+	    -ms-transform-origin:75px 18px;
+	        transform-origin:75px 18px;
+	-webkit-transform:rotate(-27deg);
+	    -ms-transform:rotate(-27deg);
+	        transform:rotate(-27deg);
+}
+
+.woman .arm_r p:nth-child(1){
+	width:16px;
+	height:64px;
+	background:#333;
+	border-radius:25px 30px 36px 15px/80px 50px 140px 100px;
+	left:48px;
+	top:-1px;
+	-webkit-transform:rotate(25deg);
+	    -ms-transform:rotate(25deg);
+	        transform:rotate(25deg);
+}
+
+.woman .arm_r p:nth-child(1):before{
+	width:13px;
+	height:22px;
+	background:#333;
+	border-radius:30px 30px 0 10px/58px 73px 0px 23px;
+	left:-12px;
+	top:47px;
+	-webkit-transform:rotate(-94deg);
+	    -ms-transform:rotate(-94deg);
+	        transform:rotate(-94deg);
+}
+
+.woman .arm_r p:nth-child(1):after{
+	width:0;
+	height:6px;
+	border-top:3px solid transparent;
+	border-bottom:4px solid transparent;
+	border-right:30px solid #333;
+	left:-36px;
+	top:52px;
+	-webkit-transform:rotate(-1deg);
+	    -ms-transform:rotate(-1deg);
+	        transform:rotate(-1deg);
+}
+.woman .arm_r p:nth-child(2){
+	width:15px;
+	height:10px;
+	background:#333;
+	left:-6px;
+	top:33px;
+	-webkit-transform:rotate(-13deg);
+	    -ms-transform:rotate(-13deg);
+	        transform:rotate(-13deg);
+	border-radius:5px 12px 0 5px/3px 5px 0 5px;
+}
+.woman .arm_r p:nth-child(2):before{
+	width:10px;
+	height:3px;
+	background:#333;
+	left:-4px;
+	top:-2px;
+	-webkit-transform:rotate(21deg);
+	    -ms-transform:rotate(21deg);
+	        transform:rotate(21deg);
+	border-radius:19px 0 0 4px/3px 5px 0 3px;
+}
+.woman .arm_r p:nth-child(2):after{
+	width:6px;
+	height:3px;
+	background:#333;
+	left:-4px;
+	top:1px;
+	-webkit-transform:rotate(-25deg);
+	    -ms-transform:rotate(-25deg);
+	        transform:rotate(-25deg);
+	border-radius:19px 0 0 4px/13px 5px 0 3px;
+	-webkit-box-shadow:-1px 3px #333,-3px 6px #333;
+	        box-shadow:-1px 3px #333,-3px 6px #333;
+}
+
+.woman .arm_l{
+	width:100px;
+	height:100px;
+	top:89px;
+	left:1px;
+	-webkit-transform-origin:75px 14px;
+	    -ms-transform-origin:75px 14px;
+	        transform-origin:75px 14px;
+	-webkit-transform:rotate(-13deg);
+	    -ms-transform:rotate(-13deg);
+	        transform:rotate(-13deg);
+	z-index:3;
+}
+
+.woman .arm_l p:nth-child(1){
+	width:16px;
+	height:64px;
+	background:#333;
+	border-radius:25px 30px 36px 15px/80px 50px 140px 100px;
+	left:57px;
+	top:5px;
+	-webkit-transform:rotate(33deg);
+	    -ms-transform:rotate(33deg);
+	        transform:rotate(33deg);
+}
+
+.woman .arm_l p:nth-child(1):before{
+	width:15px;
+	height:22px;
+	background:#333;
+	border-radius:30px 30px 0 10px/58px 73px 0px 23px;
+	left:-9px;
+	top:44px;
+	-webkit-transform:rotate(-76deg);
+	    -ms-transform:rotate(-76deg);
+	        transform:rotate(-76deg);
+}
+
+.woman .arm_l p:nth-child(1):after{
+	width:0;
+	height:7px;
+	border-top:1px solid transparent;
+	border-bottom:5px solid transparent;
+	border-right:28px solid #333;
+	left:-33px;
+	top:45px;
+	-webkit-transform:rotate(12deg);
+	    -ms-transform:rotate(12deg);
+	        transform:rotate(12deg);
+}
+
+.woman .arm_l p:nth-child(2){
+	width:15px;
+	height:15px;
+	background:#333;
+	left:12px;
+	top:21px;
+	border-radius:7px 7px 12px 3px/5px 9px 8px 5px;
+	-webkit-transform:rotate(13deg);
+	    -ms-transform:rotate(13deg);
+	        transform:rotate(13deg);
+}
+
+.woman .arm_l p:nth-child(2):before{
+	width:5px;
+	height:4px;
+	background:#333;
+	top:1px;
+	left:-1px;
+	border-radius:50% 0 0 50%;
+	-webkit-transform:rotate(-9deg);
+	    -ms-transform:rotate(-9deg);
+	        transform:rotate(-9deg);
+	-webkit-box-shadow:-0.5px 4px #333,-1px 7px #333,-2px 10px #333;
+	        box-shadow:-0.5px 4px #333,-1px 7px #333,-2px 10px #333;
+}
+
+.woman .arm_l p:nth-child(2):after{
+	width:3px;
+	height:8px;
+	background:#333;
+	left:7px;
+	top:-4px;
+	border-radius:5px 1px 3px 0;
+	-webkit-transform:rotate(-56deg);
+	    -ms-transform:rotate(-56deg);
+	        transform:rotate(-56deg);
+}
+
+.woman .arm_l p:nth-child(3){
+	width:5px;
+	height:5px;
+	background:#333;
+	left:46px;
+	top:46px;
+}
+.woman .arm_l p:nth-child(3):before{
+	width:5px;
+	height:3px;
+	left:-38px;
+	top:-15px;
+	background:#333;
+	border-radius:15px 0 0 3px;
+	border-radius:50%;
+	-webkit-transform:rotate(-9deg);
+	    -ms-transform:rotate(-9deg);
+	        transform:rotate(-9deg);
+}
+.woman .arm_l p:nth-child(3):after{
+	width:12px;
+	height:10px;
+	left:-25px;
+	top:-19px;
+	background:#333;
+	border-radius:3px;
+	-webkit-transform:rotate(37deg) skewX(38deg);
+	    -ms-transform:rotate(37deg) skewX(38deg);
+	        transform:rotate(37deg) skewX(38deg);
+}
+
+.woman .foot_l{
+	width:38px;
+	height:95px;
+	background:#333;
+	border-radius:15px 10px 36px 15px/85px 10px 138px 55px;
+	top:169px;
+	left:42px;
+	-webkit-transform:rotate(-14deg);
+	    -ms-transform:rotate(-14deg);
+	        transform:rotate(-14deg);
+	-webkit-transform-origin:15px 18px;
+	    -ms-transform-origin:15px 18px;
+	        transform-origin:15px 18px;
+}
+
+.woman .foot_l p:nth-child(1){
+	width:20px;
+	height:70px;
+	background:#333;
+	border-radius:15px 10px 50px 20px/85px 10px 150px 150px;
+	top:91px;
+	left:-8px;
+	-webkit-transform:rotate(15deg);
+	    -ms-transform:rotate(15deg);
+	        transform:rotate(15deg);
+}
+
+.woman .foot_l p:nth-child(1):before{
+	width:15px;
+	height:20px;
+	top:-10px;
+	left:-1px;
+	background:#333;
+	border-radius:10px 0 0 20px/ 20px 0 0 20px;
+}
+
+.woman .foot_l p:nth-child(1):after{
+	width:35px;
+	height:6px;
+	top:92px;
+	left:-16px;
+	background:#333;
+	border-radius:4px 5px 19px 25px/6px 5px 15px 10px;
+	-webkit-transform:rotate(-8deg);
+	    -ms-transform:rotate(-8deg);
+	        transform:rotate(-8deg);
+}
+.woman .foot_l p:nth-child(2){
+	width:35px;
+	height:34px;
+	top:146px;
+	left:-30px;
+	overflow:hidden;
+	-webkit-transform:rotate(11deg);
+	    -ms-transform:rotate(11deg);
+	        transform:rotate(11deg);
+}
+
+.woman .foot_l p:nth-child(2):before,
+.woman .foot_l p:nth-child(2):after{
+	width:200px;
+	height:150px;
+	border:10px solid #333;
+	top:-78px;
+	left:-195px;
+	border-radius:50%;
+}
+
+.woman .foot_l p:nth-child(2):after{
+	top:-69px;
+	left:17px;
+}
+
+.woman .foot_l p:nth-child(3){
+	width:10px;
+	height:55px;
+	background:#333;
+	border-radius:0 50px 30px 4px/0 180px 100px 2px;
+	top:96px;
+	left:5px;
+	-webkit-transform:rotate(25deg);
+	    -ms-transform:rotate(25deg);
+	        transform:rotate(25deg);
+}
+
+.woman .foot_l p:nth-child(4){
+	width:40px;
+	height:11px;
+	overflow:hidden;
+	top:172px;
+	left:-43px;
+	-webkit-transform:rotate(3deg);
+	    -ms-transform:rotate(3deg);
+	        transform:rotate(3deg);
+}
+.woman .foot_l p:nth-child(4):before{
+	width:24px;
+	height:10px;
+	top:2px;
+	left:6px;
+	background:#333;
+	-webkit-transform:rotate(-24deg);
+	    -ms-transform:rotate(-24deg);
+	        transform:rotate(-24deg);
+}
+.woman .foot_l p:nth-child(4):after{
+	width:10px;
+	height:3px;
+	border-radius:1px 0 0 5px;
+	background:#333;
+	top:4px;
+	left:3px;
+	-webkit-transform:rotate(4deg);
+	    -ms-transform:rotate(4deg);
+	        transform:rotate(4deg);
+}
+
+.woman .foot_l p:nth-child(5){
+	width:10px;
+	height:30px;
+	overflow:hidden;
+	top:81px;
+	left:13px;
+	-webkit-transform:rotate(15deg);
+	    -ms-transform:rotate(15deg);
+	        transform:rotate(15deg);
+}
+
+.woman .foot_l p:nth-child(5):before{
+	width:10px;
+	height:35px;
+	border:5px solid #333;
+	border-radius:50%;
+	top:-8px;
+	left:3px;
+}
+.woman .foot_r{
+	top:165px;
+	left:33px;
+	-webkit-transform:rotate(-19deg);
+	    -ms-transform:rotate(-19deg);
+	        transform:rotate(-19deg);
+	-webkit-transform-origin:30px 18px;
+	    -ms-transform-origin:30px 18px;
+	        transform-origin:30px 18px;
+	width:45px;
+	height:200px;
+}
+.woman .foot_r p:nth-child(1){
+	width:20px;
+	height:70px;
+	background:#333;
+	top:87px;
+	left:-14px;
+	border-radius: 15px 10px 50px 20px/85px 10px 150px 150px;
+	-webkit-transform:rotate(-23deg);
+	    -ms-transform:rotate(-23deg);
+	        transform:rotate(-23deg);
+}
+
+.woman .foot_r p:nth-child(1):before{
+	width:36px;
+	height:99px;
+	    background:#333;
+	    border-radius: 15px 10px 36px 15px/85px 10px 138px 55px;
+	    top:-71px;
+	    left:28px;
+	    -webkit-transform: rotate(50deg);
+	        -ms-transform: rotate(50deg);
+	            transform: rotate(50deg);
+}
+
+.woman .foot_r p:nth-child(2){
+	width:35px;
+	height:33px;
+	top:143px;
+	left:-12px;
+	overflow:hidden;
+	-webkit-transform:rotate(-29deg);
+	    -ms-transform:rotate(-29deg);
+	        transform:rotate(-29deg);
+}
+
+.woman .foot_r p:nth-child(2):before,
+.woman .foot_r p:nth-child(2):after{
+	width:200px;
+	height:150px;
+	border:10px solid #333;
+	top:-81px;
+	left:-194px;
+	border-radius:50%;
+}
+
+.woman .foot_r p:nth-child(2):after{
+	top:-64px;
+	left:17px;
+}
+
+.woman .foot_r p:nth-child(3){
+	width:10px;
+	height:54px;
+	background:#333;
+	border-radius:0 50px 42px 4px/0 98px 73px 2px;
+	top:91px;
+	left:-4px;
+	-webkit-transform:rotate(-10deg);
+	    -ms-transform:rotate(-10deg);
+	        transform:rotate(-10deg);
+}
+.woman .foot_r p:nth-child(3):before{
+	width:30px;
+	height:9px;
+	background:#333;
+	border-radius:65px 15px 10px 30px/14px 15px 20px 13px;
+	top:84px;
+	left:-10px;
+	-webkit-transform:rotate(-27deg);
+	    -ms-transform:rotate(-27deg);
+	        transform:rotate(-27deg);
+}
+.woman .foot_r p:nth-child(3):after{
+	width:6px;
+	height:4px;
+	border-radius: 1px 0 0 5px;
+	background: #333;
+	top:92px;
+	left:-13px;
+	-webkit-transform: rotate(1deg);
+	    -ms-transform: rotate(1deg);
+	        transform: rotate(1deg);
+}
+
+.woman .foot_r p:nth-child(4){
+	width:10px;
+	height:13px;
+	overflow:hidden;
+	top:84px;
+	left:-8px;
+}
+
+.woman .foot_r p:nth-child(4):before{
+	width:10px;
+	height:14px;
+	border:5px solid #333;
+	border-radius:50%;
+	top:-3px;
+	left:2px;
+}
+
+.woman .wa{
+	z-index:2;
+}
+.woman .wa2{
+	z-index:5;
+}
+.woman .wa p:nth-child(1){
+	width:50px;
+	height:50px;
+	top:75px;
+	left:44px;
+	overflow:hidden;
+	-webkit-transform:rotate(-16deg);
+	    -ms-transform:rotate(-16deg);
+	        transform:rotate(-16deg);
+}
+.woman .wa p:nth-child(1):before{
+	width:33px;
+	height:36px;
+	top:3px;
+	left:10px;
+	background:#ccf;
+	border-radius:90px 0 0 0/80px 0 0 0;
+	-webkit-transform:rotate(35deg);
+	    -ms-transform:rotate(35deg);
+	        transform:rotate(35deg);
+}
+.woman .wa p:nth-child(2){
+	width:37px;
+	height:60px;
+	background:#ccf;
+	border-radius:20px 20px 30px 4px/70px 40px 90px 20px;
+	top:86px;
+	left:54px;
+}
+.woman .wa p:nth-child(2):before{
+	width:30px;
+	height:28px;
+	background:#ccf;
+	border-radius: 0 0 2px 20px/0 0 2px 15px;
+	top:21px;
+	left:-17px;
+	-webkit-transform: rotate(36deg) skewX(-10deg);
+	    -ms-transform: rotate(36deg) skewX(-10deg);
+	        transform: rotate(36deg) skewX(-10deg);
+}
+.woman .wa p:nth-child(2):after{
+	width:40px;
+	height:40px;
+	background:#ccf;
+	border-radius:5px 5px 5px 5px/20px 20px 5px 10px;
+	top:46px;
+	left:-16px;
+	-webkit-transform:skewX(-10deg);
+	    -ms-transform:skewX(-10deg);
+	        transform:skewX(-10deg);
+}
+.woman .wa p:nth-child(3){
+	width:40px;
+	height:34px;
+	background:#a22;
+	top:135px;
+	left:38px;
+	border-radius:10px 30px 76px 25px/40px 9px 38px 5px;
+	-webkit-transform: rotate(8deg);
+	    -ms-transform: rotate(8deg);
+	        transform: rotate(8deg);
+}
+.woman .wa p:nth-child(3):before{
+	width:55px;
+	height:110px;
+	background:#ccf;
+	top:23px;
+	left:5px;
+	border-radius:19px 16px 76px 25px/80px 35px 130px 150px;
+	-webkit-transform: rotate(-13deg);
+	    -ms-transform: rotate(-13deg);
+	        transform: rotate(-13deg);
+}
+.woman .wa p:nth-child(3):after{
+	width:46px;
+	height:125px;
+	background:#ccf;
+	top:80px;
+	left:23px;
+	border-radius:28px 43px 76px 0/70px 0px 38px 5px;
+	-webkit-transform: rotate(-15deg);
+	    -ms-transform: rotate(-15deg);
+	        transform: rotate(-15deg);
+}
+.woman .wa p:nth-child(4){
+	width:40px;
+	height:2px;
+	background:#fff;
+	top:146px;
+	left:39px;
+	-webkit-transform: rotate(5deg);
+	    -ms-transform: rotate(5deg);
+	        transform: rotate(5deg);
+}
+.woman .wa p:nth-child(4):before{
+	width:20px;
+	height:35px;
+	border-radius:8px;
+	background:#a22;
+	top:-16px;
+	left:40px;
+	-webkit-transform: rotate(4deg);
+	    -ms-transform: rotate(4deg);
+	        transform: rotate(4deg);
+	border-radius:28px 43px 76px 10px/70px 5px 38px 5px;
+}
+.woman .wa p:nth-child(4):after{
+	width:26px;
+	height:7px;
+	top:205px;
+	left:25px;
+	border-radius:50%;
+	border-top:2px solid #a22;
+}
+.woman .wa p:nth-child(5){
+	width:34px;
+	height:10px;
+	top:353px;
+	left:43px;
+	overflow:hidden;
+	border-radius:0 0 60px 10px/0 0 8px 10px;
+}
+.woman .wa p:nth-child(5):before{
+	width:80px;
+	height:10px;
+	top:-17px;
+	left:-25px;
+	border:10px solid #996;
+	-webkit-transform: rotate(-10deg);
+	    -ms-transform: rotate(-10deg);
+	        transform: rotate(-10deg);
+	border-radius:50%;
+}
+
+.woman .wa2 p:nth-child(1){
+	width:37px;
+	height:50px;
+	top:135px;
+	left:28px;
+	overflow:hidden;
+	-webkit-transform: rotate(21deg);
+	    -ms-transform: rotate(21deg);
+	        transform: rotate(21deg);
+}
+.woman .wa2 p:nth-child(1):before{
+	width:40px;
+	height:50px;
+	border-radius:20px 0 50px 10px;
+	background:#ccf;
+	top:-10px;
+	-webkit-transform: rotate(-11deg) skewX(-10deg);
+	    -ms-transform: rotate(-11deg) skewX(-10deg);
+	        transform: rotate(-11deg) skewX(-10deg);
+}
+.woman .wa2 p:nth-child(2){
+	width:25px;
+	height:75px;
+	border-radius:20px 10px 50px 10px;
+	background:#ccf;
+	top:93px;
+	left:55px;
+	-webkit-transform: rotate(20deg);
+	    -ms-transform: rotate(20deg);
+	        transform: rotate(20deg);
+}
+
+.woman .wa2 p:nth-child(3),
+.woman .wa2 p:nth-child(4),
+.woman .wa2 p:nth-child(5),
+.woman .wa2 p:nth-child(6){
+	width:5px;
+	height:5px;
+	border-radius:30px 20px 0 20px;
+	background:#ecc;
+}
+.woman .wa2 p:nth-child(3){
+	top:35px;
+	left:80px;
+	-webkit-transform: rotate(0deg);
+	    -ms-transform: rotate(0deg);
+	        transform: rotate(0deg);
+}
+.woman .wa2 p:nth-child(4){
+	top:35px;
+	left:86px;
+	-webkit-transform: rotate(90deg);
+	    -ms-transform: rotate(90deg);
+	        transform: rotate(90deg);
+}
+.woman .wa2 p:nth-child(5){
+	top:41px;
+	left:86px;
+	-webkit-transform: rotate(180deg);
+	    -ms-transform: rotate(180deg);
+	        transform: rotate(180deg);
+}
+.woman .wa2 p:nth-child(6){
+	top:41px;
+	left:80px;
+	-webkit-transform: rotate(270deg);
+	    -ms-transform: rotate(270deg);
+	        transform: rotate(270deg);
+}
+.woman .wa2 p:nth-child(3):before,
+.woman .wa2 p:nth-child(3):after,
+.woman .wa2 p:nth-child(4):before,
+.woman .wa2 p:nth-child(4):after,
+.woman .wa2 p:nth-child(5):before,
+.woman .wa2 p:nth-child(5):after,
+.woman .wa2 p:nth-child(6):before,
+.woman .wa2 p:nth-child(6):after{
+	width:7px;
+	height:2px;
+	border-radius:50%;
+	background:#daa;
+}
+.woman .wa2 p:nth-child(3):before,
+.woman .wa2 p:nth-child(4):before,
+.woman .wa2 p:nth-child(5):before,
+.woman .wa2 p:nth-child(6):before{
+	bottom:-1px;
+	left:-2px;
+	-webkit-transform: rotate(30deg);
+	    -ms-transform: rotate(30deg);
+	        transform: rotate(30deg);
+}
+.woman .wa2 p:nth-child(3):after,
+.woman .wa2 p:nth-child(4):after,
+.woman .wa2 p:nth-child(5):after,
+.woman .wa2 p:nth-child(6):after{
+	bottom:1px;
+	left:-1px;
+	-webkit-transform: rotate(60deg);
+	    -ms-transform: rotate(60deg);
+	        transform: rotate(60deg);
+}
+
+.woman .dress{
+	z-index:2;
+}
+.woman .dress p:nth-child(1){
+	width:24px;
+	height:12px;
+	top:96px;
+	left:49px;
+	overflow:hidden;
+	-webkit-transform:rotate(-37deg);
+	    -ms-transform:rotate(-37deg);
+	        transform:rotate(-37deg);
+}
+
+.woman .dress p:nth-child(1):before{
+	width:40px;
+	height:20px;
+	top:-23px;
+	left:-10px;
+	border:10px solid rgba(255,255,255,0.97);
+	border-radius:0 0 34px 20px/0 0 16px 18px;
+	-webkit-transform:rotate(4deg);
+	    -ms-transform:rotate(4deg);
+	        transform:rotate(4deg);
+}
+
+.woman .dress p:nth-child(2){
+	width:60px;
+	height:103px;
+	overflow:hidden;
+	top:96px;
+	left:54px;
+	-webkit-transform:rotate(-29deg);
+	    -ms-transform:rotate(-29deg);
+	        transform:rotate(-29deg);
+	border-radius:0 17px 0 0;
+}
+
+.woman .dress p:nth-child(2):before{
+	width:43px;
+	height:60px;
+	top:-11px;
+	left:8px;
+	background:#fff;
+	background:rgba(255,255,255,0.96);
+	border-radius:20px 20px 30px 4px/70px 40px 90px 20px;
+	-webkit-transform:rotate(32deg);
+	    -ms-transform:rotate(32deg);
+	        transform:rotate(32deg);
+}
+
+.woman .dress p:nth-child(3){
+	width:27px;
+	height:23px;
+	overflow:hidden;
+	top:107px;
+	left:32px;
+	-webkit-transform:rotate(48deg);
+	    -ms-transform:rotate(48deg);
+	        transform:rotate(48deg);
+	border-radius:0 20px 20px 20px/0 45px 1px 15px;
+}
+
+.woman .dress p:nth-child(3):before{
+	width: 20px;
+	height: 28px;
+	background:rgba(255,255,255,0.98);
+	border-radius: 0 0 2px 20px/0 0 2px 15px;
+	top: -5px;
+	left:5px;
+	-webkit-transform: rotate(-14deg) skewX(-10deg);
+	    -ms-transform: rotate(-14deg) skewX(-10deg);
+	        transform: rotate(-14deg) skewX(-10deg);
+}
+
+.woman .dress p:nth-child(4){
+	width:38px;
+	height:34px;
+	background:rgba(255,255,255,1);
+	top:134px;
+	left:38px;
+	border-radius:17px 1px 76px 25px/48px 9px 38px 5px;
+	-webkit-transform: rotate(8deg);
+	    -ms-transform: rotate(8deg);
+	        transform: rotate(8deg);
+}
+.woman .dress p:nth-child(4):before{
+	width:70px;
+	height:170px;
+	background:rgba(255,255,255,0.98);
+	top:20px;
+	left:12px;
+	border-radius:28px 43px 76px 25px/70px 185px 38px 5px;
+	-webkit-transform: rotate(-16deg);
+	    -ms-transform: rotate(-16deg);
+	        transform: rotate(-16deg);
+}
+.woman .dress p:nth-child(4):after{
+	width:40px;
+	height:170px;
+	background:rgba(255,255,255,0.9);
+	top:27px;
+	left:7px;
+	border-radius:28px 43px 0 76px/70px 0px 5px 38px;
+	-webkit-transform: rotate(-9deg);
+	    -ms-transform: rotate(-9deg);
+	        transform: rotate(-9deg);
+}
+.woman .dress:before{
+	width:3px;
+	height:3px;
+	top:63px;
+	left:68px;
+	background:#fff;
+	border-radius:50%;
+	-webkit-box-shadow:-11px 30px #fff,-8px 31px #fff,-5px 31px #fff,-2px 30px #fff,1px 29px #fff,3px 27px #fff,5px 25px #fff,7px 23px #fff,9px 21px #fff,11px 19px #fff;
+	        box-shadow:-11px 30px #fff,-8px 31px #fff,-5px 31px #fff,-2px 30px #fff,1px 29px #fff,3px 27px #fff,5px 25px #fff,7px 23px #fff,9px 21px #fff,11px 19px #fff;
+}
+
+
+.woman .heel p:nth-child(1){
+	width:29px;
+	height:14px;
+	overflow: hidden;
+	border-radius:0 50px 30px 0/0px 50px 30px 0;
+	top:346px;
+	left:52px;
+	-webkit-transform: rotate(-20deg);
+	    -ms-transform: rotate(-20deg);
+	        transform: rotate(-20deg);
+}
+.woman .heel p:nth-child(1):before{
+	width:60px;
+	height:35px;
+	border:13px solid #fff;
+	border-radius:0 0 3px 30px/0px 0 3px 30px;
+	left:-29px;
+	top:-41px;
+	-webkit-transform: rotate(-20deg);
+	    -ms-transform: rotate(-20deg);
+	        transform: rotate(-20deg);
+}
+.woman .heel p:nth-child(2){
+	width:22px;
+	height:8px;
+	top:362px;
+	left:41px;
+	background:#fff;
+	border-radius:45px 0 23px 50px/20px 0 20px 11px;
+}
+
+.woman .heel p:nth-child(3){
+	width:20px;
+	height:10px;
+	overflow:hidden;
+	top:358px;
+	left:60px;
+	-webkit-transform: rotate(-20deg);
+	    -ms-transform: rotate(-20deg);
+	        transform: rotate(-20deg);
+}
+.woman .heel p:nth-child(3):before{
+	width:39px;
+	height:14px;
+	top:-10px;
+	left:-14px;
+	border:10px solid #fff;
+	border-radius:50%;
+	-webkit-transform: rotate(-16deg);
+	    -ms-transform: rotate(-16deg);
+	        transform: rotate(-16deg);
+}
+.woman .heel p:nth-child(3):after{
+	width:1px;
+	height:0px;
+	top:0px;
+	left:14px;
+	border-right:2px solid transparent;
+	border-top:17px solid #fff;
+	-webkit-transform: rotate(19deg);
+	    -ms-transform: rotate(19deg);
+	        transform: rotate(19deg);
+}
+.woman .heel p:nth-child(4){
+	width:43px;
+	height:11px;
+	overflow: hidden;
+	border-radius:0 30px 50px 0/0px 50px 50px 0;
+	top:337px;
+	left:71px;
+	-webkit-transform: rotate(-40deg);
+	    -ms-transform: rotate(-40deg);
+	        transform: rotate(-40deg);
+}
+.woman .heel p:nth-child(4):before{
+	width:60px;
+	height:35px;
+	border:13px solid #fff;
+	border-radius:0 0 3px 30px/0px 0 3px 30px;
+	left:-29px;
+	top:-35px;
+	-webkit-transform: rotate(-30deg);
+	    -ms-transform: rotate(-30deg);
+	        transform: rotate(-30deg);
+}
+.woman .heel p:nth-child(5){
+	width:20px;
+	height:7px;
+	top:348px;
+	left:82px;
+	background:#fff;
+	border-radius:60px 0 60px 70px/26px 0 50px 20px;
+	-webkit-transform: rotate(-20deg);
+	    -ms-transform: rotate(-20deg);
+	        transform: rotate(-20deg);
+}
+.woman .heel p:nth-child(6){
+	width:20px;
+	height:10px;
+	overflow:hidden;
+	top:339px;
+	left:96px;
+	-webkit-transform: rotate(-40deg);
+	    -ms-transform: rotate(-40deg);
+	        transform: rotate(-40deg);
+}
+.woman .heel p:nth-child(6):before{
+	width:45px;
+	height:14px;
+	top:-10px;
+	left:-17px;
+	border:10px solid #fff;
+	border-radius:50%;
+	-webkit-transform: rotate(-16deg);
+	    -ms-transform: rotate(-16deg);
+	        transform: rotate(-16deg);
+}
+.woman .heel p:nth-child(6):after{
+	width:1px;
+	height:0px;
+	top:0px;
+	left:14px;
+	border-right:2px solid transparent;
+	border-top:8px solid #fff;
+	border-left:0px solid transparent;
+	-webkit-transform: rotate(13deg);
+	    -ms-transform: rotate(13deg);
+	        transform: rotate(13deg);
+}
+
+
+.parasol{
+	width:100px;
+	height:100px;
+	top:-1px;
+	left:-13px;
+	z-index:4;
+	-webkit-transform:rotate(11deg);
+	    -ms-transform:rotate(11deg);
+	        transform:rotate(11deg);
+}
+.parasol p:nth-child(1){
+	width:3px;
+	height:150px;
+	background:#333;
+	top:8px;
+	left:47px;
+}
+
+.parasol p:nth-child(1):before{
+	width:1px;
+	height:20px;
+	top:-20px;
+	left:1px;
+	background:#333;
+}
+
+.parasol p:nth-child(1):after{
+	width:10px;
+	height:10px;
+	top:145px;
+	left:-13px;
+	border-radius:0 0 20px 20px;
+	border:3px solid #333;
+	border-top:0px solid transparent;
+}
+
+.parasol p:nth-child(2){
+	width:200px;
+	height:40px;
+	top:-7px;
+	left:-50px;
+	overflow:hidden;
+}
+
+.parasol p:nth-child(2):before{
+	width:151px;
+	height:50px;
+	background:#fff;
+	border-radius:150px 150px 0 0/90px 90px 0 0;
+	top:0;
+	left:25px;
+}
+
+.parasol p:nth-child(3),
+.parasol p:nth-child(4),
+.parasol p:nth-child(5){
+	width:50px;
+	height:20px;
+	top:30px;
+	left:-25px;
+	overflow:hidden;
+}
+.parasol p:nth-child(4){
+	left:25px;
+}
+.parasol p:nth-child(5){
+	left:75px;
+}
+
+.parasol p:nth-child(3):before,
+.parasol p:nth-child(4):before,
+.parasol p:nth-child(5):before{
+	width:62px;
+	height:30px;
+	border:11px solid #fff;
+	top:-8px;
+	left:-17px;
+	border-radius:50%;
+	-webkit-transform:rotate(10deg);
+	    -ms-transform:rotate(10deg);
+	        transform:rotate(10deg);
+}
+.parasol p:nth-child(4):before{
+	top:-5px;
+	-webkit-transform:rotate(0deg);
+	    -ms-transform:rotate(0deg);
+	        transform:rotate(0deg);
+}
+.parasol p:nth-child(5):before{
+	top:-8px;
+	left:-17px;
+	-webkit-transform:rotate(-10deg);
+	    -ms-transform:rotate(-10deg);
+	        transform:rotate(-10deg);
+}
+
+
+
+.parasol p:nth-child(8){
+	width:150px;
+	height:100px;
+	overflow:hidden;
+	top: -2px;
+	left:-32px;
+	-webkit-transform: rotate(-24deg) skewX(43deg);
+	    -ms-transform: rotate(-24deg) skewX(43deg);
+	        transform: rotate(-24deg) skewX(43deg);
+}
+.parasol p:nth-child(8):before{
+	width:133px;
+	height:26px;
+	left:-68px;
+	top:-72px;
+	border-radius:50%;
+	border:100px solid transparent;
+	border-top:100px solid #a22;
+	-webkit-transform:rotate(37deg);
+	    -ms-transform:rotate(37deg);
+	        transform:rotate(37deg);
+}
+.parasol p:nth-child(8):after{
+	width:150px;
+	height:50px;
+	left:68px;
+	background:#a22;
+	-webkit-transform:rotate(37deg);
+	    -ms-transform:rotate(37deg);
+	        transform:rotate(37deg);
+}
+.parasol p:nth-child(9){
+	width:15px;
+	height:7px;
+	background:#a22;
+	top:-12px;
+	left:42px;
+	border-radius:7px 7px 0 0/3px 3px 0 0;
+}
+.woman .face p:nth-child(5){
+	width:177px;
+	height:10px;
+	left:-96px;
+	top:4px;
+	border-radius:0 0 177px 177px/0 0 20px 20px;
+	background:#a99;
+	z-index:-1;
+	opacity:0;
+	-webkit-transform:rotate(8deg);
+	    -ms-transform:rotate(8deg);
+	        transform:rotate(8deg);
+}
+.woman .face p:nth-child(5):before{
+	width:177px;
+	height:10px;
+	background:#a99;
+	z-index:-1;
+	border-radius:50%;
+	top:-5px;
+	left:0;
+
+}
+
+.dog .head{
+	width:40px;
+	height:35px;
+	top:0;
+	left:0;
+}
+.dog .head p:nth-child(1){
+	width:29px;
+	height:28px;
+	background:#333;
+	border-radius:40px 30px 0 0/40px 30px 0 0;
+	top:0px;
+	left:10px;
+}
+.dog .head p:nth-child(1):before{
+	width:18px;
+	height:16px;
+	border-radius:5px 0 0 8px;
+	background:#333;
+	top:12px;
+	left:-9px;
+	-webkit-transform:rotate(-25deg);
+	    -ms-transform:rotate(-25deg);
+	        transform:rotate(-25deg);
+}
+.dog .head p:nth-child(1):after{
+	width:6px;
+	height:26px;
+	border-radius:7px;
+	background:#333;
+	top:4px;
+	left:1px;
+	-webkit-transform:rotate(10deg);
+	    -ms-transform:rotate(10deg);
+	        transform:rotate(10deg);
+}
+.dog .head p:nth-child(2){
+	width:3px;
+	height:3px;
+	border-radius:6px;
+	background:#333;
+	top:15px;
+	left:-1px;
+}
+.dog .head p:nth-child(2):before{
+	width:27px;
+	height:50px;
+	border-radius:8px;
+	background:#333;
+	top:-6px;
+	left:24px;
+	-webkit-transform:rotate(-25deg);
+	    -ms-transform:rotate(-25deg);
+	        transform:rotate(-25deg);
+}
+.dog .head p:nth-child(3){
+	width:6px;
+	height:23px;
+	overflow:hidden;
+	top:26px;
+	left:17px;
+	-webkit-transform:rotate(-22deg);
+	    -ms-transform:rotate(-22deg);
+	        transform:rotate(-22deg);
+}
+.dog .head p:nth-child(3):before{
+	width:10px;
+	height:16px;
+	border-radius:0 15px 20px 0;
+	border:10px solid #333;
+	top:-8px;
+	left:-16px;
+	-webkit-transform:rotate(15deg);
+	    -ms-transform:rotate(15deg);
+	        transform:rotate(15deg);
+}
+.dog .head p:nth-child(4){
+	width:10px;
+	height:20px;
+	border:5px solid transparent;
+	border-right:5px solid #333;
+	border-radius:50%;
+	top:-19px;
+	right:1px;
+	-webkit-transform:rotate(25deg);
+	    -ms-transform:rotate(25deg);
+	        transform:rotate(25deg);
+}
+.dog .head p:nth-child(4):before{
+	width:10px;
+	height:5px;
+	border-radius:0 0 5px 5px;
+	top:-2px;
+	left:4px;
+	background:#333;
+	-webkit-transform:rotate(-41deg);
+	    -ms-transform:rotate(-41deg);
+	        transform:rotate(-41deg);
+}
+
+.dog .body{
+	width:50px;
+	height:100px;
+	top:20px;
+	left:35px;
+	-webkit-transform:rotate(-40deg);
+	    -ms-transform:rotate(-40deg);
+	        transform:rotate(-40deg);
+}
+.dog .body p:nth-child(1){
+	width:42px;
+	height:50px;
+	border-radius:15px;
+	background:#333;
+	top:1px;
+	left:1px;
+	-webkit-transform:rotate(15deg);
+	    -ms-transform:rotate(15deg);
+	        transform:rotate(15deg);
+	border-radius:15px 8px 0 10px/22px 57px 0 33px;
+}
+.dog .body p:nth-child(1):before{
+	width:42px;
+	height:50px;
+	border-radius:15px;
+	background:#333;
+	top:20px;
+	left:5px;
+	border-radius:30px 8px 20px 42px/30px 57px 44px 100px;
+	-webkit-transform:rotate(-15deg);
+	    -ms-transform:rotate(-15deg);
+	        transform:rotate(-15deg);
+}
+.dog .body p:nth-child(2){
+	width:25px;
+	height:30px;
+	border-radius:50%;
+	border:5px solid #333;
+	border-top:10px solid transparent;
+	border-right:2px solid transparent;
+	top:79px;
+	left:22px;
+	-webkit-transform:rotate(-70deg);
+	    -ms-transform:rotate(-70deg);
+	        transform:rotate(-70deg);
+}
+.dog .body p:nth-child(2):before{
+	width:3px;
+	height:6px;
+	border-radius:50%;
+	top:21px;
+	left:22px;
+	background:#333;
+	-webkit-transform:rotate(22deg);
+	    -ms-transform:rotate(22deg);
+	        transform:rotate(22deg);
+}
+.dog .body p:nth-child(3){
+	width: 13px;
+	height: 8px;
+	top: 44px;
+	left: -7px;
+	background: #333;
+	-webkit-transform: rotate(-19deg);
+	    -ms-transform: rotate(-19deg);
+	        transform: rotate(-19deg);
+}
+
+.dog .foot_f{
+	width:10px;
+	height:50px;
+	top:70px;
+	left:32px;
+}
+.dog .foot_f p:nth-child(1){
+	width:12px;
+	height:5px;
+	left:-5px;
+	bottom:0;
+	border-radius:30px 0 20px 10px/20px 0 30px 0;
+	background:#333;
+}
+.dog .foot_f p:nth-child(1):before,
+.dog .foot_f p:nth-child(1):after{
+	width:9px;
+	height:4px;
+	left:1px;
+	bottom:2px;
+	border-radius:30px 0 20px 10px/20px 0 30px 0;
+	background:#333;
+	-webkit-transform:rotate(5deg);
+	    -ms-transform:rotate(5deg);
+	        transform:rotate(5deg);
+}
+.dog .foot_f p:nth-child(1):after{
+	bottom:-1px;
+	left:2px;
+	-webkit-transform:rotate(-13deg);
+	    -ms-transform:rotate(-13deg);
+	        transform:rotate(-13deg);
+}
+.dog .foot_f p:nth-child(2){
+	width:10px;
+	height:42px;
+	overflow:hidden;
+	top:0px;
+	left:-4px;
+	-webkit-transform:rotate(-5deg);
+	    -ms-transform:rotate(-5deg);
+	        transform:rotate(-5deg);
+}
+.dog .foot_f p:nth-child(2):before{
+	width:10px;
+	height:100px;
+	border-radius:50%;
+	border:10px solid #333;
+	top:-25px;
+	left:-15px;
+}
+.dog .foot_f p:nth-child(3){
+	width:10px;
+	height:26px;
+	overflow:hidden;
+	-webkit-transform:rotate(5deg);
+	    -ms-transform:rotate(5deg);
+	        transform:rotate(5deg);
+	top:15px;
+	left:5px;
+}
+.dog .foot_f p:nth-child(3):before{
+	width:10px;
+	height:30px;
+	border-radius:50%;
+	border:10px solid #333;
+	top:-13px;
+	left:-6px;
+}
+.dog .foot_f p:nth-child(4){
+	width:8px;
+	height:9px;
+	overflow:hidden;
+	-webkit-transform:skewX(-16deg);
+	    -ms-transform:skewX(-16deg);
+	        transform:skewX(-16deg);
+	top:40px;
+	left:2px;
+}
+.dog .foot_f p:nth-child(4):before{
+	width:11px;
+	height:16px;
+	border-radius:50%;
+	border:10px solid #333;
+	top:-11px;
+	left:-5px;
+}
+.dog .foot_f p:nth-child(5){
+	width:12px;
+	height:5px;
+	left:-4px;
+	bottom:8px;
+	border-radius:30px 0 0 10px/20px 0 0 12px;
+	background:#333;
+}
+
+.dog .foot_f p:nth-child(5):before,
+.dog .foot_f p:nth-child(5):after{
+	width:9px;
+	height:3px;
+	left:1px;
+	bottom:1px;
+	border-radius:30px 0 20px 10px/20px 0 30px 0;
+	background:#333;
+	-webkit-transform:rotate(5deg);
+	    -ms-transform:rotate(5deg);
+	        transform:rotate(5deg);
+}
+.dog .foot_f p:nth-child(5):after{
+	bottom:-1px;
+	left:2px;
+	-webkit-transform:rotate(-13deg);
+	    -ms-transform:rotate(-13deg);
+	        transform:rotate(-13deg);
+}
+
+.dog .foot_b{
+	width:50px;
+	height:50px;
+	top:70px;
+	left:55px;
+}
+.dog .foot_b p:nth-child(1){
+	width:35px;
+	height:6px;
+	left:-2px;
+	bottom:0;
+	border-radius:30px 0 10px 5px/20px 0 10px 5px;
+	background:#333;
+	-webkit-transform:rotate(-3deg);
+	    -ms-transform:rotate(-3deg);
+	        transform:rotate(-3deg);
+}
+.dog .foot_b p:nth-child(1):before{
+	width:9px;
+	height:5px;
+	top:-1px;
+	left:2px;
+	border-radius:30px 0 10px 5px/20px 0 10px 5px;
+	background:#333;
+	-webkit-transform:rotate(22deg);
+	    -ms-transform:rotate(22deg);
+	        transform:rotate(22deg);
+}
+.dog .foot_b p:nth-child(1):after{
+	width:10px;
+	height:7px;
+	top:0px;
+	left:2px;
+	border-radius:30px 0 10px 5px/20px 0 10px 5px;
+	background:#333;
+	-webkit-transform:rotate(-8deg);
+	    -ms-transform:rotate(-8deg);
+	        transform:rotate(-8deg);
+}
+.dog .foot_b p:nth-child(2){
+	width:30px;
+	height:55px;
+	left:15px;
+	top:-7px;
+	border-radius:10px 50px 20px 0/10px 90px 15px 0;
+	background:#333;
+}
+.dog .foot_b p:nth-child(2):before{
+	width:30px;
+	height:23px;
+	left:-20px;
+	top:25px;
+	border-radius:30px;
+	background:#333;
+	-webkit-transform:rotate(30deg);
+	    -ms-transform:rotate(30deg);
+	        transform:rotate(30deg);
+}
+.dog .foot_b p:nth-child(3){
+	width:13px;
+	height:6px;
+	overflow:hidden;
+	top:40px;
+	left:5px;
+}
+.dog .foot_b p:nth-child(3):before{
+	width:15px;
+	height:5px;
+	border:10px solid #333;
+	top:-11px;
+	left:-20px;
+	border-radius:50%;
+	-webkit-transform:rotate(22deg);
+	    -ms-transform:rotate(22deg);
+	        transform:rotate(22deg);
+}
+/* * * * * * * */
+.cat .head{
+	width:40px;
+	height:35px;
+	top:0;
+	left:0;
+}
+.cat .head p:nth-child(1){
+	width:28px;
+	height:30px;
+	border-radius:7px 15px 0 10px/10px 20px 0 20px;
+	background:#333;
+	top:10px;
+	left:10px;
+	-webkit-transform:rotate(-14deg);
+	    -ms-transform:rotate(-14deg);
+	        transform:rotate(-14deg);
+}
+.cat .head p:nth-child(1):before{
+	width:13px;
+	height:15px;
+	border-radius:5px 0 0 10px/3px 0 0 10px;
+	background:#333;
+	top:3px;
+	left:-6px;
+	-webkit-transform:rotate(-5deg);
+	    -ms-transform:rotate(-5deg);
+	        transform:rotate(-5deg);
+}
+.cat .head p:nth-child(1):after{
+	width:15px;
+	height:8px;
+	background:#333;
+	top:7px;
+	left:-7px;
+	border-radius:6px;
+	-webkit-transform:rotate(35deg);
+	    -ms-transform:rotate(35deg);
+	        transform:rotate(35deg);
+	-webkit-box-shadow:3px 3px 0 #333;
+	        box-shadow:3px 3px 0 #333;
+}
+
+.cat .head p:nth-child(2){
+	width:20px;
+	height:20px;
+	top:12px;
+	left:18px;
+}
+.cat .head p:nth-child(2):before,
+.cat .head p:nth-child(2):after{
+	width:20px;
+	height:10px;
+	background:#333;
+	border-radius:5px;
+	-webkit-transform:rotate(85deg) skewX(55deg);
+	    -ms-transform:rotate(85deg) skewX(55deg);
+	        transform:rotate(85deg) skewX(55deg);
+}
+.cat .head p:nth-child(2):after{
+	top:3px;
+	left:-6px;
+	-webkit-transform:rotate(80deg) skewX(65deg);
+	    -ms-transform:rotate(80deg) skewX(65deg);
+	        transform:rotate(80deg) skewX(65deg);
+}
+.cat .head p:nth-child(3){
+	width:10px;
+	height:6px;
+	overflow:hidden;
+	bottom:-4px;
+	left:10px;
+}
+.cat .head p:nth-child(3):before{
+	width:20px;
+	height:15px;
+	border:10px solid #333;
+	top:-15px;
+	left:-26px;
+	border-radius:50%;
+}
+.cat .body{
+	width:40px;
+	height:66px;
+	top:26px;
+	left:13px;
+	-webkit-transform:rotate(-20deg);
+	    -ms-transform:rotate(-20deg);
+	        transform:rotate(-20deg);
+}
+.cat .body p:nth-child(1){
+	width:37px;
+	height:65px;
+	background:#333;
+	top:0px;
+	left:0px;
+	border-radius:40px 20px 0 40px/50px 50px 0 60px;
+}
+.cat .body p:nth-child(2){
+	width:9px;
+	height:20px;
+	overflow:hidden;
+	top:10px;
+	left:32px;
+}
+.cat .body p:nth-child(2):before{
+	width:20px;
+	height:20px;
+	border:10px solid #333;
+	top:-16px;
+	left:-7px;
+	border-radius:50%;
+}
+.cat .foot_f{
+	width:10px;
+	height:30px;
+	top:75px;
+	left:27px;
+	-webkit-transform:rotate(15deg);
+	    -ms-transform:rotate(15deg);
+	        transform:rotate(15deg);
+}
+.cat .foot_f p:nth-child(1),
+.cat .foot_f p:nth-child(2){
+	width:9px;
+	height:30px;
+	background:#333;
+	top:0px;
+	left:0px;
+}
+.cat .foot_f p:nth-child(1):before,
+.cat .foot_f p:nth-child(2):before{
+	width:13px;
+	height:8px;
+	background:#333;
+	bottom:-4px;
+	left:-3px;
+	-webkit-transform:rotate(-19deg);
+	    -ms-transform:rotate(-19deg);
+	        transform:rotate(-19deg);
+	border-radius:25px 8px 20px 8px/15px 5px 20px 10px;
+}
+.cat .foot_f p:nth-child(2){
+	height:28px;
+	left:-3px;
+	-webkit-transform:rotate(-8deg);
+	    -ms-transform:rotate(-8deg);
+	        transform:rotate(-8deg);
+
+}
+.cat .foot_f p:nth-child(2):before{
+	left:-6px;
+	-webkit-transform:rotate(-6deg);
+	    -ms-transform:rotate(-6deg);
+	        transform:rotate(-6deg);
+}
+.cat .foot_b{
+	width:50px;
+	height:60px;
+	top:45px;
+	left:35px;
+}
+.cat .foot_b p:nth-child(1){
+	width:45px;
+	height:68px;
+	top:-5px;
+	left:0px;
+	background:#333;
+	-webkit-transform:rotate(-20deg);
+	    -ms-transform:rotate(-20deg);
+	        transform:rotate(-20deg);
+	border-radius:0 40px 20px 40px/0 40px 50px 60px;
+}
+.cat .foot_b p:nth-child(1):before{
+	width:35px;
+	height:8px;
+	background:#333;
+	bottom:3px;
+	left:0px;
+	-webkit-transform:rotate(17deg);
+	    -ms-transform:rotate(17deg);
+	        transform:rotate(17deg);
+	border-radius:8px 0 10px 3px/8px 0 10px 5px;
+}
+.cat .foot_b p:nth-child(1):after{
+	width:15px;
+	height:9px;
+	background:#333;
+	bottom:7px;
+	left:-6px;
+	-webkit-transform:rotate(20deg);
+	    -ms-transform:rotate(20deg);
+	        transform:rotate(20deg);
+	border-radius:25px 8px 20px 8px/15px 5px 20px 10px;
+}
+.cat .foot_b p:nth-child(2){
+	width:15px;
+	height:10px;
+	left:3px;
+	bottom:7px;
+	overflow:hidden;
+}
+.cat .foot_b p:nth-child(2):before{
+	width:20px;
+	height:11px;
+	border:10px solid #333;
+	border-radius:20px 40px 40px 0/0 25px 20px 0;
+	top:-10px;
+	left:-21px;
+	-webkit-transform:rotate(12deg);
+	    -ms-transform:rotate(12deg);
+	        transform:rotate(12deg);
+}
+.cat .foot_b p:nth-child(3){
+	width:30px;
+	height:25px;
+	border-radius:30px 20px;
+	border-left:10px solid transparent;
+	border-bottom:8px solid #333;
+	border-right:5px solid #333;
+	border-top:3px solid transparent;
+	left:30px;
+	bottom:2px;
+}
+.cat .foot_b p:nth-child(3):before{
+	right:0;
+	bottom:22px;
+	width:4px;
+	height:4px;
+	border-radius:50%;
+	background:#333;
+}
+.cat .foot_b p:nth-child(4){
+	width:30px;
+	height:4px;
+	border-radius:0 0 10px 10px/0 0 4px 4px;
+	background:#333;
+	right:8px;
+	bottom:-2px;
+	-webkit-transform:rotate(-4deg);
+	    -ms-transform:rotate(-4deg);
+	        transform:rotate(-4deg);
+}
+
+input{
+	display:none!important;
+}
+label{
+	display:block;
+	width:100px;
+	position:absolute;
+	z-index:100;
+	left:20px;
+	cursor:pointer;
+	padding-left:5px;
+	-webkit-transition:0.5s;
+	-o-transition:0.5s;
+	transition:0.5s;
+  font-size:11pt;
+  font-family: 'Abel';
+	bottom:-20px;
+}
+
+#woman+label{
+	display:block;
+	bottom:10px;
+}
+#woman:checked+label{
+	display:block;
+	bottom:135px;
+}
+#woman:checked~#parasol_on+label{
+	bottom:10px;
+}
+#woman:checked~#wa_on+label{
+	bottom:35px;
+}
+#woman:checked~#dress_on+label{
+	bottom:60px;
+}
+#woman:checked~#hair_on+label{
+	bottom:85px;
+}
+#woman:checked~#hair_on+label+input+label{
+	bottom:110px;
+}
+
+#woman:checked~.woman{
+	-webkit-transform:scale(2);
+	    -ms-transform:scale(2);
+	        transform:scale(2);
+}
+#woman:checked~.dog,
+#woman:checked~.cat,
+.woman .head .hair,
+.woman .head .hair3,
+.woman .head .hair4,
+.woman .parasol,
+.woman .arm_r,
+#dress_on:checked~.woman .wa,
+#dress_on:checked~.woman .wa2,
+#dress_on:checked~.cat,
+#wa_on:checked~.dog,
+#dress_on:checked~.woman .head .hair3,
+#dress_on:checked~.woman .parasol p:nth-child(2):after,
+#dress_on:checked~.woman .parasol p:nth-child(8),
+#dress_on:checked~.woman .parasol p:nth-child(9),
+#dress_on:checked~.woman .woman .face p:nth-child(5),
+#dress_on:checked~.dog .head p:nth-child(4),
+#wa_on:checked~.woman .dress,
+#wa_on:checked~.woman .heel,
+#wa_on:checked~.woman .head .hair2,
+#wa_on:checked~.woman .head .hair4,
+#wa_on:checked~#hair_on:checked~.woman .head .hair,
+#wa_on:checked~.woman .parasol p:nth-child(1):after,
+#wa_on:checked~.woman .parasol p:nth-child(2):before,
+#wa_on:checked~.woman .parasol p:nth-child(3):before,
+#wa_on:checked~.woman .parasol p:nth-child(4):before,
+#wa_on:checked~.woman .parasol p:nth-child(5):before,
+#wa_on:checked~.woman .parasol p:nth-child(6):before,
+#wa_on:checked~.woman .parasol p:nth-child(7):before,
+#hair_on:checked~.woman .dress:before,
+#hair_on:checked~.woman .head .hair2,
+#wa_on:checked~#hair_on:checked~.woman .head .hair3{
+	opacity:0;
+}
+#wa_on:checked~.woman .head .hair3,
+#wa_on:checked~#hair_on:checked~.woman .head .hair4,
+#parasol_on:checked~.woman .parasol,
+#parasol_on:checked~.woman .arm_r,
+#dress_on:checked~.woman .dress,
+#wa_on:checked~.woman .wa,
+#parasol_on:checked~#wa_on:checked~.woman .face p:nth-child(5),
+#hair_on:checked~.woman .head .hair{
+	opacity:1;
+}
+#wa_on:checked~.woman .foot_r{
+	opacity:0;
+	-webkit-transform: rotate(-11deg);
+	    -ms-transform: rotate(-11deg);
+	        transform: rotate(-11deg);
+}
+#dress_on:checked~.woman .arm_l{
+	top:92px;
+	-webkit-transform: rotate(-80deg);
+	    -ms-transform: rotate(-80deg);
+	        transform: rotate(-80deg);
+}
+
+#wa_on:checked~.woman .wa2 p:nth-child(1){
+	top: 156px;
+	left: 42px;
+	-webkit-transform: rotate(-62deg);
+	    -ms-transform: rotate(-62deg);
+	        transform: rotate(-62deg);
+}
+#wa_on:checked~.woman .arm_l p:nth-child(1):before{
+	width:13px;
+	left: -1px;
+	top: 53px;
+	-webkit-transform: rotate(9deg);
+	    -ms-transform: rotate(9deg);
+	        transform: rotate(9deg);
+}
+#wa_on:checked~.woman .arm_l p:nth-child(1):after{
+	left:-12px;
+	top:81px;
+	-webkit-transform: rotate(-82deg);
+	    -ms-transform: rotate(-82deg);
+	        transform: rotate(-82deg);
+}
+#wa_on:checked~.woman .arm_l p:nth-child(2){
+	top:85px;
+	left:6px;
+	-webkit-transform: rotate(-42deg);
+	    -ms-transform: rotate(-42deg);
+	        transform: rotate(-42deg);
+}
+#wa_on:checked~.woman .arm_l p:nth-child(3){
+	left:33px;
+	top:68px;
+	-webkit-transform: rotate(-78deg);
+	    -ms-transform: rotate(-78deg);
+	        transform: rotate(-78deg);
+	opacity:0;
+}
+#parasol_on:checked~#wa_on:checked~.woman .wa2 p:nth-child(1){
+	top:135px;
+	left:28px;
+	-webkit-transform: rotate(21deg);
+	    -ms-transform: rotate(21deg);
+	        transform: rotate(21deg);
+}
+#parasol_on:checked~#wa_on:checked~.woman .arm_l p:nth-child(1):before{
+	width:15px;
+	left:-9px;
+	top:44px;
+	-webkit-transform:rotate(-76deg);
+	    -ms-transform:rotate(-76deg);
+	        transform:rotate(-76deg);
+}
+#parasol_on:checked~#wa_on:checked~.woman .arm_l p:nth-child(1):after{
+	left:-33px;
+	top:45px;
+	-webkit-transform:rotate(12deg);
+	    -ms-transform:rotate(12deg);
+	        transform:rotate(12deg);
+}
+#parasol_on:checked~#wa_on:checked~.woman .arm_l p:nth-child(2){
+	left:12px;
+	top:21px;
+	-webkit-transform:rotate(13deg);
+	    -ms-transform:rotate(13deg);
+	        transform:rotate(13deg);
+}
+#parasol_on:checked~#wa_on:checked~.woman .arm_l p:nth-child(3){
+	left:46px;
+	top:46px;
+	-webkit-transform: rotate(0deg);
+	    -ms-transform: rotate(0deg);
+	        transform: rotate(0deg);
+	opacity:1;
+}
+#parasol_on:checked~.woman .arm_l{
+	opacity:1;
+	top:90px;
+	-webkit-transform: rotate(-13deg);
+	    -ms-transform: rotate(-13deg);
+	        transform: rotate(-13deg);
+}
+
+#dress_on:checked~.woman .foot_l p:nth-child(1):after{
+	width:35px;
+	height:8px;
+	top:95px;
+	left:-14px;
+	background:#333;
+	border-radius:4px 5px 10px 25px/6px 5px 7px 10px;
+	-webkit-transform:rotate(-31deg);
+	    -ms-transform:rotate(-31deg);
+	        transform:rotate(-31deg);
+}
+#dress_on:checked~.woman .foot_l p:nth-child(4){
+	height:13px;
+	top:173px;
+	left:-39px;
+	-webkit-transform:rotate(-27deg);
+	    -ms-transform:rotate(-27deg);
+	        transform:rotate(-27deg);
+}
+#dress_on:checked~.woman .foot_l p:nth-child(4):after{
+	top:5px;
+	left:3px;
+	-webkit-transform:rotate(0deg);
+	    -ms-transform:rotate(0deg);
+	        transform:rotate(0deg);
+}
+input+label:before,
+input+label:after{
+	content:"";
+	display:block;
+	width:6px;
+	height:6px;
+	position:absolute;
+	border-radius:50%;
+}
+input+label:before{
+	left:-11px;
+	top:6px;
+}
+input+label:after{
+	width:10px;
+	height:10px;
+	border:2px solid #333;
+	left:-15px;
+	top:2px;
+}
+
+input:checked+label:before{
+	background:#333;
+}
+
+.woman label,
+.woman .parasol label{
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+}
+.copy{
+  width:250px;
+  margin:10px auto;
+  position:absolute;
+  bottom:0;
+  left:50%;
+  margin-left:-125px;
+  text-align:center;
+  font-size:10pt;
+  color:#666;
+}
+.copy a{
+  display:inline;
+  color:#333;
+  padding:0 5px;
+  text-decoration:none;
+}

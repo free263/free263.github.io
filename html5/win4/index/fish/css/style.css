@@ -1,0 +1,29 @@
+html,body{
+height:100%;
+}
+body{
+margin:0px;
+padding:0;
+overflow:hidden;
+background-color: #3366CC;
+background:url(../img/bg2.jpg) no-repeat;
+background-size: 100% 100%;
+
+}
+[xaf] circle{
+stroke-width:1px;
+stroke:black;
+opacity:1;
+display:none;
+transition:.6s
+}
+[xaf] ellipse {
+fill:none;
+stroke:rgba(0,0,0,.3);
+opacity:1;
+display:none;
+transition:.4s;
+}
+.suportPeix{
+position:fixed;
+}

@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width,user-scalable=no" name="viewport" />
+    <title>jQuery自适应屏幕宽度手机焦点图</title>
+
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="mBan2">
+        <div id="slideBox" class="slideBox">
+            <div class="bd">
+                <ul>
+                    <li title="点击翻页"><a href="javascript:;"><img src="images/1.jpg" /></a></li>
+                    <li title="点击翻页"><a href="javascript:;"><img src="images/2.jpg" /></a></li>
+                    <li title="点击翻页"><a href="javascript:;"><img src="images/3.jpg" /></a></li>
+                    <li title="点击翻页"><a href="javascript:;"><img src="images/4.jpg" /></a></li>
+                    <li title="点击翻页"><a href="javascript:;"><img src="images/5.jpg" /></a></li>
+                </ul>
+            </div>
+            <div class="hd">
+                <ul><li></li><li></li><li></li><li></li><li></li></ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="switch">
+        <img src="images/switch.png" />
+    </div>
+
+    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery.SuperSlide.js"></script>
+
+    <script type="text/javascript">
+        jQuery(".slideBox").slide({ mainCell: ".bd ul", effect: "fold", autoPlay: true, trigger: "click" });
+        jQuery(function () {
+            var len = jQuery(".hd ul").find("li").length;
+            var width = len * 20 - 10;
+            jQuery(".hd").css("width", width + "px").css("margin-left", "-" + width / 2 + "px");
+            jQuery(".hd").find('li').last().css("margin", "0px");
+            jQuery(".bd img").css("position", "absolute").css("left", "50%").css("transform", "translate(-50%)");
+            jQuery(".hd ul").find('li').eq('@index').click();
+        })
+
+        // 切换图片
+        jQuery('.switch').click(function (e) {
+            var index = $(".hd li").index($(".hd .on").eq(0));
+            var width = $(this).width();
+            var positionX = e.pageX - $(this).offset().left; //获取当前鼠标相对div的X坐标
+            if (positionX < width / 2) {
+                // 上一张
+                index -= 1;
+                if (index >= 0) {
+                    jQuery(".hd ul").find("li").eq(index).click();
+                }
+            } else {
+                // 下一张
+                index += 1;
+                var len = jQuery(".hd ul").find("li").length;
+                if (index <= len - 1) {
+                    jQuery(".hd ul").find("li").eq(index).click();
+                }
+            }
+        })
+
+    </script>
+
+</body>
+</html>

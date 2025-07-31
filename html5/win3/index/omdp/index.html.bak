@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>欧美大片幻灯片</title>
+
+<link rel="stylesheet" type="text/css" href="css/default.css">
+<link rel="stylesheet" type="text/css" href="css/styles.css">
+
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.2.0/css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/menu_bubble.css" />
+		<script src="js/snap.svg-min.js"></script>
+<!--[if IE]>
+  		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+<script src="images/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="images/lightbox.min.js"></script>
+<style type="text/css">
+.wrapper{ margin:0px auto; padding:20px; border:1px solid #CCC; background:#333; width:980px; font-size:12px;}
+</style>
+<link rel="shortcut icon" type="image/x-icon" href="img/an.ico"/>
+		<style type="text/css">
+			/*样式初始化*/
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			/*去除横向滚动条*/
+			body {
+				overflow-x: hidden;
+				overflow-y: hidden;
+				background-color: 000;
+				font-size:13px;
+				color: #ffffff;
+			}
+			/*将div铺满整个窗口*/
+			.box {
+				height: 100vh;
+				min-height: 520px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+background-color: 000;
+			}
+			/*设置大ul的大小及定位*/
+			.content {
+				position: relative;
+				width: 100%;
+				height: 100%;
+background-color: 000;
+			}
+			/*设置大li样式*/
+			.content li {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+			}
+
+		</style>
+<script data-ad-client="ca-pub-8742386847853865" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<noscript></head></noscript>
+<body>
+	
+	
+<div style="position:absolute; width:100%; height:100%; z-index:2; left: 0px; top: 0px;">
+			<div class="menu-wrap">
+				<nav class="menu">
+					<div class="icon-list" >
+						<a href="../../"><i class="fa fa-fw fa-star-o"></i><span>仿苹果电脑桌面</span></a>
+						<a href="../../index/jeep/"><i class="fa fa-fw fa-bell-o"></i><span>超酷吉普车动画</span></a>
+						<a href="../../index/haikui/"><i class="fa fa-fw fa-envelope-o"></i><span>酷炫海葵动画特效</span></a>
+						<a href="../../index/wht/"><i class="fa fa-fw fa-comment-o"></i><span>万花筒导航</span></a>
+						<a href="../../index/newyear/"><i class="fa fa-fw fa-newspaper-o"></i><span>新年倒计时特效</span></a>
+						<a href="../../index/lunbo/"><i class="fa fa-fw fa-star-o"></i><span>焦点图片轮播特效</span></a>
+						<a href="../../index/lunbo3D/"><i class="fa fa-fw fa-bell-o"></i><span>全屏3D旋转特效</span></a>
+						<a href="../../index/yanhua/"><i class="fa fa-fw fa-newspaper-o"></i><span>烟花绽放场景特效</span></a>
+						<a href="../../index/baiye/"><i class="fa fa-fw fa-star-o"></i><span>百叶窗轮播特效</span></a>
+						<a href="../../index/window/"><i class="fa fa-fw fa-bell-o"></i><span>窗户玻璃雨滴特效</span></a>
+						<a href="../../index/snow3/"><i class="fa fa-fw fa-newspaper-o"></i><span>网页下雪特效</span></a>
+						<a href="../../index/windows/"><i class="fa fa-fw fa-newspaper-o"></i><span>窗外星空特效</span></a>
+						<a href="../../index/3Dturn/"><i class="fa fa-fw fa-newspaper-o"></i><span>3D图片全屏翻转</span></a>
+						<a href="../../index/hdp/"><i class="fa fa-fw fa-bell-o"></i><span>左右流畅幻灯片</span></a>
+					
+					</div>
+				</nav>
+				<button class="close-button" id="close-button">Close Menu</button>
+				<div class="morph-shape" id="morph-shape" data-morph-open="M-7.312,0H15c0,0,66,113.339,66,399.5C81,664.006,15,800,15,800H-7.312V0z;M-7.312,0H100c0,0,0,113.839,0,400c0,264.506,0,400,0,400H-7.312V0z">
+					<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 800" preserveAspectRatio="none">
+						<path d="M-7.312,0H0c0,0,0,113.839,0,400c0,264.506,0,400,0,400h-7.312V0z"/>
+					</svg>
+				</div>
+			</div>
+			<button class="menu-button" id="open-button">Open Menu</button>
+			<div class="content-wrap">
+	
+					
+
+<!-- 代码 开始 -->
+<div class="fish" style="position:absolute; width:1350px; height:500px; z-index:2; left: 20px; top: 50px;backgroud-color:000;">
+<table>
+	<!-- 第1行 -->
+    <tr>
+     <td width="40"></td>
+     <td align="center" width="60"><a href="http://cloud.2345.ltd/" target="_blank"><img name="folder" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/folder.gif" width="50" height="50" border="0" id="index_r2_c2" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="http://660000.xyz" target="_blank"><img name="pictures" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/pictures.gif" width="50" height="50" border="0" id="index_r2_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="http://vip.2345.ltd/" target="_blank"><img name="vip" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/vip.gif" width="50" height="50" border="0" id="index_r2_c6" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+    </tr>
+    <tr>
+     <td width="40"></td>
+     <td align="center" width="60">我的文档</td>
+     <td width="20"></td>
+     <td align="center" width="60">我的相册</td>
+     <td width="20"></td>
+     <td align="center" width="60">视频解析</td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+    </tr>
+    <tr>
+     <td>&nbsp;</td>
+    </tr>
+    
+<!-- 第2行 -->   
+    <tr>
+     <td width="40"></td>
+     <td align="center" width="60"><a href="http://pan.2345.ltd/" target="_blank"><img name="computer" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/computer.gif" width="50" height="50" border="0" id="index_r5_c2" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="http://www.free163.com/" target="_blank"><img name="poem" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/poem.gif" width="50" height="50" border="0" id="index_r5_c6" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="http://www.odj.cc" target="_blank"><img name="music" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/lxyy.gif" width="50" height="50" border="0" id="index_r11_c2" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+    </tr>
+    <tr>
+     <td width="40"></td>
+     <td align="center" width="60">我的电脑</td>
+     <td width="20"></td>
+     <td align="center" width="60">古典诗词</td>
+     <td width="20"></td>
+     <td align="center" width="60">在线音乐</td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+    </tr>
+    <tr>
+     <td>&nbsp;</td>
+    </tr>
+    
+<!-- 第3行 -->
+    <tr>
+     <td width="40"></td>
+     <td align="center" width="60"><a href="http://www.book.ga" target="_blank"><img name="wuxia" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/wuxia.gif" width="50" height="50" border="0" id="index_r8_c6" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="http://www.free163.tk" target="_blank"><img name="down" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/log.png" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="http://alist.2345.ltd" target="_blank"><img name="down" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/aliyun.gif" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+    </tr>
+    <tr>
+     <td width="40"></td>
+     <td align="center" width="60">武侠小说</td>
+     <td width="20"></td>
+     <td align="center" width="60">听松阁</td>
+     <td width="20"></td>
+     <td align="center" width="60">阿里云盘</td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+    </tr>
+    <tr>
+     <td>&nbsp;</td>
+    </tr>
+    
+<!-- 第4行 -->
+    <tr>
+     <td width="40"></td>
+     <td align="center" width="60"><a href="http://skycz.com/" target="_blank"><img name="blog" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/blog.gif" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="http://kylehao.ysepan.com/" target="_blank"><img name="share" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/share.gif" width="50" height="50" border="0" id="index_r5_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="http://44444.ltd/" target="_blank"><img name="share" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/dys.gif" width="50" height="50" border="0" id="index_r5_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+    </tr>
+   <tr>
+   	<td width="40"></td>
+    <td align="center" width="60">我的博客</td>
+    <td width="20"></td>
+    <td align="center" width="60">文件分享</td>
+    <td width="20"></td>
+    <td align="center" width="60">德云社</td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+   </tr>
+   <tr>
+    <td >&nbsp;</td>
+   </tr>
+<!-- 第5行 -->
+    <tr>
+     <td width="40"></td>
+     <td align="center" width="60"><a href="http://mail.pu.cx/" target="_blank"><img name="mail" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/mail.gif" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="http://www.kkkk.info/" target="_blank"><img name="mail" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/mi.png" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+    </tr>
+   <tr>
+   	<td width="40"></td>
+    <td align="center" width="60">我的邮局</td>
+    <td width="20"></td>
+    <td align="center" width="60">我的米表</td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+   </tr>
+   <tr>
+    <td >&nbsp;</td>
+   </tr>
+
+  </table>
+</div>
+
+
+
+
+
+<!-- 底部和按钮 -->
+<div class="fish" style="position:absolute; width:1365; height:39; z-index:6; left: 0px; bottom: -3px;backgroud-color:000;">
+<img src="https://code.aliyun.com/free163/publiclib/raw/0bb5e4aec8d0bdd1a4ebcda03491b9b8a3115e28/desktop_images/bottom.jpg" width="1366" height="39" border="0" alt="">
+
+</div>
+
+<div class="fish" style="position:absolute; width:50; height:50; z-index:7; left: 0px; bottom: -3px;backgroud-color:000;">
+<table>
+	<tr>
+		<td><a href="http://my.2345.ltd" target="_blank"><img src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/space.gif" width="40" height="50" border="0" alt=""></a></td>
+		<td width="20">&nbsp;</td>
+		<td><a href="http://cloud.2345.ltd" target="_blank"><img src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/space.gif" width="40" height="50" border="0" alt=""></a></td>
+		<td width="1050">&nbsp;</td>
+		<td><a href="http://wx.qq.com/" target="_blank"><img src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		<td width="10">&nbsp;</td>
+		<td><a href="http://www.360.cn" target="_blank"><img src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		<td width="7">&nbsp;</td>
+		<td><a href="http://odj.cc" target="_blank"><img src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		<td width="6">&nbsp;</td>
+		<td><a href="http://odj.cc" target="_blank"><img src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		<td width="4">&nbsp;</td>
+		<td><a href="http://odj.cc" target="_blank"><img src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		
+			
+	</tr>
+</table>
+</div>
+
+
+</div>
+<!-- 代码 结束 -->
+
+
+</div>
+			</div><!-- /content-wrap -->
+		</div><!-- /container -->
+		<script src="js/classie.js"></script>
+		<script src="js/main4.js"></script>
+		
+		
+		
+		
+		
+	<div class="demo-cont" style="z-index:1;">
+	  <!-- slider start -->
+	  <div class="fnc-slider example-slider">
+		<div class="fnc-slider__slides">
+		  <!-- slide start -->
+		  <div class="fnc-slide m--blend-green m--active-slide">
+			<div class="fnc-slide__inner">
+			  <div class="fnc-slide__mask">
+				<div class="fnc-slide__mask-inner"></div>
+			  </div>
+			  <div class="fnc-slide__content">
+				<h2 class="fnc-slide__heading">
+				  <div class="fnc-slide__heading-line">
+					<span>Black</span>
+				  </div>
+				  <div class="fnc-slide__heading-line">
+					<span>Widow</span>
+				  </div>
+				</h2>
+				<button type="button" class="fnc-slide__action-btn">
+				  Credits
+				  <span data-text="Credits">Credits</span>
+				</button>
+			  </div>
+			</div>
+		  </div>
+		  <!-- slide end -->
+		  <!-- slide start -->
+		  <div class="fnc-slide m--blend-dark">
+			<div class="fnc-slide__inner">
+			  <div class="fnc-slide__mask">
+				<div class="fnc-slide__mask-inner"></div>
+			  </div>
+			  <div class="fnc-slide__content">
+				<h2 class="fnc-slide__heading">
+				  <div class="fnc-slide__heading-line">
+					<span>Captain</span>
+				  </div>
+				  <div class="fnc-slide__heading-line">
+					<span>America</span>
+				  </div>
+				</h2>
+				<button type="button" class="fnc-slide__action-btn">
+				  Credits
+				  <span data-text="Credits">Credits</span>
+				</button>
+			  </div>
+			</div>
+		  </div>
+		  <!-- slide end -->
+		  <!-- slide start -->
+		  <div class="fnc-slide m--blend-red">
+			<div class="fnc-slide__inner">
+			  <div class="fnc-slide__mask">
+				<div class="fnc-slide__mask-inner"></div>
+			  </div>
+			  <div class="fnc-slide__content">
+				<h2 class="fnc-slide__heading">
+				  <div class="fnc-slide__heading-line">
+					<span>Iron</span>
+				  </div>
+				  <div class="fnc-slide__heading-line">
+					<span>Man</span>
+				  </div>
+				</h2>
+				<button type="button" class="fnc-slide__action-btn">
+				  Credits
+				  <span data-text="Credits">Credits</span>
+				</button>
+			  </div>
+			</div>
+		  </div>
+		  <!-- slide end -->
+		  <!-- slide start -->
+		  <div class="fnc-slide m--blend-blue">
+			<div class="fnc-slide__inner">
+			  <div class="fnc-slide__mask">
+				<div class="fnc-slide__mask-inner"></div>
+			  </div>
+			  <div class="fnc-slide__content">
+				<h2 class="fnc-slide__heading">
+				  <div class="fnc-slide__heading-line">
+					<span>Thor</span>
+				  </div>
+				  <div class="fnc-slide__heading-line">
+					<span>Just Thor</span>
+				  </div>
+				</h2>
+				<button type="button" class="fnc-slide__action-btn">
+				  Credits
+				  <span data-text="Credits">Credits</span>
+				</button>
+			  </div>
+			</div>
+		  </div>
+		  <!-- slide end -->
+		</div>
+		<nav class="fnc-nav">
+		  <div class="fnc-nav__bgs">
+			<div class="fnc-nav__bg m--navbg-green m--active-nav-bg"></div>
+			<div class="fnc-nav__bg m--navbg-dark"></div>
+			<div class="fnc-nav__bg m--navbg-red"></div>
+			<div class="fnc-nav__bg m--navbg-blue"></div>
+		  </div>
+		  <div class="fnc-nav__controls">
+			<button class="fnc-nav__control">
+			  Black Widow
+			  <span class="fnc-nav__control-progress"></span>
+			</button>
+			<button class="fnc-nav__control">
+			  Captain America
+			  <span class="fnc-nav__control-progress"></span>
+			</button>
+			<button class="fnc-nav__control">
+			  Iron Man
+			  <span class="fnc-nav__control-progress"></span>
+			</button>
+			<button class="fnc-nav__control">
+			  Thor
+			  <span class="fnc-nav__control-progress"></span>
+			</button>
+		  </div>
+		</nav>
+	  </div>
+	  <!-- slider end -->
+	  <div class="demo-cont__credits">
+		<div class="demo-cont__credits-close"></div>
+		<h2 class="demo-cont__credits-heading">Made by</h2>
+		<img src="img/profile-512_5.jpg" alt="" class="demo-cont__credits-img" />
+		<h3 class="demo-cont__credits-name">Nikolay Talanov</h3>
+		<a href="http://sc.chinaz.com/" target="_blank" class="demo-cont__credits-link">Index</a>
+		<a href="http://sc.chinaz.com" target="_blank" class="demo-cont__credits-link">My twitter</a>
+		<h2 class="demo-cont__credits-heading">Based on</h2>
+		<a href="http://sc.chinaz.com" target="_blank" class="demo-cont__credits-link">Concept by Kreativa Studio</a>
+		<h4 class="demo-cont__credits-blend">Global Blend Mode</h4>
+		<div class="colorful-switch">
+		  <input type="checkbox" class="colorful-switch__checkbox js-activate-global-blending" id="colorful-switch-cb" />
+		  <label class="colorful-switch__label" for="colorful-switch-cb">
+			<span class="colorful-switch__bg"></span>
+			<span class="colorful-switch__dot"></span>
+			<span class="colorful-switch__on">
+			  <span class="colorful-switch__on__inner"></span>
+			</span>
+			<span class="colorful-switch__off"></span>
+		  </label>
+		</div>
+	  </div>
+	</div>
+
+<script src='js/stopExecutionOnTimeout.js?t=1'></script>
+<script>
+(function () {
+	var $$ = function (selector, context) {
+		var context = context || document;
+		var elements = context.querySelectorAll(selector);
+		return [].slice.call(elements);
+	};
+	function _fncSliderInit($slider, options) {
+		var prefix = '.fnc-';
+		var $slider = $slider;
+		var $slidesCont = $slider.querySelector(prefix + 'slider__slides');
+		var $slides = $$(prefix + 'slide', $slider);
+		var $controls = $$(prefix + 'nav__control', $slider);
+		var $controlsBgs = $$(prefix + 'nav__bg', $slider);
+		var $progressAS = $$(prefix + 'nav__control-progress', $slider);
+		var numOfSlides = $slides.length;
+		var curSlide = 1;
+		var sliding = false;
+		var slidingAT = +parseFloat(getComputedStyle($slidesCont)['transition-duration']) * 1000;
+		var slidingDelay = +parseFloat(getComputedStyle($slidesCont)['transition-delay']) * 1000;
+		var autoSlidingActive = false;
+		var autoSlidingTO;
+		var autoSlidingDelay = 5000;
+		var autoSlidingBlocked = false;
+		var $activeSlide;
+		var $activeControlsBg;
+		var $prevControl;
+		function setIDs() {
+			$slides.forEach(function ($slide, index) {
+				$slide.classList.add('fnc-slide-' + (index + 1));
+			});
+			$controls.forEach(function ($control, index) {
+				$control.setAttribute('data-slide', index + 1);
+				$control.classList.add('fnc-nav__control-' + (index + 1));
+			});
+			$controlsBgs.forEach(function ($bg, index) {
+				$bg.classList.add('fnc-nav__bg-' + (index + 1));
+			});
+		}
+		;
+		setIDs();
+		function afterSlidingHandler() {
+			$slider.querySelector('.m--previous-slide').classList.remove('m--active-slide', 'm--previous-slide');
+			$slider.querySelector('.m--previous-nav-bg').classList.remove('m--active-nav-bg', 'm--previous-nav-bg');
+			$activeSlide.classList.remove('m--before-sliding');
+			$activeControlsBg.classList.remove('m--nav-bg-before');
+			$prevControl.classList.remove('m--prev-control');
+			$prevControl.classList.add('m--reset-progress');
+			var triggerLayout = $prevControl.offsetTop;
+			$prevControl.classList.remove('m--reset-progress');
+			sliding = false;
+			var layoutTrigger = $slider.offsetTop;
+			if (autoSlidingActive && !autoSlidingBlocked) {
+				setAutoslidingTO();
+			}
+		}
+		;
+		function performSliding(slideID) {
+			if (sliding)
+				return;
+			sliding = true;
+			window.clearTimeout(autoSlidingTO);
+			curSlide = slideID;
+			$prevControl = $slider.querySelector('.m--active-control');
+			$prevControl.classList.remove('m--active-control');
+			$prevControl.classList.add('m--prev-control');
+			$slider.querySelector(prefix + 'nav__control-' + slideID).classList.add('m--active-control');
+			$activeSlide = $slider.querySelector(prefix + 'slide-' + slideID);
+			$activeControlsBg = $slider.querySelector(prefix + 'nav__bg-' + slideID);
+			$slider.querySelector('.m--active-slide').classList.add('m--previous-slide');
+			$slider.querySelector('.m--active-nav-bg').classList.add('m--previous-nav-bg');
+			$activeSlide.classList.add('m--before-sliding');
+			$activeControlsBg.classList.add('m--nav-bg-before');
+			var layoutTrigger = $activeSlide.offsetTop;
+			$activeSlide.classList.add('m--active-slide');
+			$activeControlsBg.classList.add('m--active-nav-bg');
+			setTimeout(afterSlidingHandler, slidingAT + slidingDelay);
+		}
+		;
+		function controlClickHandler() {
+			if (sliding)
+				return;
+			if (this.classList.contains('m--active-control'))
+				return;
+			if (options.blockASafterClick) {
+				autoSlidingBlocked = true;
+				$slider.classList.add('m--autosliding-blocked');
+			}
+			var slideID = +this.getAttribute('data-slide');
+			performSliding(slideID);
+		}
+		;
+		$controls.forEach(function ($control) {
+			$control.addEventListener('click', controlClickHandler);
+		});
+		function setAutoslidingTO() {
+			window.clearTimeout(autoSlidingTO);
+			var delay = +options.autoSlidingDelay || autoSlidingDelay;
+			curSlide++;
+			if (curSlide > numOfSlides)
+				curSlide = 1;
+			autoSlidingTO = setTimeout(function () {
+				performSliding(curSlide);
+			}, delay);
+		}
+		;
+		if (options.autoSliding || +options.autoSlidingDelay > 0) {
+			if (options.autoSliding === false)
+				return;
+			autoSlidingActive = true;
+			setAutoslidingTO();
+			$slider.classList.add('m--with-autosliding');
+			var triggerLayout = $slider.offsetTop;
+			var delay = +options.autoSlidingDelay || autoSlidingDelay;
+			delay += slidingDelay + slidingAT;
+			$progressAS.forEach(function ($progress) {
+				$progress.style.transition = 'transform ' + delay / 1000 + 's';
+			});
+		}
+		$slider.querySelector('.fnc-nav__control:first-child').classList.add('m--active-control');
+	}
+	;
+	var fncSlider = function (sliderSelector, options) {
+		var $sliders = $$(sliderSelector);
+		$sliders.forEach(function ($slider) {
+			_fncSliderInit($slider, options);
+		});
+	};
+	window.fncSlider = fncSlider;
+}());
+fncSlider('.example-slider', { autoSlidingDelay: 4000 });
+var $demoCont = document.querySelector('.demo-cont');
+[].slice.call(document.querySelectorAll('.fnc-slide__action-btn')).forEach(function ($btn) {
+	$btn.addEventListener('click', function () {
+		$demoCont.classList.toggle('credits-active');
+	});
+});
+document.querySelector('.demo-cont__credits-close').addEventListener('click', function () {
+	$demoCont.classList.remove('credits-active');
+});
+document.querySelector('.js-activate-global-blending').addEventListener('click', function () {
+	document.querySelector('.example-slider').classList.toggle('m--global-blending-active');
+});
+</script>
+
+
+</div>
+</body>
+</html>

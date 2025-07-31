@@ -1,0 +1,386 @@
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>古典风格滑块特效</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width" >
+<script src="script/jquery.min.js"></script>
+<script src="script/jquery.modernizr.js"></script>
+<script src="script/jquery.seven.min.js"></script>
+<script src="script/jquery.easing.min.js"></script>
+<link href="css/style.css" rel="stylesheet" />
+<link href="css/sevenslider.css" rel="stylesheet" />
+<link href="css/skins/fullwidth.css" rel="stylesheet" />
+
+
+
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.2.0/css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/menu_bubble.css" />
+		<script src="js/snap.svg-min.js"></script>
+
+
+
+<style type="text/css">
+.wrapper{ margin:0px auto; padding:20px; border:1px solid #CCC; background:#333; width:980px; font-size:12px;}
+</style>
+<link rel="shortcut icon" type="image/x-icon" href="img/an.ico"/>
+		<style type="text/css">
+			/*样式初始化*/
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			/*去除横向滚动条*/
+			body {
+				overflow-x: hidden;
+				overflow-y: hidden;
+				background-color: 000;
+				font-size:13px;
+				color: #ffffff;
+			}
+			/*将div铺满整个窗口*/
+			.box {
+				height: 100vh;
+				min-height: 520px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+background-color: 000;
+			}
+			/*设置大ul的大小及定位*/
+			.content {
+				position: relative;
+				width: 100%;
+				height: 100%;
+background-color: 000;
+			}
+			/*设置大li样式*/
+			.content li {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+			}
+
+		</style>
+<script data-ad-client="ca-pub-8742386847853865" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<noscript></head></noscript>
+	
+	
+	
+<body bgcolor="#000000">
+	
+
+<div style="position:absolute; width:100%; height:100%; z-index:2; left: 0px; top: 0px;">
+			<div class="menu-wrap">
+				<nav class="menu">
+					<div class="icon-list" >
+						<a href="./"><i class="fa fa-fw fa-star-o"></i><span>古典风格滑块特效</span></a>
+						<a href="./index/gold/"><i class="fa fa-fw fa-bell-o"></i><span>金发美女切换特效</span></a>
+						<a href="./index/mpzsy2/"><i class="fa fa-fw fa-envelope-o"></i><span>满屏自适应轮播图</span></a>
+						<a href="./index/5dsfdj/"><i class="fa fa-fw fa-comment-o"></i><span>五点式放大镜</span></a>
+						<a href="./index/mpzsy/"><i class="fa fa-fw fa-newspaper-o"></i><span>满屏自适应焦点图</span></a>
+						<a href="./index/Christmas/"><i class="fa fa-fw fa-star-o"></i><span>圣诞背景视差特效</span></a>
+						<a href="./index/game/"><i class="fa fa-fw fa-bell-o"></i><span>超炫游乐园动画</span></a>
+						<a href="./index/lubiao/"><i class="fa fa-fw fa-newspaper-o"></i><span>路标牌卡通特效</span></a>
+						<a href="./index/360/"><i class="fa fa-fw fa-star-o"></i><span>360度全景旋转效果</span></a>
+						<a href="./index/3602/"><i class="fa fa-fw fa-bell-o"></i><span>360度全景旋转效果2</span></a>
+						<a href="./index/hallowween/"><i class="fa fa-fw fa-newspaper-o"></i><span>万圣节动画特效</span></a>
+						<a href="./index/luopan/"><i class="fa fa-fw fa-newspaper-o"></i><span>风水罗盘旋转特效</span></a>
+						<a href="./index/guosc/"><i class="fa fa-fw fa-newspaper-o"></i><span>过山车动画特效</span></a>
+						<a href="./index/jimu/"><i class="fa fa-fw fa-bell-o"></i><span>重力下落积木游戏</span></a>
+					
+					</div>
+				</nav>
+				<button class="close-button" id="close-button">Close Menu</button>
+				<div class="morph-shape" id="morph-shape" data-morph-open="M-7.312,0H15c0,0,66,113.339,66,399.5C81,664.006,15,800,15,800H-7.312V0z;M-7.312,0H100c0,0,0,113.839,0,400c0,264.506,0,400,0,400H-7.312V0z">
+					<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 800" preserveAspectRatio="none">
+						<path d="M-7.312,0H0c0,0,0,113.839,0,400c0,264.506,0,400,0,400h-7.312V0z"/>
+					</svg>
+				</div>
+			</div>
+			<button class="menu-button" id="open-button">Open Menu</button>
+			<div class="content-wrap">
+	
+					
+
+<!-- 代码 开始 -->
+<div  style="position:absolute; width:500px; height:300px; z-index:2; left: 20px; top: 50px;backgroud-color:000;">
+<table height="300">
+	<!-- 第1行 -->
+    <tr height="50">
+     <td width="40"></td>
+     <td align="center" width="60"><a href="http://cloud.2345.ltd/" target="_blank"><img name="folder" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/folder.gif" width="50" height="50" border="0" id="index_r2_c2" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="http://660000.xyz" target="_blank"><img name="pictures" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/pictures.gif" width="50" height="50" border="0" id="index_r2_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="http://vip.2345.ltd/" target="_blank"><img name="vip" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/vip.gif" width="50" height="50" border="0" id="index_r2_c6" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+    </tr>
+    <tr height="10">
+     <td width="40"></td>
+     <td align="center" width="90">我的文档</td>
+     <td width="20"></td>
+     <td align="center" width="90">我的相册</td>
+     <td width="20"></td>
+     <td align="center" width="90">视频解析</td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+    </tr>
+    <tr>
+     <td>&nbsp;</td>
+    </tr>
+    
+<!-- 第2行 -->   
+    <tr height="50">
+     <td width="40"></td>
+     <td align="center" width="60"><a href="http://pan.2345.ltd/" target="_blank"><img name="computer" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/computer.gif" width="50" height="50" border="0" id="index_r5_c2" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="http://www.free163.com/" target="_blank"><img name="poem" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/poem.gif" width="50" height="50" border="0" id="index_r5_c6" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="http://www.odj.cc" target="_blank"><img name="music" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/lxyy.gif" width="50" height="50" border="0" id="index_r11_c2" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+    </tr>
+    <tr height="10">
+     <td width="40"></td>
+     <td align="center" width="60">我的电脑</td>
+     <td width="20"></td>
+     <td align="center" width="60">古典诗词</td>
+     <td width="20"></td>
+     <td align="center" width="60">在线音乐</td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+    </tr>
+    <tr>
+     <td>&nbsp;</td>
+    </tr>
+    
+<!-- 第3行 -->
+    <tr height="50">
+     <td width="40"></td>
+     <td align="center" width="60"><a href="http://www.book.ga" target="_blank"><img name="wuxia" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/wuxia.gif" width="50" height="50" border="0" id="index_r8_c6" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="http://www.free163.tk" target="_blank"><img name="down" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/log.png" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="http://alist.2345.ltd" target="_blank"><img name="down" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/aliyun.gif" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+    </tr>
+    <tr height="10">
+     <td width="40"></td>
+     <td align="center" width="60">武侠小说</td>
+     <td width="20"></td>
+     <td align="center" width="60">听松阁</td>
+     <td width="20"></td>
+     <td align="center" width="60">阿里云盘</td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+    </tr>
+    <tr>
+     <td>&nbsp;</td>
+    </tr>
+    
+<!-- 第4行 -->
+    <tr height="50">
+     <td width="40"></td>
+     <td align="center" width="60"><a href="http://skycz.com/" target="_blank"><img name="blog" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/blog.gif" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="http://kylehao.ysepan.com/" target="_blank"><img name="share" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/share.gif" width="50" height="50" border="0" id="index_r5_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="http://44444.ltd/" target="_blank"><img name="share" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/dys.gif" width="50" height="50" border="0" id="index_r5_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+    </tr>
+   <tr height="10">
+   	<td width="40"></td>
+    <td align="center" width="60">我的博客</td>
+    <td width="20"></td>
+    <td align="center" width="60">文件分享</td>
+    <td width="20"></td>
+    <td align="center" width="60">德云社</td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+   </tr>
+
+<!-- 第5行 -->
+    <tr height="50">
+     <td width="40"></td>
+     <td align="center" width="60"><a href="http://mail.pu.cx/" target="_blank"><img name="mail" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/mail.gif" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="http://www.kkkk.info/" target="_blank"><img name="mail" src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/mi.png" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+    </tr>
+   <tr height="10">
+   	<td width="40"></td>
+    <td align="center" width="60">我的邮局</td>
+    <td width="20"></td>
+    <td align="center" width="60">我的米表</td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+   </tr>
+
+
+  </table>
+</div>
+
+
+
+
+<!-- 底部和按钮 -->
+<div  style="position:fixed; width:100%; height:39; z-index:4; left:0px; bottom: -3px;">
+ <table style="border-collapse:collapse;width:100%; height:39;">
+ 	<tr>
+ 	
+ 	  <td align="center" width="100%" height="39" border="0" background="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/images/bottom-center.jpg"></td>
+  
+  </tr>
+ </table>
+</div>
+
+<div  style="position:fixed; width:100%; height:39; z-index:5; left:0px; bottom: -8px;">
+ <table style="border-collapse:collapse;width:100%; height:39;">
+ 	<tr>
+ 	 <td align="left"><img src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/images/bottom-left.jpg" width="109" height="39" border="0"></td>
+	 <td align="center" ></td>
+   <td align="right"><img src="https://jihulab.com/free163/9b9net/-/raw/e6bc35f51dbf4ce8bddb31c925f90b4c34c82111/images/bottom-right.jpg" width="273" height="39" border="0"></td>
+  </tr>
+ </table>
+</div>
+
+<div  style="position:absolute; width:50; height:50; z-index:7; left: 0px; bottom: -3px;backgroud-color:000;">
+<table>
+	<tr>
+		<td><a href="http://my.2345.ltd" target="_blank"><img src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/space.gif" width="40" height="50" border="0" alt=""></a></td>
+		<td width="20">&nbsp;</td>
+		<td><a href="http://cloud.2345.ltd" target="_blank"><img src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/space.gif" width="40" height="50" border="0" alt=""></a></td>
+		<td width="1050">&nbsp;</td>
+		<td><a href="http://wx.qq.com/" target="_blank"><img src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		<td width="10">&nbsp;</td>
+		<td><a href="http://www.360.cn" target="_blank"><img src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		<td width="7">&nbsp;</td>
+		<td><a href="http://odj.cc" target="_blank"><img src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		<td width="6">&nbsp;</td>
+		<td><a href="http://odj.cc" target="_blank"><img src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		<td width="4">&nbsp;</td>
+		<td><a href="http://odj.cc" target="_blank"><img src="https://jihulab.com/free163/wondows1-2345.ltd/-/raw/b7ecd4659bd086b95400a94f7f327e9bc9afa1ce/pc/computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		
+			
+	</tr>
+</table>
+</div>
+
+
+</div>
+<!-- 代码 结束 -->
+
+
+</div>
+			</div><!-- /content-wrap -->
+		</div><!-- /container -->
+		<script src="js/classie.js"></script>
+		<script src="js/main4.js"></script>
+		
+		
+		
+<script type="text/javascript" language="javascript">
+	$(document).ready(function(){
+		var tb=$(".seven_container").sevenslider({
+			width:774,
+			height:550,
+			fullwidth:true,animation:0,automation:true,autointerval:3,progress:true,progresstype:"linear",bullet:true,carousel:false,circular:true,responsive:true,swipe:true,keyboard:true,skin:"fullwidth",lightbox:true		});
+
+	});
+</script>        
+
+<br>
+		<div class="seven_container" style="z-index:1;">
+            <div id="seven_viewport">
+                <div class="seven_slider">
+                    <div class="seven_slide"><a class="seven_slide_title">云梦仙岛</a><img src="img/f1.jpg" /></div>
+                    <div class="seven_slide"><a class="seven_slide_title">净念禅院</a><img src="img/f2.jpg" /></div>
+                    <div class="seven_slide"><a class="seven_slide_title">天音阁</a><img src="img/f3.jpg" /></div>
+                </div>
+            </div>
+            <a id="left_btn" class="seven_nav">Previous Slide</a>
+            <a id="right_btn" class="seven_nav right_btn">Next Slide</a>
+	</div>
+<div style="text-align:center;clear:both"><br>
+</div>
+
+
+</body>
+</html>

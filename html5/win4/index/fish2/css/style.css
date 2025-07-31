@@ -1,0 +1,505 @@
+html,body {
+  height: 100%; 
+  overflow:hidden;
+}
+body {
+  background: #09f;
+  background-image: linear-gradient(to top, #0099ff, #45d1ff);
+}
+ 
+/* Rocks */
+.ground{
+ background-color: #B19975;
+ border-bottom: 20px solid #655848;
+ height: 50px;
+ position: absolute;
+ bottom: 0;
+ width: 100%;
+ z-index: 25;
+ left: -1px;
+ box-shadow: 0 13px 19px #3A251D inset;
+}
+
+.rock1{
+ background-color: #956F53;
+ border-radius: 120px 20px 20px 20px;
+ height: 115px;
+ left: 75%;
+ position: fixed;
+ bottom: 3%;
+ width: 138px;
+ box-shadow: 3px -6px 2px #292828 inset, -13px -34px 49px #292828 inset;
+ z-index: 30;
+}
+.rock2{
+ border: 1px solid #252424;
+ background-color: #604F46;
+ border-radius: 57px 84px 13px 13px;
+ height: 115px;
+ left: 85%;
+ position: fixed;
+ bottom: 4%;
+ width: 128px;
+ box-shadow: 11px 14px 23px #171717, -83px -37px 25px #292828 inset;
+ z-index: 30;
+}
+.rock2:after{
+ background-color: #604F46;
+ border-radius: 57px 0 57px 0;
+ box-shadow: - #171717, #292828 inset;
+ content: "";
+ height: 60px;
+ left: 34px;
+ position: absolute;
+ top: 51px;
+ width: 165px;
+ border: 1px solid #252424;
+}
+.rock3{
+ border: 1px solid #252424;
+ background-color: #956F53;
+ border-radius:
+ height: 52px;
+ left: 615px;
+ position: fixed;
+ bottom: 4%;
+ width: 97px;
+ z-index: 50;
+ box-shadow: 1px -2px 8px #171717, 1px -18px 18px #292828 inset;
+
+}
+.rock3:before{
+ border: 1px solid #252424;
+ transform: rotate(186deg);
+ background-color: #A37F64;
+ border-radius: 121px 20px 137px 51px;
+ content: "";
+ height: 41px;
+ left: -50px;
+ position: absolute;
+ top: 9px;
+ width: 80px;
+ box-shadow: -1px 4px 8px #171717, 4px 3px 18px #292828 inset;
+}
+.rock3:after{
+ border: 1px solid #252424;
+ background-color: #78604E;
+ border-radius: 60px 80px 30px 40px;
+ content: "";
+ box-shadow: -4px 3px 6px #171717, 10px -7px 17px #292828 inset;
+ transform: skewX(22deg) skewY(-5deg);
+ height: 48px;
+ left: 70px;
+ position: absolute;
+ top: -12px;
+ width: 120px;
+}
+.rock4{
+ transform: rotate(19deg);
+ background-color: #956F53;
+ border-radius: 121px 19px 50px 18px;
+ box-shadow: 1px 4px 8px #171717, -6px -8px 12px #292828 inset;
+ height: 252px;
+ left: 37px;
+ position: fixed;
+ bottom: 4%;
+ width: 107px;
+ border: 1px solid #252424;
+ z-index:100;
+}
+.rock4:before{
+ transform: rotate(89deg);
+ background-color: #A37F64;
+ border-radius: 191px 106px 137px 1px;
+ box-shadow: 6px -27px 23px #473827 inset;
+ content: "";
+ height: 44px;
+ left: 7px;
+ position: absolute;
+ top: 91px;
+ width: 228px;
+ border: 1px solid #252424;
+}
+.rock4:after{
+ background-color: #78604E;
+ border-radius: 121px 20px 137px 51px;
+ box-shadow: 5px 1px 4px #171717, -8px -7px 18px #292828 inset;
+ content: "";
+ height: 63px;
+ left: 232px;
+ position: absolute;
+ top: 128px;
+ width: 87px;
+ border: 1px solid #252424;
+}
+.rock5{
+ border: 1px solid #252424;
+ transform: rotate(52deg) skewX(-3deg);
+ background-color: #956F53;
+ border-radius: 121px 20px 137px 51px;
+ box-shadow:3px 2px 7px #171717, -14px -18px 30px #292828 inset;
+ height: 84px;
+ left: 95px;
+ position: fixed;
+ bottom: 3%;
+ width: 77px;
+ z-index: 100;
+}
+.rock5:before{
+ transform:rotate(217deg);
+ background-color: #A37F64;
+ border: 1px solid #252424;
+ border-radius: 21px 20px 117px 51px;
+ box-shadow: -8px 1px 8px #212020, 5px -2px 15px #292828 inset;
+ content: "";
+ height: 144px;
+ left: -40px;
+ position: absolute;
+ top: 5px;
+ width: 82px;
+}
+.rock5:after{
+ transform: skewX(-6deg) rotate(114deg);
+ background-color: #78604E;
+ border: 1px solid #252424;
+ border-radius: 40px 102px 104px 109px;
+ box-shadow:2px -1px 7px #171717, -5px 10px 20px #292828 inset;
+ content: "";
+ height: 57px;
+ left: 91px;
+ position: absolute;
+ top: -147px;
+ width: 125px;
+}
+
+.rock6{
+ border: 1px solid #252424;
+ transform: rotate(52deg) skewX(-3deg);
+ background-color: #B49F9F;
+ border-radius: 121px 20px 137px 51px;
+ box-shadow:3px 2px 7px #171717, -14px -18px 30px #292828 inset;
+ height: 84px;
+ left: 60%;
+ position: fixed;
+ bottom: 2%;
+ width: 77px;
+ z-index: 100;
+}
+.rock6:before{
+ transform:rotate(37deg);
+ background-color: #A37F64;
+ border: 1px solid #252424;
+ border-radius: 21px 20px 17px 51px;
+ box-shadow: -8px 1px 8px #212020, 5px -2px 15px #292828 inset;
+ content: "";
+ height: 344px;
+ left: -130px;
+ position: absolute;
+ top: 75px;
+ width: 42px;
+}
+.rock6:after{
+ transform: skewX(-6deg) rotate(24deg);
+ background-color: #78604E;
+ border: 1px solid #252424;
+ border-radius: 40px 104px 102px 109px;
+ box-shadow:2px -1px 7px #171717, -5px 10px 20px #292828 inset;
+ content: "";
+ height: 87px;
+ left: 35px;
+ position: absolute;
+ top: -190px;
+ width: 170px;
+}
+
+
+/*plants*/
+.plant1wrap{
+ position: fixed; bottom:10%; width:10%; height:300px;
+ left: 38%;
+ z-index: 5;
+}
+.plant1{
+  z-index:100;
+ transform: rotate(-15deg);
+ background-color: #3D8F39;
+ border: 1px solid #252424;
+ border-radius: 260px 30px 260px 17px;
+ box-shadow: -4px -5px 8px #292828 inset;
+ height: 224px;
+ left: -20px;
+ position: absolute;
+ top: 150px;
+ width: 43px;
+}
+.plant1:after{
+ border: 1px solid #252424;
+ box-shadow: 0 10px 11px #292828;
+ content: "";
+ height: 279px;
+ left: 10px;
+ position: absolute;
+ top: 19px;
+ width: 2px;
+}
+.plant2{
+ background-color: #33852F;
+ border: 1px solid #252424;
+ border-radius: 260px 30px 260px 17px;
+ box-shadow: -4px -5px 8px #292828 inset;
+ height: 276px;
+ left: 42px;
+ position: absolute;
+ top: 79px;
+ width: 51px;
+}
+.plant2:after{
+ border: 1px solid #252424;
+ box-shadow: 0 10px 11px #292828;
+ content: "";
+ height: 235px;
+ left: 29px;
+ position: absolute;
+ top: 19px;
+ width: 2px;
+}
+.plant3{
+ background-color: #33852F;
+ border: 1px solid #252424;
+ border-radius: 260px 30px 260px 17px;
+ box-shadow: -4px -5px 8px #292828 inset;
+ height: 253px;
+ left: 9px;
+ position: absolute;
+ top: 203px;
+ width: 39px;
+}
+.plant3:after{
+ border: 1px solid #252424;
+ box-shadow: 0 10px 11px #292828;
+ content: "";
+ height: 112px;
+ left: 14px;
+ position: absolute;
+ top: 19px;
+ width: 2px;
+}
+
+.plant2wrap{
+ position: fixed; bottom:2%; width:10%; height:400px;
+ left: 90%;
+ z-index: 10;
+}
+.plant4{
+ background-color: #33852F;
+ border: 1px solid #252424;
+ border-radius: 260px 30px 260px 17px;
+ box-shadow: -4px -5px 8px #292828 inset;
+ height: 135px;
+ left: -9px;
+ position: absolute;
+ top: 180px;
+ width: 39px;
+}
+.plant4:after{
+ border: 1px solid #252424;
+ box-shadow: 0 10px 11px #292828;
+ content: "";
+ height: 112px;
+ left: 14px;
+ position: absolute;
+ top: 19px;
+ width: 2px;
+}
+.plant5{
+ background-color: #33852F;
+ border: 1px solid #252424;
+ border-radius: 260px 30px 260px 17px;
+ box-shadow: -4px -5px 8px #292828 inset;
+ height: 135px;
+ left: 39px;
+ position: absolute;
+ top: 220px;
+ width: 39px;
+}
+.plant5:after{
+ border: 1px solid #252424;
+ box-shadow: 0 10px 11px #292828;
+ content: "";
+ height: 112px;
+ left: 14px;
+ position: absolute;
+ top: 19px;
+ width: 2px;
+}
+
+.plant2{
+ transform-origin: center bottom;
+}
+
+.plant3{
+ transform-origin: center bottom;
+}
+
+.plant4{
+ left:-6px;
+ top:190px;
+ transform-origin: center bottom;
+}
+
+.plant5{
+ left:40px;
+ top:200px;
+ transform-origin: center bottom;
+}
+
+/* fish */
+.fish1{
+ height: 230px;
+ max-width:400px;
+ position: absolute;
+ top: 55%;
+ width: 290px;
+ left: 200px;
+ z-index: 100;
+ }
+
+.fish2{
+ height: 230px;
+ left: 200px;
+ position: absolute;
+ top: 65%;
+ width: 290px;
+ z-index: 100;
+}
+
+header, #header {
+	padding: 10px 0;
+}
+
+
+/* bubbles */
+.bubblewrap{
+	height: 500px;
+	left: 470px;
+	position: absolute;
+  bottom: 0px;
+	width: 200px;
+}
+.bubbles{
+	background-color: rgba(255, 255, 255, 0.16);
+	border: 1px solid #585858;
+	border-radius: 100px 100px 100px 100px;
+	height: 20px;
+	left: 33px;
+	position: absolute;
+	bottom: 0px;
+	width: 20px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+.b3{
+	left: 50px;
+	bottom: 0px;
+}
+.b4{
+	left: 60px;
+	bottom: 0px;
+}
+.b5{
+	left: 80px;
+	bottom: 0px;
+}
+.b6{
+	left: 90px;
+	bottom: 0px;
+}
+
+
+.fish1{ animation:fish1-swim 30s infinite linear; }
+@keyframes fish1-swim{
+ from{ left:50%; }
+ 20%{ left:0; transform:scaleX(1);}
+ 20.5%{ transform:scaleX(-1);  left:-30px; }
+ 50%{ top:30%; left:70%; transform:scaleX(-1); }
+ 50.5%{ transform:scaleX(1);  left:75%; top:40%; }
+ 70%{ top:15%; left:-30px; transform:scaleX(1);  }
+ 70.5%{ transform:scaleX(-1);  left:-30px; }
+ 80%{ left:65%; top:45%; }
+ 82%{ left:76%; transform:scaleX(-1); }
+ 82.5%{ transform:scaleX(1); top:45%; left:77%; }
+ 84%{ top:50%; left:70%;  }
+ 88%{ top:60%; left:75%;  }
+ to{ left:80%; }
+}
+
+.fish2{ animation:fish2-swim 40s infinite linear; }
+@keyframes fish2-swim{
+ from{ left:45%; }
+ 20%{ left:0; transform:scaleX(1); }
+ 20.5%{ transform:scaleX(-1); left:-30px; }
+ 50%{  top:75%; left:75%; transform:scaleX(-1); }
+ 50.5%{ transform:scaleX(1); left:75%; top:60%; }
+ 69%{ left:-30px;  }
+ 70%{ top:35%; left:-30px; transform:scaleX(1);  }
+ 70.5%{ transform:scaleX(-1); left:-30px; }
+ 81%{ left:65%; top:70%; }
+ 82%{ left:70%; transform:scaleX(-1); }
+ 82.5%{ transform:scaleX(1); top:72%; left:68%; }
+ 84%{ top:65%; left:70%;  }
+ 88%{ top:70%; left:75%; }
+ to{ left:45%; }
+}
+
+
+.b1{ animation: bubblerise 4s 2s linear infinite;}
+.b2{ animation: bubblerise 7s linear infinite }
+.b3{ animation: bubblerise 4s linear 1s infinite }
+.b4{ animation: bubblerise 5s linear 3s infinite }
+.b5{ animation: bubblerise 6s linear infinite }
+.b6{ animation: bubblerise 5s linear infinite }
+
+@keyframes bubblerise{
+	from{ top:380px; }
+	to{ top:0px; }
+}
+
+
+.plant1{ animation: plant1-sway 15s infinite ease; }
+@keyframes plant1-sway{
+ from{ transform:rotate(-7deg); }
+ 50%{ transform:rotate(13deg); }
+ to{ transform:rotate(-7deg); }
+}
+
+.plant2{ animation: plant2-sway 15s infinite ease; }
+@keyframes plant2-sway{
+ from{ transform:rotate(-7deg); }
+ 50%{ transform:rotate(13deg); }
+ to{ transform:rotate(-7deg); }
+}
+
+.plant3{ animation: plant3-sway 16s infinite ease; }
+@keyframes plant3-sway{
+ from{ transform:rotate(-5deg); }
+ 50%{ transform:rotate(12deg); }
+ to{ transform:rotate(-5deg); }
+}
+
+.plant4{ animation: plant4-sway 14.98s infinite ease; }
+@keyframes plant4-sway{
+ from{ transform:rotate(-10deg); }
+ 45%{ transform:rotate(-16deg); }
+ 50%{ transform:rotate(-2deg); }
+ to{ transform:rotate(-10deg); }
+}
+
+.plant5{ animation: plant5-sway 14.98s infinite ease; }
+@keyframes plant5-sway{
+ from{ transform:rotate(5deg); }
+ 45%{ transform:rotate(8deg); }
+ 50%{ transform:rotate(20deg); }
+ to{ transform:rotate(5deg); }
+}
+
+
