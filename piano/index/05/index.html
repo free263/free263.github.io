@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="在线钢琴,MIDI钢琴,MIDI,五线谱,网页钢琴,识谱" />
+    <meta name="description" content="支持MIDI键盘,虚拟MIDI设备的网页版本辅助识谱钢琴" />
+    <title>MIDI Piano</title>
+<!--    <link rel="stylesheet" type="text/css" href="css/skin.default.css">-->
+    <link href="favorite.ico" rel="shortcut icon" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="" id="theme_css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+<header>
+    <!-- 调号列表 -->
+    <ul class="diao_panel"></ul>
+    <!-- MIDI设备名称显示框 -->
+    <span id="midi_device_label" class="midi_label_span">No MIDI Input Device</span>
+</header>
+<article>
+    <div class="key_pad">
+        <!-- note-name 指音高助记 (音符名) -->
+        <section class="key_group" group-index="1">
+            <div class="key_white" note-name="A2"></div>
+            <div class="key_black key_black_6" note-name="A#2"></div>
+            <div class="key_white" note-name="B2"></div>
+        </section>
+        <section class="key_group" group-index="2">
+            <div class="key_white" note-name="C1"></div>
+            <div class="key_black key_black_1" note-name="C#1"></div>
+            <div class="key_white" note-name="D1"></div>
+            <div class="key_black key_black_2" note-name="D#1"></div>
+            <div class="key_white" note-name="E1"></div>
+            <div class="key_white" note-name="F1"></div>
+            <div class="key_black key_black_3" note-name="F#1"></div>
+            <div class="key_white" note-name="G1"></div>
+            <div class="key_black key_black_4" note-name="G#1"></div>
+            <div class="key_white" note-name="A1"></div>
+            <div class="key_black key_black_5" note-name="A#1"></div>
+            <div class="key_white" note-name="B1"></div>
+        </section>
+        <section class="key_group" group-index="3">
+            <div class="key_white" note-name="C"></div>
+            <div class="key_black key_black_1" note-name="C#"></div>
+            <div class="key_white" note-name="D"></div>
+            <div class="key_black key_black_2" note-name="D#"></div>
+            <div class="key_white" note-name="E"></div>
+            <div class="key_white" note-name="F"></div>
+            <div class="key_black key_black_3" note-name="F#"></div>
+            <div class="key_white" note-name="G"></div>
+            <div class="key_black key_black_4" note-name="G#"></div>
+            <div class="key_white" note-name="A"></div>
+            <div class="key_black key_black_5" note-name="A#"></div>
+            <div class="key_white" note-name="B"></div>
+        </section>
+        <section class="key_group" group-index="4">
+            <div class="key_white" note-name="c"></div>
+            <div class="key_black key_black_1" note-name="c#"></div>
+            <div class="key_white" note-name="d"></div>
+            <div class="key_black key_black_2" note-name="d#"></div>
+            <div class="key_white" note-name="e"></div>
+            <div class="key_white" note-name="f"></div>
+            <div class="key_black key_black_3" note-name="f#"></div>
+            <div class="key_white" note-name="g"></div>
+            <div class="key_black key_black_4" note-name="g#"></div>
+            <div class="key_white" note-name="a"></div>
+            <div class="key_black key_black_5" note-name="a#"></div>
+            <div class="key_white" note-name="b"></div>
+        </section>
+        <section class="key_group" group-index="5">
+            <div class="key_white" note-name="c1"></div>
+            <div class="key_black key_black_1" note-name="c#1"></div>
+            <div class="key_white" note-name="d1"></div>
+            <div class="key_black key_black_2" note-name="d#1"></div>
+            <div class="key_white" note-name="e1"></div>
+            <div class="key_white" note-name="f1"></div>
+            <div class="key_black key_black_3" note-name="f#1"></div>
+            <div class="key_white" note-name="g1"></div>
+            <div class="key_black key_black_4" note-name="g#1"></div>
+            <div class="key_white" note-name="a1"></div>
+            <div class="key_black key_black_5" note-name="a#1"></div>
+            <div class="key_white" note-name="b1"></div>
+        </section>
+        <section class="key_group" group-index="6">
+            <div class="key_white" note-name="c2"></div>
+            <div class="key_black key_black_1" note-name="c#2"></div>
+            <div class="key_white" note-name="d2"></div>
+            <div class="key_black key_black_2" note-name="d#2"></div>
+            <div class="key_white" note-name="e2"></div>
+            <div class="key_white" note-name="f2"></div>
+            <div class="key_black key_black_3" note-name="f#2"></div>
+            <div class="key_white" note-name="g2"></div>
+            <div class="key_black key_black_4" note-name="g#2"></div>
+            <div class="key_white" note-name="a2"></div>
+            <div class="key_black key_black_5" note-name="a#2"></div>
+            <div class="key_white" note-name="b2"></div>
+        </section>
+        <section class="key_group" group-index="7">
+            <div class="key_white" note-name="c3"></div>
+            <div class="key_black key_black_1" note-name="c#3"></div>
+            <div class="key_white" note-name="d3"></div>
+            <div class="key_black key_black_2" note-name="d#3"></div>
+            <div class="key_white" note-name="e3"></div>
+            <div class="key_white" note-name="f3"></div>
+            <div class="key_black key_black_3" note-name="f#3"></div>
+            <div class="key_white" note-name="g3"></div>
+            <div class="key_black key_black_4" note-name="g#3"></div>
+            <div class="key_white" note-name="a3"></div>
+            <div class="key_black key_black_5" note-name="a#3"></div>
+            <div class="key_white" note-name="b3"></div>
+        </section>
+        <section class="key_group" group-index="8">
+            <div class="key_white" note-name="c4"></div>
+            <div class="key_black key_black_1" note-name="c#4"></div>
+            <div class="key_white" note-name="d4"></div>
+            <div class="key_black key_black_2" note-name="d#4"></div>
+            <div class="key_white" note-name="e4"></div>
+            <div class="key_white" note-name="f4"></div>
+            <div class="key_black key_black_3" note-name="f#4"></div>
+            <div class="key_white" note-name="g4"></div>
+            <div class="key_black key_black_4" note-name="g#4"></div>
+            <div class="key_white" note-name="a4"></div>
+            <div class="key_black key_black_5" note-name="a#4"></div>
+            <div class="key_white" note-name="b4"></div>
+        </section>
+        <section class="key_group" group-index="9">
+            <div class="key_white" note-name="c5"></div>
+        </section>
+    </div>
+</article>
+<article class="center_content">
+    <section>
+        <div class="skin_img_container">
+            <img src="imgs/acg.png" class="skin_img_button" title="换肤"/>
+        </div>
+        <!-- 音符名显示框 -->
+        <h4 id="key-name"></h4>
+    </section>
+    <section class="line_content">
+        <!-- 五线谱列表 -->
+        <div class="line_group"></div>
+    </section>
+    <section class="footage_manage">
+        <button class="func_button_base create_button" id="button_create_footage">创建复音</button>
+        <div class="train_option_div">
+            <button class="func_button_base train_op_button train_op_button_top">常用</button>
+            <button class="func_button_base train_op_button train_op_button_btm">全部</button>
+        </div>
+    </section>
+</article>
+
+<div class="footage_content">
+    <div class="footage_button_div">
+        <div class="footage_button_border_div"></div>
+        <button class="footage_button_base clear_footage_button footage_button_hover" id="button_footage_remove_all">清空复音</button>
+        <button class="footage_button_base footage_small_button footage_button_hover" id="button_start_train" title="开始训练">♞</button>
+        <button class="footage_button_base footage_small_button footage_button_hover" id="button_sample_play" title="播放示例">♫</button>
+    </div>
+    <!--复音列表-->
+    <section id="footage_list"></section>
+</div>
+
+</div>
+<!--表情气泡-->
+<img src="imgs/emo.png" class="press_correct" id="press_correct_img"/>
+<!--提示气泡-->
+<div id="div_tip" class="div_tip"></div>
+</body>
+
+<script src="./script/jquery-3.7.1.min.js"></script>
+<!--<script src="sheets/canon.js"></script>-->
+<script src="sheets/kyobyobongko.js"></script>
+<script src="script/train.js"></script>
+<script src="script/sheet.player.js"></script>
+<script src="script/index.js"></script>
+<script src="script/polyphony.mark.js"></script>
+<script src="script/midi.core.js"></script>
+<script src="script/midi.web.bridge.js"></script>
+</html>
