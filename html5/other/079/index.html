@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<head>
+<meta http-equiv="content-type" content="text/html" />
+<title>jquery画中画切换特效 - 站长素材</title>
+<link rel="stylesheet" type="text/css" href="style.css" />
+<script src="js/modernizr.js" language="javascript"></script>
+<script src="js/jquery.min.js" language="javascript"></script>
+<script src="js/jquery.parallaxSlider.js" language="javascript"></script>
+<script type="text/javascript">
+jQuery(document).ready(function($){
+	var easing = 'swing';
+	$("#slider2").parallaxSlider({
+		autoPlay:500,//false to disable, otherwise int duration in ms hold between slides
+		speed:2000, //transition duration between slides
+		easing: 'swing',
+		numBackgrounds: 3,
+		thumbRotation:false,
+		//debug:true,
+	});
+	$("#slider").parallaxSlider({
+		/* debug:true */
+		}); 
+})
+
+</script>
+<style>
+#slider2 {
+	position:relative;
+}
+</style>
+</head>
+<body>
+ 
+<div id="slider" class="slider" >
+	<div class="pxs_bg">
+	</div>
+	<!-- Background classes will be automatically generated, CSS must specify background images to use, see style.css for instructions -->
+	<div class="pxs_loading">Loading images...</div>
+	<div class="pxs_slider_wrapper">
+		<ul class="pxs_slider">
+			<li>
+				<a href="#"><!-- Images may be wrapped in an anchor to make them clickable -->
+					<img src="images/featured_011.jpg" height="250" width="940" title="Interactive Marketing" alt="Interactive Marketing" />
+				</a>
+			</li>
+			<li>
+				<a href="http://sc.chinaz.com/">
+					<img src="images/featured_012.jpg" title="WHMCS Services" height="250" width="940" alt="WHMCS Services" />
+				</a>
+			</li>
+			<li>
+				<img src="images/featured_013.jpg" title="Website Design" height="250" width="940" alt="Website Design" />
+			</li>
+			<li>
+				<img src="images/featured_014.jpg" title="Web Hosting" height="250" width="940" alt="Web Hosting" />
+			</li>
+		</ul>
+		<div class="pxs_navigation">
+			<span class="pxs_next"></span>
+			<span class="pxs_prev"></span>
+		</div>
+		<ul class="pxs_thumbnails">
+			<li>
+				<img src="images/featured_011-150x150.jpg" height="150" width="150" alt="Interactive Marketing" />
+			</li>
+			<li>
+				<img src="images/featured_012-150x150.jpg" height="150" width="150" alt="WHMCS Services" />
+			</li>
+			<li>
+				<img src="images/featured_013-150x150.jpg" height="150" width="150" alt="Website Design" />
+			</li>
+			<li>
+				<img src="images/featured_014-150x150.jpg" height="150" width="150" alt="Web Hosting" />
+			</li>
+		</ul>
+	</div><!-- End .pxs_slider_wrapper -->
+</div>	
+<div style="text-align:center;clear:both"><br>
+<p>适用浏览器：IE8、360、FireFox、Chrome、Safari、Opera、傲游、搜狗、世界之窗. </p>
+<p>来源：<a href="http://sc.chinaz.com/" target="_blank">站长素材</a></p>
+</div>
+</body>
+</html>

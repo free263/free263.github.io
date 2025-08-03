@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>jQuery网页动态背景动画插件jqfloat - 代码库</title>
+	<link rel="stylesheet" href="dmaku.css" />
+	<script src="js/jquery-1.7.1.min.js"></script>
+	<!--[if lt IE 9]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+<!--/************************************************************
+ *																*
+ * 						      代码库							*
+ *                        www.dmaku.com							*
+ *       		  努力创建完善、持续更新插件以及模板			*
+ * 																*
+**************************************************************-->
+<body>
+<section id="wrapper">
+	<div id="sky">
+		<div id="cloud1" class="cloud"></div>
+		<div id="cloud2" class="cloud"></div>
+		<div id="cloud3" class="cloud"></div>
+		<div id="cloud4" class="cloud"></div>
+		<div id="sun"></div>
+	</div>
+	<div id="ground">
+		<div id="snail"></div>
+		<div id="message">不要碰我! ! </div>
+		<div id="fly1" class="butterfly"></div>
+		<div id="fly2" class="butterfly"></div>
+	</div>
+	<div id="balloon"></div>
+	<div id="iefix"></div>
+</section>
+<script src="js/dmaku.min.js"></script>
+<script>
+$(document).ready(function() {
+
+	$('.cloud').each(function() {
+		$(this).jqFloat({
+			width:Math.floor(Math.random()*10)*10,
+			height:10,
+			speed:Math.floor(Math.random()*10)*100 + 500
+		});
+	});	
+	$('#sun').jqFloat({
+		width:10,
+		height:50,
+		speed:1800
+	});
+	$('.butterfly').jqFloat({
+		width:400,
+		height:100,
+		speed:1500
+	});
+	$('#snail, #message').jqFloat('stop',{
+		width:5,
+		height:0,
+		speed:30
+	});
+	$('#snail, #message').hover(function() {
+		$(this).jqFloat('play');
+	}, function() {
+		$(this).jqFloat('stop');
+	});
+	
+	var clicked = false;
+	//define balloon attribute
+	$('#balloon').jqFloat('stop',{
+		width:5,
+		height:30,
+		speed:1500,
+		minHeight:300
+	});
+	$('#balloon').on('click', function() {
+		clicked = !clicked;
+		if(clicked)
+			$(this).jqFloat('play');
+		else 
+			$(this).jqFloat('stop');
+	});
+	
+});
+</script>
+</body>
+</html>

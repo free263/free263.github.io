@@ -1,0 +1,98 @@
+body {
+    margin: 0;
+}
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+    position: relative;
+    transition-property: clip-path, opacity;
+    transition-duration: 900ms, 300ms;
+    transition-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+}
+.slider {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 360px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.slider .status {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    display: flex;
+}
+.slider .status .stat {
+    width: 10px;
+    height: 10px;
+    background-color: transparent;
+    border-radius: 50%;
+    z-index: 11;
+    margin: 0px 5px;
+    border: 2px solid #fff;
+}
+.slider .status .stat[data-active] {
+    background-color: #fff;
+}
+.slider img {
+    object-fit: cover;
+    object-position: center 80%;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+.slider .image {
+    width: 100%;
+    margin-right: -100%;
+    opacity: 0;
+    display: block;
+}
+.slider .image img {
+    clip-path: circle(50px at 5vw 50%);
+}
+.slider .image[data-active] {
+    opacity: 1;
+}
+.slider .image[data-active] img {
+    clip-path: circle(100vmax at 50% 50%);
+}
+.slider .image[data-active] ~ .image {
+    opacity: 0;
+}
+.slider .image[data-active] ~ .image img {
+    clip-path: circle(50px at 95vw 50%);
+}
+.slider svg {
+    height: 30px;
+    position: absolute;
+    top: 50%;
+    margin-top: -15px;
+    z-index: 1000;
+    cursor: pointer;
+    overflow: visible;
+}
+.slider svg path {
+    stroke: #666;
+    stroke-linecap: round;
+    stroke-width: 12px;
+    fill: transparent;
+}
+.slider svg circle {
+    fill: #fff9;
+}
+.slider svg#next {
+    right: 5vw;
+}
+.slider svg#prev {
+    left: 5vw;
+}
+.dwf {
+    position: fixed;
+    bottom: 4px;
+    right: 10px;
+    background-color: #0003;
+    padding: 3px;
+    border-radius: 3px;
+}

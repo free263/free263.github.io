@@ -1,0 +1,1 @@
+gsap.to(".buckets div span",{backgroundColor:"orange",stagger:1});

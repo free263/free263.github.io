@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <title>带剪切动画的幻灯片演示</title>
+    <link rel="stylesheet" href="css/style.css">
+	<style>
+		body { margin: 0;}
+		h1 { margin: 40px auto; font: 32px "Microsoft Yahei"; text-align: center;}
+	</style>
+</head>
+
+<body>
+<h1>带剪切动画的幻灯片演示</h1>
+<div class="slider dowebok" data-state="0">
+    <svg id="prev" viewBox='0 0 100 100'>
+        <circle cx="50" cy="50" r="85" />
+        <path d="M 65,2 17,50 65,98" />
+    </svg>
+    <svg id="next" viewBox='0 0 100 100'>
+        <circle cx="50" cy="50" r="85" />
+        <path d="M 35,2 82,50 35,98" />
+    </svg>
+
+    <div class="status">
+        <div class="stat" data-key="0"></div>
+        <div class="stat" data-key="1"></div>
+        <div class="stat" data-key="2"></div>
+        <div class="stat" data-key="3"></div>
+        <div class="stat" data-key="4"></div>
+        <div class="stat" data-key="5"></div>
+    </div>
+    <div class="image" data-key="0">
+        <img src="images/1.jpeg" alt="">
+    </div>
+    <div class="image" data-key="1">
+        <img src="images/2.jpeg" alt="">
+    </div>
+    <div class="image" data-key="2">
+        <img src="images/3.jpeg" alt="">
+    </div>
+    <div class="image" data-key="3">
+        <img src="images/4.jpeg" alt="">
+    </div>
+    <div class="image" data-key="4" data-active>
+        <img src="images/5.jpeg" alt="">
+    </div>
+    <div class="image" data-key="5">
+        <img src="images/6.jpeg" alt="">
+    </div>
+</div>
+<script src="js/index.js"></script>
+
+</body>
+
+</html>

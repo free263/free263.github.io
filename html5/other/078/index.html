@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-touch-fullscreen" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>jQuery红包泡泡点击抽奖代码 - 站长素材</title>
+
+<link href="css/main.css" rel="stylesheet">
+<link href="css/base.css" rel="stylesheet">
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.rotate.min.js"></script>
+
+</head>
+<body>
+
+<div class="red_bag">
+	<div class="cloud"></div>
+	<div class="div red_bg_1 fix">
+		<div class="dd">
+			<div class="tt"><img src="images/red-bag/home_btn_hby_hb.png"></div>
+		</div>
+		<div class="dd dd1">
+			<div class="tt"><img src="images/red-bag/home_btn_hby_hb.png"></div>
+		</div>
+		<div class="dd">
+			<div class="tt"><img src="images/red-bag/home_btn_hby_hb.png"></div>
+		</div>
+		<div class="dd">
+			<div class="tt"><img src="images/red-bag/home_btn_hby_hb.png"></div>
+		</div>
+		<div class="dd">
+			<div class="tt"><img src="images/red-bag/home_btn_hby_hb.png"></div>
+		</div>
+		<div class="dd">
+			<div class="tt"><img src="images/red-bag/home_btn_hby_hb.png"></div>
+		</div>
+		<div class="dd">
+			<div class="tt"><img src="images/red-bag/home_btn_hby_hb.png"></div>
+		</div>
+		<div class="fly">
+			<!-- <div class="fly_1"><img src="images/red-bag/fly.png"></div> -->
+		</div>
+	</div>
+
+</div>   
+<div class="fancy-overlay" style="display: none">
+	<div class="pop-box">
+		<div><img src="images/red-bag/gx.png"></div>
+		<h5>获得5金币</h5>
+		<button class="btn">ok</button>
+	</div>
+</div>
+
+<script type="text/javascript" src="js/jqfloat.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+$('.dd').hide();
+setTimeout(function(){$('.dd').show();},6000);
+$('.dd').jqFloat({
+	width: 1408,
+	height: 800,
+	speed: 7000,
+	minHeight: 50
+});
+var select_div = function(tab,_text) {
+	tab.click(function(){
+		$(this).children('.tt').hide(); 
+		 $(this).css('backgroundImage','url(images/red-bag/hby_img_band.png)');
+		 setTimeout(function(){ tab.hide();$('.pop-box h5').text(_text);
+		 $('.fancy-overlay').show(); },200);           
+		 
+	});
+};
+var select_div1 = function(tab) {
+   tab.click(function(){         
+		 
+		 $(this).children('.tt').hide();            
+		 setTimeout(function(){ tab.css('backgroundImage','url(images/red-bag/home_btn_hby_bubble.png)'); tab.children('.tt').show(); },3000);
+		 
+		 
+	});
+};
+
+
+select_div($('.div .dd:eq(0)'),'10金币');
+select_div($('.div .dd:eq(3)'),'5代金券');
+select_div($('.div .dd:eq(1)'),'再接再励');
+select_div($('.div .dd:eq(2)'),'20代金券');
+select_div($('.div .dd:eq(4)'),'再接再励');
+select_div($('.div .dd:eq(5)'),'15代金券');
+select_div($('.div .dd:eq(6)'),'再接再励');            
+$('.btn').click(function() {
+		$('.fancy-overlay').hide();
+
+	});
+var angle = 0;
+setInterval(function() {
+	angle += 10;
+	$(".tt img").rotate(angle);
+}, 100);
+// var hh = setInterval(bb(),10000);
+function bb(){
+
+	 $('.fly').prepend('<div class="fly_1"></div>');
+	 $('.fly_1').prepend('<img src="images/red-bag/fly.png">');
+	// setTimeout(function(){        
+	 $('.fly_1').animate({
+		'left':-100,
+		'top': 100},
+		10000, function() {
+			$('.fly_1').remove();
+	   });
+
+ // },100)
+ 
+};
+bb();
+var hh = setInterval(bb,15100);
+
+
+
+
+
+	//    var a =0;
+	//     var Timerr = setInterval(aa,5000);
+	//     var removepackage = setInterval(function(){
+	//                 for(var jj=0;jj<$('.dd').size()/4;jj++){
+	//                 $('.div .dd').eq($('.dd').size()).remove();
+	//                 }
+	//             },2000)
+	//     function aa(){
+	//         for(var i=0;i<4;i++){
+	//             var m=parseInt(Math.random()*700+100);
+	//             var j2=parseInt(Math.random()*300+1200);
+	//             var j=parseInt(Math.random()*1600+000);
+	//             var j1=parseInt(Math.random()*300+380);
+	//             var n=parseInt(Math.random()*10+(-10));
+	//             $('.div').prepend('<div class="dd"></div>');        
+	//             $('.div').children('.dd').eq(0).css({'left':j,'top':n});
+	//             $('.div').children('.dd').eq(0).animate({'left':1920,'top':$(window).height()+50},5000,function(){
+	//                 if ($('.div').children('.dd').eq(0).offset().left == 1920) {
+	//                 $('.div').children('.dd').eq(0).animate({'left':0,'top':$(window).height()+50},5000);
+	//              }
+	//             });
+
+//         }
+//         if (i == 4) {
+//             $('.dd').prepend('<div class="tt"></div>');
+//             $('.tt').prepend('<img src="images/red_ico_01.png">');
+//         };
+
+
+//     }
+
+// $(document).on('click', '.dd', function(){
+//  $(this).css("background-position","0 -99px");
+//  a++;
+//  if(a == 5){
+//      $(".chuai_box").show();
+//      clearInterval(Timerr,20);
+//      $(".div").removeClass("bg_1");
+//      setTimeout(function(){
+//          $(".div").addClass("bg_2");
+//      },3000);
+//  }
+// }); 
+})
+</script>
+
+<div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
+<p>适用浏览器：360、FireFox、Chrome、Safari、Opera、傲游、搜狗、世界之窗. 不支持IE8及以下浏览器。</p>
+<p>来源：<a href="http://sc.chinaz.com/" target="_blank">站长素材</a></p>
+</div>
+</body>
+</html>

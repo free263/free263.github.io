@@ -1,0 +1,310 @@
+@import url("https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap");
+
+:root {
+	--truck-color: #d86565;
+}
+
+* {
+	margin: 0;
+}
+
+body {
+	width: 100%;
+	min-height: 100vh;
+	font-size: 1vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #86e0ef;
+}
+
+.road {
+	width: 100%;
+	height: max(10em, calc(100vh - 25em));
+	position: absolute;
+	top: 25em;
+	left: 0;
+	background: #089a42;
+}
+
+.truck {
+	width: 75em;
+	height: 35em;
+	/* 	background: #efefef; */
+	position: relative;
+}
+
+.truck-e1 {
+	width: 60em;
+	height: 24em;
+	background: linear-gradient(90deg, #da4242, var(--truck-color) 10% 100%);
+	position: absolute;
+	top: 5em;
+	left: 2em;
+	border-radius: 2em 2em 0 0;
+}
+
+.truck-top {
+	width: 60em;
+	height: 2em;
+	background: repeating-linear-gradient(
+		45deg,
+		#e6a7a7 0 1.5em,
+		#de7171 1.5em 3em
+	);
+	position: absolute;
+	top: 5em;
+	left: 2em;
+	border-radius: 2em 2em 0 0;
+}
+
+.truck-e2 {
+	width: 2.5em;
+	height: 8em;
+	background: var(--truck-color);
+	position: absolute;
+	top: 18.5em;
+	left: 62em;
+}
+
+.truck-e3 {
+	width: 8em;
+	height: 5em;
+	background: var(--truck-color);
+	position: absolute;
+	top: 21.5em;
+	left: 64.5em;
+}
+
+.truck-e4 {
+	width: 0;
+	height: 0;
+	border-bottom: 6em solid var(--truck-color);
+	border-right: 16em solid transparent;
+	border-radius: 0 50% 0 1%;
+	position: absolute;
+	top: 18.5em;
+	left: 56.5em;
+}
+
+.truck-e5 {
+	width: 0;
+	height: 0;
+	border-bottom: 7.5em solid var(--truck-color);
+	border-right: 2.5em solid transparent;
+	position: absolute;
+	top: 11em;
+	left: 62em;
+}
+
+.truck-bottom-1 {
+	width: 70.5em;
+	height: 2em;
+	background: #a23530;
+	position: absolute;
+	top: 24.5em;
+	left: 2em;
+}
+
+.truck-bottom-2 {
+	width: 60em;
+	height: 2.5em;
+	background: #d6aeae;
+	position: absolute;
+	top: 26.5em;
+	left: 2em;
+}
+
+.truck-wheel-1 {
+	width: 8em;
+	height: 8em;
+	background: #484848;
+	border-radius: 50%;
+	border: 0.5em solid #7b7b7b;
+	position: absolute;
+	top: 25em;
+	left: 60.5em;
+}
+
+.truck-wheel-2 {
+	width: 8em;
+	height: 8em;
+	background: #484848;
+	border-radius: 50%;
+	border: 0.5em solid #7b7b7b;
+	position: absolute;
+	top: 25em;
+	left: 18em;
+}
+
+.truck-wheel-inner {
+	width: 4em;
+	height: 4em;
+	background: #484848;
+	border-radius: 50%;
+	border: 0.5em solid #b5b5b5;
+	position: absolute;
+	top: 1.5em;
+	left: 1.5em;
+}
+
+.food-truck-signboard {
+	position: absolute;
+	top: 6.5em;
+	left: 24em;
+}
+
+.food-truck-signboard h1 {
+	font-family: "Patrick Hand", cursive;
+	color: #fff;
+	font-size: 3.5em;
+}
+
+.truck-sticker-1 {
+	background: url("../img/1-2-burger-transparent.png");
+	left: 5em;
+}
+
+.truck-sticker-2 {
+	background: url("../img/1-2-hot-dog-png-file.png");
+	left: 10em;
+}
+
+.truck-sticker-3 {
+	background: url("../img/9-hamburger-burger-png-image.png");
+	left: 15em;
+}
+
+.truck-sticker-4 {
+	background: url("../img/5-2-tea-png-image.png");
+	left: 45em;
+}
+
+.truck-sticker-5 {
+	background: url("../img/1-2-drink-png-12.png");
+	left: 50em;
+}
+
+.truck-sticker-6 {
+	background: url("../img/4-orange-juice-png-image.png");
+	left: 55em;
+}
+
+.truck-sticker-top {
+	width: 3em;
+	height: 3em;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	position: absolute;
+	top: 7.5em;
+}
+
+.truck-sticker-back {
+	width: 8em;
+	height: 8em;
+	background: url("../img/3-2-food-png-image.png");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	position: absolute;
+	top: 16.5em;
+	left: 3.5em;
+}
+
+.truck-window {
+	width: 4em;
+	height: 7em;
+	background: #efefef;
+	clip-path: polygon(0 0, 43% 0, 100% 100%, 0 100%);
+	position: absolute;
+	top: 11.25em;
+	left: 59.5em;
+}
+
+.truck-window-inner {
+	width: 3.1em;
+	height: 6em;
+	background: #93d8e0;
+	clip-path: polygon(0 0, 40% 0, 100% 100%, 0 100%);
+	position: absolute;
+	top: 0.5em;
+	left: 0.3em;
+}
+
+.truck-side-windows {
+	width: 45em;
+	height: 6em;
+	background: repeating-linear-gradient(
+		121deg,
+		#93d8e0 0 5%,
+		#b4e5ea,
+		#93d8e0 28% 30%
+	);
+	border: 0.5em solid #efefef;
+	position: absolute;
+	top: 11em;
+	left: 11em;
+}
+
+.awning {
+	width: 45.7em;
+	height: 1.5em;
+	position: absolute;
+	top: 11em;
+	left: 11.5em;
+	transform: skew(30deg, 0deg);
+	border: 0.2em solid#dcdcdc;
+	background: repeating-linear-gradient(180deg, #b9b7b7 0 20%, #e8e8e8 20% 35%);
+}
+
+.truck-side-menu {
+	width: 45em;
+	height: 6em;
+	background: #efefef;
+	border: 0.5em solid #efefef;
+	position: absolute;
+	top: 17em;
+	left: 11em;
+	display: flex;
+	justify-content: space-between;
+}
+
+.menu-section {
+	width: 19%;
+	height: 6em;
+	background: #545151;
+	box-sizing: border-box;
+	padding: 0.2em;
+	font-family: "Patrick Hand", cursive;
+	color: #fff;
+	text-align: center;
+}
+
+.menu-section h2 {
+	font-size:1.4vw;
+}
+
+.menu-section:nth-of-type(1) h2 {
+	color: #efa500;
+}
+
+.menu-section:nth-of-type(2) h2 {
+	color: #ff4949;
+}
+
+.menu-section:nth-of-type(3) h2 {
+	color: #8888ff;
+}
+
+.menu-section:nth-of-type(4) h2 {
+	color: #3de63d;
+}
+
+.menu-section:nth-of-type(5) h2 {
+	color: #ffb9c5;
+}
+
+.menu-section p {
+	font-size: 0.8vw;
+}

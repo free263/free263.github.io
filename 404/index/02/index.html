@@ -1,0 +1,81 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>沙漠 404 - Error Page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="static/css/style.css">
+<link href='static/css/css.css' rel='stylesheet' type='text/css'>
+
+<script type="text/javascript" src="static/js/jquery-1.11.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+
+   function fly(){
+	 plane.css('left', startPos);
+	 plane.animate({left: 2600}, 32000, 'linear')
+   };
+
+	var screenWidth = $(document).width();
+	var startPos = -700;
+	var plane = $('#plane')
+
+	fly();
+
+	setInterval(function() {
+	  fly();
+	}, 34000);
+
+  });
+</script>
+<script async="" src="static/js/js.js"></script>
+<script>
+	 window.dataLayer = window.dataLayer || [];
+	 function gtag(){dataLayer.push(arguments);}
+	 gtag('js', new Date());
+
+	 gtag('config', 'UA-4727891-63');
+</script>
+
+</head>
+<body>
+
+<div class="container">
+	<div id="plane">
+		<span><img src="static/picture/tail-end.png"></span>
+		<span class="tail">Sorry, we can't find what you're looking for</span>
+
+		<span><img src="static/picture/plane.png"></span>
+	</div>
+
+	<div class="centerContent clearfix">
+		<div class="search">
+			<form action="">
+			<input type="text" class="searchbox fl" name="search" placeholder="Search for something...">
+			<input type="submit" class="searchbox-submit" value="">
+			</form>
+		</div>
+		<div class="menu fl">
+			<a href="#">Home</a>
+			<a href="#">About Us</a>
+			<a href="#">Portfolio</a>
+			<a href="#">Events</a>
+			<a href="#">News</a>
+			<a href="#">Contacts</a>
+		</div>
+		<div class="footer fl">
+			<div class="social fl">
+				<a href="#"><img src="static/picture/facebook-24.png"></a>
+				<a href="#"><img src="static/picture/twitter-24.png"></a>
+				<a href="#"><img src="static/picture/deviantart-24.png"></a>
+				<a href="#"><img src="static/picture/diggit-24.png"></a>
+				<a href="#"><img src="static/picture/youtube-24.png"></a>
+				<a href="#"><img src="static/picture/flickr-24.png"></a>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

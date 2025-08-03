@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>时尚简洁的js轮播图特效插件</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+	<div id="app" data-state="0">
+		  <div class="ui-big-images">    
+		    <div class="ui-big-image" data-key="0">
+		      <img src="img/1.jpg" alt=""/>
+		    </div>
+		    <div class="ui-big-image" data-key="1">
+		      <img src="img/2.jpg" alt=""/>
+		    </div>
+		    <div class="ui-big-image" data-key="2">
+		      <img src="img/3.jpg" alt=""/>
+		    </div>
+		    <div class="ui-big-image" data-key="3">
+		      <img src="img/4.jpg" alt=""/>
+		    </div>
+		    <div class="ui-big-image" data-key="4">
+		      <img src="img/5.jpg" alt=""/>
+		    </div>
+		    <div class="ui-big-image" data-key="5">
+		      <img src="img/6.jpg" alt=""/>
+		    </div>
+		  </div>
+		  <div class="ui-thumbnails">
+		    <div class="ui-thumbnail" tabindex="-1" data-key="0">
+		      <img src="img/1.jpg" alt="" />
+		      <div class="ui-cuticle" data-flip-key="cuticle"></div>
+		    </div>
+		    <div class="ui-thumbnail" tabindex="-1" data-key="1">
+		      <img src="img/2.jpg" alt="" />
+		      <div class="ui-cuticle" data-flip-key="cuticle"></div>
+		    </div>
+		    <div class="ui-thumbnail" tabindex="-1" data-key="2">
+		      <img src="img/3.jpg" alt="" />
+		      <div class="ui-cuticle" data-flip-key="cuticle"></div>
+		    </div>
+		    <div class="ui-thumbnail" tabindex="-1" data-key="3">
+		      <img src="img/4.jpg" alt=""/>
+		      <div class="ui-cuticle" data-flip-key="cuticle"></div>
+		    </div>
+		    <div class="ui-thumbnail" tabindex="-1" data-key="4">
+		      <img src="img/5.jpg" alt="" />
+		      <div class="ui-cuticle" data-flip-key="cuticle"></div>
+		    </div>
+		    <div class="ui-thumbnail" tabindex="-1" data-key="5">
+		      <img src="img/6.jpg" alt="" />
+		      <div class="ui-cuticle" data-flip-key="cuticle"></div>
+		    </div>
+		  </div>
+		  <div class="ui-content">
+		    
+		    <nav class="ui-nav">
+		      <button id="prev" tabindex="-1" title="Previous">&lt;</button>
+		      <button id="next" tabindex="-1" title="Next">&gt;</button>
+		    </nav>
+		    
+		    <div class="ui-articles">
+		      <article class="ui-article" data-key="0">
+		        <h2 class="ui-heading">标题1</h2>
+		        <p class="ui-paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae cupiditate assumenda nemo delectus totam atque quas suscipit dicta.</p>
+		      </article>
+		      <article class="ui-article" data-key="1">
+		        <h2 class="ui-heading">标题2</h2>
+		        <p class="ui-paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod sapiente soluta iusto molestias ullam. </p>
+		      </article>
+		      <article class="ui-article" data-key="2">
+		        <h2 class="ui-heading">标题3</h2>
+		        <p class="ui-paragraph">Lorem ipsum dolor sit, amet consectetur adipisicing elit. </p>
+		      </article>
+		      <article class="ui-article" data-key="3">
+		        <h2 class="ui-heading">标题4</h2>
+		        <p class="ui-paragraph">Lorem ipsum dolor sit amet consectetur, adipisicing elit. </p>
+		      </article>
+		      <article class="ui-article" data-key="4">
+		        <h2 class="ui-heading">标题5</h2>
+		        <p class="ui-paragraph">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias exercitationem voluptatibus</p>
+		      </article>
+		      <article class="ui-article" data-key="5">
+		        <h2 class="ui-heading">标题6</h2>
+		        <p class="ui-paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae soluta reprehenderit, ut doloribus corrupti</p>
+		      </article>
+		    </div>
+		  </div>
+		</div>
+	
+	<script type="text/javascript" src='js/flipping.web.js'></script>
+	<script type="text/javascript">
+		console.clear();
+
+		const elPrevButton = document.querySelector('#prev');
+		const elNextButton = document.querySelector('#next');
+		const flipping = new Flipping();
+
+		const elImages = Array.from(document.querySelectorAll('.ui-big-image'));
+		const elThumbnails = Array.from(document.querySelectorAll('.ui-thumbnail'));
+
+		let state = {
+		  photo: 0
+		};
+
+		function send(event) {
+		  // read cuticle positions
+		  flipping.read();
+		  
+		  const elActives = document.querySelectorAll('[data-active]');
+		  
+		  Array.from(elActives)
+		    .forEach(el => el.removeAttribute('data-active'));
+
+		  switch (event) {
+		    case 'PREV':
+		      state.photo--;
+		      // Math.max(state.photo - 1, 0);
+		      break;
+		    case 'NEXT':
+		      state.photo++;
+		      // Math.min(state.photo + 1, elImages.length - 1);
+		      break;
+		    default:
+		      state.photo = +event;
+		      break;
+		  }
+		  
+		  var len = elImages.length;
+		  // Loop Around
+		  //state.photo = ( ( state.photo % len) + len ) % len;
+		  state.photo = Math.max(0, Math.min( state.photo, len - 1) );
+
+		  Array.from(document.querySelectorAll(`[data-key="${state.photo}"]`))
+		    .forEach( el => {
+		    el.setAttribute('data-active', true);
+		  });
+		  
+		  // execute the FLIP animation
+		  flipping.flip();
+		}
+
+		elThumbnails.forEach( thumb => { 
+		  thumb.addEventListener('click', () => {
+		    send(thumb.dataset.key);
+		  });
+		});
+
+		elPrevButton.addEventListener('click', () => {
+		  send('PREV');
+		});
+
+		elNextButton.addEventListener('click', () => {
+		  send('NEXT');
+		});
+
+		send(0);
+	</script>
+</body>
+</html>

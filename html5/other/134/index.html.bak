@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>粒子文字特效 - 听松阁</title>
+	<link rel="stylesheet" type="text/css" href="assets/css/base.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/demo.css" />
+</head>
+<body>
+	<!-- COIDEA:header START -->
+    <header class="coidea-header">
+      <div class="coidea-links">
+        
+        <a class="coidea-icon-github" href="http://www.free163.com/" target="_blank" title="听松阁">G</a>
+      </div>
+    </header>
+    <!-- COIDEA:header END -->
+    
+    <!-- COIDEA:demo START -->
+    <section id="ci-particles">
+      <canvas id="canvas"></canvas>
+      <h1 id="headline">听松阁</h1>
+    </section>   
+    <!-- COIDEA:demo END -->
+	
+	<script src="assets/js/demo.js"></script>
+</body>
+</html>

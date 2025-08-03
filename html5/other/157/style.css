@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+* {
+  margin: 0;
+  top: 0;
+  left: 0;
+}
+body {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("https://images.pexels.com/photos/386009/pexels-photo-386009.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 0vw ;
+}
+#container, #frame {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  overflow-X: hidden;
+}
+#logo {
+  top: 0;
+  width: 20vh;
+  height: 20vh;
+  padding: 1vh 1vh;
+  position: absolute;
+}
+img {
+  width: 100%;
+  height: 100%;
+}
+a {
+  font-size: 2vw;
+  color: white;
+  font-family: 'Roboto Mono', monospace;
+  text-decoration: none;
+  margin: 10vh auto;
+}
+a:hover {
+  text-decoration: underline;
+}
+h1 {
+  position: absolute;
+  left: 30vh;
+  font-size: 15vh;
+  font-family: 'Caveat', cursive;
+  top: 2vh;
+  color: white;
+  filter: drop-shadow(0px 10px 5px rgba(0,0,0,1));
+}
+#btn {
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+#btn:before {
+  content: "\f0c9";
+  font-family: "FontAwesome";
+  left: 90vw;
+  top: 4vh;
+  width: 10vh;
+  height: 10vh;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  position: absolute;
+  font-size: 5vh;
+  color: #fff;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  background: #264653;
+  transition: 2s all;
+  box-shadow: 0px 0px 40px rgba(0,0,0,.3);
+}
+#btn:checked:before {
+  content: "\f00d";
+  font-family: "FontAwesome";
+}
+#btn:checked ~ #frame > #div-1 {
+  opacity: .9;
+}
+#btn:checked ~ #frame > #div-2 {
+  opacity: .9;
+  transform: translateX(0vw);
+}
+#btn:checked ~ #frame > #div-3 {
+  opacity: .9;
+  transform: translateX(0vw);
+}
+#btn:checked ~ #frame > #div-4 {
+  opacity: .9;
+  transform: translateX(0vw);
+}
+#btn:checked ~ #frame > #div-5 {
+  opacity: .9;
+  transform: translateX(0vw);
+}
+#btn:checked ~ #frame > #div-1 > a {
+  animation-name: up;
+  animation-duration: .5s;
+  animation-delay: 2s;
+}
+#btn:checked ~ #frame > #div-2 > a {
+  animation-name: up;
+  animation-duration: .5s;
+  animation-delay: 2.2s;
+}
+#btn:checked ~ #frame > #div-3 > a {
+  animation-name: up;
+  animation-duration: .5s;
+  animation-delay: 2.4s;
+}
+#btn:checked ~ #frame > #div-4 > a {
+  animation-name: up;
+  animation-duration: .5s;
+  animation-delay: 2.6s;
+}
+#btn:checked ~ #frame > #div-5 > a {
+  animation-name: up;
+  animation-duration: .5s;
+  animation-delay: 2.8s;
+}
+@keyframes up {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  60% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+::-webkit-scrollbar {
+    width: 0px; 
+    background: transparent;
+}
+#div-1, #div-2, #div-3, #div-4, #div-5 {
+  display: flex;
+  top: 20vh;
+  width: 20vw;
+  height: 80vh;
+  opacity: 0;
+  position: relative;
+}
+#div-1 {
+  background: #264653;
+  transition: 2s all;
+}
+#div-2 {
+  background: #2a9d8f;
+  transform: translateX(-20vw) rotateY(180deg);
+  transition: 2.2s all;
+}
+#div-3 {
+  background: #e9c46a;
+  transform: translateX(-40vw) rotateY(180deg);
+  transition: 2.4s all;
+}
+#div-4 {
+  width: 20.1vw;
+  background: #f4a261;
+  transform: translateX(-60vw) rotateY(180deg);
+  transition: 2.6s all;
+}
+#div-5 {
+  background: #e76f51;
+  transform: translateX(-80vw) rotateY(180deg);
+  transition: 2.8s all;
+}
+@media (max-width: 720px) {
+  body {
+    background-position: -30vw;
+  }
+  #container {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    overflow: none;
+  }
+  #frame {
+    margin-top: 0vh;
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    overflow: none;
+  }
+  #btn:before {
+    width: 10vh;
+    height: 10vh;
+    left: 85vw;
+  }
+  a {
+    font-size: 5vw;
+  }
+  #div-1, #div-2, #div-3, #div-4, #div-5 {
+    width: 100vw;
+    height: 20vh;
+    opacity: 0;
+    padding: 0;
+    position: relative;
+  }
+  #div-1 {
+    background: #264653;
+    transition: 2s all;
+    transform: translateY(0vh);
+  }
+  #div-2 {
+    background: #2a9d8f;
+    transform: translateY(-20vh) rotateX(180deg);
+    transition: 2.2s all;
+  }
+  #div-3 {
+    background: #e9c46a;
+    transform: translateY(-40vh) rotateX(180deg);
+    transition: 2.4s all;
+  }
+  #div-4 {
+    background: #f4a261;
+    transform: translateY(-60vh) rotateX(180deg);
+    transition: 2.6s all;
+  }
+  #div-5 {
+    background: #e76f51;
+    transform: translateY(-80vh) rotateX(180deg);
+    transition: 2.8s all;
+  }  
+}

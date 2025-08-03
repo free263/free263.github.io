@@ -1,0 +1,14 @@
+body {
+  background: #F8E0BF;
+}
+
+.contain {
+  margin: 50px auto;
+  width: 70%;
+}
+
+@media (max-width: 800px) {
+  .contain {
+    width: 100%;
+  }
+}
