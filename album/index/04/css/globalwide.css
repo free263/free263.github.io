@@ -1,0 +1,126 @@
+body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,legend,button,input,textarea,th,td{margin:0;padding:0;}
+body,button,input,select,textarea{font:12px/1.6 Verdana, Helvetica, sans-serif;}/*雅黑：\5FAE\8F6F\96C5\9ED1  Verdana, Helvetica, sans-serif*/
+h1,h2,h3,h4,h5,h6{font-size:100%;}
+address,cite,dfn,em,var{font-style:normal;}
+code,kbd,pre,samp{font-family:courier new,courier,monospace;}
+small{font-size:12px;}
+ul,ol{list-style:none;}
+a:link,a:visited{color:#7f7f7f;text-decoration:none;}
+a:hover,a:active{color:#000;text-decoration:underline;}
+sup{vertical-align:text-top;}
+sub{vertical-align:text-bottom;}
+legend{color:#000;}
+fieldset,img{border:0;}
+button,input,select,textarea{font-size:100%;}
+table{border-collapse:collapse;border-spacing:0;}
+
+.layout:after{content:'\20';display:block;height:0;clear:both;}
+.layout{*zoom:1;}
+.clear{clear:both;}
+html{zoom:expression(function(ele){ele.style.zoom="1";document.execCommand("BackgroundImageCache",false,true);}(this));}
+body{background:#f4f4f4;word-break:break-all;}
+
+/*html {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+body {
+    overflow: hidden;
+}*/
+
+.vm *{display:inline-block;vertical-align:middle;}
+.vm option{display:block;}
+.vtb *{ vertical-align:text-bottom;}
+
+/*常用*/
+.w30{width:30px;}
+.w85{width:85px;}
+.w90{width:90px;}
+.w140{width:140px;}
+.w165{width:165px;}
+.w180{width:180px}
+.w190{width:190px;}
+.w220{width:220px;}
+.w230{width:230px;}
+.w250{width:250px;}
+.w300{width:300px;}
+.w336{width:336px;}
+.w350{width:350px;}
+.w400{width:400px;}
+.w530{width:530px;}
+.w640{width:640px;}
+.w800{width:800px;}
+.w810{width:810px;}
+.w1004{width:1083px;}
+
+.h55{height:55px;}
+.h100{height:100px;}
+.h140{height:140px;}
+.h150{height:150px;}
+
+.f12{font-size:12px;}.f14{font-size:14px;}.f16{font-size:16px;}.f18{font-size:18px;}.f20{font-size:20px;}
+.yh{font-family:"微软雅黑";}
+
+.cf30{color:#f30;}a.cf30:link,a.cf30:visited{color:#f30;}a.cf30:hover,a.cf30:active{color:#f30;}
+.cf60{color:#f60;}a.cf60:link,a.cf60:visited{color:#f60;}a.cf60:hover,a.cf60:active{color:#f60;}
+.cf90{color:#ffb900;}a.cf90:link,a.cf90:visited{color:#ffb900;}a.cf90:hover,a.cf90:active{color:#ffb900;}
+.c000{color:#000;}.c333{color:#333;}.c666{color:#666;}.c999{color:#999;}.cccc{color:#ccc;}.caaa{color:#aaa;}
+.orange{color:#ffba00;}a.orange:link,a.orange:visited{color:#ffba00;}a.orange:hover,a.orange:active{color:#f30;}
+.c009cff{color:#4095ce;}a.c009cff:link,a.c009cff:visited{color:#4095ce;}a.c009cff:hover,a.c009cff:active{color:#4095ce;}
+.c7f7f7f{color:#7f7f7f;}a.c7f7f7f:link,a.c7f7f7f:visited{color:#7f7f7f;}a.c7f7f7f:hover,a.c7f7f7f:active{color:#f30;}
+.c4e4e4e{color:#4e4e4e;}
+.cc20000{color:#c20000}
+.cfdb900{color:#fdb900;}
+.purple{color:#e5004f;}
+.ff0084{color:#ff0084;}a.ff0084:link,a.ff0084:visited{color:#ff0084;}a.ff0084:hover,a.ff0084:active{color:#f30;}
+.a6ce38{color:#a6ce384;}a.a6ce38:link,a.a6ce38:visited{color:#a6ce38;}a.a6ce38:hover,a.a6ce38:active{color:#f30;}
+a.c4095ce,.c4095ce{color:#4095ce;}
+a.c4095ce:hover{color:#f30;}
+a.ca6ce38,.ca6ce38{color:#a6ce38;}
+a.ca6ce38:hover{color:#f30;}
+
+.fLeft{float:left;}.fRight{float:right;}
+.left{text-align:left;}.center{text-align:center;}.right{text-align:right;}
+.absolute{position:absolute;}.relative{position:relative;}
+.hide{display:none;}
+.hide.selected{display:block;}
+.block{ display:block;}
+.noBold{font-weight:normal;}
+.bold{font-weight:bold;}
+.ofHidden{overflow:hidden;}
+
+
+.longbox{width:1084px;margin:20px auto;position:relative;z-index:2;}
+.longbox.w1003{width:1083px; }
+
+.mblLeft{float:left;padding:5px 0 0 10px;}
+.mblRight{margin-left:65px;}
+.mblContent{padding:10px 20px;}
+.mblFunc{ text-align:right;color:#c1c1c1;height:16px;}
+.mblCon{color:#333;line-height:24px;}
+
+.imgVM img{ vertical-align:-4px;}
+.workLeftTop{padding:15px 20px;border-bottom:1px solid #f4f4f4;}
+
+
+.adBoxMiddle{padding:20px 0; text-align:center;}
+.commentFunc p{float:right;}
+
+.small .inputLong{padding:20px 20px; background:#fff;}
+.small .inputLong .normalArea{width:710px;}
+.small .inputLong .commentFunc{width:724px;height:30px;}
+.small .commentArea{width:646px;}
+.small .commentFunc{width:658px;}
+
+
+/**/
+.msgWrapper{font-size:14px; background:#fff;padding:10px 0;}
+
+.newad{width:250px;height:230px; overflow:hidden;text-align:center;}
+
+.indexShow{ position:relative;}
+.indexShowBox{width:1083px;height:350px; overflow:hidden;border-top:1px solid #f4f4f4;border-bottom:1px solid #f4f4f4;}
+
+.indexShowLeft{ position:absolute;left:-40px;top:45%; display:inline-block;width:28px;height:28px; background:url(sl.png) no-repeat center center;}
+.indexShowRight{position:absolute;right:-40px;top:45%; display:inline-block;width:28px;height:28px; background:url(sr.png) no-repeat center center;}
+
