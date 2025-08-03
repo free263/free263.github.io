@@ -1,0 +1,38 @@
+序言：
+1.本程序基于Flib Book 电子书的JS库二次开发制作
+  2.本相册只保留基础页面预览功能，需要更多的功能请前往官网支持原版
+  3.仅解决官网生成后的电子书无法修改配置问题
+
+运行环境：
+ 1.PHP: 7.0-8.4
+ 2.数据库：none
+ 3.支持虚拟机搭建，需要GD库，exif 等扩展库支持
+ 3.如不需编辑功能，直接运行目录内的Index.html即可
+ 
+结构说明：
+ 1.背景图片路径： files\mobile-ext\backGroundImgURL.jpg；
+ 2.1.logo图片路径： files\mobile-ext\appLogoIcon.png；
+ 3.原图路径：files\mobile；
+ 4.缩略图路径：files\thumb；
+ 5.本地浏览加载的是js配置文件，在线浏览加载的是json配置；
+ 6.后台地址：http://目录/admin ，默认密码：123456
+ 
+注意事项：
+ 1.默认图片名称=页码，仅支持jpg格式图片；
+ 2.上传图片建议勾选自动命名选项；
+ 3.新增图片后必须点击更新相册配置，否则新图不会加载；
+ 4.logo链接修改可前往博客留言告知，可协助修改；
+ 
+ 预览地址：
+ 1. https://www.ximi.me/usr/demo/book/
+ 2. https://img.ximi.me/
+ 
+Bug 反馈：
+ Blog: https://www.ximi.me
+ Email：admin#ximi.me (用@替换#)
+ 后续更新地址：https://www.ximi.me/post-6038.html
+ 2025.08.01
+ 
+ 
+
+
