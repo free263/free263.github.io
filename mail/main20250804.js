@@ -1,0 +1,17 @@
+bg = new Array(14); 
+bg[0] = 'https://code.aliyun.com/free163/publiclib/raw/546c409490ebeb3f15c56cfadbf03a63988da64d/mail_img/bg00.jpg' 
+bg[1] = 'https://code.aliyun.com/free163/publiclib/raw/546c409490ebeb3f15c56cfadbf03a63988da64d/mail_img/bg01.jpg' 
+bg[2] = 'https://code.aliyun.com/free163/publiclib/raw/546c409490ebeb3f15c56cfadbf03a63988da64d/mail_img/bg02.jpg' 
+bg[3] = 'https://code.aliyun.com/free163/publiclib/raw/546c409490ebeb3f15c56cfadbf03a63988da64d/mail_img/bg03.jpg' 
+bg[4] = 'https://code.aliyun.com/free163/publiclib/raw/546c409490ebeb3f15c56cfadbf03a63988da64d/mail_img/bg04.jpg' 
+bg[5] = 'https://code.aliyun.com/free163/publiclib/raw/546c409490ebeb3f15c56cfadbf03a63988da64d/mail_img/bg05.jpg' 
+bg[6] = 'https://code.aliyun.com/free163/publiclib/raw/546c409490ebeb3f15c56cfadbf03a63988da64d/mail_img/bg06.jpg' 
+bg[7] = 'https://code.aliyun.com/free163/publiclib/raw/546c409490ebeb3f15c56cfadbf03a63988da64d/mail_img/bg07.jpg' 
+bg[8] = 'https://code.aliyun.com/free163/publiclib/raw/546c409490ebeb3f15c56cfadbf03a63988da64d/mail_img/bg08.jpg' 
+bg[9] = 'https://code.aliyun.com/free163/publiclib/raw/546c409490ebeb3f15c56cfadbf03a63988da64d/mail_img/bg09.jpg' 
+bg[10] = 'https://code.aliyun.com/free163/publiclib/raw/546c409490ebeb3f15c56cfadbf03a63988da64d/mail_img/bg10.jpg' 
+bg[11] = 'https://code.aliyun.com/free163/publiclib/raw/546c409490ebeb3f15c56cfadbf03a63988da64d/mail_img/bg11.jpg' 
+bg[12] = 'https://code.aliyun.com/free163/publiclib/raw/546c409490ebeb3f15c56cfadbf03a63988da64d/mail_img/bg12.jpg' 
+bg[13] = 'https://code.aliyun.com/free163/publiclib/raw/546c409490ebeb3f15c56cfadbf03a63988da64d/mail_img/bg13.jpg' 
+index = Math.floor(Math.random() * bg.length);
+document.write("<img src="+bg[index]+">");
