@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="logo.png">
+    <meta name="keywords" content="静水深流, 星露谷物语原声音轨, 星露谷物语, 在线播放, 音乐">
+    <meta name="description" content="星露谷物语原声音轨在线播放">
+    <meta name="author" content="Ethaniel">
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        
+        gtag('config', 'G-M7CTLKY38C');
+    </script>
+    <title>听松阁音乐播放</title>
+    <link rel="stylesheet" href="./play.css">
+    <body style="background-image: url('https://api.rryyz.com/api-pic/126.php');">
+
+<body>
+    <div class="player-container">
+        <div class="playlist-and-info">
+            <div class="playlist" id="playlistContainer">
+            </div>
+            <div class="song-info" id="songInfo">
+                <h3>歌曲名称</h3>
+                <p>艺术家</p>
+            </div>
+        </div>
+        <audio id="audioPlayer" class="progress-bar" controls></audio>
+        <div class="controls">
+        </div>
+    </div>
+
+    <script>
+        // 播放列表：将音乐文件放在music文件夹下，可以替换为动态生成的音乐文件路径，或者url路径
+        const playlist = [
+            { path: 'https://vercel.rryyz.com/free163person/音乐视听/泰国音乐/focus-等待着你.mp3', name: 'focus-等待着你', artist: 'focus' },
+            { path: 'https://vercel.rryyz.com/free163person/音乐视听/泰国音乐/Lydia-DontLeaveMeHere.mp3', name: 'Lydia-DontLeaveMeHere', artist: 'Lydia' },
+            { path: 'https://vercel.rryyz.com/free163person/音乐视听/泰国音乐/Lydia-YOU.mp3', name: 'Lydia-YOU', artist: 'Lydia' },
+            { path: 'https://vercel.rryyz.com/free163person/音乐视听/泰国音乐/lydia-为什么不接电话.mp3', name: 'lydia-为什么不接电话', artist: 'lydia' },
+            { path: 'https://vercel.rryyz.com/free163person/音乐视听/泰国音乐/Lydia-前女友的规则.mp3', name: 'Lydia-前女友的规则', artist: 'Lydia' },
+            { path: 'https://vercel.rryyz.com/free163person/音乐视听/泰国音乐/Lydia-如果我说爱你行吗.mp3', name: 'Lydia-如果我说爱你行吗', artist: 'Lydia' },
+            { path: 'https://vercel.rryyz.com/free163person/音乐视听/泰国音乐/sara-即使知道要见面.mp3', name: 'sara-即使知道要见面', artist: 'sara' },
+            { path: 'https://vercel.rryyz.com/free163person/音乐视听/泰国音乐/Sara-总好过难过.mp3', name: 'Sara-总好过难过', artist: 'Sara' },
+            { path: 'https://vercel.rryyz.com/free163person/音乐视听/泰国音乐/sara-想说什么吗.mp3', name: 'sara-想说什么吗', artist: 'sara' },
+            { path: 'https://vercel.rryyz.com/free163person/音乐视听/泰国音乐/sara-是否要忘记.mp3', name: 'sara-是否要忘记', artist: 'sara' },
+            { path: 'https://vercel.rryyz.com/free163person/音乐视听/泰国音乐/Sara-没关系.mp3', name: 'Sara-没关系', artist: 'Sara' },
+            { path: 'https://vercel.rryyz.com/free163person/音乐视听/泰国音乐/Zaza-KuamPidTidTua.mp3', name: 'Zaza-KuamPidTidTua', artist: 'Zaza' },
+            { path: 'https://vercel.rryyz.com/free163person/音乐视听/泰国音乐/泰国歌曲-慢嗨舞曲.mp3', name: '泰国歌曲-慢嗨舞曲', artist: '泰国歌曲' },
+
+        ];
+        const COVER_IMAGE = "bgImage.jpg"; 
+    </script>
+    <script src="./play.js"></script>
+</body>
+</html>

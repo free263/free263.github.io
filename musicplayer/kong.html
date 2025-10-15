@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="logo.png">
+    <meta name="keywords" content="静水深流, 星露谷物语原声音轨, 星露谷物语, 在线播放, 音乐">
+    <meta name="description" content="星露谷物语原声音轨在线播放">
+    <meta name="author" content="Ethaniel">
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        
+        gtag('config', 'G-M7CTLKY38C');
+    </script>
+    <title>听松阁音乐播放</title>
+    <link rel="stylesheet" href="./play.css">
+    <body style="background-image: url('https://api.rryyz.com/api-pic/126.php');">
+
+<body>
+    <div class="player-container">
+        <div class="playlist-and-info">
+            <div class="playlist" id="playlistContainer">
+            </div>
+            <div class="song-info" id="songInfo">
+                <h3>歌曲名称</h3>
+                <p>艺术家</p>
+            </div>
+        </div>
+        <audio id="audioPlayer" class="progress-bar" controls></audio>
+        <div class="controls">
+        </div>
+    </div>
+
+    <script>
+        // 播放列表：将音乐文件放在music文件夹下，可以替换为动态生成的音乐文件路径，或者url路径
+        const playlist = [
+            { path: 'https://vercel.rryyz.com/free163person/音乐视听/空灵音乐/adaro-Es_Ist_Ein_Schnee_Gefallen.mp3', name: 'adaro-Es_Ist_Ein_Schnee_Gefallen', artist: '空灵音乐' },
+            { path: 'https://vercel.rryyz.com/free163person/音乐视听/空灵音乐/AmyDiamond-Heartbeats.mp3', name: 'AmyDiamond-Heartbeats', artist: '空灵音乐' },
+            { path: 'https://vercel.rryyz.com/free163person/音乐视听/空灵音乐/CaraDillon-Craigie_Hill.mp3', name: 'CaraDillon-Craigie_Hill', artist: '空灵音乐' },
+            { path: 'https://vercel.rryyz.com/free163person/音乐视听/空灵音乐/djokawari-luv_letter.mp3', name: 'djokawari-luv_letter', artist: '空灵音乐' },
+            { path: 'https://vercel.rryyz.com/free163person/音乐视听/空灵音乐/enya-Only_Time.mp3', name: 'enya-Only_Time', artist: '空灵音乐' },
+            { path: 'https://vercel.rryyz.com/free163person/音乐视听/空灵音乐/hayleyWestenra-never say goodbye.mp3', name: 'hayleyWestenra-never say goodbye', artist: '空灵音乐' },
+            { path: 'https://vercel.rryyz.com/free163person/音乐视听/空灵音乐/sarahBrightman-斯卡布罗集市.mp3', name: 'sarahBrightman-斯卡布罗集市', artist: '空灵音乐' },
+            { path: 'https://vercel.rryyz.com/free163person/音乐视听/空灵音乐/tatu-30_Minutes.mp3', name: 'tatu-30_Minutes', artist: '空灵音乐' },
+            { path: 'https://vercel.rryyz.com/free163person/音乐视听/空灵音乐/卡洛儿-假如爱有天意.mp3', name: '卡洛儿-假如爱有天意', artist: '空灵音乐' },
+            { path: 'https://vercel.rryyz.com/free163person/音乐视听/空灵音乐/卡洛儿-写给海洋.mp3', name: '卡洛儿-写给海洋', artist: '空灵音乐' },
+            { path: 'https://vercel.rryyz.com/free163person/音乐视听/空灵音乐/手嶌葵-the rose.mp3', name: '手嶌葵-the rose', artist: '空灵音乐' },
+            { path: 'https://vercel.rryyz.com/free163person/音乐视听/空灵音乐/斯维特拉娜 斯维吉科娃-天使消逝的地方.mp3', name: '斯维特拉娜 斯维吉科娃-天使消逝的地方', artist: '空灵音乐' },
+            { path: 'https://vercel.rryyz.com/free163person/音乐视听/空灵音乐/有里知花-I_Cry.mp3', name: '有里知花-I_Cry', artist: '空灵音乐' },
+
+        ];
+        const COVER_IMAGE = "bgImage.jpg"; 
+    </script>
+    <script src="./play.js"></script>
+</body>
+</html>
