@@ -1,0 +1,2383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>听松阁音乐</title>
+    <link rel="stylesheet" href="./css/all.min.css">
+    <style>
+        :root {
+            --primary-bg: #121212;
+            --secondary-bg: #181818;
+            --tertiary-bg: #282828;
+            --card-bg: rgba(30, 30, 30, 0.8);
+            --primary-text: #ffffff;
+            --secondary-text: #b3b3b3;
+            --accent: #1db954;
+            --progress-bar: #535353;
+            --sidebar-width: 240px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background-color: var(--primary-bg);
+            color: var(--primary-text);
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            touch-action: manipulation;
+        }
+        
+        .container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+        
+        /* 侧边栏样式 */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--primary-bg);
+            padding: 20px 10px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 12px 20px;
+        }
+        
+        .logo i {
+            font-size: 32px;
+            background: linear-gradient(135deg, #1db954, #1ed760);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .logo h1 {
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #1db954, #1ed760);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-section {
+            margin-bottom: 25px;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px 12px;
+            border-radius: 6px;
+            color: var(--secondary-text);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            color: var(--primary-text);
+            background-color: rgba(255, 255, 255, 0.1);
+			text-decoration: none;
+        }
+        
+        .nav-item i {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+        .nav-item a {
+			color: white;
+			text-decoration: none;
+		}
+        .nav-item span {
+            font-weight: 500;
+			
+        }
+        
+        .divider {
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin: 10px 0 20px;
+        }
+        
+        .playlist-section {
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        .playlist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 12px;
+            margin-bottom: 15px;
+        }
+        
+        .playlist-header h2 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--secondary-text);
+        }
+        
+        .playlist-header button {
+            background: none;
+            border: none;
+            color: var(--secondary-text);
+            cursor: pointer;
+            font-size: 18px;
+            transition: color 0.2s ease;
+            padding: 8px;
+        }
+        
+        .playlist-header button:hover {
+            color: var(--primary-text);
+        }
+        
+        .playlist-item {
+            padding: 12px;
+            border-radius: 6px;
+            color: var(--secondary-text);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .playlist-item:hover {
+            color: var(--primary-text);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* 主内容区域 */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, var(--primary-bg) 100%);
+            padding: 20px 32px;
+        }
+        
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        
+        .navigation-buttons {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .nav-button {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            border: none;
+            color: var(--primary-text);
+        }
+        
+        .nav-button:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px 8px 8px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            border: none;
+        }
+        
+        .user-menu:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .user-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1db954, #1ed760);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .user-name {
+            font-size: 14px;
+            font-weight: 600;
+            margin: 0 8px;
+        }
+        
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        .card-grid a {
+			color: white;
+			text-decoration: none;
+		}
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            padding: 16px;
+        }
+        
+        .card:hover {
+            background-color: var(--tertiary-bg);
+            transform: translateY(-5px);
+        }
+        
+        .card-img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 16px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .card-subtitle {
+            font-size: 14px;
+            color: var(--secondary-text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .tracks-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 40px;
+        }
+        
+        .track-item {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 16px;
+            padding: 12px 16px;
+            border-radius: 6px;
+            transition: background-color 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .track-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .track-number {
+            color: var(--secondary-text);
+            font-size: 14px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .track-info {
+            overflow: hidden;
+        }
+        
+        .track-name {
+            font-size: 16px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 4px;
+        }
+        
+        .track-artist {
+            font-size: 14px;
+            color: var(--secondary-text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .track-duration {
+            color: var(--secondary-text);
+            font-size: 14px;
+        }
+        
+        /* 播放控制栏 */
+        .player-bar {
+            height: 90px;
+            background-color: var(--tertiary-bg);
+            padding: 0 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 10;
+        }
+        
+        .now-playing {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            width: 30%;
+            min-width: 180px;
+        }
+        
+        .now-playing-img {
+            width: 56px;
+            height: 56px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+        
+        .now-playing-info {
+            overflow: hidden;
+        }
+        
+        .now-playing-title {
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .now-playing-artist {
+            font-size: 12px;
+            color: var(--secondary-text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .player-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 40%;
+            max-width: 720px;
+        }
+        
+        .control-buttons {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .control-btn {
+            color: var(--secondary-text);
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            font-size: 16px;
+            padding: 10px;
+        }
+        
+        .control-btn:hover {
+            color: var(--primary-text);
+        }
+        
+        .control-btn.play-pause {
+            width: 44px;
+            height: 44px;
+            background: var(--primary-text);
+            color: var(--primary-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        
+        .control-btn.play-pause:hover {
+            transform: scale(1.05);
+        }
+        
+        .progress-container {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .progress-time {
+            font-size: 12px;
+            color: var(--secondary-text);
+            min-width: 40px;
+        }
+        
+        .progress-bar {
+            flex: 1;
+            height: 6px;
+            background: var(--progress-bar);
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            bottom: -4px;
+            left: 0;
+            right: 0;
+        }
+        
+        .progress-bar:hover .progress {
+            background-color: #1db954;
+        }
+        
+        .progress {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 3px;
+            width: 30%;
+            transition: width 0.1s linear;
+        }
+        
+        .additional-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 30%;
+            justify-content: flex-end;
+        }
+        
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .volume-bar {
+            width: 100px;
+            height: 6px;
+            background: var(--progress-bar);
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .volume-bar::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            bottom: -4px;
+            left: 0;
+            right: 0;
+        }
+        
+        .volume-level {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 3px;
+            width: 70%;
+            transition: width 0.1s linear;
+        }
+        
+        /* 插件管理面板 */
+        .plugin-panel {
+            background-color: var(--secondary-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .plugin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .plugin-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .plugin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .plugin-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .plugin-card:hover {
+            background-color: var(--tertiary-bg);
+        }
+        
+        .plugin-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .plugin-desc {
+            font-size: 14px;
+            color: var(--secondary-text);
+            margin-bottom: 16px;
+        }
+        
+        .plugin-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .plugin-btn {
+            padding: 12px 20px;
+            border-radius: 20px;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #1ed760;
+            transform: scale(1.05);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid #878787;
+            color: var(--primary-text);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--primary-text);
+        }
+        
+        /* 文件上传区域 */
+        .file-upload-area {
+            background-color: var(--secondary-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 2px dashed rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .file-upload-area:hover {
+            border-color: var(--accent);
+        }
+        
+        .file-upload-icon {
+            font-size: 48px;
+            color: var(--secondary-text);
+            margin-bottom: 15px;
+        }
+        
+        .file-upload-text {
+            margin-bottom: 20px;
+        }
+        
+        .file-upload-text h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        
+        .file-upload-text p {
+            color: var(--secondary-text);
+            font-size: 14px;
+        }
+        
+        .file-input-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        .file-input-button:hover {
+            background-color: #1ed760;
+            transform: scale(1.05);
+        }
+        
+        #file-input {
+            display: none;
+        }
+        
+        /* 模态框 */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .modal-content {
+            background-color: var(--secondary-bg);
+            border-radius: 8px;
+            padding: 24px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--secondary-text);
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .modal-body {
+            margin-bottom: 20px;
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 200px;
+            }
+            
+            .card-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 20px;
+            }
+            
+            .nav-item {
+                padding: 16px 12px;
+            }
+            
+            .playlist-item {
+                padding: 14px 12px;
+            }
+        }
+        
+        /* 触屏设备优化 */
+        @media (hover: none) and (pointer: coarse) {
+            .nav-item, .playlist-item, .card, .track-item, .plugin-card {
+                transition: none;
+            }
+            
+            .nav-item:active, .playlist-item:active, .card:active, .track-item:active, .plugin-card:active {
+                background-color: rgba(255, 255, 255, 0.2);
+                transform: scale(0.98);
+            }
+            
+            .control-btn:active, .nav-button:active, .plugin-btn:active {
+                opacity: 0.7;
+                transform: scale(0.95);
+            }
+            
+            .control-btn.play-pause:active {
+                transform: scale(0.95);
+            }
+            
+            /* 增大触控目标 */
+            .control-btn, .nav-button {
+                min-height: 44px;
+                min-width: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .progress-bar::before, .volume-bar::before {
+                top: -8px;
+                bottom: -8px;
+            }
+        }
+        
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            border: 3px solid var(--primary-bg);
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 侧边栏 -->
+        <div class="sidebar">
+            <div class="logo">
+                <i class="fas fa-music"></i>
+                <h1>听 松 阁</h1>
+            </div>
+            
+<a href="index.html"><div class="nav-section">
+                <div class="nav-item" data-section="home">
+                    <i class="fas fa-home"></i>
+                    <span>国语流行</span>
+                </div>
+            </div></a>
+            <a href="chun.html"><div class="nav-section">
+                <div class="nav-item" data-section="home">
+                    <i class="fas fa-search"></i>
+                    <span>纯音乐</span>
+                </div></a>
+            </div>
+            <a href="weimei.html"><div class="nav-section">
+                <div class="nav-item" data-section="home">
+                    <i class="fas fa-book"></i>
+                    <span>唯美纯音乐</span>
+                </div>
+            </div></a>
+			<a href="korea.html"><div class="nav-section">
+                <div class="nav-item" data-section="home">
+                    <i class="fas fa-heart"></i>
+                    <span>韩国音乐</span>
+                </div>
+            </div></a>
+			<a href="usa.html"><div class="nav-section">
+                <div class="nav-item" data-section="home">
+                    <i class="fas fa-search"></i>
+                    <span>欧美音乐</span>
+                </div>
+            </div></a>
+            <a href="japan.html"><div class="nav-section">
+                <div class="nav-item" data-section="home">
+                    <i class="fas fa-book"></i>
+                    <span>日本音乐</span>
+                </div>
+            </div></a>
+            
+			<a href="thailand.html"><div class="nav-section">
+                <div class="nav-item" data-section="home">
+                    <i class="fas fa-heart"></i>
+                    <span>泰国音乐</span>
+                </div>
+            </div></a>
+			<a href="india.html"><div class="nav-section">
+                <div class="nav-item" data-section="home">
+                    <i class="fas fa-search"></i>
+                    <span>印度音乐</span>
+                </div>
+            </div></a>
+            <a href="zhiyu.html"><div class="nav-section">
+                <div class="nav-item" data-section="home">
+                    <i class="fas fa-book"></i>
+                    <span>治愈系舒缓音乐</span>
+                </div>
+            </div></a>
+			<a href="ziran.html"><div class="nav-section">
+                <div class="nav-item" data-section="home">
+                    <i class="fas fa-heart"></i>
+                    <span>自然之声</span>
+                </div>
+            </div></a>
+			<a href="zhoushen.html"><div class="nav-section">
+                <div class="nav-item" data-section="home">
+                    <i class="fas fa-book"></i>
+                    <span>周深</span>
+                </div>
+            </div></a>
+			<a href="yanglanyi.html"><div class="nav-section">
+                <div class="nav-item active" data-section="home">
+                    <i class="fas fa-heart"></i>
+                    <span>洋澜一</span>
+                </div>
+            </div></a>
+			
+			
+			
+            <div class="divider"></div>
+            
+            <div class="nav-section">
+                <div class="nav-item" data-section="local-music">
+                    <i class="fas fa-folder"></i>
+                    <span>本地音乐</span>
+                </div>
+            </div>
+            
+
+            
+            <div class="divider"></div>
+            
+            <div class="playlist-section">
+                <div class="playlist-header">
+                    <h2>播放列表</h2>
+                    <button id="create-playlist-btn"><i class="fas fa-plus"></i></button>
+                </div>
+                
+                <div id="playlists-container">
+                    <!-- 播放列表将通过JavaScript动态添加 -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- 主内容区域 -->
+        <div class="main-content">
+            <div class="topbar">
+                
+            </div>
+            
+            <!-- 首页内容 -->
+            <div class="content-section" id="home-section">
+			<h1 class="section-title">欢迎回来</h1>
+                
+                <div class="card-grid">
+                    <a href="index.html"><div class="card" data-playlist="favorites">
+                        <img src="./images/china.jpg" alt="Playlist" class="card-img">
+                        <div class="card-title">国语流行</div>
+                        <div class="card-subtitle">您最喜欢的音乐</div>
+                    </div></a>
+                    <a href="chun.html"><div class="card" data-playlist="recent">
+                        <img src="./images/chun.jpg" alt="Playlist" class="card-img">
+                        <div class="card-title">纯音乐</div>
+                        <div class="card-subtitle">您最近听过的音乐</div>
+                    </div></a>
+                    <a href="weimei.html"><div class="card" data-playlist="local">
+                        <img src="./images/weimei.jpg" alt="Playlist" class="card-img">
+                        <div class="card-title">唯美纯音乐</div>
+                        <div class="card-subtitle">您设备上的音乐</div>
+                    </div></a>
+					<a href="korea.html"><div class="card" data-playlist="favorites">
+                        <img src="./images/korea.jpg" alt="Playlist" class="card-img">
+                        <div class="card-title">韩国音乐</div>
+                        <div class="card-subtitle">您最喜欢的音乐</div>
+                    </div></a>
+                    <a href="usa.html"><div class="card" data-playlist="recent">
+                        <img src="./images/usa.jpg" alt="Playlist" class="card-img">
+                        <div class="card-title">欧美音乐</div>
+                        <div class="card-subtitle">您最近听过的音乐</div>
+                    </div></a>
+                    <a href="japan.html"><div class="card" data-playlist="local">
+                        <img src="./images/japan.jpg" alt="Playlist" class="card-img">
+                        <div class="card-title">日本音乐</div>
+                        <div class="card-subtitle">您设备上的音乐</div>
+                    </div></a>
+					<a href="thailand.html"><div class="card" data-playlist="favorites">
+                        <img src="./images/thailand.jpg" alt="Playlist" class="card-img">
+                        <div class="card-title">泰国音乐</div>
+                        <div class="card-subtitle">您最喜欢的音乐</div>
+                    </div></a>
+                    <a href="india.html"><div class="card" data-playlist="recent">
+                        <img src="./images/india.jpg" alt="Playlist" class="card-img">
+                        <div class="card-title">印度音乐</div>
+                        <div class="card-subtitle">您最近听过的音乐</div>
+                    </div></a>
+                    <a href="zhiyu.html"><div class="card" data-playlist="local">
+                        <img src="./images/zhiyu.jpg" alt="Playlist" class="card-img">
+                        <div class="card-title">治愈系舒缓音乐</div>
+                        <div class="card-subtitle">您设备上的音乐</div>
+                    </div></a>
+					<a href="ziran.html"><div class="card" data-playlist="favorites">
+                        <img src="./images/ziran.jpg" alt="Playlist" class="card-img">
+                        <div class="card-title">自然之声</div>
+                        <div class="card-subtitle">您最喜欢的音乐</div>
+                    </div></a>
+                    <a href="zhoushen.html"><div class="card" data-playlist="local">
+                        <img src="./images/zhoushen.jpg" alt="Playlist" class="card-img">
+                        <div class="card-title">周深</div>
+                        <div class="card-subtitle">您设备上的音乐</div>
+                    </div></a>
+					<a href="yanglanyi.html"><div class="card" data-playlist="favorites">
+                        <img src="./images/yanglanyi.jpg" alt="Playlist" class="card-img">
+                        <div class="card-title">洋澜一</div>
+                        <div class="card-subtitle">您最喜欢的音乐</div>
+                    </div></a>
+                </div>
+                <h2 class="section-title">洋澜一</h2>
+                
+                <div class="tracks-list" id="featured-tracks">
+                    <!-- 热门歌曲将通过JavaScript动态添加 -->
+                </div>
+            </div>
+            
+            <!-- 本地音乐内容 -->
+            <div class="content-section" id="local-music-section" style="display: none;">
+                <h1 class="section-title">本地音乐</h1>
+                
+                <div class="file-upload-area">
+                    <div class="file-upload-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <div class="file-upload-text">
+                        <h3>添加本地音乐</h3>
+                        <p>支持MP3、WAV、OGG等音频格式</p>
+                    </div>
+                    <label for="file-input" class="file-input-button">
+                        <i class="fas fa-plus"></i> 选择音乐文件
+                    </label>
+                    <input type="file" id="file-input" accept="audio/*" multiple>
+                </div>
+                
+                <div class="tracks-list" id="local-tracks">
+                    <!-- 本地音乐将通过JavaScript动态添加 -->
+                </div>
+            </div>
+            
+            <!-- 插件内容 -->
+            <div class="content-section" id="plugins-section" style="display: none;">
+                <h1 class="section-title">音乐插件</h1>
+                
+                <div class="plugin-panel">
+                    <div class="plugin-header">
+                        <h2 class="plugin-title">可用插件</h2>
+                        <button class="plugin-btn btn-primary" id="refresh-plugins">
+                            <i class="fas fa-sync-alt"></i> 刷新插件
+                        </button>
+                    </div>
+                    
+                    <div class="plugin-grid" id="plugin-grid">
+                        <!-- 插件将通过JavaScript动态添加 -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 其他内容区域 -->
+            <div class="content-section" id="search-section" style="display: none;">
+                <h1 class="section-title">搜索音乐</h1>
+				<div class="tracks-list" id="featured-tracks">
+                    <!-- 热门歌曲将通过JavaScript动态添加 -->
+                </div>
+                <!-- 搜索内容将通过JavaScript动态添加 -->
+            </div>
+            
+            <div class="content-section" id="library-section" style="display: none;">
+                <h1 class="section-title">我的音乐库</h1>
+                <!-- 音乐库内容将通过JavaScript动态添加 -->
+
+            </div>
+            
+            <div class="content-section" id="favorites-section" style="display: none;">
+                <h1 class="section-title">喜欢的歌曲</h1>
+                <!-- 喜欢的内容将通过JavaScript动态添加 -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- 播放控制栏 -->
+    <div class="player-bar">
+        <div class="now-playing">
+            <img src="https://picsum.photos/100/100?random=7" alt="Now Playing" class="now-playing-img" id="now-playing-img">
+            <div class="now-playing-info">
+                <div class="now-playing-title" id="now-playing-title">选择音乐开始播放</div>
+                <div class="now-playing-artist" id="now-playing-artist">未知艺术家</div>
+            </div>
+        </div>
+        
+        <div class="player-controls">
+            <div class="control-buttons">
+                <button class="control-btn" id="shuffle-btn">
+                    <i class="fas fa-random"></i>
+                </button>
+                <button class="control-btn" id="prev-btn">
+                    <i class="fas fa-step-backward"></i>
+                </button>
+                <button class="control-btn play-pause" id="play-btn">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button class="control-btn" id="next-btn">
+                    <i class="fas fa-step-forward"></i>
+                </button>
+                <button class="control-btn" id="repeat-btn">
+                    <i class="fas fa-repeat"></i>
+                </button>
+            </div>
+            
+            <div class="progress-container">
+                <span class="progress-time" id="current-time">0:00</span>
+                <div class="progress-bar" id="progress-bar">
+                    <div class="progress" id="progress"></div>
+                </div>
+                <span class="progress-time" id="duration">0:00</span>
+            </div>
+        </div>
+        
+        <div class="additional-controls">
+            <button class="control-btn" id="queue-btn">
+                <i class="fas fa-list"></i>
+            </button>
+            <div class="volume-control">
+                <button class="control-btn" id="volume-btn">
+                    <i class="fas fa-volume-up"></i>
+                </button>
+                <div class="volume-bar" id="volume-bar">
+                    <div class="volume-level" id="volume-level"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 播放队列模态框 -->
+    <div class="modal" id="queue-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">播放队列</h2>
+                <button class="modal-close" id="queue-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="tracks-list" id="queue-tracks">
+                    <!-- 队列中的歌曲将通过JavaScript动态添加 -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="plugin-btn btn-secondary" id="queue-clear">清空队列</button>
+                <button class="plugin-btn btn-primary" id="queue-close-btn">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 创建播放列表模态框 -->
+    <div class="modal" id="playlist-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">创建播放列表</h2>
+                <button class="modal-close" id="playlist-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="playlist-name">播放列表名称</label>
+                    <input type="text" id="playlist-name" placeholder="输入播放列表名称">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="plugin-btn btn-secondary" id="playlist-cancel">取消</button>
+                <button class="plugin-btn btn-primary" id="playlist-create">创建</button>
+            </div>
+        </div>
+    </div>
+
+    <audio id="audio" preload="metadata"></audio>
+
+    <script>
+        // 主要DOM元素
+        const audio = document.getElementById('audio');
+        const playBtn = document.getElementById('play-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const shuffleBtn = document.getElementById('shuffle-btn');
+        const repeatBtn = document.getElementById('repeat-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const progress = document.getElementById('progress');
+        const currentTimeEl = document.getElementById('current-time');
+        const durationEl = document.getElementById('duration');
+        const volumeBtn = document.getElementById('volume-btn');
+        const volumeBar = document.getElementById('volume-bar');
+        const volumeLevel = document.getElementById('volume-level');
+        const nowPlayingImg = document.getElementById('now-playing-img');
+        const nowPlayingTitle = document.getElementById('now-playing-title');
+        const nowPlayingArtist = document.getElementById('now-playing-artist');
+        const fileInput = document.getElementById('file-input');
+        const pluginGrid = document.getElementById('plugin-grid');
+        const refreshPluginsBtn = document.getElementById('refresh-plugins');
+        const navItems = document.querySelectorAll('.nav-item');
+        const contentSections = document.querySelectorAll('.content-section');
+        const queueBtn = document.getElementById('queue-btn');
+        const queueModal = document.getElementById('queue-modal');
+        const queueClose = document.getElementById('queue-close');
+        const queueCloseBtn = document.getElementById('queue-close-btn');
+        const queueClear = document.getElementById('queue-clear');
+        const queueTracks = document.getElementById('queue-tracks');
+        const createPlaylistBtn = document.getElementById('create-playlist-btn');
+        const playlistModal = document.getElementById('playlist-modal');
+        const playlistClose = document.getElementById('playlist-close');
+        const playlistCancel = document.getElementById('playlist-cancel');
+        const playlistCreate = document.getElementById('playlist-create');
+        const playlistName = document.getElementById('playlist-name');
+        const playlistsContainer = document.getElementById('playlists-container');
+        const localTracksList = document.getElementById('local-tracks');
+        const featuredTracksList = document.getElementById('featured-tracks');
+        
+        // 应用状态
+        let isPlaying = false;
+        let currentTrackIndex = 0;
+        let isShuffled = false;
+        let repeatMode = 'off'; // off, one, all
+        let currentVolume = 0.7;
+        let isMuted = false;
+        
+        // 音乐数据
+        let tracks = [];
+        let playlists = [];
+        let queue = [];
+        let localTracks = [];
+        let plugins = [];
+        
+        // 初始化
+        function init() {
+            // 加载保存的数据
+            loadSavedData();
+            
+            // 设置事件监听
+            setupEventListeners();
+            
+            // 加载插件
+            loadPlugins();
+            
+            // 显示默认内容
+            showSection('home-section');
+            
+            // 设置音频音量
+            audio.volume = currentVolume;
+            volumeLevel.style.width = `${currentVolume * 100}%`;
+            
+            // 添加触屏设备特定的事件监听
+            addTouchEvents();
+        }
+        
+        // 加载保存的数据
+        function loadSavedData() {
+            // 从localStorage加载数据
+            const savedTracks = localStorage.getItem('melodifty-tracks');
+            const savedPlaylists = localStorage.getItem('melodifty-playlists');
+            const savedSettings = localStorage.getItem('melodifty-settings');
+            
+            if (savedTracks) {
+                tracks = JSON.parse(savedTracks);
+            }
+            
+            if (savedPlaylists) {
+                playlists = JSON.parse(savedPlaylists);
+                renderPlaylists();
+            }
+            
+            if (savedSettings) {
+                const settings = JSON.parse(savedSettings);
+                currentVolume = settings.volume || 0.7;
+                repeatMode = settings.repeatMode || 'off';
+                isShuffled = settings.isShuffled || false;
+                
+                // 更新UI状态
+                updateRepeatButton();
+                updateShuffleButton();
+            }
+            
+            // 渲染本地音乐
+            renderLocalTracks();
+            
+            // 渲染热门歌曲
+            renderFeaturedTracks();
+        }
+        
+        // 保存数据到localStorage
+        function saveData() {
+            localStorage.setItem('melodifty-tracks', JSON.stringify(tracks));
+            localStorage.setItem('melodifty-playlists', JSON.stringify(playlists));
+            
+            const settings = {
+                volume: currentVolume,
+                repeatMode: repeatMode,
+                isShuffled: isShuffled
+            };
+            
+            localStorage.setItem('melodifty-settings', JSON.stringify(settings));
+        }
+        
+        // 设置事件监听
+        function setupEventListeners() {
+            // 播放控制
+            playBtn.addEventListener('click', togglePlay);
+            prevBtn.addEventListener('click', playPrev);
+            nextBtn.addEventListener('click', playNext);
+            shuffleBtn.addEventListener('click', toggleShuffle);
+            repeatBtn.addEventListener('click', toggleRepeat);
+            progressBar.addEventListener('click', setProgress);
+            audio.addEventListener('timeupdate', updateProgress);
+            audio.addEventListener('ended', handleSongEnd);
+            audio.addEventListener('loadedmetadata', updateDuration);
+            
+            // 音量控制
+            volumeBtn.addEventListener('click', toggleMute);
+            volumeBar.addEventListener('click', setVolume);
+            
+            // 文件上传
+            fileInput.addEventListener('change', handleFileUpload);
+            
+            // 导航
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const section = item.getAttribute('data-section');
+                    showSection(`${section}-section`);
+                    
+                    // 更新活动状态
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    item.classList.add('active');
+                });
+            });
+            
+            // 插件刷新
+            refreshPluginsBtn.addEventListener('click', loadPlugins);
+            
+            // 队列控制
+            queueBtn.addEventListener('click', () => {
+                queueModal.classList.add('show');
+                renderQueueTracks();
+            });
+            
+            queueClose.addEventListener('click', () => {
+                queueModal.classList.remove('show');
+            });
+            
+            queueCloseBtn.addEventListener('click', () => {
+                queueModal.classList.remove('show');
+            });
+            
+            queueClear.addEventListener('click', clearQueue);
+            
+            // 播放列表创建
+            createPlaylistBtn.addEventListener('click', () => {
+                playlistModal.classList.add('show');
+            });
+            
+            playlistClose.addEventListener('click', () => {
+                playlistModal.classList.remove('show');
+            });
+            
+            playlistCancel.addEventListener('click', () => {
+                playlistModal.classList.remove('show');
+            });
+            
+            playlistCreate.addEventListener('click', createPlaylist);
+            
+            // 点击模态框外部关闭
+            window.addEventListener('click', (e) => {
+                if (e.target === queueModal) {
+                    queueModal.classList.remove('show');
+                }
+                if (e.target === playlistModal) {
+                    playlistModal.classList.remove('show');
+                }
+            });
+        }
+        
+        // 添加触屏设备特定的事件
+        function addTouchEvents() {
+            // 为触屏设备添加触摸反馈
+            const touchElements = document.querySelectorAll('.nav-item, .playlist-item, .card, .track-item, .plugin-card, .control-btn, .nav-button, .plugin-btn');
+            
+            touchElements.forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.opacity = '0.7';
+                });
+                
+                element.addEventListener('touchend', function() {
+                    this.style.opacity = '1';
+                });
+            });
+            
+            // 进度条触摸控制
+            progressBar.addEventListener('touchstart', handleProgressTouchStart);
+            progressBar.addEventListener('touchmove', handleProgressTouchMove);
+            progressBar.addEventListener('touchend', handleProgressTouchEnd);
+            
+            // 音量条触摸控制
+            volumeBar.addEventListener('touchstart', handleVolumeTouchStart);
+            volumeBar.addEventListener('touchmove', handleVolumeTouchMove);
+            volumeBar.addEventListener('touchend', handleVolumeTouchEnd);
+        }
+        
+        // 进度条触摸控制
+        let isSeeking = false;
+        
+        function handleProgressTouchStart(e) {
+            isSeeking = true;
+            setProgress(e);
+        }
+        
+        function handleProgressTouchMove(e) {
+            if (!isSeeking) return;
+            setProgress(e);
+        }
+        
+        function handleProgressTouchEnd() {
+            isSeeking = false;
+        }
+        
+        // 音量条触摸控制
+        let isVolumeChanging = false;
+        
+        function handleVolumeTouchStart(e) {
+            isVolumeChanging = true;
+            setVolume(e);
+        }
+        
+        function handleVolumeTouchMove(e) {
+            if (!isVolumeChanging) return;
+            setVolume(e);
+        }
+        
+        function handleVolumeTouchEnd() {
+            isVolumeChanging = false;
+        }
+        
+        // 显示内容区域
+        function showSection(sectionId) {
+            contentSections.forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            document.getElementById(sectionId).style.display = 'block';
+        }
+        
+        // 加载插件
+        async function loadPlugins() {
+            try {
+                // 使用提供的API加载插件
+                const response = await fetch('https://gitee.com/maotoumao/MusicFreePlugins/raw/master/plugins.json');
+                plugins = await response.json();
+                
+                // 显示插件
+                displayPlugins();
+            } catch (error) {
+                console.error('Failed to load plugins:', error);
+                // 显示示例插件作为后备
+                displayExamplePlugins();
+            }
+        }
+        
+        // 显示插件
+        function displayPlugins() {
+            pluginGrid.innerHTML = '';
+            
+            plugins.forEach(plugin => {
+                const pluginCard = document.createElement('div');
+                pluginCard.classList.add('plugin-card');
+                
+                pluginCard.innerHTML = `
+                    <div class="plugin-name">${plugin.name || '未知插件'}</div>
+                    <div class="plugin-desc">${plugin.desc || '没有描述'}</div>
+                    <div class="plugin-actions">
+                        <button class="plugin-btn btn-primary" data-plugin='${JSON.stringify(plugin)}'>启用</button>
+                        <button class="plugin-btn btn-secondary">详情</button>
+                    </div>
+                `;
+                
+                // 添加启用按钮事件
+                const enableBtn = pluginCard.querySelector('.btn-primary');
+                enableBtn.addEventListener('click', () => {
+                    enablePlugin(plugin);
+                });
+                
+                pluginGrid.appendChild(pluginCard);
+            });
+        }
+        
+        // 启用插件
+        function enablePlugin(plugin) {
+            alert(`已启用插件: ${plugin.name}`);
+            // 这里可以添加实际的插件启用逻辑
+        }
+        
+        // 显示示例插件
+        function displayExamplePlugins() {
+            const examplePlugins = [
+                {
+                    name: '网易云音乐',
+                    desc: '提供网易云音乐歌曲资源',
+                    author: 'MusicFree团队',
+                    version: '1.0.0'
+                },
+                {
+                    name: 'QQ音乐',
+                    desc: '提供QQ音乐歌曲资源',
+                    author: 'MusicFree团队',
+                    version: '1.0.0'
+                },
+                {
+                    name: '酷狗音乐',
+                    desc: '提供酷狗音乐歌曲资源',
+                    author: 'MusicFree团队',
+                    version: '1.0.0'
+                },
+                {
+                    name: '咪咕音乐',
+                    desc: '提供咪咕音乐歌曲资源',
+                    author: 'MusicFree团队',
+                    version: '1.0.0'
+                }
+            ];
+            
+            plugins = examplePlugins;
+            displayPlugins();
+        }
+        
+        // 处理文件上传
+        function handleFileUpload(e) {
+            const files = e.target.files;
+            if (!files || files.length === 0) return;
+            
+            Array.from(files).forEach(file => {
+                if (file.type.startsWith('audio/')) {
+                    const track = {
+                        id: Date.now() + Math.random().toString(36).substr(2, 9),
+                        title: file.name.replace(/\.[^/.]+$/, ""), // 移除文件扩展名
+                        artist: '未知艺术家',
+                        duration: '0:00',
+                        src: URL.createObjectURL(file),
+                        cover: 'https://picsum.photos/100/100?random=' + Math.floor(Math.random() * 100),
+                        isLocal: true
+                    };
+                    
+                    localTracks.push(track);
+                    tracks.push(track);
+                    
+                    // 添加到播放队列
+                    queue.push(track);
+                }
+            });
+            
+            // 更新UI
+            renderLocalTracks();
+            saveData();
+            
+            // 重置文件输入，允许再次选择相同文件
+            fileInput.value = '';
+            
+            // 提示用户
+            alert(`成功添加 ${files.length} 首音乐`);
+        }
+        
+        // 渲染本地音乐
+        function renderLocalTracks() {
+            localTracksList.innerHTML = '';
+            
+            if (localTracks.length === 0) {
+                localTracksList.innerHTML = '<div class="track-item"><div class="track-info"><div class="track-name">暂无本地音乐</div><div class="track-artist">请点击上方按钮添加音乐</div></div></div>';
+                return;
+            }
+            
+            localTracks.forEach((track, index) => {
+                const trackEl = document.createElement('div');
+                trackEl.classList.add('track-item');
+                trackEl.setAttribute('data-id', track.id);
+                
+                trackEl.innerHTML = `
+                    <div class="track-number">${index + 1}</div>
+                    <div class="track-info">
+                        <div class="track-name">${track.title}</div>
+                        <div class="track-artist">${track.artist}</div>
+                    </div>
+                    <div class="track-duration">${track.duration}</div>
+                `;
+                
+                trackEl.addEventListener('click', () => {
+                    playTrack(track);
+                });
+                
+                localTracksList.appendChild(trackEl);
+            });
+        }
+        
+        // 渲染热门歌曲
+        function renderFeaturedTracks() {
+            featuredTracksList.innerHTML = '';
+            
+            // 示例热门歌曲
+            const featuredTracks = [
+{id: 'track1',title: '我用自己的方式爱你',artist: '洋澜一 艾可儿',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一 艾可儿-我用自己的方式爱你.mp3',cover: './icon/001.jpg'},
+{id: 'track2',title: '悟了繁华悟了你',artist: '洋澜一 艾可儿',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一 艾可儿-悟了繁华悟了你.mp3',cover: './icon/002.jpg'},
+{id: 'track3',title: '离别的秋天 (国粤语版)',artist: '洋澜一 陈柏曦',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一 陈柏曦-离别的秋天 (国粤语版).mp3',cover: './icon/003.jpg'},
+{id: 'track4',title: '敬往事一杯',artist: '洋澜一 侯泽润',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一 侯泽润-敬往事一杯.mp3',cover: './icon/004.jpg'},
+{id: 'track5',title: '风吹散眼泪 (国粤对唱版)',artist: '洋澜一 励志豪',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一 励志豪-风吹散眼泪 (国粤对唱版).mp3',cover: './icon/005.jpg'},
+{id: 'track6',title: '下辈子也要找到你 (国粤语版)',artist: '洋澜一 励志豪',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一 励志豪-下辈子也要找到你 (国粤语版).mp3',cover: './icon/006.jpg'},
+{id: 'track7',title: '离别的秋天 (国粤语版)',artist: '洋澜一 亮声open',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一 亮声open-离别的秋天 (国粤语版).mp3',cover: './icon/007.jpg'},
+{id: 'track8',title: '凌晨的路灯陪我回家',artist: '洋澜一 清唯',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一 清唯-凌晨的路灯陪我回家.mp3',cover: './icon/008.jpg'},
+{id: 'track9',title: '见一面少一面 (合唱版)',artist: '洋澜一 田园',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一 田园-见一面少一面 (合唱版).mp3',cover: './icon/009.jpg'},
+{id: 'track10',title: '听说你在远方',artist: '洋澜一 艺涛',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一 艺涛-听说你在远方.mp3',cover: './icon/010.jpg'},
+{id: 'track11',title: '阿楚姑娘',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-阿楚姑娘.mp3',cover: './icon/011.jpg'},
+{id: 'track12',title: '爱不爱的我都不爱了',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-爱不爱的我都不爱了.mp3',cover: './icon/012.jpg'},
+{id: 'track13',title: '爱不同不相为谋',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-爱不同不相为谋.mp3',cover: './icon/013.jpg'},
+{id: 'track14',title: '爱到全心全意',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-爱到全心全意.mp3',cover: './icon/014.jpg'},
+{id: 'track15',title: '爱到最后全凭良心',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-爱到最后全凭良心.mp3',cover: './icon/015.jpg'},
+{id: 'track16',title: '爱得糊涂痛得刻骨',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-爱得糊涂痛得刻骨.mp3',cover: './icon/016.jpg'},
+{id: 'track17',title: '爱而不得的遗憾',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-爱而不得的遗憾.mp3',cover: './icon/017.jpg'},
+{id: 'track18',title: '爱来爱去一身伤',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-爱来爱去一身伤.mp3',cover: './icon/018.jpg'},
+{id: 'track19',title: '爱你比爱自己多',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-爱你比爱自己多.mp3',cover: './icon/019.jpg'},
+{id: 'track20',title: '爱你痛那么多',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-爱你痛那么多.mp3',cover: './icon/020.jpg'},
+{id: 'track21',title: '爱如风情如云',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-爱如风情如云.mp3',cover: './icon/021.jpg'},
+{id: 'track22',title: '爱似水仙',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-爱似水仙.mp3',cover: './icon/022.jpg'},
+{id: 'track23',title: '爱她还来折磨我',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-爱她还来折磨我.mp3',cover: './icon/023.jpg'},
+{id: 'track24',title: '爱我的人和我爱的人',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-爱我的人和我爱的人.mp3',cover: './icon/024.jpg'},
+{id: 'track25',title: '爱我还是他',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-爱我还是他.mp3',cover: './icon/025.jpg'},
+{id: 'track26',title: '爱我是你说的谎',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-爱我是你说的谎.mp3',cover: './icon/026.jpg'},
+{id: 'track27',title: '爱一程 念一生',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-爱一程 念一生.mp3',cover: './icon/027.jpg'},
+{id: 'track28',title: '爱一个人好难',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-爱一个人好难.mp3',cover: './icon/028.jpg'},
+{id: 'track29',title: '爱一阵子疼一辈子',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-爱一阵子疼一辈子.mp3',cover: './icon/029.jpg'},
+{id: 'track30',title: '爱与不爱又怎样',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-爱与不爱又怎样.mp3',cover: './icon/030.jpg'},
+{id: 'track31',title: '安静做自己',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-安静做自己.mp3',cover: './icon/031.jpg'},
+{id: 'track32',title: '把悲伤留给自己',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-把悲伤留给自己.mp3',cover: './icon/032.jpg'},
+{id: 'track33',title: '半纸情长',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-半纸情长.mp3',cover: './icon/033.jpg'},
+{id: 'track34',title: '贝加尔湖畔',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-贝加尔湖畔.mp3',cover: './icon/034.jpg'},
+{id: 'track35',title: '背着风流泪',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-背着风流泪.mp3',cover: './icon/035.jpg'},
+{id: 'track36',title: '被爱的人才敢说分手',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-被爱的人才敢说分手.mp3',cover: './icon/036.jpg'},
+{id: 'track37',title: '比谁都认真',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-比谁都认真.mp3',cover: './icon/037.jpg'},
+{id: 'track38',title: '别爱太满',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-别爱太满.mp3',cover: './icon/038.jpg'},
+{id: 'track39',title: '别把疼你的人弄丢了',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-别把疼你的人弄丢了.mp3',cover: './icon/039.jpg'},
+{id: 'track40',title: '别等太久',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-别等太久.mp3',cover: './icon/040.jpg'},
+{id: 'track41',title: '别哭我最爱的人',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-别哭我最爱的人.mp3',cover: './icon/041.jpg'},
+{id: 'track42',title: '别怕我伤心',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-别怕我伤心.mp3',cover: './icon/042.jpg'},
+{id: 'track43',title: '别让我一个人醉',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-别让我一个人醉.mp3',cover: './icon/043.jpg'},
+{id: 'track44',title: '别让昨天的雨淋湿今天的你',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-别让昨天的雨淋湿今天的你.mp3',cover: './icon/044.jpg'},
+{id: 'track45',title: '别为难自己',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-别为难自己.mp3',cover: './icon/045.jpg'},
+{id: 'track46',title: '别想他',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-别想他.mp3',cover: './icon/046.jpg'},
+{id: 'track47',title: '别想她',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-别想她.mp3',cover: './icon/047.jpg'},
+{id: 'track48',title: '卜卦',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-卜卦.mp3',cover: './icon/048.jpg'},
+{id: 'track49',title: '不爱你的人就放手',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-不爱你的人就放手.mp3',cover: './icon/049.jpg'},
+{id: 'track50',title: '不定的风',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-不定的风.mp3',cover: './icon/050.jpg'},
+{id: 'track51',title: '不甘',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-不甘.mp3',cover: './icon/051.jpg'},
+{id: 'track52',title: '不值得',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-不值得.mp3',cover: './icon/052.jpg'},
+{id: 'track53',title: '苍天不解人间情',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-苍天不解人间情.mp3',cover: './icon/053.jpg'},
+{id: 'track54',title: '曾经心痛',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-曾经心痛.mp3',cover: './icon/054.jpg'},
+{id: 'track55',title: '曾说过陪我到老的人',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-曾说过陪我到老的人.mp3',cover: './icon/055.jpg'},
+{id: 'track56',title: '禅韵',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-禅韵.mp3',cover: './icon/056.jpg'},
+{id: 'track57',title: '潮湿的心',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-潮湿的心.mp3',cover: './icon/057.jpg'},
+{id: 'track58',title: '沉入没有你的孤岛',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-沉入没有你的孤岛.mp3',cover: './icon/058.jpg'},
+{id: 'track59',title: '痴情换来我伤心',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-痴情换来我伤心.mp3',cover: './icon/059.jpg'},
+{id: 'track60',title: '迟来的爱',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-迟来的爱.mp3',cover: './icon/060.jpg'},
+{id: 'track61',title: '丑小鸭做了场白天鹅的梦',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-丑小鸭做了场白天鹅的梦.mp3',cover: './icon/061.jpg'},
+{id: 'track62',title: '出卖',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-出卖.mp3',cover: './icon/062.jpg'},
+{id: 'track63',title: '出现在梦里的人',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-出现在梦里的人.mp3',cover: './icon/063.jpg'},
+{id: 'track64',title: '除了梦里再没见过你',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-除了梦里再没见过你.mp3',cover: './icon/064.jpg'},
+{id: 'track65',title: '穿越人海拥抱你',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-穿越人海拥抱你.mp3',cover: './icon/065.jpg'},
+{id: 'track66',title: '此生无憾',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-此生无憾.mp3',cover: './icon/066.jpg'},
+{id: 'track67',title: '赐伤',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-赐伤.mp3',cover: './icon/067.jpg'},
+{id: 'track68',title: '赐痛',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-赐痛.mp3',cover: './icon/068.jpg'},
+{id: 'track69',title: '赐我平身',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-赐我平身.mp3',cover: './icon/069.jpg'},
+{id: 'track70',title: '从此一个人过',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-从此一个人过.mp3',cover: './icon/070.jpg'},
+{id: 'track71',title: '从前说',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-从前说.mp3',cover: './icon/071.jpg'},
+{id: 'track72',title: '错',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-错.mp3',cover: './icon/072.jpg'},
+{id: 'track73',title: '错过的爱',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-错过的爱.mp3',cover: './icon/073.jpg'},
+{id: 'track74',title: '大风吹倒梧桐树',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-大风吹倒梧桐树.mp3',cover: './icon/074.jpg'},
+{id: 'track75',title: '大山里的孩子',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-大山里的孩子.mp3',cover: './icon/075.jpg'},
+{id: 'track76',title: '带不走四季的风',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-带不走四季的风.mp3',cover: './icon/076.jpg'},
+{id: 'track77',title: '单身情歌',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-单身情歌.mp3',cover: './icon/077.jpg'},
+{id: 'track78',title: '当爱恨成过往',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-当爱恨成过往.mp3',cover: './icon/078.jpg'},
+{id: 'track79',title: '当爱在靠近',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-当爱在靠近.mp3',cover: './icon/079.jpg'},
+{id: 'track80',title: '到底错在哪里',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-到底错在哪里.mp3',cover: './icon/080.jpg'},
+{id: 'track81',title: '冬起心凉',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-冬起心凉.mp3',cover: './icon/081.jpg'},
+{id: 'track82',title: '冬天的秘密',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-冬天的秘密.mp3',cover: './icon/082.jpg'},
+{id: 'track83',title: '冬雪飘落',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-冬雪飘落.mp3',cover: './icon/083.jpg'},
+{id: 'track84',title: '懂事的人总被伤的深',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-懂事的人总被伤的深.mp3',cover: './icon/084.jpg'},
+{id: 'track85',title: '动了情伤了心',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-动了情伤了心.mp3',cover: './icon/085.jpg'},
+{id: 'track86',title: '都是我自己的',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-都是我自己的.mp3',cover: './icon/086.jpg'},
+{id: 'track87',title: '独角戏',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-独角戏.mp3',cover: './icon/087.jpg'},
+{id: 'track88',title: '独饮红尘一杯酒',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-独饮红尘一杯酒.mp3',cover: './icon/088.jpg'},
+{id: 'track89',title: '对等关系',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-对等关系.mp3',cover: './icon/089.jpg'},
+{id: 'track90',title: '对你做个收尾',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-对你做个收尾.mp3',cover: './icon/090.jpg'},
+{id: 'track91',title: '多薄的情多深的债',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-多薄的情多深的债.mp3',cover: './icon/091.jpg'},
+{id: 'track92',title: '多久不见',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-多久不见.mp3',cover: './icon/092.jpg'},
+{id: 'track93',title: '多年以前',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-多年以前.mp3',cover: './icon/093.jpg'},
+{id: 'track94',title: '多想再爱一回',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-多想再爱一回.mp3',cover: './icon/094.jpg'},
+{id: 'track95',title: '多余的温柔',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-多余的温柔.mp3',cover: './icon/095.jpg'},
+{id: 'track96',title: '多余的眼泪',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-多余的眼泪.mp3',cover: './icon/096.jpg'},
+{id: 'track97',title: '发错誓爱错人',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-发错誓爱错人.mp3',cover: './icon/097.jpg'},
+{id: 'track98',title: '凡人不想平凡',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-凡人不想平凡.mp3',cover: './icon/098.jpg'},
+{id: 'track99',title: '犯痴',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-犯痴.mp3',cover: './icon/099.jpg'},
+{id: 'track100',title: '放下所有求你回来',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-放下所有求你回来.mp3',cover: './icon/100.jpg'},
+{id: 'track101',title: '飞蛾扑火',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-飞蛾扑火.mp3',cover: './icon/101.jpg'},
+{id: 'track102',title: '分飞',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-分飞.mp3',cover: './icon/102.jpg'},
+{id: 'track103',title: '分手',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-分手.mp3',cover: './icon/103.jpg'},
+{id: 'track104',title: '分手就分手',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-分手就分手.mp3',cover: './icon/104.jpg'},
+{id: 'track105',title: '风吹的沙砾',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-风吹的沙砾.mp3',cover: './icon/105.jpg'},
+{id: 'track106',title: '风吹散眼泪',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-风吹散眼泪.mp3',cover: './icon/106.jpg'},
+{id: 'track107',title: '风吹雪花片片落',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-风吹雪花片片落.mp3',cover: './icon/107.jpg'},
+{id: 'track108',title: '风的尽头是风',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-风的尽头是风.mp3',cover: './icon/108.jpg'},
+{id: 'track109',title: '风的忧伤只有云知道',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-风的忧伤只有云知道.mp3',cover: './icon/109.jpg'},
+{id: 'track110',title: '风没吹过你没来过',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-风没吹过你没来过.mp3',cover: './icon/110.jpg'},
+{id: 'track111',title: '风中的遗憾',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-风中的遗憾.mp3',cover: './icon/001.jpg'},
+{id: 'track112',title: '感性的女人伤的真',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-感性的女人伤的真.mp3',cover: './icon/002.jpg'},
+{id: 'track113',title: '搁浅的鱼',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-搁浅的鱼.mp3',cover: './icon/003.jpg'},
+{id: 'track114',title: '各自好过',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-各自好过.mp3',cover: './icon/004.jpg'},
+{id: 'track115',title: '孤独的罪名',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-孤独的罪名.mp3',cover: './icon/005.jpg'},
+{id: 'track116',title: '故乡下雪了',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-故乡下雪了.mp3',cover: './icon/006.jpg'},
+{id: 'track117',title: '归来不问归期',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-归来不问归期.mp3',cover: './icon/007.jpg'},
+{id: 'track118',title: '滚滚红尘',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-滚滚红尘.mp3',cover: './icon/008.jpg'},
+{id: 'track119',title: '过火',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-过火.mp3',cover: './icon/009.jpg'},
+{id: 'track120',title: '过路的晚风',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-过路的晚风.mp3',cover: './icon/010.jpg'},
+{id: 'track121',title: '过往',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-过往.mp3',cover: './icon/011.jpg'},
+{id: 'track122',title: '还不完的债',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-还不完的债.mp3',cover: './icon/012.jpg'},
+{id: 'track123',title: '还岁月温柔',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-还岁月温柔.mp3',cover: './icon/013.jpg'},
+{id: 'track124',title: '海与天',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-海与天.mp3',cover: './icon/014.jpg'},
+{id: 'track125',title: '寒风对雪花的思恋',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-寒风对雪花的思恋.mp3',cover: './icon/015.jpg'},
+{id: 'track126',title: '喝酒不敢醉',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-喝酒不敢醉.mp3',cover: './icon/016.jpg'},
+{id: 'track127',title: '红豆',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-红豆.mp3',cover: './icon/017.jpg'},
+{id: 'track128',title: '后海酒吧',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-后海酒吧.mp3',cover: './icon/018.jpg'},
+{id: 'track129',title: '后来',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-后来.mp3',cover: './icon/019.jpg'},
+{id: 'track130',title: '后来的你在哪',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-后来的你在哪.mp3',cover: './icon/020.jpg'},
+{id: 'track131',title: '后来你娶的人',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-后来你娶的人.mp3',cover: './icon/021.jpg'},
+{id: 'track132',title: '后来我试着不爱你',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-后来我试着不爱你.mp3',cover: './icon/022.jpg'},
+{id: 'track133',title: '花会沿途盛开',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-花会沿途盛开.mp3',cover: './icon/023.jpg'},
+{id: 'track134',title: '化风行万里',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-化风行万里.mp3',cover: './icon/024.jpg'},
+{id: 'track135',title: '画你',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-画你.mp3',cover: './icon/025.jpg'},
+{id: 'track136',title: '换了校服等不来婚纱',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-换了校服等不来婚纱.mp3',cover: './icon/026.jpg'},
+{id: 'track137',title: '黄昏',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-黄昏.mp3',cover: './icon/027.jpg'},
+{id: 'track138',title: '回忆是解药也是毒方',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-回忆是解药也是毒方.mp3',cover: './icon/028.jpg'},
+{id: 'track139',title: '婚纱和你都是梦',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-婚纱和你都是梦.mp3',cover: './icon/029.jpg'},
+{id: 'track140',title: '活得不容易',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-活得不容易.mp3',cover: './icon/030.jpg'},
+{id: 'track141',title: '寂寞的人喝不醉',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-寂寞的人喝不醉.mp3',cover: './icon/031.jpg'},
+{id: 'track142',title: '见一面少一面',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-见一面少一面.mp3',cover: './icon/032.jpg'},
+{id: 'track143',title: '江南的风吹落江北的雨',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-江南的风吹落江北的雨.mp3',cover: './icon/033.jpg'},
+{id: 'track144',title: '劫后余生',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-劫后余生.mp3',cover: './icon/034.jpg'},
+{id: 'track145',title: '杰作',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-杰作.mp3',cover: './icon/035.jpg'},
+{id: 'track146',title: '戒了想你戒了难过',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-戒了想你戒了难过.mp3',cover: './icon/036.jpg'},
+{id: 'track147',title: '今生最爱',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-今生最爱.mp3',cover: './icon/037.jpg'},
+{id: 'track148',title: '今天',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-今天.mp3',cover: './icon/038.jpg'},
+{id: 'track149',title: '今夜风悠悠',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-今夜风悠悠.mp3',cover: './icon/039.jpg'},
+{id: 'track150',title: '仅此一年我判若两人',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-仅此一年我判若两人.mp3',cover: './icon/040.jpg'},
+{id: 'track151',title: '敬不到来日方长',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-敬不到来日方长.mp3',cover: './icon/041.jpg'},
+{id: 'track152',title: '敬那段难忘的时光',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-敬那段难忘的时光.mp3',cover: './icon/042.jpg'},
+{id: 'track153',title: '敬往事一杯',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-敬往事一杯.mp3',cover: './icon/043.jpg'},
+{id: 'track154',title: '九十九朵玫瑰',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-九十九朵玫瑰.mp3',cover: './icon/044.jpg'},
+{id: 'track155',title: '九十九个回忆',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-九十九个回忆.mp3',cover: './icon/045.jpg'},
+{id: 'track156',title: '旧情难却',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-旧情难却.mp3',cover: './icon/046.jpg'},
+{id: 'track157',title: '君向南方我向北',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-君向南方我向北.mp3',cover: './icon/047.jpg'},
+{id: 'track158',title: '看见繁花',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-看见繁花.mp3',cover: './icon/048.jpg'},
+{id: 'track159',title: '看透爱情看透你',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-看透爱情看透你.mp3',cover: './icon/049.jpg'},
+{id: 'track160',title: '可惜我不是风',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-可惜我不是风.mp3',cover: './icon/050.jpg'},
+{id: 'track161',title: '空荡的酒杯',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-空荡的酒杯.mp3',cover: './icon/051.jpg'},
+{id: 'track162',title: '孔融让梨',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-孔融让梨.mp3',cover: './icon/052.jpg'},
+{id: 'track163',title: '哭砂',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-哭砂.mp3',cover: './icon/053.jpg'},
+{id: 'track164',title: '快乐是一种假笑',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-快乐是一种假笑.mp3',cover: './icon/054.jpg'},
+{id: 'track165',title: '来人间走个过场',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-来人间走个过场.mp3',cover: './icon/055.jpg'},
+{id: 'track166',title: '蓝眼泪',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-蓝眼泪.mp3',cover: './icon/056.jpg'},
+{id: 'track167',title: '类似爱情',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-类似爱情.mp3',cover: './icon/057.jpg'},
+{id: 'track168',title: '冷风心里吹',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-冷风心里吹.mp3',cover: './icon/058.jpg'},
+{id: 'track169',title: '离别的秋天',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-离别的秋天.mp3',cover: './icon/059.jpg'},
+{id: 'track170',title: '连同青春输给他',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-连同青春输给他.mp3',cover: './icon/060.jpg'},
+{id: 'track171',title: '凉意',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-凉意.mp3',cover: './icon/061.jpg'},
+{id: 'track172',title: '撩夜',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-撩夜.mp3',cover: './icon/062.jpg'},
+{id: 'track173',title: '凌晨零点零分零秒',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-凌晨零点零分零秒.mp3',cover: './icon/063.jpg'},
+{id: 'track174',title: '留不住你不如成全你',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-留不住你不如成全你.mp3',cover: './icon/064.jpg'},
+{id: 'track175',title: '流着眼泪抱着你',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-流着眼泪抱着你.mp3',cover: './icon/065.jpg'},
+{id: 'track176',title: '落笔都是你',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-落笔都是你.mp3',cover: './icon/066.jpg'},
+{id: 'track177',title: '没爱你的本事',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-没爱你的本事.mp3',cover: './icon/067.jpg'},
+{id: 'track178',title: '没有胆量继续爱',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-没有胆量继续爱.mp3',cover: './icon/068.jpg'},
+{id: 'track179',title: '没有你的城市还在下雨',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-没有你的城市还在下雨.mp3',cover: './icon/069.jpg'},
+{id: 'track180',title: '没有你陪伴真的好孤单',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-没有你陪伴真的好孤单.mp3',cover: './icon/070.jpg'},
+{id: 'track181',title: '没有你我也可以过得好',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-没有你我也可以过得好.mp3',cover: './icon/071.jpg'},
+{id: 'track182',title: '没有人会永远爱你',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-没有人会永远爱你.mp3',cover: './icon/072.jpg'},
+{id: 'track183',title: '梦醒时分',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-梦醒时分.mp3',cover: './icon/073.jpg'},
+{id: 'track184',title: '面对面晚安',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-面对面晚安.mp3',cover: './icon/074.jpg'},
+{id: 'track185',title: '明月夜',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-明月夜.mp3',cover: './icon/075.jpg'},
+{id: 'track186',title: '抹去泪水',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-抹去泪水.mp3',cover: './icon/076.jpg'},
+{id: 'track187',title: '拿什么来骗我',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-拿什么来骗我.mp3',cover: './icon/077.jpg'},
+{id: 'track188',title: '你逼我放手',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-你逼我放手.mp3',cover: './icon/078.jpg'},
+{id: 'track189',title: '你从未真正懂过我的苦',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-你从未真正懂过我的苦.mp3',cover: './icon/079.jpg'},
+{id: 'track190',title: '你的回忆里是否还有我',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-你的回忆里是否还有我.mp3',cover: './icon/080.jpg'},
+{id: 'track191',title: '你换了一种方式伤害我',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-你换了一种方式伤害我.mp3',cover: './icon/081.jpg'},
+{id: 'track192',title: '你看啊',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-你看啊.mp3',cover: './icon/082.jpg'},
+{id: 'track193',title: '你看我有几分像从前',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-你看我有几分像从前.mp3',cover: './icon/083.jpg'},
+{id: 'track194',title: '你来去像阵风',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-你来去像阵风.mp3',cover: './icon/084.jpg'},
+{id: 'track195',title: '你没错',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-你没错.mp3',cover: './icon/085.jpg'},
+{id: 'track196',title: '你去吧',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-你去吧.mp3',cover: './icon/086.jpg'},
+{id: 'track197',title: '你是藏在我心底的思念',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-你是藏在我心底的思念.mp3',cover: './icon/087.jpg'},
+{id: 'track198',title: '你是否已是最好的人',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-你是否已是最好的人.mp3',cover: './icon/088.jpg'},
+{id: 'track199',title: '你是我不可预约的雪',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-你是我不可预约的雪.mp3',cover: './icon/089.jpg'},
+{id: 'track200',title: '你是我曾经拼了命爱过的人',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-你是我曾经拼了命爱过的人.mp3',cover: './icon/090.jpg'},
+{id: 'track201',title: '你是我第一眼就喜欢的人',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-你是我第一眼就喜欢的人.mp3',cover: './icon/091.jpg'},
+{id: 'track202',title: '你说后来有了她',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-你说后来有了她.mp3',cover: './icon/092.jpg'},
+{id: 'track203',title: '你携风带雨我乱了四季',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-你携风带雨我乱了四季.mp3',cover: './icon/093.jpg'},
+{id: 'track204',title: '你用背影换自由',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-你用背影换自由.mp3',cover: './icon/094.jpg'},
+{id: 'track205',title: '你用玫瑰刺穿我心窝',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-你用玫瑰刺穿我心窝.mp3',cover: './icon/095.jpg'},
+{id: 'track206',title: '你有没有真的爱过我',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-你有没有真的爱过我.mp3',cover: './icon/096.jpg'},
+{id: 'track207',title: '你在不在',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-你在不在.mp3',cover: './icon/097.jpg'},
+{id: 'track208',title: '你怎么才出现',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-你怎么才出现.mp3',cover: './icon/098.jpg'},
+{id: 'track209',title: '你怎么舍得我难过',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-你怎么舍得我难过.mp3',cover: './icon/099.jpg'},
+{id: 'track210',title: '你只是',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-你只是.mp3',cover: './icon/100.jpg'},
+{id: 'track211',title: '你知道不知道',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-你知道不知道.mp3',cover: './icon/101.jpg'},
+{id: 'track212',title: '逆流成河',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-逆流成河.mp3',cover: './icon/102.jpg'},
+{id: 'track213',title: '溺水而亡',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-溺水而亡.mp3',cover: './icon/103.jpg'},
+{id: 'track214',title: '弄丢了爱笑的自己',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-弄丢了爱笑的自己.mp3',cover: './icon/104.jpg'},
+{id: 'track215',title: '诺言',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-诺言.mp3',cover: './icon/105.jpg'},
+{id: 'track216',title: '女人半边天',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-女人半边天.mp3',cover: './icon/106.jpg'},
+{id: 'track217',title: '女人的选择',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-女人的选择.mp3',cover: './icon/107.jpg'},
+{id: 'track218',title: '陪你吃苦的人是我',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-陪你吃苦的人是我.mp3',cover: './icon/108.jpg'},
+{id: 'track219',title: '漂洋过海来看你',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-漂洋过海来看你.mp3',cover: './icon/109.jpg'},
+{id: 'track220',title: '萍聚',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-萍聚.mp3',cover: './icon/110.jpg'},
+{id: 'track221',title: '七情六欲',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-七情六欲.mp3',cover: './icon/001.jpg'},
+{id: 'track222',title: '七月七日晴',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-七月七日晴.mp3',cover: './icon/002.jpg'},
+{id: 'track223',title: '奇迹',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-奇迹.mp3',cover: './icon/003.jpg'},
+{id: 'track224',title: '牵手',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-牵手.mp3',cover: './icon/004.jpg'},
+{id: 'track225',title: '窃爱',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-窃爱.mp3',cover: './icon/005.jpg'},
+{id: 'track226',title: '亲爱的你过的好吗',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-亲爱的你过的好吗.mp3',cover: './icon/006.jpg'},
+{id: 'track227',title: '青春没披上嫁衣',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-青春没披上嫁衣.mp3',cover: './icon/007.jpg'},
+{id: 'track228',title: '青花',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-青花.mp3',cover: './icon/008.jpg'},
+{id: 'track229',title: '情话深深浅浅千万遍',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-情话深深浅浅千万遍.mp3',cover: './icon/009.jpg'},
+{id: 'track230',title: '情难枕',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-情难枕.mp3',cover: './icon/010.jpg'},
+{id: 'track231',title: '情人香',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-情人香.mp3',cover: './icon/011.jpg'},
+{id: 'track232',title: '情深不换',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-情深不换.mp3',cover: './icon/012.jpg'},
+{id: 'track233',title: '情深不知痛',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-情深不知痛.mp3',cover: './icon/013.jpg'},
+{id: 'track234',title: '情深能怎样',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-情深能怎样.mp3',cover: './icon/014.jpg'},
+{id: 'track235',title: '请先说你好',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-请先说你好.mp3',cover: './icon/015.jpg'},
+{id: 'track236',title: '秋风吹起',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-秋风吹起.mp3',cover: './icon/016.jpg'},
+{id: 'track237',title: '秋风经过',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-秋风经过.mp3',cover: './icon/017.jpg'},
+{id: 'track238',title: '让我忘记曾经那个你',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-让我忘记曾经那个你.mp3',cover: './icon/018.jpg'},
+{id: 'track239',title: '人间半途',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-人间半途.mp3',cover: './icon/019.jpg'},
+{id: 'track240',title: '人生无悔',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-人生无悔.mp3',cover: './icon/020.jpg'},
+{id: 'track241',title: '容易受伤的女人',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-容易受伤的女人.mp3',cover: './icon/021.jpg'},
+{id: 'track242',title: '如果晚风',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-如果晚风.mp3',cover: './icon/022.jpg'},
+{id: 'track243',title: '如果有来世',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-如果有来世.mp3',cover: './icon/023.jpg'},
+{id: 'track244',title: '如果云知道',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-如果云知道.mp3',cover: './icon/024.jpg'},
+{id: 'track245',title: '如果最后不是你',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-如果最后不是你.mp3',cover: './icon/025.jpg'},
+{id: 'track246',title: '如你',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-如你.mp3',cover: './icon/026.jpg'},
+{id: 'track247',title: '若再回头就该天谴',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-若再回头就该天谴.mp3',cover: './icon/027.jpg'},
+{id: 'track248',title: '三年的结局',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-三年的结局.mp3',cover: './icon/028.jpg'},
+{id: 'track249',title: '散心木屋',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-散心木屋.mp3',cover: './icon/029.jpg'},
+{id: 'track250',title: '沙漠之花',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-沙漠之花.mp3',cover: './icon/030.jpg'},
+{id: 'track251',title: '伤疤还没好就忘了疼',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-伤疤还没好就忘了疼.mp3',cover: './icon/031.jpg'},
+{id: 'track252',title: '伤到极致没有泪',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-伤到极致没有泪.mp3',cover: './icon/032.jpg'},
+{id: 'track253',title: '伤口',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-伤口.mp3',cover: './icon/033.jpg'},
+{id: 'track254',title: '伤心城市',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-伤心城市.mp3',cover: './icon/034.jpg'},
+{id: 'track255',title: '伤心太平洋',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-伤心太平洋.mp3',cover: './icon/035.jpg'},
+{id: 'track256',title: '上了锁的心上了锁的情',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-上了锁的心上了锁的情.mp3',cover: './icon/036.jpg'},
+{id: 'track257',title: '上你的当',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-上你的当.mp3',cover: './icon/037.jpg'},
+{id: 'track258',title: '深秋夜雨',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-深秋夜雨.mp3',cover: './icon/038.jpg'},
+{id: 'track259',title: '生活',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-生活.mp3',cover: './icon/039.jpg'},
+{id: 'track260',title: '盛不盛开都是花',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-盛不盛开都是花.mp3',cover: './icon/040.jpg'},
+{id: 'track261',title: '盛夏的果实',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-盛夏的果实.mp3',cover: './icon/041.jpg'},
+{id: 'track262',title: '失去爱的城市',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-失去爱的城市.mp3',cover: './icon/042.jpg'},
+{id: 'track263',title: '失声',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-失声.mp3',cover: './icon/043.jpg'},
+{id: 'track264',title: '诗酒作人间',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-诗酒作人间.mp3',cover: './icon/044.jpg'},
+{id: 'track265',title: '时光入喉',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-时光入喉.mp3',cover: './icon/045.jpg'},
+{id: 'track266',title: '时间你慢些走',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-时间你慢些走.mp3',cover: './icon/046.jpg'},
+{id: 'track267',title: '世间俗人',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-世间俗人.mp3',cover: './icon/047.jpg'},
+{id: 'track268',title: '世间所有不及你温柔',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-世间所有不及你温柔.mp3',cover: './icon/048.jpg'},
+{id: 'track269',title: '试图',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-试图.mp3',cover: './icon/049.jpg'},
+{id: 'track270',title: '是你狠是我傻',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-是你狠是我傻.mp3',cover: './icon/050.jpg'},
+{id: 'track271',title: '是我爱过了头',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-是我爱过了头.mp3',cover: './icon/051.jpg'},
+{id: 'track272',title: '手心的温度',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-手心的温度.mp3',cover: './icon/052.jpg'},
+{id: 'track273',title: '输不起的年纪',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-输不起的年纪.mp3',cover: './icon/053.jpg'},
+{id: 'track274',title: '谁',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-谁.mp3',cover: './icon/054.jpg'},
+{id: 'track275',title: '谁不是累着痛笑着哭',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-谁不是累着痛笑着哭.mp3',cover: './icon/055.jpg'},
+{id: 'track276',title: '谁懂我心思',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-谁懂我心思.mp3',cover: './icon/056.jpg'},
+{id: 'track277',title: '谁懂这首伤情的歌',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-谁懂这首伤情的歌.mp3',cover: './icon/057.jpg'},
+{id: 'track278',title: '谁都会',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-谁都会.mp3',cover: './icon/058.jpg'},
+{id: 'track279',title: '谁会懂我',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-谁会懂我.mp3',cover: './icon/059.jpg'},
+{id: 'track280',title: '说好的不会离开我',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-说好的不会离开我.mp3',cover: './icon/060.jpg'},
+{id: 'track281',title: '思念成病',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-思念成病.mp3',cover: './icon/061.jpg'},
+{id: 'track282',title: '思念成沙',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-思念成沙.mp3',cover: './icon/062.jpg'},
+{id: 'track283',title: '思念从来没饶过谁',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-思念从来没饶过谁.mp3',cover: './icon/063.jpg'},
+{id: 'track284',title: '思念的弦',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-思念的弦.mp3',cover: './icon/064.jpg'},
+{id: 'track285',title: '思念及时雨',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-思念及时雨.mp3',cover: './icon/065.jpg'},
+{id: 'track286',title: '思念如雪',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-思念如雪.mp3',cover: './icon/066.jpg'},
+{id: 'track287',title: '思念像风',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-思念像风.mp3',cover: './icon/067.jpg'},
+{id: 'track288',title: '撕碎一页伤悲',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-撕碎一页伤悲.mp3',cover: './icon/068.jpg'},
+{id: 'track289',title: '岁月刻刀',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-岁月刻刀.mp3',cover: './icon/069.jpg'},
+{id: 'track290',title: '他他他',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-他他他.mp3',cover: './icon/070.jpg'},
+{id: 'track291',title: '太多',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-太多.mp3',cover: './icon/071.jpg'},
+{id: 'track292',title: '太深',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-太深.mp3',cover: './icon/072.jpg'},
+{id: 'track293',title: '太委屈 (走心版)',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-太委屈 (走心版).mp3',cover: './icon/073.jpg'},
+{id: 'track294',title: '太拥挤',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-太拥挤.mp3',cover: './icon/074.jpg'},
+{id: 'track295',title: '掏空',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-掏空.mp3',cover: './icon/075.jpg'},
+{id: 'track296',title: '提笔忘情',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-提笔忘情.mp3',cover: './icon/076.jpg'},
+{id: 'track297',title: '天际',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-天际.mp3',cover: './icon/077.jpg'},
+{id: 'track298',title: '天也不懂情',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-天也不懂情.mp3',cover: './icon/078.jpg'},
+{id: 'track299',title: '听到你的名字',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-听到你的名字.mp3',cover: './icon/079.jpg'},
+{id: 'track300',title: '听说当初你找过我',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-听说当初你找过我.mp3',cover: './icon/080.jpg'},
+{id: 'track301',title: '听说你',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-听说你.mp3',cover: './icon/081.jpg'},
+{id: 'track302',title: '同床共枕的人',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-同床共枕的人.mp3',cover: './icon/082.jpg'},
+{id: 'track303',title: '同花顺',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-同花顺.mp3',cover: './icon/083.jpg'},
+{id: 'track304',title: '痛彻心扉',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-痛彻心扉.mp3',cover: './icon/084.jpg'},
+{id: 'track305',title: '痛给了我爱给了你',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-痛给了我爱给了你.mp3',cover: './icon/085.jpg'},
+{id: 'track306',title: '痛了没人懂哭了没人哄',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-痛了没人懂哭了没人哄.mp3',cover: './icon/086.jpg'},
+{id: 'track307',title: '偷偷放下',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-偷偷放下.mp3',cover: './icon/087.jpg'},
+{id: 'track308',title: '退而求其次',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-退而求其次.mp3',cover: './icon/088.jpg'},
+{id: 'track309',title: '晚风',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-晚风.mp3',cover: './icon/089.jpg'},
+{id: 'track310',title: '晚风吹匆匆追',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-晚风吹匆匆追.mp3',cover: './icon/090.jpg'},
+{id: 'track311',title: '晚风吹散了我们',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-晚风吹散了我们.mp3',cover: './icon/091.jpg'},
+{id: 'track312',title: '万万千千个思念',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-万万千千个思念.mp3',cover: './icon/092.jpg'},
+{id: 'track313',title: '万物染',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-万物染.mp3',cover: './icon/093.jpg'},
+{id: 'track314',title: '忘不了的人',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-忘不了的人.mp3',cover: './icon/094.jpg'},
+{id: 'track315',title: '忘了你是风',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-忘了你是风.mp3',cover: './icon/095.jpg'},
+{id: 'track316',title: '望故乡',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-望故乡.mp3',cover: './icon/096.jpg'},
+{id: 'track317',title: '为你不远嫁',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-为你不远嫁.mp3',cover: './icon/097.jpg'},
+{id: 'track318',title: '为你祈祷',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-为你祈祷.mp3',cover: './icon/098.jpg'},
+{id: 'track319',title: '唯独没有心疼我',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-唯独没有心疼我.mp3',cover: './icon/099.jpg'},
+{id: 'track320',title: '吻别',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-吻别.mp3',cover: './icon/100.jpg'},
+{id: 'track321',title: '稳稳的幸福',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-稳稳的幸福.mp3',cover: './icon/101.jpg'},
+{id: 'track322',title: '问(柔情版)',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-问(柔情版).mp3',cover: './icon/102.jpg'},
+{id: 'track323',title: '问',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-问.mp3',cover: './icon/103.jpg'},
+{id: 'track324',title: '我把故事酿成酒',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我把故事酿成酒.mp3',cover: './icon/104.jpg'},
+{id: 'track325',title: '我曾',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我曾.mp3',cover: './icon/105.jpg'},
+{id: 'track326',title: '我曾用心爱着你',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我曾用心爱着你.mp3',cover: './icon/106.jpg'},
+{id: 'track327',title: '我的好你不要',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我的好你不要.mp3',cover: './icon/107.jpg'},
+{id: 'track328',title: '我的吻再吻不到你的唇',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我的吻再吻不到你的唇.mp3',cover: './icon/108.jpg'},
+{id: 'track329',title: '我感动不了心里装着别人的人',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我感动不了心里装着别人的人.mp3',cover: './icon/109.jpg'},
+{id: 'track330',title: '我好心疼现在的自己',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我好心疼现在的自己.mp3',cover: './icon/110.jpg'},
+{id: 'track331',title: '我会等',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我会等.mp3',cover: './icon/001.jpg'},
+{id: 'track332',title: '我记得你眼里的依恋',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我记得你眼里的依恋.mp3',cover: './icon/002.jpg'},
+{id: 'track333',title: '我恋的不是冬',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我恋的不是冬.mp3',cover: './icon/003.jpg'},
+{id: 'track334',title: '我留不住要走的风',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我留不住要走的风.mp3',cover: './icon/004.jpg'},
+{id: 'track335',title: '我们到底什么关系',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我们到底什么关系.mp3',cover: './icon/005.jpg'},
+{id: 'track336',title: '我们的爱输给了时光',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我们的爱输给了时光.mp3',cover: './icon/006.jpg'},
+{id: 'track337',title: '我们的以后没有以后',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我们的以后没有以后.mp3',cover: './icon/007.jpg'},
+{id: 'track338',title: '我们还能不能走一趟',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我们还能不能走一趟.mp3',cover: './icon/008.jpg'},
+{id: 'track339',title: '我们好久不见',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我们好久不见.mp3',cover: './icon/009.jpg'},
+{id: 'track340',title: '我怕你对我好',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我怕你对我好.mp3',cover: './icon/010.jpg'},
+{id: 'track341',title: '我怕我爱了没结果',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我怕我爱了没结果.mp3',cover: './icon/011.jpg'},
+{id: 'track342',title: '我骗不了自己',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我骗不了自己.mp3',cover: './icon/012.jpg'},
+{id: 'track343',title: '我是不是你最疼爱的人',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我是不是你最疼爱的人.mp3',cover: './icon/013.jpg'},
+{id: 'track344',title: '我是真的爱上你',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我是真的爱上你.mp3',cover: './icon/014.jpg'},
+{id: 'track345',title: '我太笨',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我太笨.mp3',cover: './icon/015.jpg'},
+{id: 'track346',title: '我希望',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我希望.mp3',cover: './icon/016.jpg'},
+{id: 'track347',title: '我笑着看你说谎',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我笑着看你说谎.mp3',cover: './icon/017.jpg'},
+{id: 'track348',title: '我养的人和养我的人',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我养的人和养我的人.mp3',cover: './icon/018.jpg'},
+{id: 'track349',title: '我也不想这样',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我也不想这样.mp3',cover: './icon/019.jpg'},
+{id: 'track350',title: '我也配',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我也配.mp3',cover: './icon/020.jpg'},
+{id: 'track351',title: '我以为',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我以为.mp3',cover: './icon/021.jpg'},
+{id: 'track352',title: '我饮红尘一壶酒',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我饮红尘一壶酒.mp3',cover: './icon/022.jpg'},
+{id: 'track353',title: '我用一生换你一程',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我用一生换你一程.mp3',cover: './icon/023.jpg'},
+{id: 'track354',title: '我用自己的方式爱你',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我用自己的方式爱你.mp3',cover: './icon/024.jpg'},
+{id: 'track355',title: '我愿心上花开',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我愿心上花开.mp3',cover: './icon/025.jpg'},
+{id: 'track356',title: '我走过一万年才和你遇见',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-我走过一万年才和你遇见.mp3',cover: './icon/026.jpg'},
+{id: 'track357',title: '乌兰巴托的夜',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-乌兰巴托的夜.mp3',cover: './icon/027.jpg'},
+{id: 'track358',title: '无常',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-无常.mp3',cover: './icon/028.jpg'},
+{id: 'track359',title: '无悔爱过这一回',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-无悔爱过这一回.mp3',cover: './icon/029.jpg'},
+{id: 'track360',title: '无邪',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-无邪.mp3',cover: './icon/030.jpg'},
+{id: 'track361',title: '午夜流浪的姑娘',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-午夜流浪的姑娘.mp3',cover: './icon/031.jpg'},
+{id: 'track362',title: '悟了繁华误了你',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-悟了繁华误了你.mp3',cover: './icon/032.jpg'},
+{id: 'track363',title: '下辈子的誓言',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-下辈子的誓言.mp3',cover: './icon/033.jpg'},
+{id: 'track364',title: '下辈子也要找到你',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-下辈子也要找到你.mp3',cover: './icon/034.jpg'},
+{id: 'track365',title: '下完这场雨',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-下完这场雨.mp3',cover: './icon/035.jpg'},
+{id: 'track366',title: '下一站再见',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-下一站再见.mp3',cover: './icon/036.jpg'},
+{id: 'track367',title: '先说爱先离开',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-先说爱先离开.mp3',cover: './icon/037.jpg'},
+{id: 'track368',title: '相思债爱情海',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-相思债爱情海.mp3',cover: './icon/038.jpg'},
+{id: 'track369',title: '想嫁的人结了婚',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-想嫁的人结了婚.mp3',cover: './icon/039.jpg'},
+{id: 'track370',title: '想念不相见',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-想念不相见.mp3',cover: './icon/040.jpg'},
+{id: 'track371',title: '想让自己醉一回',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-想让自己醉一回.mp3',cover: './icon/041.jpg'},
+{id: 'track372',title: '想忘忘不得',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-想忘忘不得.mp3',cover: './icon/042.jpg'},
+{id: 'track373',title: '小小的太阳',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-小小的太阳.mp3',cover: './icon/043.jpg'},
+{id: 'track374',title: '写满遗憾的日记',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-写满遗憾的日记.mp3',cover: './icon/044.jpg'},
+{id: 'track375',title: '谢谢你的爱',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-谢谢你的爱.mp3',cover: './icon/045.jpg'},
+{id: 'track376',title: '心甘情愿的俘虏',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-心甘情愿的俘虏.mp3',cover: './icon/046.jpg'},
+{id: 'track377',title: '心事故事往事',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-心事故事往事.mp3',cover: './icon/047.jpg'},
+{id: 'track378',title: '心碎的滋味我不想体会',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-心碎的滋味我不想体会.mp3',cover: './icon/048.jpg'},
+{id: 'track379',title: '心要让你听见',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-心要让你听见.mp3',cover: './icon/049.jpg'},
+{id: 'track380',title: '新一曲红尘',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-新一曲红尘.mp3',cover: './icon/050.jpg'},
+{id: 'track381',title: '星语心愿',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-星语心愿.mp3',cover: './icon/051.jpg'},
+{id: 'track382',title: '醒不来的梦',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-醒不来的梦.mp3',cover: './icon/052.jpg'},
+{id: 'track383',title: '醒过来的梦',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-醒过来的梦.mp3',cover: './icon/053.jpg'},
+{id: 'track384',title: '虚拟',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-虚拟.mp3',cover: './icon/054.jpg'},
+{id: 'track385',title: '学着遗忘',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-学着遗忘.mp3',cover: './icon/055.jpg'},
+{id: 'track386',title: '雪化云开',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-雪化云开.mp3',cover: './icon/056.jpg'},
+{id: 'track387',title: '雪上的誓言留不到春天',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-雪上的誓言留不到春天.mp3',cover: './icon/057.jpg'},
+{id: 'track388',title: '烟雨唱扬州',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-烟雨唱扬州.mp3',cover: './icon/058.jpg'},
+{id: 'track389',title: '眼泪不会撒谎',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-眼泪不会撒谎.mp3',cover: './icon/059.jpg'},
+{id: 'track390',title: '眼中有泪心中有你',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-眼中有泪心中有你.mp3',cover: './icon/060.jpg'},
+{id: 'track391',title: '也许',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-也许.mp3',cover: './icon/061.jpg'},
+{id: 'track392',title: '野花',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-野花.mp3',cover: './icon/062.jpg'},
+{id: 'track393',title: '夜色浓',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-夜色浓.mp3',cover: './icon/063.jpg'},
+{id: 'track394',title: '夜愿',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-夜愿.mp3',cover: './icon/064.jpg'},
+{id: 'track395',title: '一百个放心',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-一百个放心.mp3',cover: './icon/065.jpg'},
+{id: 'track396',title: '一半心酸一半遗憾',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-一半心酸一半遗憾.mp3',cover: './icon/066.jpg'},
+{id: 'track397',title: '一步之遥',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-一步之遥.mp3',cover: './icon/067.jpg'},
+{id: 'track398',title: '一定要爱你',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-一定要爱你.mp3',cover: './icon/068.jpg'},
+{id: 'track399',title: '一念而已',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-一念而已.mp3',cover: './icon/069.jpg'},
+{id: 'track400',title: '一生有你',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-一生有你.mp3',cover: './icon/070.jpg'},
+{id: 'track401',title: '一直有花开',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-一直有花开.mp3',cover: './icon/071.jpg'},
+{id: 'track402',title: '一字一句读懂我',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-一字一句读懂我.mp3',cover: './icon/072.jpg'},
+{id: 'track403',title: '遗憾',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-遗憾.mp3',cover: './icon/073.jpg'},
+{id: 'track404',title: '遗憾的过客',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-遗憾的过客.mp3',cover: './icon/074.jpg'},
+{id: 'track405',title: '以后的以后',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-以后的以后.mp3',cover: './icon/075.jpg'},
+{id: 'track406',title: '忆爱',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-忆爱.mp3',cover: './icon/076.jpg'},
+{id: 'track407',title: '拥抱你离去',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-拥抱你离去.mp3',cover: './icon/077.jpg'},
+{id: 'track408',title: '永远希望你过得比我好',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-永远希望你过得比我好.mp3',cover: './icon/078.jpg'},
+{id: 'track409',title: '用余生忘记你',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-用余生忘记你.mp3',cover: './icon/079.jpg'},
+{id: 'track410',title: '有爱就不怕',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-有爱就不怕.mp3',cover: './icon/080.jpg'},
+{id: 'track411',title: '有的人再也见不到',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-有的人再也见不到.mp3',cover: './icon/081.jpg'},
+{id: 'track412',title: '有多少爱可以重来',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-有多少爱可以重来.mp3',cover: './icon/082.jpg'},
+{id: 'track413',title: '有你爱我一生该多好',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-有你爱我一生该多好.mp3',cover: './icon/083.jpg'},
+{id: 'track414',title: '有情变无情',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-有情变无情.mp3',cover: './icon/084.jpg'},
+{id: 'track415',title: '有些人',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-有些人.mp3',cover: './icon/085.jpg'},
+{id: 'track416',title: '有一种遗憾叫我们',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-有一种遗憾叫我们.mp3',cover: './icon/086.jpg'},
+{id: 'track417',title: '有种遗憾叫有缘无份',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-有种遗憾叫有缘无份.mp3',cover: './icon/087.jpg'},
+{id: 'track418',title: '余情若未了',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-余情若未了.mp3',cover: './icon/088.jpg'},
+{id: 'track419',title: '余生不必指教',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-余生不必指教.mp3',cover: './icon/089.jpg'},
+{id: 'track420',title: '余生不打扰',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-余生不打扰.mp3',cover: './icon/090.jpg'},
+{id: 'track421',title: '余生还长',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-余生还长.mp3',cover: './icon/091.jpg'},
+{id: 'track422',title: '雨蝶',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-雨蝶.mp3',cover: './icon/092.jpg'},
+{id: 'track423',title: '遇见花',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-遇见花.mp3',cover: './icon/093.jpg'},
+{id: 'track424',title: '原来你只是一个过客',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-原来你只是一个过客.mp3',cover: './icon/094.jpg'},
+{id: 'track425',title: '远走高飞',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-远走高飞.mp3',cover: './icon/095.jpg'},
+{id: 'track426',title: '怨苍天变了心',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-怨苍天变了心.mp3',cover: './icon/096.jpg'},
+{id: 'track427',title: '愿你我皆安好',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-愿你我皆安好.mp3',cover: './icon/097.jpg'},
+{id: 'track428',title: '愿你眼里永远有光',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-愿你眼里永远有光.mp3',cover: './icon/098.jpg'},
+{id: 'track429',title: '约定',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-约定.mp3',cover: './icon/099.jpg'},
+{id: 'track430',title: '月光落寒霜',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-月光落寒霜.mp3',cover: './icon/100.jpg'},
+{id: 'track431',title: '月亮变了我不变',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-月亮变了我不变.mp3',cover: './icon/101.jpg'},
+{id: 'track432',title: '月亮不该出现在深夜',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-月亮不该出现在深夜.mp3',cover: './icon/102.jpg'},
+{id: 'track433',title: '再回首',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-再回首.mp3',cover: './icon/103.jpg'},
+{id: 'track434',title: '再见吧我最爱的你',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-再见吧我最爱的你.mp3',cover: './icon/104.jpg'},
+{id: 'track435',title: '再没有流泪的人',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-再没有流泪的人.mp3',cover: './icon/105.jpg'},
+{id: 'track436',title: '再三保证',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-再三保证.mp3',cover: './icon/106.jpg'},
+{id: 'track437',title: '再遇只是人海',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-再遇只是人海.mp3',cover: './icon/107.jpg'},
+{id: 'track438',title: '早已不顺路',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-早已不顺路.mp3',cover: './icon/108.jpg'},
+{id: 'track439',title: '怎会有人知你的苦',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-怎会有人知你的苦.mp3',cover: './icon/109.jpg'},
+{id: 'track440',title: '找一个字代替',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-找一个字代替.mp3',cover: './icon/110.jpg'},
+{id: 'track441',title: '这个被遗忘的人',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-这个被遗忘的人.mp3',cover: './icon/001.jpg'},
+{id: 'track442',title: '这个年代',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-这个年代.mp3',cover: './icon/002.jpg'},
+{id: 'track443',title: '珍惜眼前人',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-珍惜眼前人.mp3',cover: './icon/003.jpg'},
+{id: 'track444',title: '挣脱月老的线',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-挣脱月老的线.mp3',cover: './icon/004.jpg'},
+{id: 'track445',title: '只是时间不凑巧',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-只是时间不凑巧.mp3',cover: './icon/005.jpg'},
+{id: 'track446',title: '只是说着放下',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-只是说着放下.mp3',cover: './icon/006.jpg'},
+{id: 'track447',title: '只要你还需要我',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-只要你还需要我.mp3',cover: './icon/007.jpg'},
+{id: 'track448',title: '只有我失眠的晚上',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-只有我失眠的晚上.mp3',cover: './icon/008.jpg'},
+{id: 'track449',title: '至少还有你',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-至少还有你.mp3',cover: './icon/009.jpg'},
+{id: 'track450',title: '致独一无二的你',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-致独一无二的你.mp3',cover: './icon/010.jpg'},
+{id: 'track451',title: '竹马戏',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-竹马戏.mp3',cover: './icon/011.jpg'},
+{id: 'track452',title: '祝我们各自安好',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-祝我们各自安好.mp3',cover: './icon/012.jpg'},
+{id: 'track453',title: '祝我们余生皆幸福',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-祝我们余生皆幸福.mp3',cover: './icon/013.jpg'},
+{id: 'track454',title: '转弯',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-转弯.mp3',cover: './icon/014.jpg'},
+{id: 'track455',title: '装大人的小孩',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-装大人的小孩.mp3',cover: './icon/015.jpg'},
+{id: 'track456',title: '追梦人',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-追梦人.mp3',cover: './icon/016.jpg'},
+{id: 'track457',title: '总会有人',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-总会有人.mp3',cover: './icon/017.jpg'},
+{id: 'track458',title: '总以为来日方长',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-总以为来日方长.mp3',cover: './icon/018.jpg'},
+{id: 'track459',title: '最害怕',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-最害怕.mp3',cover: './icon/019.jpg'},
+{id: 'track460',title: '最后才明白',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-最后才明白.mp3',cover: './icon/020.jpg'},
+{id: 'track461',title: '最后一次',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-最后一次.mp3',cover: './icon/021.jpg'},
+{id: 'track462',title: '最后一次的温柔',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-最后一次的温柔.mp3',cover: './icon/022.jpg'},
+{id: 'track463',title: '最美的情缘',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-最美的情缘.mp3',cover: './icon/023.jpg'},
+{id: 'track464',title: '最痛的礼物',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-最痛的礼物.mp3',cover: './icon/024.jpg'},
+{id: 'track465',title: '最远的你是我最近的爱',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-最远的你是我最近的爱.mp3',cover: './icon/025.jpg'},
+{id: 'track466',title: '醉过方知酒浓',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-醉过方知酒浓.mp3',cover: './icon/026.jpg'},
+{id: 'track467',title: '座位',artist: '洋澜一',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/洋澜一/洋澜一-座位.mp3',cover: './icon/027.jpg'}
+
+            ];
+            
+            featuredTracks.forEach((track, index) => {
+                const trackEl = document.createElement('div');
+                trackEl.classList.add('track-item');
+                trackEl.setAttribute('data-id', track.id);
+                
+                trackEl.innerHTML = `
+                    <div class="track-number">${index + 1}</div>
+                    <div class="track-info">
+                        <div class="track-name">${track.title}</div>
+                        <div class="track-artist">${track.artist}</div>
+                    </div>
+                    <div class="track-duration">${track.duration}</div>
+                `;
+                
+                trackEl.addEventListener('click', () => {
+                    playTrack(track);
+                });
+                
+                featuredTracksList.appendChild(trackEl);
+            });
+        }
+        
+        // 渲染播放列表
+        function renderPlaylists() {
+            playlistsContainer.innerHTML = '';
+            
+            if (playlists.length === 0) {
+                playlistsContainer.innerHTML = '<div class="playlist-item">暂无播放列表</div>';
+                return;
+            }
+            
+            playlists.forEach(playlist => {
+                const playlistEl = document.createElement('div');
+                playlistEl.classList.add('playlist-item');
+                playlistEl.setAttribute('data-id', playlist.id);
+                
+                playlistEl.textContent = playlist.name;
+                
+                playlistEl.addEventListener('click', () => {
+                    // 显示播放列表内容
+                    alert(`显示播放列表: ${playlist.name}`);
+                });
+                
+                playlistsContainer.appendChild(playlistEl);
+            });
+        }
+        
+        // 创建播放列表
+        function createPlaylist() {
+            const name = playlistName.value.trim();
+            
+            if (!name) {
+                alert('请输入播放列表名称');
+                return;
+            }
+            
+            const playlist = {
+                id: Date.now().toString(),
+                name: name,
+                tracks: []
+            };
+            
+            playlists.push(playlist);
+            renderPlaylists();
+            saveData();
+            
+            playlistModal.classList.remove('show');
+            playlistName.value = '';
+            
+            alert(`已创建播放列表: ${name}`);
+        }
+        
+        // 渲染队列中的歌曲
+        function renderQueueTracks() {
+            queueTracks.innerHTML = '';
+            
+            if (queue.length === 0) {
+                queueTracks.innerHTML = '<div class="track-item"><div class="track-info"><div class="track-name">队列为空</div><div class="track-artist">请添加音乐到队列</div></div></div>';
+                return;
+            }
+            
+            queue.forEach((track, index) => {
+                const trackEl = document.createElement('div');
+                trackEl.classList.add('track-item');
+                
+                trackEl.innerHTML = `
+                    <div class="track-number">${index + 1}</div>
+                    <div class="track-info">
+                        <div class="track-name">${track.title}</div>
+                        <div class="track-artist">${track.artist}</div>
+                    </div>
+                    <div class="track-duration">${track.duration}</div>
+                `;
+                
+                queueTracks.appendChild(trackEl);
+            });
+        }
+        
+        // 清空队列
+        function clearQueue() {
+            queue = [];
+            renderQueueTracks();
+            alert('已清空播放队列');
+        }
+        
+        // 播放歌曲
+        function playTrack(track) {
+            // 停止当前播放
+            audio.pause();
+            
+            // 设置新歌曲
+            audio.src = track.src;
+            
+            // 更新UI
+            nowPlayingTitle.textContent = track.title;
+            nowPlayingArtist.textContent = track.artist;
+            nowPlayingImg.src = track.cover;
+            
+            // 播放歌曲
+            const playPromise = audio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    // 自动播放成功
+                    isPlaying = true;
+                    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                }).catch(error => {
+                    // 自动播放失败，需要用户交互
+                    console.log('播放需要用户交互:', error);
+                    isPlaying = false;
+                    playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                });
+            }
+        }
+        
+        // 暂停歌曲
+        function pauseTrack() {
+            isPlaying = false;
+            audio.pause();
+            playBtn.innerHTML = '<i class="fas fa-play"></i>';
+        }
+        
+        // 切换播放/暂停
+        function togglePlay() {
+            if (isPlaying) {
+                pauseTrack();
+            } else {
+                playTrack(queue[currentTrackIndex] || tracks[0]);
+            }
+        }
+        
+        // 播放上一首
+        function playPrev() {
+            if (queue.length === 0) return;
+            
+            currentTrackIndex--;
+            if (currentTrackIndex < 0) {
+                currentTrackIndex = queue.length - 1;
+            }
+            
+            playTrack(queue[currentTrackIndex]);
+        }
+        
+        // 播放下一首
+        function playNext() {
+            if (queue.length === 0) return;
+            
+            currentTrackIndex++;
+            if (currentTrackIndex >= queue.length) {
+                currentTrackIndex = 0;
+            }
+            
+            playTrack(queue[currentTrackIndex]);
+        }
+        
+        // 处理歌曲结束
+        function handleSongEnd() {
+            if (repeatMode === 'one') {
+                // 单曲循环，重新播放当前歌曲
+                audio.currentTime = 0;
+                audio.play();
+            } else if (repeatMode === 'all') {
+                // 列表循环，播放下一首
+                playNext();
+            } else {
+                // 不循环，停止播放
+                pauseTrack();
+            }
+        }
+        
+        // 切换随机播放
+        function toggleShuffle() {
+            isShuffled = !isShuffled;
+            updateShuffleButton();
+            
+            if (isShuffled && queue.length > 0) {
+                // 随机打乱队列
+                shuffleQueue();
+                alert('已开启随机播放');
+            } else {
+                alert('已关闭随机播放');
+            }
+            
+            saveData();
+        }
+        
+        // 更新随机播放按钮状态
+        function updateShuffleButton() {
+            if (isShuffled) {
+                shuffleBtn.style.color = 'var(--accent)';
+            } else {
+                shuffleBtn.style.color = 'var(--secondary-text)';
+            }
+        }
+        
+        // 切换循环模式
+        function toggleRepeat() {
+            if (repeatMode === 'off') {
+                repeatMode = 'one';
+            } else if (repeatMode === 'one') {
+                repeatMode = 'all';
+            } else {
+                repeatMode = 'off';
+            }
+            
+            updateRepeatButton();
+            saveData();
+        }
+        
+        // 更新循环按钮状态
+        function updateRepeatButton() {
+            if (repeatMode === 'off') {
+                repeatBtn.style.color = 'var(--secondary-text)';
+                repeatBtn.title = '关闭循环';
+            } else if (repeatMode === 'one') {
+                repeatBtn.style.color = 'var(--accent)';
+                repeatBtn.innerHTML = '<i class="fas fa-repeat-1"></i>';
+                repeatBtn.title = '单曲循环';
+            } else {
+                repeatBtn.style.color = 'var(--accent)';
+                repeatBtn.innerHTML = '<i class="fas fa-repeat"></i>';
+                repeatBtn.title = '列表循环';
+            }
+        }
+        
+        // 随机打乱队列
+        function shuffleQueue() {
+            for (let i = queue.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [queue[i], queue[j]] = [queue[j], queue[i]];
+            }
+        }
+        
+        // 更新进度条
+        function updateProgress() {
+            const { duration, currentTime } = audio;
+            if (duration) {
+                // 更新进度条宽度
+                const progressPercent = (currentTime / duration) * 100;
+                progress.style.width = `${progressPercent}%`;
+                
+                // 计算显示时间
+                const currentMinutes = Math.floor(currentTime / 60);
+                let currentSeconds = Math.floor(currentTime % 60);
+                if (currentSeconds < 10) {
+                    currentSeconds = `0${currentSeconds}`;
+                }
+                currentTimeEl.textContent = `${currentMinutes}:${currentSeconds}`;
+            }
+        }
+        
+        // 更新持续时间
+        function updateDuration() {
+            const duration = audio.duration;
+            if (duration) {
+                const durationMinutes = Math.floor(duration / 60);
+                let durationSeconds = Math.floor(duration % 60);
+                if (durationSeconds < 10) {
+                    durationSeconds = `0${durationSeconds}`;
+                }
+                durationEl.textContent = `${durationMinutes}:${durationSeconds}`;
+                
+                // 更新当前歌曲的持续时间
+                if (queue[currentTrackIndex]) {
+                    queue[currentTrackIndex].duration = durationEl.textContent;
+                }
+            }
+        }
+        
+        // 设置进度
+        function setProgress(e) {
+            const width = this.clientWidth;
+            const clickX = e.type.includes('touch') ? e.touches[0].clientX - this.getBoundingClientRect().left : e.offsetX;
+            const duration = audio.duration;
+            
+            audio.currentTime = (clickX / width) * duration;
+        }
+        
+        // 切换静音
+        function toggleMute() {
+            isMuted = !isMuted;
+            
+            if (isMuted) {
+                audio.volume = 0;
+                volumeLevel.style.width = '0%';
+                volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            } else {
+                audio.volume = currentVolume;
+                volumeLevel.style.width = `${currentVolume * 100}%`;
+                volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+            }
+        }
+        
+        // 设置音量
+        function setVolume(e) {
+            const width = this.clientWidth;
+            const clickX = e.type.includes('touch') ? e.touches[0].clientX - this.getBoundingClientRect().left : e.offsetX;
+            currentVolume = clickX / width;
+            
+            audio.volume = currentVolume;
+            volumeLevel.style.width = `${currentVolume * 100}%`;
+            
+            if (currentVolume === 0) {
+                volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                isMuted = true;
+            } else {
+                volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                isMuted = false;
+            }
+            
+            saveData();
+        }
+        
+        // 初始化应用
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

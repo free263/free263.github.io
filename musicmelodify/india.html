@@ -1,0 +1,1954 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>听松阁音乐</title>
+    <link rel="stylesheet" href="./css/all.min.css">
+    <style>
+        :root {
+            --primary-bg: #121212;
+            --secondary-bg: #181818;
+            --tertiary-bg: #282828;
+            --card-bg: rgba(30, 30, 30, 0.8);
+            --primary-text: #ffffff;
+            --secondary-text: #b3b3b3;
+            --accent: #1db954;
+            --progress-bar: #535353;
+            --sidebar-width: 240px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background-color: var(--primary-bg);
+            color: var(--primary-text);
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            touch-action: manipulation;
+        }
+        
+        .container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+        
+        /* 侧边栏样式 */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--primary-bg);
+            padding: 20px 10px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 12px 20px;
+        }
+        
+        .logo i {
+            font-size: 32px;
+            background: linear-gradient(135deg, #1db954, #1ed760);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .logo h1 {
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #1db954, #1ed760);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-section {
+            margin-bottom: 25px;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px 12px;
+            border-radius: 6px;
+            color: var(--secondary-text);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            color: var(--primary-text);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-item i {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+        .nav-item a {
+			color: white;
+			text-decoration: none;
+		}
+        .nav-item span {
+            font-weight: 500;
+			
+        }
+        
+        .divider {
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin: 10px 0 20px;
+        }
+        
+        .playlist-section {
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        .playlist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 12px;
+            margin-bottom: 15px;
+        }
+        
+        .playlist-header h2 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--secondary-text);
+        }
+        
+        .playlist-header button {
+            background: none;
+            border: none;
+            color: var(--secondary-text);
+            cursor: pointer;
+            font-size: 18px;
+            transition: color 0.2s ease;
+            padding: 8px;
+        }
+        
+        .playlist-header button:hover {
+            color: var(--primary-text);
+        }
+        
+        .playlist-item {
+            padding: 12px;
+            border-radius: 6px;
+            color: var(--secondary-text);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .playlist-item:hover {
+            color: var(--primary-text);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* 主内容区域 */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, var(--primary-bg) 100%);
+            padding: 20px 32px;
+        }
+        
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        
+        .navigation-buttons {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .nav-button {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            border: none;
+            color: var(--primary-text);
+        }
+        
+        .nav-button:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px 8px 8px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            border: none;
+        }
+        
+        .user-menu:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .user-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1db954, #1ed760);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .user-name {
+            font-size: 14px;
+            font-weight: 600;
+            margin: 0 8px;
+        }
+        
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        .card-grid a {
+			color: white;
+			text-decoration: none;
+		}
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            padding: 16px;
+        }
+        
+        .card:hover {
+            background-color: var(--tertiary-bg);
+            transform: translateY(-5px);
+        }
+        
+        .card-img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 16px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .card-subtitle {
+            font-size: 14px;
+            color: var(--secondary-text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .tracks-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 40px;
+        }
+        
+        .track-item {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 16px;
+            padding: 12px 16px;
+            border-radius: 6px;
+            transition: background-color 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .track-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .track-number {
+            color: var(--secondary-text);
+            font-size: 14px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .track-info {
+            overflow: hidden;
+        }
+        
+        .track-name {
+            font-size: 16px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 4px;
+        }
+        
+        .track-artist {
+            font-size: 14px;
+            color: var(--secondary-text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .track-duration {
+            color: var(--secondary-text);
+            font-size: 14px;
+        }
+        
+        /* 播放控制栏 */
+        .player-bar {
+            height: 90px;
+            background-color: var(--tertiary-bg);
+            padding: 0 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 10;
+        }
+        
+        .now-playing {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            width: 30%;
+            min-width: 180px;
+        }
+        
+        .now-playing-img {
+            width: 56px;
+            height: 56px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+        
+        .now-playing-info {
+            overflow: hidden;
+        }
+        
+        .now-playing-title {
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .now-playing-artist {
+            font-size: 12px;
+            color: var(--secondary-text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .player-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 40%;
+            max-width: 720px;
+        }
+        
+        .control-buttons {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .control-btn {
+            color: var(--secondary-text);
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            font-size: 16px;
+            padding: 10px;
+        }
+        
+        .control-btn:hover {
+            color: var(--primary-text);
+        }
+        
+        .control-btn.play-pause {
+            width: 44px;
+            height: 44px;
+            background: var(--primary-text);
+            color: var(--primary-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        
+        .control-btn.play-pause:hover {
+            transform: scale(1.05);
+        }
+        
+        .progress-container {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .progress-time {
+            font-size: 12px;
+            color: var(--secondary-text);
+            min-width: 40px;
+        }
+        
+        .progress-bar {
+            flex: 1;
+            height: 6px;
+            background: var(--progress-bar);
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            bottom: -4px;
+            left: 0;
+            right: 0;
+        }
+        
+        .progress-bar:hover .progress {
+            background-color: #1db954;
+        }
+        
+        .progress {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 3px;
+            width: 30%;
+            transition: width 0.1s linear;
+        }
+        
+        .additional-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 30%;
+            justify-content: flex-end;
+        }
+        
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .volume-bar {
+            width: 100px;
+            height: 6px;
+            background: var(--progress-bar);
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .volume-bar::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            bottom: -4px;
+            left: 0;
+            right: 0;
+        }
+        
+        .volume-level {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 3px;
+            width: 70%;
+            transition: width 0.1s linear;
+        }
+        
+        /* 插件管理面板 */
+        .plugin-panel {
+            background-color: var(--secondary-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .plugin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .plugin-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .plugin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .plugin-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .plugin-card:hover {
+            background-color: var(--tertiary-bg);
+        }
+        
+        .plugin-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .plugin-desc {
+            font-size: 14px;
+            color: var(--secondary-text);
+            margin-bottom: 16px;
+        }
+        
+        .plugin-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .plugin-btn {
+            padding: 12px 20px;
+            border-radius: 20px;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #1ed760;
+            transform: scale(1.05);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid #878787;
+            color: var(--primary-text);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--primary-text);
+        }
+        
+        /* 文件上传区域 */
+        .file-upload-area {
+            background-color: var(--secondary-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 2px dashed rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .file-upload-area:hover {
+            border-color: var(--accent);
+        }
+        
+        .file-upload-icon {
+            font-size: 48px;
+            color: var(--secondary-text);
+            margin-bottom: 15px;
+        }
+        
+        .file-upload-text {
+            margin-bottom: 20px;
+        }
+        
+        .file-upload-text h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        
+        .file-upload-text p {
+            color: var(--secondary-text);
+            font-size: 14px;
+        }
+        
+        .file-input-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        .file-input-button:hover {
+            background-color: #1ed760;
+            transform: scale(1.05);
+        }
+        
+        #file-input {
+            display: none;
+        }
+        
+        /* 模态框 */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .modal-content {
+            background-color: var(--secondary-bg);
+            border-radius: 8px;
+            padding: 24px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--secondary-text);
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .modal-body {
+            margin-bottom: 20px;
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 200px;
+            }
+            
+            .card-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 20px;
+            }
+            
+            .nav-item {
+                padding: 16px 12px;
+            }
+            
+            .playlist-item {
+                padding: 14px 12px;
+            }
+        }
+        
+        /* 触屏设备优化 */
+        @media (hover: none) and (pointer: coarse) {
+            .nav-item, .playlist-item, .card, .track-item, .plugin-card {
+                transition: none;
+            }
+            
+            .nav-item:active, .playlist-item:active, .card:active, .track-item:active, .plugin-card:active {
+                background-color: rgba(255, 255, 255, 0.2);
+                transform: scale(0.98);
+            }
+            
+            .control-btn:active, .nav-button:active, .plugin-btn:active {
+                opacity: 0.7;
+                transform: scale(0.95);
+            }
+            
+            .control-btn.play-pause:active {
+                transform: scale(0.95);
+            }
+            
+            /* 增大触控目标 */
+            .control-btn, .nav-button {
+                min-height: 44px;
+                min-width: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .progress-bar::before, .volume-bar::before {
+                top: -8px;
+                bottom: -8px;
+            }
+        }
+        
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            border: 3px solid var(--primary-bg);
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 侧边栏 -->
+        <div class="sidebar">
+            <div class="logo">
+                <i class="fas fa-music"></i>
+                <h1>听 松 阁</h1>
+            </div>
+            
+            <a href="index.html"><div class="nav-section">
+                <div class="nav-item" data-section="home">
+                    <i class="fas fa-home"></i>
+                    <span>国语流行</span>
+                </div>
+            </div></a>
+            <a href="chun.html"><div class="nav-section">
+                <div class="nav-item" data-section="home">
+                    <i class="fas fa-search"></i>
+                    <span>纯音乐</span>
+                </div></a>
+            </div>
+            <a href="weimei.html"><div class="nav-section">
+                <div class="nav-item" data-section="home">
+                    <i class="fas fa-book"></i>
+                    <span>唯美纯音乐</span>
+                </div>
+            </div></a>
+			<a href="korea.html"><div class="nav-section">
+                <div class="nav-item" data-section="home">
+                    <i class="fas fa-heart"></i>
+                    <span>韩国音乐</span>
+                </div>
+            </div></a>
+			<a href="usa.html"><div class="nav-section">
+                <div class="nav-item" data-section="home">
+                    <i class="fas fa-search"></i>
+                    <span>欧美音乐</span>
+                </div>
+            </div></a>
+            <a href="japan.html"><div class="nav-section">
+                <div class="nav-item" data-section="home">
+                    <i class="fas fa-book"></i>
+                    <span>日本音乐</span>
+                </div>
+            </div></a>
+            
+			<a href="thailand.html"><div class="nav-section">
+                <div class="nav-item" data-section="home">
+                    <i class="fas fa-heart"></i>
+                    <span>泰国音乐</span>
+                </div>
+            </div></a>
+			<a href="india.html"><div class="nav-section">
+                <div class="nav-item active" data-section="home">
+                    <i class="fas fa-search"></i>
+                    <span>印度音乐</span>
+                </div>
+            </div></a>
+            <a href="zhiyu.html"><div class="nav-section">
+                <div class="nav-item" data-section="home">
+                    <i class="fas fa-book"></i>
+                    <span>治愈系舒缓音乐</span>
+                </div>
+            </div></a>
+			<a href="ziran.html"><div class="nav-section">
+                <div class="nav-item" data-section="home">
+                    <i class="fas fa-heart"></i>
+                    <span>自然之声</span>
+                </div>
+            </div></a>
+			<a href="zhoushen.html"><div class="nav-section">
+                <div class="nav-item" data-section="home">
+                    <i class="fas fa-book"></i>
+                    <span>周深</span>
+                </div>
+            </div></a>
+			<a href="yanglanyi.html"><div class="nav-section">
+                <div class="nav-item" data-section="home">
+                    <i class="fas fa-heart"></i>
+                    <span>洋澜一</span>
+                </div>
+            </div></a>
+			
+			
+			
+            <div class="divider"></div>
+            
+            <div class="nav-section">
+                <div class="nav-item" data-section="local-music">
+                    <i class="fas fa-folder"></i>
+                    <span>本地音乐</span>
+                </div>
+            </div>
+            
+
+            
+            <div class="divider"></div>
+            
+            <div class="playlist-section">
+                <div class="playlist-header">
+                    <h2>播放列表</h2>
+                    <button id="create-playlist-btn"><i class="fas fa-plus"></i></button>
+                </div>
+                
+                <div id="playlists-container">
+                    <!-- 播放列表将通过JavaScript动态添加 -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- 主内容区域 -->
+        <div class="main-content">
+            <div class="topbar">
+                
+            </div>
+            
+            <!-- 首页内容 -->
+            <div class="content-section" id="home-section">
+			<h1 class="section-title">欢迎回来</h1>
+                
+                <div class="card-grid">
+                    <a href="index.html"><div class="card" data-playlist="favorites">
+                        <img src="./images/china.jpg" alt="Playlist" class="card-img">
+                        <div class="card-title">国语流行</div>
+                        <div class="card-subtitle">您最喜欢的音乐</div>
+                    </div></a>
+                    <a href="chun.html"><div class="card" data-playlist="recent">
+                        <img src="./images/chun.jpg" alt="Playlist" class="card-img">
+                        <div class="card-title">纯音乐</div>
+                        <div class="card-subtitle">您最近听过的音乐</div>
+                    </div></a>
+                    <a href="weimei.html"><div class="card" data-playlist="local">
+                        <img src="./images/weimei.jpg" alt="Playlist" class="card-img">
+                        <div class="card-title">唯美纯音乐</div>
+                        <div class="card-subtitle">您设备上的音乐</div>
+                    </div></a>
+					<a href="korea.html"><div class="card" data-playlist="favorites">
+                        <img src="./images/korea.jpg" alt="Playlist" class="card-img">
+                        <div class="card-title">韩国音乐</div>
+                        <div class="card-subtitle">您最喜欢的音乐</div>
+                    </div></a>
+                    <a href="usa.html"><div class="card" data-playlist="recent">
+                        <img src="./images/usa.jpg" alt="Playlist" class="card-img">
+                        <div class="card-title">欧美音乐</div>
+                        <div class="card-subtitle">您最近听过的音乐</div>
+                    </div></a>
+                    <a href="japan.html"><div class="card" data-playlist="local">
+                        <img src="./images/japan.jpg" alt="Playlist" class="card-img">
+                        <div class="card-title">日本音乐</div>
+                        <div class="card-subtitle">您设备上的音乐</div>
+                    </div></a>
+					<a href="thailand.html"><div class="card" data-playlist="favorites">
+                        <img src="./images/thailand.jpg" alt="Playlist" class="card-img">
+                        <div class="card-title">泰国音乐</div>
+                        <div class="card-subtitle">您最喜欢的音乐</div>
+                    </div></a>
+                    <a href="india.html"><div class="card" data-playlist="recent">
+                        <img src="./images/india.jpg" alt="Playlist" class="card-img">
+                        <div class="card-title">印度音乐</div>
+                        <div class="card-subtitle">您最近听过的音乐</div>
+                    </div></a>
+                    <a href="zhiyu.html"><div class="card" data-playlist="local">
+                        <img src="./images/zhiyu.jpg" alt="Playlist" class="card-img">
+                        <div class="card-title">治愈系舒缓音乐</div>
+                        <div class="card-subtitle">您设备上的音乐</div>
+                    </div></a>
+					<a href="ziran.html"><div class="card" data-playlist="favorites">
+                        <img src="./images/ziran.jpg" alt="Playlist" class="card-img">
+                        <div class="card-title">自然之声</div>
+                        <div class="card-subtitle">您最喜欢的音乐</div>
+                    </div></a>
+                    <a href="zhoushen.html"><div class="card" data-playlist="local">
+                        <img src="./images/zhoushen.jpg" alt="Playlist" class="card-img">
+                        <div class="card-title">周深</div>
+                        <div class="card-subtitle">您设备上的音乐</div>
+                    </div></a>
+					<a href="yanglanyi.html"><div class="card" data-playlist="favorites">
+                        <img src="./images/yanglanyi.jpg" alt="Playlist" class="card-img">
+                        <div class="card-title">洋澜一</div>
+                        <div class="card-subtitle">您最喜欢的音乐</div>
+                    </div></a>
+                </div>
+                <h2 class="section-title">印度音乐</h2>
+                
+                <div class="tracks-list" id="featured-tracks">
+                    <!-- 热门歌曲将通过JavaScript动态添加 -->
+                </div>
+            </div>
+            
+            <!-- 本地音乐内容 -->
+            <div class="content-section" id="local-music-section" style="display: none;">
+                <h1 class="section-title">本地音乐</h1>
+                
+                <div class="file-upload-area">
+                    <div class="file-upload-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <div class="file-upload-text">
+                        <h3>添加本地音乐</h3>
+                        <p>支持MP3、WAV、OGG等音频格式</p>
+                    </div>
+                    <label for="file-input" class="file-input-button">
+                        <i class="fas fa-plus"></i> 选择音乐文件
+                    </label>
+                    <input type="file" id="file-input" accept="audio/*" multiple>
+                </div>
+                
+                <div class="tracks-list" id="local-tracks">
+                    <!-- 本地音乐将通过JavaScript动态添加 -->
+                </div>
+            </div>
+            
+            <!-- 插件内容 -->
+            <div class="content-section" id="plugins-section" style="display: none;">
+                <h1 class="section-title">音乐插件</h1>
+                
+                <div class="plugin-panel">
+                    <div class="plugin-header">
+                        <h2 class="plugin-title">可用插件</h2>
+                        <button class="plugin-btn btn-primary" id="refresh-plugins">
+                            <i class="fas fa-sync-alt"></i> 刷新插件
+                        </button>
+                    </div>
+                    
+                    <div class="plugin-grid" id="plugin-grid">
+                        <!-- 插件将通过JavaScript动态添加 -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 其他内容区域 -->
+            <div class="content-section" id="search-section" style="display: none;">
+                <h1 class="section-title">搜索音乐</h1>
+				<div class="tracks-list" id="featured-tracks">
+                    <!-- 热门歌曲将通过JavaScript动态添加 -->
+                </div>
+                <!-- 搜索内容将通过JavaScript动态添加 -->
+            </div>
+            
+            <div class="content-section" id="library-section" style="display: none;">
+                <h1 class="section-title">我的音乐库</h1>
+                <!-- 音乐库内容将通过JavaScript动态添加 -->
+
+            </div>
+            
+            <div class="content-section" id="favorites-section" style="display: none;">
+                <h1 class="section-title">喜欢的歌曲</h1>
+                <!-- 喜欢的内容将通过JavaScript动态添加 -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- 播放控制栏 -->
+    <div class="player-bar">
+        <div class="now-playing">
+            <img src="https://picsum.photos/100/100?random=7" alt="Now Playing" class="now-playing-img" id="now-playing-img">
+            <div class="now-playing-info">
+                <div class="now-playing-title" id="now-playing-title">选择音乐开始播放</div>
+                <div class="now-playing-artist" id="now-playing-artist">未知艺术家</div>
+            </div>
+        </div>
+        
+        <div class="player-controls">
+            <div class="control-buttons">
+                <button class="control-btn" id="shuffle-btn">
+                    <i class="fas fa-random"></i>
+                </button>
+                <button class="control-btn" id="prev-btn">
+                    <i class="fas fa-step-backward"></i>
+                </button>
+                <button class="control-btn play-pause" id="play-btn">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button class="control-btn" id="next-btn">
+                    <i class="fas fa-step-forward"></i>
+                </button>
+                <button class="control-btn" id="repeat-btn">
+                    <i class="fas fa-repeat"></i>
+                </button>
+            </div>
+            
+            <div class="progress-container">
+                <span class="progress-time" id="current-time">0:00</span>
+                <div class="progress-bar" id="progress-bar">
+                    <div class="progress" id="progress"></div>
+                </div>
+                <span class="progress-time" id="duration">0:00</span>
+            </div>
+        </div>
+        
+        <div class="additional-controls">
+            <button class="control-btn" id="queue-btn">
+                <i class="fas fa-list"></i>
+            </button>
+            <div class="volume-control">
+                <button class="control-btn" id="volume-btn">
+                    <i class="fas fa-volume-up"></i>
+                </button>
+                <div class="volume-bar" id="volume-bar">
+                    <div class="volume-level" id="volume-level"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 播放队列模态框 -->
+    <div class="modal" id="queue-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">播放队列</h2>
+                <button class="modal-close" id="queue-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="tracks-list" id="queue-tracks">
+                    <!-- 队列中的歌曲将通过JavaScript动态添加 -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="plugin-btn btn-secondary" id="queue-clear">清空队列</button>
+                <button class="plugin-btn btn-primary" id="queue-close-btn">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 创建播放列表模态框 -->
+    <div class="modal" id="playlist-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">创建播放列表</h2>
+                <button class="modal-close" id="playlist-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="playlist-name">播放列表名称</label>
+                    <input type="text" id="playlist-name" placeholder="输入播放列表名称">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="plugin-btn btn-secondary" id="playlist-cancel">取消</button>
+                <button class="plugin-btn btn-primary" id="playlist-create">创建</button>
+            </div>
+        </div>
+    </div>
+
+    <audio id="audio" preload="metadata"></audio>
+
+    <script>
+        // 主要DOM元素
+        const audio = document.getElementById('audio');
+        const playBtn = document.getElementById('play-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const shuffleBtn = document.getElementById('shuffle-btn');
+        const repeatBtn = document.getElementById('repeat-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const progress = document.getElementById('progress');
+        const currentTimeEl = document.getElementById('current-time');
+        const durationEl = document.getElementById('duration');
+        const volumeBtn = document.getElementById('volume-btn');
+        const volumeBar = document.getElementById('volume-bar');
+        const volumeLevel = document.getElementById('volume-level');
+        const nowPlayingImg = document.getElementById('now-playing-img');
+        const nowPlayingTitle = document.getElementById('now-playing-title');
+        const nowPlayingArtist = document.getElementById('now-playing-artist');
+        const fileInput = document.getElementById('file-input');
+        const pluginGrid = document.getElementById('plugin-grid');
+        const refreshPluginsBtn = document.getElementById('refresh-plugins');
+        const navItems = document.querySelectorAll('.nav-item');
+        const contentSections = document.querySelectorAll('.content-section');
+        const queueBtn = document.getElementById('queue-btn');
+        const queueModal = document.getElementById('queue-modal');
+        const queueClose = document.getElementById('queue-close');
+        const queueCloseBtn = document.getElementById('queue-close-btn');
+        const queueClear = document.getElementById('queue-clear');
+        const queueTracks = document.getElementById('queue-tracks');
+        const createPlaylistBtn = document.getElementById('create-playlist-btn');
+        const playlistModal = document.getElementById('playlist-modal');
+        const playlistClose = document.getElementById('playlist-close');
+        const playlistCancel = document.getElementById('playlist-cancel');
+        const playlistCreate = document.getElementById('playlist-create');
+        const playlistName = document.getElementById('playlist-name');
+        const playlistsContainer = document.getElementById('playlists-container');
+        const localTracksList = document.getElementById('local-tracks');
+        const featuredTracksList = document.getElementById('featured-tracks');
+        
+        // 应用状态
+        let isPlaying = false;
+        let currentTrackIndex = 0;
+        let isShuffled = false;
+        let repeatMode = 'off'; // off, one, all
+        let currentVolume = 0.7;
+        let isMuted = false;
+        
+        // 音乐数据
+        let tracks = [];
+        let playlists = [];
+        let queue = [];
+        let localTracks = [];
+        let plugins = [];
+        
+        // 初始化
+        function init() {
+            // 加载保存的数据
+            loadSavedData();
+            
+            // 设置事件监听
+            setupEventListeners();
+            
+            // 加载插件
+            loadPlugins();
+            
+            // 显示默认内容
+            showSection('home-section');
+            
+            // 设置音频音量
+            audio.volume = currentVolume;
+            volumeLevel.style.width = `${currentVolume * 100}%`;
+            
+            // 添加触屏设备特定的事件监听
+            addTouchEvents();
+        }
+        
+        // 加载保存的数据
+        function loadSavedData() {
+            // 从localStorage加载数据
+            const savedTracks = localStorage.getItem('melodifty-tracks');
+            const savedPlaylists = localStorage.getItem('melodifty-playlists');
+            const savedSettings = localStorage.getItem('melodifty-settings');
+            
+            if (savedTracks) {
+                tracks = JSON.parse(savedTracks);
+            }
+            
+            if (savedPlaylists) {
+                playlists = JSON.parse(savedPlaylists);
+                renderPlaylists();
+            }
+            
+            if (savedSettings) {
+                const settings = JSON.parse(savedSettings);
+                currentVolume = settings.volume || 0.7;
+                repeatMode = settings.repeatMode || 'off';
+                isShuffled = settings.isShuffled || false;
+                
+                // 更新UI状态
+                updateRepeatButton();
+                updateShuffleButton();
+            }
+            
+            // 渲染本地音乐
+            renderLocalTracks();
+            
+            // 渲染热门歌曲
+            renderFeaturedTracks();
+        }
+        
+        // 保存数据到localStorage
+        function saveData() {
+            localStorage.setItem('melodifty-tracks', JSON.stringify(tracks));
+            localStorage.setItem('melodifty-playlists', JSON.stringify(playlists));
+            
+            const settings = {
+                volume: currentVolume,
+                repeatMode: repeatMode,
+                isShuffled: isShuffled
+            };
+            
+            localStorage.setItem('melodifty-settings', JSON.stringify(settings));
+        }
+        
+        // 设置事件监听
+        function setupEventListeners() {
+            // 播放控制
+            playBtn.addEventListener('click', togglePlay);
+            prevBtn.addEventListener('click', playPrev);
+            nextBtn.addEventListener('click', playNext);
+            shuffleBtn.addEventListener('click', toggleShuffle);
+            repeatBtn.addEventListener('click', toggleRepeat);
+            progressBar.addEventListener('click', setProgress);
+            audio.addEventListener('timeupdate', updateProgress);
+            audio.addEventListener('ended', handleSongEnd);
+            audio.addEventListener('loadedmetadata', updateDuration);
+            
+            // 音量控制
+            volumeBtn.addEventListener('click', toggleMute);
+            volumeBar.addEventListener('click', setVolume);
+            
+            // 文件上传
+            fileInput.addEventListener('change', handleFileUpload);
+            
+            // 导航
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const section = item.getAttribute('data-section');
+                    showSection(`${section}-section`);
+                    
+                    // 更新活动状态
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    item.classList.add('active');
+                });
+            });
+            
+            // 插件刷新
+            refreshPluginsBtn.addEventListener('click', loadPlugins);
+            
+            // 队列控制
+            queueBtn.addEventListener('click', () => {
+                queueModal.classList.add('show');
+                renderQueueTracks();
+            });
+            
+            queueClose.addEventListener('click', () => {
+                queueModal.classList.remove('show');
+            });
+            
+            queueCloseBtn.addEventListener('click', () => {
+                queueModal.classList.remove('show');
+            });
+            
+            queueClear.addEventListener('click', clearQueue);
+            
+            // 播放列表创建
+            createPlaylistBtn.addEventListener('click', () => {
+                playlistModal.classList.add('show');
+            });
+            
+            playlistClose.addEventListener('click', () => {
+                playlistModal.classList.remove('show');
+            });
+            
+            playlistCancel.addEventListener('click', () => {
+                playlistModal.classList.remove('show');
+            });
+            
+            playlistCreate.addEventListener('click', createPlaylist);
+            
+            // 点击模态框外部关闭
+            window.addEventListener('click', (e) => {
+                if (e.target === queueModal) {
+                    queueModal.classList.remove('show');
+                }
+                if (e.target === playlistModal) {
+                    playlistModal.classList.remove('show');
+                }
+            });
+        }
+        
+        // 添加触屏设备特定的事件
+        function addTouchEvents() {
+            // 为触屏设备添加触摸反馈
+            const touchElements = document.querySelectorAll('.nav-item, .playlist-item, .card, .track-item, .plugin-card, .control-btn, .nav-button, .plugin-btn');
+            
+            touchElements.forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.opacity = '0.7';
+                });
+                
+                element.addEventListener('touchend', function() {
+                    this.style.opacity = '1';
+                });
+            });
+            
+            // 进度条触摸控制
+            progressBar.addEventListener('touchstart', handleProgressTouchStart);
+            progressBar.addEventListener('touchmove', handleProgressTouchMove);
+            progressBar.addEventListener('touchend', handleProgressTouchEnd);
+            
+            // 音量条触摸控制
+            volumeBar.addEventListener('touchstart', handleVolumeTouchStart);
+            volumeBar.addEventListener('touchmove', handleVolumeTouchMove);
+            volumeBar.addEventListener('touchend', handleVolumeTouchEnd);
+        }
+        
+        // 进度条触摸控制
+        let isSeeking = false;
+        
+        function handleProgressTouchStart(e) {
+            isSeeking = true;
+            setProgress(e);
+        }
+        
+        function handleProgressTouchMove(e) {
+            if (!isSeeking) return;
+            setProgress(e);
+        }
+        
+        function handleProgressTouchEnd() {
+            isSeeking = false;
+        }
+        
+        // 音量条触摸控制
+        let isVolumeChanging = false;
+        
+        function handleVolumeTouchStart(e) {
+            isVolumeChanging = true;
+            setVolume(e);
+        }
+        
+        function handleVolumeTouchMove(e) {
+            if (!isVolumeChanging) return;
+            setVolume(e);
+        }
+        
+        function handleVolumeTouchEnd() {
+            isVolumeChanging = false;
+        }
+        
+        // 显示内容区域
+        function showSection(sectionId) {
+            contentSections.forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            document.getElementById(sectionId).style.display = 'block';
+        }
+        
+        // 加载插件
+        async function loadPlugins() {
+            try {
+                // 使用提供的API加载插件
+                const response = await fetch('https://gitee.com/maotoumao/MusicFreePlugins/raw/master/plugins.json');
+                plugins = await response.json();
+                
+                // 显示插件
+                displayPlugins();
+            } catch (error) {
+                console.error('Failed to load plugins:', error);
+                // 显示示例插件作为后备
+                displayExamplePlugins();
+            }
+        }
+        
+        // 显示插件
+        function displayPlugins() {
+            pluginGrid.innerHTML = '';
+            
+            plugins.forEach(plugin => {
+                const pluginCard = document.createElement('div');
+                pluginCard.classList.add('plugin-card');
+                
+                pluginCard.innerHTML = `
+                    <div class="plugin-name">${plugin.name || '未知插件'}</div>
+                    <div class="plugin-desc">${plugin.desc || '没有描述'}</div>
+                    <div class="plugin-actions">
+                        <button class="plugin-btn btn-primary" data-plugin='${JSON.stringify(plugin)}'>启用</button>
+                        <button class="plugin-btn btn-secondary">详情</button>
+                    </div>
+                `;
+                
+                // 添加启用按钮事件
+                const enableBtn = pluginCard.querySelector('.btn-primary');
+                enableBtn.addEventListener('click', () => {
+                    enablePlugin(plugin);
+                });
+                
+                pluginGrid.appendChild(pluginCard);
+            });
+        }
+        
+        // 启用插件
+        function enablePlugin(plugin) {
+            alert(`已启用插件: ${plugin.name}`);
+            // 这里可以添加实际的插件启用逻辑
+        }
+        
+        // 显示示例插件
+        function displayExamplePlugins() {
+            const examplePlugins = [
+                {
+                    name: '网易云音乐',
+                    desc: '提供网易云音乐歌曲资源',
+                    author: 'MusicFree团队',
+                    version: '1.0.0'
+                },
+                {
+                    name: 'QQ音乐',
+                    desc: '提供QQ音乐歌曲资源',
+                    author: 'MusicFree团队',
+                    version: '1.0.0'
+                },
+                {
+                    name: '酷狗音乐',
+                    desc: '提供酷狗音乐歌曲资源',
+                    author: 'MusicFree团队',
+                    version: '1.0.0'
+                },
+                {
+                    name: '咪咕音乐',
+                    desc: '提供咪咕音乐歌曲资源',
+                    author: 'MusicFree团队',
+                    version: '1.0.0'
+                }
+            ];
+            
+            plugins = examplePlugins;
+            displayPlugins();
+        }
+        
+        // 处理文件上传
+        function handleFileUpload(e) {
+            const files = e.target.files;
+            if (!files || files.length === 0) return;
+            
+            Array.from(files).forEach(file => {
+                if (file.type.startsWith('audio/')) {
+                    const track = {
+                        id: Date.now() + Math.random().toString(36).substr(2, 9),
+                        title: file.name.replace(/\.[^/.]+$/, ""), // 移除文件扩展名
+                        artist: '未知艺术家',
+                        duration: '0:00',
+                        src: URL.createObjectURL(file),
+                        cover: 'https://picsum.photos/100/100?random=' + Math.floor(Math.random() * 100),
+                        isLocal: true
+                    };
+                    
+                    localTracks.push(track);
+                    tracks.push(track);
+                    
+                    // 添加到播放队列
+                    queue.push(track);
+                }
+            });
+            
+            // 更新UI
+            renderLocalTracks();
+            saveData();
+            
+            // 重置文件输入，允许再次选择相同文件
+            fileInput.value = '';
+            
+            // 提示用户
+            alert(`成功添加 ${files.length} 首音乐`);
+        }
+        
+        // 渲染本地音乐
+        function renderLocalTracks() {
+            localTracksList.innerHTML = '';
+            
+            if (localTracks.length === 0) {
+                localTracksList.innerHTML = '<div class="track-item"><div class="track-info"><div class="track-name">暂无本地音乐</div><div class="track-artist">请点击上方按钮添加音乐</div></div></div>';
+                return;
+            }
+            
+            localTracks.forEach((track, index) => {
+                const trackEl = document.createElement('div');
+                trackEl.classList.add('track-item');
+                trackEl.setAttribute('data-id', track.id);
+                
+                trackEl.innerHTML = `
+                    <div class="track-number">${index + 1}</div>
+                    <div class="track-info">
+                        <div class="track-name">${track.title}</div>
+                        <div class="track-artist">${track.artist}</div>
+                    </div>
+                    <div class="track-duration">${track.duration}</div>
+                `;
+                
+                trackEl.addEventListener('click', () => {
+                    playTrack(track);
+                });
+                
+                localTracksList.appendChild(trackEl);
+            });
+        }
+        
+        // 渲染热门歌曲
+        function renderFeaturedTracks() {
+            featuredTracksList.innerHTML = '';
+            
+            // 示例热门歌曲
+            const featuredTracks = [
+{id: 'track1',title: 'NachdiPhirA',artist: 'MeghnaMishrA',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/MeghnaMishra-NachdiPhira.mp3',cover: './icon/001.jpg'},
+{id: 'track2',title: 'KaruneshPunjab',artist: '印度歌曲',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度歌曲-KaruneshPunjab.mp3',cover: './icon/002.jpg'},
+{id: 'track3',title: 'WadaNaTod',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-WadaNaTod.mp3',cover: './icon/003.jpg'},
+{id: 'track4',title: '一首超爽的印度舞曲',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-一首超爽的印度舞曲.mp3',cover: './icon/004.jpg'},
+{id: 'track5',title: '不要不要',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-不要不要.mp3',cover: './icon/005.jpg'},
+{id: 'track6',title: '印度之花',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-印度之花.mp3',cover: './icon/006.jpg'},
+{id: 'track7',title: '印度音乐',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-印度音乐.mp3',cover: './icon/007.jpg'},
+{id: 'track8',title: '印度魔咒_dj舞曲',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-印度魔咒_dj舞曲.mp3',cover: './icon/008.jpg'},
+{id: 'track9',title: '吉特巴舞曲踩着我的节拍跳起来吧',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-吉特巴舞曲踩着我的节拍跳起来吧.mp3',cover: './icon/009.jpg'},
+{id: 'track10',title: '吉米来吧',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-吉米来吧.mp3',cover: './icon/010.jpg'},
+{id: 'track11',title: '大悲咒',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-大悲咒.mp3',cover: './icon/011.jpg'},
+{id: 'track12',title: '天使之吻 亲嘴歌',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-天使之吻 亲嘴歌.mp3',cover: './icon/012.jpg'},
+{id: 'track13',title: '天使之吻_亲嘴歌_女声版',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-天使之吻_亲嘴歌_女声版.mp3',cover: './icon/013.jpg'},
+{id: 'track14',title: '天竺少女',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-天竺少女.mp3',cover: './icon/014.jpg'},
+{id: 'track15',title: '奴里 清楚版',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-奴里 清楚版.mp3',cover: './icon/015.jpg'},
+{id: 'track16',title: '妩媚撩人_巨好听的印度慢摇舞曲',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-妩媚撩人_巨好听的印度慢摇舞曲.mp3',cover: './icon/016.jpg'},
+{id: 'track17',title: '情字路上',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-情字路上.mp3',cover: './icon/017.jpg'},
+{id: 'track18',title: '想要对你说爱你的人',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-想要对你说爱你的人.mp3',cover: './icon/018.jpg'},
+{id: 'track19',title: '慢摇_非常舒服的节奏',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-慢摇_非常舒服的节奏.mp3',cover: './icon/019.jpg'},
+{id: 'track20',title: '慢摇精华舞曲_酒吧dj音乐',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-慢摇精华舞曲_酒吧dj音乐.mp3',cover: './icon/020.jpg'},
+{id: 'track21',title: '慢摇英文跳舞曲',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-慢摇英文跳舞曲.mp3',cover: './icon/021.jpg'},
+{id: 'track22',title: '我终生爱你至死不渝',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-我终生爱你至死不渝.mp3',cover: './icon/022.jpg'},
+{id: 'track23',title: '热辣媚娘_恰恰',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-热辣媚娘_恰恰.mp3',cover: './icon/023.jpg'},
+{id: 'track24',title: '用爱对我',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-用爱对我.mp3',cover: './icon/024.jpg'},
+{id: 'track25',title: '的士高劲歌舞曲',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-的士高劲歌舞曲.mp3',cover: './icon/025.jpg'},
+{id: 'track26',title: '神秘国度_印度民族音乐',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-神秘国度_印度民族音乐.mp3',cover: './icon/026.jpg'},
+{id: 'track27',title: '秘密桑巴',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-秘密桑巴.mp3',cover: './icon/027.jpg'},
+{id: 'track28',title: '纯净如天簌的',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-纯净如天簌的.mp3',cover: './icon/028.jpg'},
+{id: 'track29',title: '绝对动听的印度歌曲',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-绝对动听的印度歌曲.mp3',cover: './icon/029.jpg'},
+{id: 'track30',title: '肚皮舞 卡西卡少女之春',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-肚皮舞 卡西卡少女之春.mp3',cover: './icon/030.jpg'},
+{id: 'track31',title: '芭杜尔快来吧',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-芭杜尔快来吧.mp3',cover: './icon/031.jpg'},
+{id: 'track32',title: '迷幻音乐',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-迷幻音乐.mp3',cover: './icon/032.jpg'},
+{id: 'track33',title: '阿育王 忧伤的笛子',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-阿育王 忧伤的笛子.mp3',cover: './icon/033.jpg'},
+{id: 'track34',title: '雷鬼',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-雷鬼.mp3',cover: './icon/034.jpg'},
+{id: 'track35',title: '音乐心情_一首超好听的印度歌曲',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-音乐心情_一首超好听的印度歌曲.mp3',cover: './icon/035.jpg'},
+{id: 'track36',title: '风情舞动',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-风情舞动.mp3',cover: './icon/036.jpg'},
+{id: 'track37',title: '麻吉_印度神游',artist: '印度音乐',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/印度音乐-麻吉_印度神游.mp3',cover: './icon/037.jpg'},
+{id: 'track38',title: 'RoshiniSe',artist: '阿育王主题曲',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/阿育王主题曲-RoshiniSe.mp3',cover: './icon/038.jpg'},
+{id: 'track39',title: 'AsokaTheme',artist: '阿育王插曲',duration: '3:45',src: 'https://vercel.rryyz.com/free163person/音乐视听/印度歌曲/阿育王插曲-AsokaTheme.mp3',cover: './icon/039.jpg'}
+
+            ];
+            
+            featuredTracks.forEach((track, index) => {
+                const trackEl = document.createElement('div');
+                trackEl.classList.add('track-item');
+                trackEl.setAttribute('data-id', track.id);
+                
+                trackEl.innerHTML = `
+                    <div class="track-number">${index + 1}</div>
+                    <div class="track-info">
+                        <div class="track-name">${track.title}</div>
+                        <div class="track-artist">${track.artist}</div>
+                    </div>
+                    <div class="track-duration">${track.duration}</div>
+                `;
+                
+                trackEl.addEventListener('click', () => {
+                    playTrack(track);
+                });
+                
+                featuredTracksList.appendChild(trackEl);
+            });
+        }
+        
+        // 渲染播放列表
+        function renderPlaylists() {
+            playlistsContainer.innerHTML = '';
+            
+            if (playlists.length === 0) {
+                playlistsContainer.innerHTML = '<div class="playlist-item">暂无播放列表</div>';
+                return;
+            }
+            
+            playlists.forEach(playlist => {
+                const playlistEl = document.createElement('div');
+                playlistEl.classList.add('playlist-item');
+                playlistEl.setAttribute('data-id', playlist.id);
+                
+                playlistEl.textContent = playlist.name;
+                
+                playlistEl.addEventListener('click', () => {
+                    // 显示播放列表内容
+                    alert(`显示播放列表: ${playlist.name}`);
+                });
+                
+                playlistsContainer.appendChild(playlistEl);
+            });
+        }
+        
+        // 创建播放列表
+        function createPlaylist() {
+            const name = playlistName.value.trim();
+            
+            if (!name) {
+                alert('请输入播放列表名称');
+                return;
+            }
+            
+            const playlist = {
+                id: Date.now().toString(),
+                name: name,
+                tracks: []
+            };
+            
+            playlists.push(playlist);
+            renderPlaylists();
+            saveData();
+            
+            playlistModal.classList.remove('show');
+            playlistName.value = '';
+            
+            alert(`已创建播放列表: ${name}`);
+        }
+        
+        // 渲染队列中的歌曲
+        function renderQueueTracks() {
+            queueTracks.innerHTML = '';
+            
+            if (queue.length === 0) {
+                queueTracks.innerHTML = '<div class="track-item"><div class="track-info"><div class="track-name">队列为空</div><div class="track-artist">请添加音乐到队列</div></div></div>';
+                return;
+            }
+            
+            queue.forEach((track, index) => {
+                const trackEl = document.createElement('div');
+                trackEl.classList.add('track-item');
+                
+                trackEl.innerHTML = `
+                    <div class="track-number">${index + 1}</div>
+                    <div class="track-info">
+                        <div class="track-name">${track.title}</div>
+                        <div class="track-artist">${track.artist}</div>
+                    </div>
+                    <div class="track-duration">${track.duration}</div>
+                `;
+                
+                queueTracks.appendChild(trackEl);
+            });
+        }
+        
+        // 清空队列
+        function clearQueue() {
+            queue = [];
+            renderQueueTracks();
+            alert('已清空播放队列');
+        }
+        
+        // 播放歌曲
+        function playTrack(track) {
+            // 停止当前播放
+            audio.pause();
+            
+            // 设置新歌曲
+            audio.src = track.src;
+            
+            // 更新UI
+            nowPlayingTitle.textContent = track.title;
+            nowPlayingArtist.textContent = track.artist;
+            nowPlayingImg.src = track.cover;
+            
+            // 播放歌曲
+            const playPromise = audio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    // 自动播放成功
+                    isPlaying = true;
+                    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                }).catch(error => {
+                    // 自动播放失败，需要用户交互
+                    console.log('播放需要用户交互:', error);
+                    isPlaying = false;
+                    playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                });
+            }
+        }
+        
+        // 暂停歌曲
+        function pauseTrack() {
+            isPlaying = false;
+            audio.pause();
+            playBtn.innerHTML = '<i class="fas fa-play"></i>';
+        }
+        
+        // 切换播放/暂停
+        function togglePlay() {
+            if (isPlaying) {
+                pauseTrack();
+            } else {
+                playTrack(queue[currentTrackIndex] || tracks[0]);
+            }
+        }
+        
+        // 播放上一首
+        function playPrev() {
+            if (queue.length === 0) return;
+            
+            currentTrackIndex--;
+            if (currentTrackIndex < 0) {
+                currentTrackIndex = queue.length - 1;
+            }
+            
+            playTrack(queue[currentTrackIndex]);
+        }
+        
+        // 播放下一首
+        function playNext() {
+            if (queue.length === 0) return;
+            
+            currentTrackIndex++;
+            if (currentTrackIndex >= queue.length) {
+                currentTrackIndex = 0;
+            }
+            
+            playTrack(queue[currentTrackIndex]);
+        }
+        
+        // 处理歌曲结束
+        function handleSongEnd() {
+            if (repeatMode === 'one') {
+                // 单曲循环，重新播放当前歌曲
+                audio.currentTime = 0;
+                audio.play();
+            } else if (repeatMode === 'all') {
+                // 列表循环，播放下一首
+                playNext();
+            } else {
+                // 不循环，停止播放
+                pauseTrack();
+            }
+        }
+        
+        // 切换随机播放
+        function toggleShuffle() {
+            isShuffled = !isShuffled;
+            updateShuffleButton();
+            
+            if (isShuffled && queue.length > 0) {
+                // 随机打乱队列
+                shuffleQueue();
+                alert('已开启随机播放');
+            } else {
+                alert('已关闭随机播放');
+            }
+            
+            saveData();
+        }
+        
+        // 更新随机播放按钮状态
+        function updateShuffleButton() {
+            if (isShuffled) {
+                shuffleBtn.style.color = 'var(--accent)';
+            } else {
+                shuffleBtn.style.color = 'var(--secondary-text)';
+            }
+        }
+        
+        // 切换循环模式
+        function toggleRepeat() {
+            if (repeatMode === 'off') {
+                repeatMode = 'one';
+            } else if (repeatMode === 'one') {
+                repeatMode = 'all';
+            } else {
+                repeatMode = 'off';
+            }
+            
+            updateRepeatButton();
+            saveData();
+        }
+        
+        // 更新循环按钮状态
+        function updateRepeatButton() {
+            if (repeatMode === 'off') {
+                repeatBtn.style.color = 'var(--secondary-text)';
+                repeatBtn.title = '关闭循环';
+            } else if (repeatMode === 'one') {
+                repeatBtn.style.color = 'var(--accent)';
+                repeatBtn.innerHTML = '<i class="fas fa-repeat-1"></i>';
+                repeatBtn.title = '单曲循环';
+            } else {
+                repeatBtn.style.color = 'var(--accent)';
+                repeatBtn.innerHTML = '<i class="fas fa-repeat"></i>';
+                repeatBtn.title = '列表循环';
+            }
+        }
+        
+        // 随机打乱队列
+        function shuffleQueue() {
+            for (let i = queue.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [queue[i], queue[j]] = [queue[j], queue[i]];
+            }
+        }
+        
+        // 更新进度条
+        function updateProgress() {
+            const { duration, currentTime } = audio;
+            if (duration) {
+                // 更新进度条宽度
+                const progressPercent = (currentTime / duration) * 100;
+                progress.style.width = `${progressPercent}%`;
+                
+                // 计算显示时间
+                const currentMinutes = Math.floor(currentTime / 60);
+                let currentSeconds = Math.floor(currentTime % 60);
+                if (currentSeconds < 10) {
+                    currentSeconds = `0${currentSeconds}`;
+                }
+                currentTimeEl.textContent = `${currentMinutes}:${currentSeconds}`;
+            }
+        }
+        
+        // 更新持续时间
+        function updateDuration() {
+            const duration = audio.duration;
+            if (duration) {
+                const durationMinutes = Math.floor(duration / 60);
+                let durationSeconds = Math.floor(duration % 60);
+                if (durationSeconds < 10) {
+                    durationSeconds = `0${durationSeconds}`;
+                }
+                durationEl.textContent = `${durationMinutes}:${durationSeconds}`;
+                
+                // 更新当前歌曲的持续时间
+                if (queue[currentTrackIndex]) {
+                    queue[currentTrackIndex].duration = durationEl.textContent;
+                }
+            }
+        }
+        
+        // 设置进度
+        function setProgress(e) {
+            const width = this.clientWidth;
+            const clickX = e.type.includes('touch') ? e.touches[0].clientX - this.getBoundingClientRect().left : e.offsetX;
+            const duration = audio.duration;
+            
+            audio.currentTime = (clickX / width) * duration;
+        }
+        
+        // 切换静音
+        function toggleMute() {
+            isMuted = !isMuted;
+            
+            if (isMuted) {
+                audio.volume = 0;
+                volumeLevel.style.width = '0%';
+                volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            } else {
+                audio.volume = currentVolume;
+                volumeLevel.style.width = `${currentVolume * 100}%`;
+                volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+            }
+        }
+        
+        // 设置音量
+        function setVolume(e) {
+            const width = this.clientWidth;
+            const clickX = e.type.includes('touch') ? e.touches[0].clientX - this.getBoundingClientRect().left : e.offsetX;
+            currentVolume = clickX / width;
+            
+            audio.volume = currentVolume;
+            volumeLevel.style.width = `${currentVolume * 100}%`;
+            
+            if (currentVolume === 0) {
+                volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                isMuted = true;
+            } else {
+                volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                isMuted = false;
+            }
+            
+            saveData();
+        }
+        
+        // 初始化应用
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

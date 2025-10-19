@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>在线FP音乐播放器</title>
+    <!-- 引入 Bootstrap CSS -->
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- 引入 APlayer CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css"
+    />
+    <!-- 引入自定义 CSS -->
+    <style>
+      .music-player {
+        max-width: 1000px;
+        margin: 50px auto;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .music-player .form-group {
+        margin-bottom: 15px;
+      }
+      .music-player .playlist {
+        margin-top: 20px;
+      }
+      .modal-content {
+        border-radius: 8px;
+      }
+      .modal-header {
+        border-bottom: none;
+      }
+      .modal-footer {
+        border-top: none;
+      }
+      .alert-container {
+        position: absolute;
+        top: 10px;
+        right: 50%;
+        z-index: 1101;
+        width: 300px;
+        margin-right: -150px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="music-player">
+        <h2>在线FP音乐播放器</h2>
+        <div class="form-group">
+          <label for="musicName">音乐名称</label>
+          <input type="text" id="musicName" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label for="musicUrl">音乐链接</label>
+          <input type="text" id="musicUrl" class="form-control" />
+        </div>
+        <button id="addMusic" class="btn btn-primary btn-sm">
+          添加到播放列表
+        </button>
+        <button id="githubButton" class="btn btn-success btn-sm">
+          从 GitHub 获取音乐
+        </button>
+
+        <div class="playlist mt-4">
+          <h3>播放列表</h3>
+          <ul class="list-group" id="playlist"></ul>
+        </div>
+      </div>
+
+      <div id="aplayer"></div>
+    </div>
+
+    <!-- GitHub 输入弹窗 -->
+    <div id="githubModal" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">从 GitHub 获取音乐</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="repoUrl">GitHub 仓库地址</label>
+              <input
+                type="url"
+                id="repoUrl"
+                class="form-control"
+                placeholder="例如：https://github.com/user/repo"
+              />
+            </div>
+            <div class="form-group">
+              <label for="fileExtension">文件后缀</label>
+              <input
+                type="text"
+                id="fileExtension"
+                class="form-control"
+                placeholder="例如：mp3"
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="fetchGithubFiles" class="btn btn-primary">
+              获取文件
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Alert 容器 -->
+    <div class="alert-container" id="alertContainer"></div>
+
+    <!-- 引入 APlayer JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
+    <!-- 引入 jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- 引入 Bootstrap JS -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.min.js"></script>
+    <!-- 引入自定义 JS -->
+    <script>
+      $(document).ready(function () {
+        const playlist = JSON.parse(localStorage.getItem("playlist")) || [];
+        let aplayerInstance;
+        let currentPlayIndex;
+        const alertPlaceholder = document.getElementById(
+          "liveAlertPlaceholder"
+        );
+
+        // 初始化音乐播放器
+        function initAPlayer() {
+          aplayerInstance = new APlayer({
+            container: document.getElementById("aplayer"),
+            audio: $.extend(true, [], playlist),
+            fixed: true,
+            autoplay: true,
+            order: "random",
+            listFolded: true, // 默认折叠播放列表
+          });
+          // 监听播放一首歌曲的时候记录当前位置
+          aplayerInstance.on("play", () => {
+            const currentIndex = aplayerInstance.list.index;
+            console.log("ended on:", currentIndex);
+            currentPlayIndex = currentIndex;
+            renderPlaylist();
+          });
+        }
+
+        // 渲染页面上展示的播放列表
+        function renderPlaylist() {
+          console.log("renderPlaylist:", playlist);
+          const $playlist = $("#playlist");
+          $playlist.empty();
+          playlist.forEach((music, index) => {
+            const $li = $("<li>")
+              .addClass(
+                "list-group-item d-flex justify-content-between align-items-center"
+              )
+              .append(
+                $("<span>")
+                  .css("cursor", "pointer")
+                  .css(
+                    "color",
+                    currentPlayIndex === index ? "#0d6efd" : "#212529"
+                  )
+                  .text(music.name)
+                  .on("click", () => {
+                    aplayerInstance.list.switch(index);
+                    aplayerInstance.play();
+                  })
+              );
+            const $removeButton = $("<button>")
+              .addClass("btn btn-danger btn-sm")
+              .text("删除")
+              .on("click", (e) => {
+                e.stopPropagation();
+                removeMusic(index);
+              });
+            $li.append($removeButton);
+            $playlist.append($li);
+          });
+          if (playlist.length === 0) {
+            $playlist.append(
+              $("<div>")
+                .addClass(" d-flex justify-content-center align-items-center")
+                .css("height", "100px")
+                .text("暂无音乐，请先添加")
+            );
+          }
+        }
+
+        // 保存播放列表到缓存中
+        function savePlaylist() {
+          localStorage.setItem("playlist", JSON.stringify(playlist));
+        }
+
+        // 添加音乐到播放列表
+        function addMusic(name, url) {
+          if (isValidUrl(url)) {
+            let isPlaying = !aplayerInstance.audio.paused;
+
+            playlist.push({ name, url });
+            savePlaylist();
+            renderPlaylist();
+            aplayerInstance.list.add([{ name, url }]);
+          } else {
+            showAlert("无效的音乐链接");
+          }
+        }
+
+        // 移除音乐
+        function removeMusic(index) {
+          playlist.splice(index, 1);
+          savePlaylist();
+          renderPlaylist();
+          aplayerInstance.list.remove(index);
+        }
+
+        // 根据输入的 GitHub 仓库链接获取音乐文件列表
+        function fetchGithubFiles(repoUrl, fileExtension, callback) {
+          const gitInfos = repoUrl
+            .replace("https://github.com/", "")
+            .split("/");
+          const [owner, repo, z, s, ...otherCatalogue] = gitInfos;
+          const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${otherCatalogue.join(
+            "/"
+          )}`;
+          $.getJSON(apiUrl, function (data) {
+            console.log("data:", data);
+            data.forEach((file) => {
+              if (
+                file.type === "file" &&
+                file.name.endsWith("." + fileExtension)
+              ) {
+                const fileName = file.name;
+                const fileUrl = `https://cdn.jsdelivr.net/gh/${owner}/${repo}/${file.path}`;
+                addMusic(fileName, fileUrl);
+              }
+            });
+            callback && callback(data);
+          });
+        }
+
+        // 添加按钮加载样式
+        function addButtonLoading(ele) {
+          ele.append(
+            '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>'
+          );
+        }
+
+        // 移除按钮加载样式
+        function removeButtonLoading(ele) {
+          ele.find(".spinner-border").remove();
+        }
+
+        // 显示警告信息
+        function showAlert(message, type = "warning") {
+          const $alertContainer = $("#alertContainer");
+          const $alert = $("<div>")
+            .addClass(`alert alert-${type} alert-dismissible fade show`)
+            .text(message);
+          const $closeButton = $("<button>")
+            .addClass("btn-close")
+            .attr("type", "button")
+            .attr("data-bs-dismiss", "alert")
+            .attr("aria-label", "Close");
+          $alert.append($closeButton);
+          $alertContainer.append($alert);
+          setTimeout(() => {
+            $alert.alert("close");
+          }, 3000);
+        }
+
+        // URL 校验函数
+        function isValidUrl(url) {
+          try {
+            new URL(url);
+            return true;
+          } catch (_) {
+            return false;
+          }
+        }
+
+        // 添加到播放列表按钮点击事件
+        $("#addMusic").on("click", function () {
+          const name = $("#musicName").val();
+          const url = $("#musicUrl").val();
+          if (name && url) {
+            addMusic(name, url);
+            $("#musicName").val("");
+            $("#musicUrl").val("");
+          } else {
+            showAlert("请填写音乐名称和链接");
+          }
+        });
+
+        // 从github获取音乐按钮点击事件
+        $("#githubButton").on("click", function () {
+          $("#githubModal").modal("show");
+        });
+
+        // 从github获取音乐弹窗中获取文件按钮点击事件
+        $("#fetchGithubFiles").on("click", function () {
+          const repoUrl = $("#repoUrl").val();
+          const fileExtension = $("#fileExtension").val();
+          if (repoUrl && fileExtension) {
+            addButtonLoading($("#fetchGithubFiles"));
+            fetchGithubFiles(repoUrl, fileExtension, () => {
+              removeButtonLoading($("#fetchGithubFiles"));
+              $("#repoUrl").val("");
+              $("#fileExtension").val("");
+              $("#githubModal").modal("hide");
+              showAlert("添加成功!", "success");
+            });
+          } else {
+            showAlert("请填写仓库地址和文件后缀");
+          }
+        });
+
+        // 初始化
+        initAPlayer();
+        renderPlaylist();
+      });
+    </script>
+  </body>
+</html>
