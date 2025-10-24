@@ -1,0 +1,228 @@
+    #btnbj{
+            left:572px;
+        }
+      #changeBV {
+        left: 600px;
+        top: 185px;
+        background-color: rgba(255, 255, 255, 0.15);
+        z-index: 5;
+      }
+
+      .vbt {
+        border-radius: 32px;
+        display: flex;
+        justify-content: center;
+        /* 水平居中 */
+        align-items: center;
+        /* 垂直居中 */
+        margin: 0 5px;
+        height: 32px;
+        width: 32px;
+        text-align: center;
+        line-height: 32px;
+        position: absolute;
+        transition: 0.1s;
+      }
+
+      .vbt:hover {
+        transition: 0.1s;
+        transform: scale(1.1);
+      }
+
+      .vbt i:hover {
+        color: white;
+      }
+
+      .vbt i {
+        display: block;
+        font-size: 23px;
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+
+#bgVideo,
+#bgVideo1 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+}
+
+
+
+
+      .hidden {
+        opacity: 0;
+      }
+
+      #sence {
+        /*z-index: -2;*/
+        display: none;
+      }
+
+      /*body {
+                z-index: -2;
+            }*/
+      #low-bg {
+        background-color: #000;
+        /* background-image: url(assets/video/video1.webp) !important; */
+      }
+
+      @media (max-width: 780px) {
+        button#changeBV {
+          left: 80%;
+        }
+        img#btnbj {
+          left: 73.5%;
+        }
+
+        source {
+          background-attachment: fixed;
+        }
+      }
+      
+      
+       .ph-img-center {
+        display: flex;
+        align-items: center;
+      }
+
+      .ph-image {
+        width: 30px;
+        height: 30px;
+        /*margin-right: 10px;*/
+      }
+
+      #other {
+        display: none;
+      }
+      .rotateStyle {
+        animation: rotate 0.5s forwards;
+      }
+      @keyframes rotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        50% {
+          transform: rotate(180deg);
+        }
+        100% {
+          transform: rotate(0deg);
+        }
+      }
+      
+      /*聊天室*/
+      
+      .chat-button {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        width: 35px;
+        height: 120px;
+        background: rgba(0, 0, 0, 0.79);
+        color: white;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        border-radius: 12px 0 0 12px;
+        text-orientation: mixed;
+        font-size: 16px;
+        padding: 10px 5px;
+        transition: all 0.3s ease-in-out;
+        opacity: 1;
+      }
+      .chat-button span {
+        position: absolute;
+        width: 120px; /* 设置为button的高度 */
+        text-align: center;
+        transform: rotate(-90deg);
+      }
+
+      .chat-button.hide {
+        opacity: 0;
+        transform: translateX(40px);
+      }
+
+      .chat-container {
+        position: fixed;
+        top: 0;
+        right: -400px;
+        width: 400px;
+        height: 100vh;
+        z-index: 999;
+        transition: right 0.3s ease-in-out;
+        display: block;
+      }
+
+      .chat-container.show {
+        right: 0;
+      }
+
+      .chat-iframe {
+        width: 100%;
+        height: 100vh;
+        border: none;
+        background: #1e1e1e;
+      }
+
+      .CboxButton {
+        position: fixed;
+        z-index: 9999;
+        bottom: 0;
+        height: 30px;
+        width: 30px;
+        box-sizing: border-box;
+        text-align: center;
+        cursor: pointer;
+        background: rgba(0, 0, 0, 0.79);
+        color: #fff;
+        line-height: 30px;
+        transition: all 0.3s ease-in-out;
+        right: 400px;
+        padding: 0;
+        border: none;
+        border-radius: 15px 0 0 0;
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .CboxButton.hide {
+        right: 0;
+      }
+
+      .CboxCloseBtn {
+        display: block;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .CboxButton.hide .CboxCloseBtn {
+        transform: rotate(180deg);
+      }
+
+      /* 添加调整手柄样式 */
+      .resize-handle {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 5px;
+        cursor: ew-resize;
+        background-color: transparent;
+        transition: background-color 0.2s;
+      }
+
+      .resize-handle:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .resize-handle.dragging {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
