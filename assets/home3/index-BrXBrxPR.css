@@ -1,0 +1,56 @@
+.ant-collapse-borderless{background-color:transparent}.ant-collapse-borderless>.ant-collapse-item{background-color:#ebebeb66;border:none;border-radius:8px;box-shadow:0 1px 2px #22242626,0 0 0 1px #22242626}.ant-collapse-borderless>.ant-collapse-item:last-child{border-radius:8px}.ant-collapse-borderless>.ant-collapse-item>.ant-collapse-content>.ant-collapse-content-box{padding-top:0}.world-map{display:block;height:auto;width:100%}.world-map-sphere{fill:#ebebebcc}.world-map-country{fill:#0000001a}.world-map-country:hover,.world-map-country-checked:hover{fill:#ff2400}.world-map-interior{fill:none;stroke:#fff;stroke-width:.5px}.ant-tabs{background-color:#ebebeb66;border-radius:8px;box-shadow:0 1px 2px #22242626,0 0 0 1px #22242626}.ant-tabs-nav-sticky{position:sticky;top:-1px;z-index:1;transition:all .3s}.ant-tabs-nav-sticky.stickied{background-color:#fff;box-shadow:0 6px 16px #00000014,0 3px 6px -4px #0000001f,0 9px 28px 8px #0000000d}.ant-tabs-top>div>.ant-tabs-nav{margin:0}.ant-tabs-top>div>.ant-tabs-nav:before{border-bottom:none}.ant-tabs .ant-tabs-tab{padding:12px 16px}.ant-tabs>div>.ant-tabs-nav .ant-tabs-nav-wrap:not([class*=ant-tabs-nav-wrap-ping]){justify-content:center}.ant-tabs-content-holder{padding:16px}.card{background-color:#ebebebcc;border-radius:8px;padding:16px;width:300px}.card-offline{filter:grayscale(100%)}.ant-tooltip{--antd-arrow-background-color: #ffffff}.ant-tooltip .ant-tooltip-inner{background-color:#fff;color:#000000e0}.fi{border-radius:4px}.name{font-size:16px;font-weight:500;word-break:break-all}.bi{vertical-align:-.125em}.bi-info{color:var(--primary-color);font-size:16px}.tags{margin:4px 0 8px}.ant-tag{margin-inline-end:4px;padding-inline:6px}.ant-tag>.bi{margin-inline-end:4px}.ant-progress{display:block;line-height:1;margin-bottom:8px}.ant-progress.fine .ant-progress-bg{background:var(--primary-color)}.ant-progress.warning .ant-progress-bg{background:gold}.ant-progress.error .ant-progress-bg{background:#ff2400}.network-in{color:#137333;flex:1 1 calc(50% - 16px)}.network-out{color:#a50e0e;flex:1 1 calc(50% - 16px);text-align:end}.ant-float-btn-group button:last-child .anticon{color:var(--primary-color)}@media only screen and (max-width: 701px){.ant-collapse{padding:16px}.tabs{padding:0 16px 16px}.card{width:100%}}@media only screen and (min-width: 702px){.ant-collapse{margin:auto;max-width:680px;padding:4% 16px 16px}.tabs{margin:auto;max-width:680px;padding:0 16px 4%}}@media only screen and (min-width: 1018px){.ant-collapse,.tabs{max-width:996px}}@media only screen and (min-width: 1334px){.ant-collapse,.tabs{max-width:1312px}}@media only screen and (min-width: 1650px){.ant-collapse,.tabs{max-width:1628px}}@media only screen and (min-width: 1966px){.ant-collapse,.tabs{max-width:1944px}}@media not screen and (hover: none) and (pointer: coarse){html{overflow:auto}body,.ant-modal-wrap{overflow:auto;scrollbar-color:rgba(0,0,0,.33) transparent;scrollbar-gutter:stable both-edges;scrollbar-width:thin}::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background-color:transparent}::-webkit-scrollbar-thumb{background-color:#00000054;border-radius:4px}}
+.ant-collapse{display:none}@media only screen and (max-width:701px){.tabs{padding:16px}}@media only screen and (min-width:702px){.tabs{padding:4% 16px}}
+
+/* 屏蔽 Ant Design 标签页导航栏 */
+.ant-tabs-nav-wrap {
+    display: none !important; /* 强制隐藏导航栏 */
+}
+
+/* 可选：屏蔽特定标签 */
+.ant-tabs-tab[data-node-key="-1"] {
+    display: none; /* 隐藏“默认”标签 */
+}
+
+/* 屏蔽 Ant Design 浮动按钮组 */
+.ant-float-btn-group {
+    display: none !important; /* 隐藏整个浮动按钮组，强制覆盖其他样式 */
+}
+
+
+/* 修改服务器小卡片的背景为纯白色 */
+.card {
+    background-color: #ffffff !important; /* 设置背景为纯白色，强制覆盖原有样式 */
+}
+
+/* 假设大卡片是 .ant-collapse，设置为完全透明并移除边框和阴影 */
+.ant-collapse {
+    background-color: transparent !important; /* 完全透明背景 */
+    border: none !important; /* 移除边框 */
+    box-shadow: none !important; /* 移除阴影 */
+}
+
+/* 假设大卡片是 .ant-tabs，设置为完全透明并移除边框和阴影 */
+.ant-tabs {
+    background-color: transparent !important; /* 完全透明背景 */
+    border: none !important; /* 移除边框 */
+    box-shadow: none !important; /* 移除阴影 */
+}
+
+/* 如果大卡片是 .tabs 类（可能是一个自定义容器），同样设置为透明 */
+.tabs {
+    background-color: transparent !important; /* 完全透明背景 */
+    border: none !important; /* 移除边框 */
+    box-shadow: none !important; /* 移除阴影 */
+}
+
+
+
+.card {
+    position: relative; /* 确保卡片内部元素可定位 */
+    z-index: 1; /* 高于 Canvas 背景 */
+}
+
+.fi {
+    position: relative;
+    z-index: 2; /* 确保旗帜在卡片内可见 */
+}
