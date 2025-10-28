@@ -2,16 +2,16 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     // 预加载音效
-    var leftClickSound = new Audio('./assets/sound/鼠点左2.mp3'); // 鼠标左
-    var rightClickSound = new Audio('./assets/sound/风铃.mp3'); // 鼠标右
-    var hoverSoundlogoDiv = new Audio('./assets/sound/门铃.mp3'); // 头像logo
-    var hoverSoundavatar = new Audio('./assets/sound/门铃.mp3'); // 头像logo
-    var hoverSoundfirst = new Audio('./assets/sound/开瓶.mp3'); // 首页切换风格文字
-    var hoverSoundclock = new Audio('./assets/sound/叮.mp3'); // 时钟
-    var hoverSounddescriptiontext1 = new Audio('./assets/sound/开瓶.mp3'); // home切换模式文字
-    var hoverSounddescriptiontext3 = new Audio('./assets/sound/滴滴.mp3'); // home运行文字
-    var hoverSoundcheck1 = new Audio('./assets/sound/开瓶.mp3'); // 首页右侧切换模式文字
-    var hoverSoundtypingText = new Audio('./assets/sound/打字.mp3'); // home页打字机文字
+    var leftClickSound = new Audio('./assets/home2/sound/鼠点左2.mp3'); // 鼠标左
+    var rightClickSound = new Audio('./assets/home2/sound/风铃.mp3'); // 鼠标右
+    var hoverSoundlogoDiv = new Audio('./assets/home2/sound/门铃.mp3'); // 头像logo
+    var hoverSoundavatar = new Audio('./assets/home2/sound/门铃.mp3'); // 头像logo
+    var hoverSoundfirst = new Audio('./assets/home2/sound/开瓶.mp3'); // 首页切换风格文字
+    var hoverSoundclock = new Audio('./assets/home2/sound/叮.mp3'); // 时钟
+    var hoverSounddescriptiontext1 = new Audio('./assets/home2/sound/开瓶.mp3'); // home切换模式文字
+    var hoverSounddescriptiontext3 = new Audio('./assets/home2/sound/滴滴.mp3'); // home运行文字
+    var hoverSoundcheck1 = new Audio('./assets/home2/sound/开瓶.mp3'); // 首页右侧切换模式文字
+    var hoverSoundtypingText = new Audio('./assets/home2/sound/打字.mp3'); // home页打字机文字
 
     leftClickSound.preload = 'auto';
     rightClickSound.preload = 'auto';
@@ -148,11 +148,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // 元素音效
 // 网址过渡音
-var websiteHoverSound = new Audio('./assets/sound/缓慢1.mp3');
+var websiteHoverSound = new Audio('./assets/home2/sound/缓慢1.mp3');
 websiteHoverSound.preload = 'auto';
 
 // 广告位音
-var adHoverSound = new Audio('./assets/sound/滴滴.mp3');
+var adHoverSound = new Audio('./assets/home2/sound/滴滴.mp3');
 adHoverSound.preload = 'auto';
 
 function playSound(audioObject) {
@@ -184,7 +184,7 @@ var adElementsSelectors = ['.ad-container','.friendname','.rss-container'];
 addSoundToElements(adElementsSelectors, adHoverSound);
 
 // home配置文档文字音
-var hoverSoundescriptiontext2 = new Audio('./assets/sound/滴滴.mp3'); // 请替换为您的音效文件路径
+var hoverSoundescriptiontext2 = new Audio('./assets/home2/sound/滴滴.mp3'); // 请替换为您的音效文件路径
 hoverSoundescriptiontext2.preload = 'auto';
 var escriptiontext2 = document.getElementById('descriptiontext2');
 if (escriptiontext2) {
@@ -196,7 +196,7 @@ if (escriptiontext2) {
 }
 
 // 配置音乐菜单选择音效
-var hoverSoundPath = './assets/sound/缓慢1.mp3';
+var hoverSoundPath = './assets/home2/sound/缓慢1.mp3';
 var hoverSound = new Audio(hoverSoundPath);
 document.querySelectorAll('.aplayer-list').forEach(function(li) {
     li.addEventListener('mouseover', function() {
@@ -211,7 +211,7 @@ hoverSound.addEventListener('ended', function() {
 });
 
 // 浮动文字
-var floatingTextSoundPath = './assets/sound/jump.mp3';
+var floatingTextSoundPath = './assets/home2/sound/jump.mp3';
 
 // 创建floating-text元素的音效对象
 var floatingTextHoverSound = new Audio(floatingTextSoundPath);
@@ -244,15 +244,15 @@ addSoundToElements(floatingTextSelectors, floatingTextHoverSound);
 
 // 页面加载音效
 soundFiles = [
-    './assets/sound/载入1.mp3',
-    './assets/sound/载入2.mp3',
-    './assets/sound/载入3.mp3',
-    './assets/sound/载入4.mp3',
-    './assets/sound/载入5.mp3',
-    './assets/sound/载入6.mp3',
-    './assets/sound/载入7.mp3',
-    './assets/sound/载入8.mp3',
-    './assets/sound/载入9.mp3',
+    './assets/home2/sound/载入1.mp3',
+    './assets/home2/sound/载入2.mp3',
+    './assets/home2/sound/载入3.mp3',
+    './assets/home2/sound/载入4.mp3',
+    './assets/home2/sound/载入5.mp3',
+    './assets/home2/sound/载入6.mp3',
+    './assets/home2/sound/载入7.mp3',
+    './assets/home2/sound/载入8.mp3',
+    './assets/home2/sound/载入9.mp3',
     // 添加更多音效路径https://www.noisework.cn.
 ];
 
