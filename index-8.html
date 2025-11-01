@@ -1,0 +1,133 @@
+﻿
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <title>听松阁</title>
+    <meta name="keywords" content="听松阁">
+    <meta name="description" content="听松阁">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            padding: 12% 5% 5% 5%;
+            background-image: url(https://api.rryyz.com/api-pic/bg-anhei.php);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        .container {
+            text-align: center;
+            border: 1px solid rgb(2, 204, 245);
+            background-color: rgba(121, 145, 142, 0.42);
+            border-radius: 20px;
+            padding: 30px 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .avatar {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            border: 3px solid rgba(2, 204, 245, 0.5);
+            transition: transform 0.3s ease;
+        }
+        
+        .avatar:hover {
+            transform: scale(1.05);
+        }
+        
+        h1 {
+            color: #fff;
+            margin: 15px 0;
+            font-size: 1.8rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .description {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 25px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .btn {
+            border-radius: 10px;
+            padding: 12px 40px;
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            text-decoration: none;
+            background: rgba(2, 204, 245, 0.2);
+            transition: all 0.3s ease;
+            font-weight: 500;
+            width: 80%;
+            max-width: 250px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .btn:hover {
+            background: rgba(2, 204, 245, 0.4);
+            border-color: rgba(2, 204, 245, 0.8);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(2, 204, 245, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 15% 5% 5% 5%;
+            }
+            
+            .container {
+                padding: 25px 15px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .description {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 10px 30px;
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p>
+            <img class="avatar" src="./assets/home8/images/logo.png" alt="听松阁">
+        </p>
+        <h1><strong>听 松 阁</strong></h1>
+        <p class="description">枕上听松语，槛外看潮生。</p>
+        <div class="button-group">
+            <a class="btn" href="./cloud/" target="_blank">云空间</a>
+			<a class="btn" href="https://blog1.hhhnn.com/" target="_blank">博客</a>
+            <a class="btn" href="./index/" target="_blank">网址导航</a>
+        </div>
+    </div>
+</body>
+</html>
