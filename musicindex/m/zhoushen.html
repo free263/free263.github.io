@@ -1,0 +1,313 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>听松阁在线听音乐 - 444.info</title>
+
+<link rel="stylesheet" href="css/smusic.css">
+<link rel="shortcut icon" href="../favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.2.0/css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/menu_bubble.css" />
+		<script src="js/snap.svg-min.js"></script>
+		<!--[if IE]>
+  		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		
+</head>
+<body background="img/bg2.jpg">
+
+<div>
+			<div class="menu-wrap">
+				<nav class="menu">
+					<div class="icon-list">
+						<a href="index.html"><i class="fa fa-fw fa-star-o"></i><span>国语精选</span></a>
+						<a href="zhoushen.html"><i class="fa fa-fw fa-bell-o"></i><span>周深</span></a>
+						<a href="yanglanyi.html"><i class="fa fa-fw fa-bell-o"></i><span>洋澜一</span></a>
+						<a href="korea.html"><i class="fa fa-fw fa-bar-chart-o"></i><span>韩国音乐</span></a>
+						<a href="usa.html"><i class="fa fa-fw fa-newspaper-o"></i><span>欧美音乐</span></a>
+						<a href="japan.html"><i class="fa fa-fw fa-envelope-o"></i><span>日本音乐</span></a>
+						<a href="thailand.html"><i class="fa fa-fw fa-star-o"></i><span>泰国音乐</span></a>
+						<a href="india.html"><i class="fa fa-fw fa-bell-o"></i><span>印度音乐</span></a>
+						<a href="weimei.html"><i class="fa fa-fw fa-comment-o"></i><span>唯美纯音乐</span></a>
+						<a href="fksh.html"><i class="fa fa-fw fa-bar-chart-o"></i><span>放空舒缓音乐</span></a>
+						<a href="zrzs.html"><i class="fa fa-fw fa-newspaper-o"></i><span>自然之声</span></a>
+						
+					</div>
+				</nav>
+				<button class="close-button" id="close-button">Close Menu</button>
+				<div class="morph-shape" id="morph-shape" data-morph-open="M-7.312,0H15c0,0,66,113.339,66,399.5C81,664.006,15,800,15,800H-7.312V0z;M-7.312,0H100c0,0,0,113.839,0,400c0,264.506,0,400,0,400H-7.312V0z">
+					<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 800" preserveAspectRatio="none">
+						<path d="M-7.312,0H0c0,0,0,113.839,0,400c0,264.506,0,400,0,400h-7.312V0z"/>
+					</svg>
+				</div>
+			</div>
+			<button class="menu-button" id="open-button">Open Menu</button>
+			<div class="content-wrap">
+				
+				
+<div class="grid-music-container f-usn">
+    <div class="m-music-play-wrap">
+        <div class="u-cover"></div>
+        <div class="m-now-info">
+            <h1 class="u-music-title"><b><small>...</small><small>...</small></b></h1>
+            <div class="m-now-controls">
+                <div class="u-control u-process">
+                    <span class="buffer-process"></span>
+                    <span class="current-process"></span>
+                </div>
+                <div class="u-control u-time">00:00/00:00</div>
+                <div class="u-control u-volume">
+                    <div class="volume-process" data-volume="0.50">
+                        <span class="volume-current"></span>
+                        <span class="volume-bar"></span>
+                        <span class="volume-event"></span>
+                    </div>
+                    <a class="volume-control"></a>
+                </div>
+            </div>
+            <div class="m-play-controls">
+                <a class="u-play-btn prev" title="上一曲"></a>
+                <a class="u-play-btn ctrl-play play" title="暂停"></a>
+                <a class="u-play-btn next" title="下一曲"></a><br>
+               
+            </div>
+        </div>
+    </div>
+    <div class="f-cb">&nbsp;</div>
+    <div class="m-music-list-wrap"></div>
+</div>
+
+<script src="js/smusic.min.js"></script>
+<script>
+var musicList = [
+{title : '周深 李克勤-那片海',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深 李克勤-那片海.mp3'},
+{title : '周深 李克勤-天下有情人',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深 李克勤-天下有情人.mp3'},
+{title : '周深 宋亚轩-桃花诺',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深 宋亚轩-桃花诺.mp3'},
+{title : '周深 张韶涵-一路生花',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深 张韶涵-一路生花.mp3'},
+{title : '周深、Terry Zhong 钟天利-春雪',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深、Terry Zhong 钟天利-春雪.mp3'},
+{title : '周深、安达组合-乌兰巴托的夜 (Live)',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深、安达组合-乌兰巴托的夜 (Live).mp3'},
+{title : '周深、胡夏-天涯尽处',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深、胡夏-天涯尽处.mp3'},
+{title : '周深、郎朗-幽灵公主',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深、郎朗-幽灵公主.mp3'},
+{title : '周深、李琦-你要的爱',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深、李琦-你要的爱.mp3'},
+{title : '周深、李维-偶然',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深、李维-偶然.mp3'},
+{title : '周深、李维-请跟我来',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深、李维-请跟我来.mp3'},
+{title : '周深、陆虎-缘落',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深、陆虎-缘落.mp3'},
+{title : '周深、王者荣耀-很高兴遇见你',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深、王者荣耀-很高兴遇见你.mp3'},
+{title : '周深、王者荣耀-看见我',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深、王者荣耀-看见我.mp3'},
+{title : '周深、王者荣耀-奇迹时刻',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深、王者荣耀-奇迹时刻.mp3'},
+{title : '周深、王者荣耀-祈愿山海',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深、王者荣耀-祈愿山海.mp3'},
+{title : '周深、王者荣耀-时结',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深、王者荣耀-时结.mp3'},
+{title : '周深、王者荣耀-微光海洋',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深、王者荣耀-微光海洋.mp3'},
+{title : '周深、王者荣耀-信念',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深、王者荣耀-信念.mp3'},
+{title : '周深、于文文-暗香',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深、于文文-暗香.mp3'},
+{title : '周深-Burning',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-Burning.mp3'},
+{title : '周深-I See Us',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-I See Us.mp3'},
+{title : '周深-La Danza Del Dios Sol',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-La Danza Del Dios Sol.mp3'},
+{title : '周深-LetItGo',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-LetItGo.mp3'},
+{title : '周深-Monsters',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-Monsters.mp3'},
+{title : '周深-My Only',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-My Only.mp3'},
+{title : '周深-RubiA',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-Rubia.mp3'},
+{title : '周深-爱若琉璃',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-爱若琉璃.mp3'},
+{title : '周深-白墙',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-白墙.mp3'},
+{title : '周深-奔向你',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-奔向你.mp3'},
+{title : '周深-彼岸花',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-彼岸花.mp3'},
+{title : '周深-不说话',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-不说话.mp3'},
+{title : '周深-不再流浪',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-不再流浪.mp3'},
+{title : '周深-曾经沧海',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-曾经沧海.mp3'},
+{title : '周深-超级玩家',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-超级玩家.mp3'},
+{title : '周深-沉默的羔羊',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-沉默的羔羊.mp3'},
+{title : '周深-出场',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-出场.mp3'},
+{title : '周深-触不可及',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-触不可及.mp3'},
+{title : '周深-传家',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-传家.mp3'},
+{title : '周深-此生惟你',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-此生惟你.mp3'},
+{title : '周深-匆匆那年',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-匆匆那年.mp3'},
+{title : '周深-璀璨冒险人',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-璀璨冒险人.mp3'},
+{title : '周深-达拉崩吧',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-达拉崩吧.mp3'},
+{title : '周深-大鱼',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-大鱼.mp3'},
+{title : '周深-胆小鬼',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-胆小鬼.mp3'},
+{title : '周深-等着我',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-等着我.mp3'},
+{title : '周深-东游',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-东游.mp3'},
+{title : '周深-独白',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-独白.mp3'},
+{title : '周深-繁星璀璨的天空',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-繁星璀璨的天空.mp3'},
+{title : '周深-放鹤图',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-放鹤图.mp3'},
+{title : '周深-放心去飞',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-放心去飞.mp3'},
+{title : '周深-风景',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-风景.mp3'},
+{title : '周深-风起流年',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-风起流年.mp3'},
+{title : '周深-风筝是风的信',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-风筝是风的信.mp3'},
+{title : '周深-奉时光予你',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-奉时光予你.mp3'},
+{title : '周深-浮游',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-浮游.mp3'},
+{title : '周深-哥哥',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-哥哥.mp3'},
+{title : '周深-光亮',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-光亮.mp3'},
+{title : '周深-光字片',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-光字片.mp3'},
+{title : '周深-归处',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-归处.mp3'},
+{title : '周深-过尽千帆',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-过尽千帆.mp3'},
+{title : '周深-海藏',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-海藏.mp3'},
+{title : '周深-海上蝶',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-海上蝶.mp3'},
+{title : '周深-好好',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-好好.mp3'},
+{title : '周深-好好生活就是美好生活',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-好好生活就是美好生活.mp3'},
+{title : '周深-和光同尘',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-和光同尘.mp3'},
+{title : '周深-和光同春',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-和光同春.mp3'},
+{title : '周深-嗨',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-嗨.mp3'},
+{title : '周深-后来没有你',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-后来没有你.mp3'},
+{title : '周深-花开',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-花开.mp3'},
+{title : '周深-花开忘忧',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-花开忘忧.mp3'},
+{title : '周深-花西子',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-花西子.mp3'},
+{title : '周深-化身孤岛的鲸',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-化身孤岛的鲸.mp3'},
+{title : '周深-画绢',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-画绢.mp3'},
+{title : '周深-欢颜',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-欢颜.mp3'},
+{title : '周深-荒城渡',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-荒城渡.mp3'},
+{title : '周深-荒原星火',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-荒原星火.mp3'},
+{title : '周深-回到你身边',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-回到你身边.mp3'},
+{title : '周深-回声',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-回声.mp3'},
+{title : '周深-茧',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-茧.mp3'},
+{title : '周深-江湖觅知音',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-江湖觅知音.mp3'},
+{title : '周深-交换',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-交换.mp3'},
+{title : '周深-鲛人之歌',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-鲛人之歌.mp3'},
+{title : '周深-借给我一盒火柴',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-借给我一盒火柴.mp3'},
+{title : '周深-敬时光',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-敬时光.mp3'},
+{title : '周深-卷珠帘',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-卷珠帘.mp3'},
+{title : '周深-玦恋',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-玦恋.mp3'},
+{title : '周深-卡布叻船长',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-卡布叻船长.mp3'},
+{title : '周深-可梦',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-可梦.mp3'},
+{title : '周深-可它爱着这个世界',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-可它爱着这个世界.mp3'},
+{title : '周深-渴望遇见',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-渴望遇见.mp3'},
+{title : '周深-垃圾别烦我',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-垃圾别烦我.mp3'},
+{title : '周深-来不及勇敢',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-来不及勇敢.mp3'},
+{title : '周深-蓝色降落伞',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-蓝色降落伞.mp3'},
+{title : '周深-临安初雨',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-临安初雨.mp3'},
+{title : '周深-铃芽之旅',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-铃芽之旅.mp3'},
+{title : '周深-流光',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-流光.mp3'},
+{title : '周深-落花',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-落花.mp3'},
+{title : '周深-没有说完的故事',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-没有说完的故事.mp3'},
+{title : '周深-玫瑰与小鹿',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-玫瑰与小鹿.mp3'},
+{title : '周深-梅香如故',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-梅香如故.mp3'},
+{title : '周深-美错',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-美错.mp3'},
+{title : '周深-美好的世界',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-美好的世界.mp3'},
+{title : '周深-美美',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-美美.mp3'},
+{title : '周深-梦回神都',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-梦回神都.mp3'},
+{title : '周深-梦留别',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-梦留别.mp3'},
+{title : '周深-梦想的远征',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-梦想的远征.mp3'},
+{title : '周深-梦想指路',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-梦想指路.mp3'},
+{title : '周深-明暗之间',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-明暗之间.mp3'},
+{title : '周深-明明',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-明明.mp3'},
+{title : '周深-明天的世界更美好',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-明天的世界更美好.mp3'},
+{title : '周深-明月传说',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-明月传说.mp3'},
+{title : '周深-你的样子',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-你的样子.mp3'},
+{title : '周深-你是我的城',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-你是我的城.mp3'},
+{title : '周深-妳',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-妳.mp3'},
+{title : '周深-年轮',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-年轮.mp3'},
+{title : '周深-念',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-念.mp3'},
+{title : '周深-念归去',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-念归去.mp3'},
+{title : '周深-浓情淡如你',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-浓情淡如你.mp3'},
+{title : '周深-漂洋过海来看你',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-漂洋过海来看你.mp3'},
+{title : '周深-启示',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-启示.mp3'},
+{title : '周深-起风了',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-起风了.mp3'},
+{title : '周深-牵丝戏',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-牵丝戏.mp3'},
+{title : '周深-浅浅',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-浅浅.mp3'},
+{title : '周深-亲爱的旅人啊',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-亲爱的旅人啊.mp3'},
+{title : '周深-情不由衷',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-情不由衷.mp3'},
+{title : '周深-情是何物',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-情是何物.mp3'},
+{title : '周深-情意结',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-情意结.mp3'},
+{title : '周深-请带着浪漫远航',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-请带着浪漫远航.mp3'},
+{title : '周深-去明天',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-去明天.mp3'},
+{title : '周深-人间星河',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-人间星河.mp3'},
+{title : '周深-人是',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-人是.mp3'},
+{title : '周深-如许',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-如许.mp3'},
+{title : '周深-若梦',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-若梦.mp3'},
+{title : '周深-若思念便思念',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-若思念便思念.mp3'},
+{title : '周深-身骑白马',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-身骑白马.mp3'},
+{title : '周深-蜃楼',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-蜃楼.mp3'},
+{title : '周深-时间之海',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-时间之海.mp3'},
+{title : '周深-水形物语',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-水形物语.mp3'},
+{title : '周深-睡个好觉',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-睡个好觉.mp3'},
+{title : '周深-说声你好',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-说声你好.mp3'},
+{title : '周深-斯卡布罗集市',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-斯卡布罗集市.mp3'},
+{title : '周深-随风',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-随风.mp3'},
+{title : '周深-她',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-她.mp3'},
+{title : '周深-她说老啦',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-她说老啦.mp3'},
+{title : '周深-太阳升起的舞蹈',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-太阳升起的舞蹈.mp3'},
+{title : '周深-天地为念',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-天地为念.mp3'},
+{title : '周深-田埂五月风',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-田埂五月风.mp3'},
+{title : '周深-跳舞的月光',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-跳舞的月光.mp3'},
+{title : '周深-同行同往',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-同行同往.mp3'},
+{title : '周深-瞳',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-瞳.mp3'},
+{title : '周深-蜕',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-蜕.mp3'},
+{title : '周深-万里挑一',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-万里挑一.mp3'},
+{title : '周深-威凤吟',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-威凤吟.mp3'},
+{title : '周深-微光海洋',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-微光海洋.mp3'},
+{title : '周深-为爱追寻',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-为爱追寻.mp3'},
+{title : '周深-问花',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-问花.mp3'},
+{title : '周深-我的答案',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-我的答案.mp3'},
+{title : '周深-我是你的谁',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-我是你的谁.mp3'},
+{title : '周深-我以渺小爱你',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-我以渺小爱你.mp3'},
+{title : '周深-我在这 挺好的',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-我在这 挺好的.mp3'},
+{title : '周深-无关',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-无关.mp3'},
+{title : '周深-无疾而终',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-无疾而终.mp3'},
+{title : '周深-无所畏惧',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-无所畏惧.mp3'},
+{title : '周深-无问',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-无问.mp3'},
+{title : '周深-夏日友晴天',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-夏日友晴天.mp3'},
+{title : '周深-相守',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-相守.mp3'},
+{title : '周深-相思',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-相思.mp3'},
+{title : '周深-向光而行',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-向光而行.mp3'},
+{title : '周深-像鸟儿一样',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-像鸟儿一样.mp3'},
+{title : '周深-小美满',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-小美满.mp3'},
+{title : '周深-小舍得',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-小舍得.mp3'},
+{title : '周深-小幸运',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-小幸运.mp3'},
+{title : '周深-心归处是吾乡',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-心归处是吾乡.mp3'},
+{title : '周深-心同此愿',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-心同此愿.mp3'},
+{title : '周深-星鱼',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-星鱼.mp3'},
+{title : '周深-悬崖之上',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-悬崖之上.mp3'},
+{title : '周深-雪落下的声音',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-雪落下的声音.mp3'},
+{title : '周深-芽',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-芽.mp3'},
+{title : '周深-焰火',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-焰火.mp3'},
+{title : '周深-要一起',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-要一起.mp3'},
+{title : '周深-也很值得',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-也很值得.mp3'},
+{title : '周深-叶子',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-叶子.mp3'},
+{title : '周深-一缕执念',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-一缕执念.mp3'},
+{title : '周深-一试有成',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-一试有成.mp3'},
+{title : '周深-以无旁骛之吻',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-以无旁骛之吻.mp3'},
+{title : '周深-意犹在',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-意犹在.mp3'},
+{title : '周深-迎刃',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-迎刃.mp3'},
+{title : '周深-永恒孤独',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-永恒孤独.mp3'},
+{title : '周深-勇气',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-勇气.mp3'},
+{title : '周深-有我',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-有我.mp3'},
+{title : '周深-余情',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-余情.mp3'},
+{title : '周深-与卿',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-与卿.mp3'},
+{title : '周深-缘起',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-缘起.mp3'},
+{title : '周深-愿',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-愿.mp3'},
+{title : '周深-愿得一心人',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-愿得一心人.mp3'},
+{title : '周深-云裳羽衣曲',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-云裳羽衣曲.mp3'},
+{title : '周深-在意',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-在意.mp3'},
+{title : '周深-照耀星河',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-照耀星河.mp3'},
+{title : '周深-征途',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-征途.mp3'},
+{title : '周深-只为真相',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-只为真相.mp3'},
+{title : '周深-直破穹苍',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-直破穹苍.mp3'},
+{title : '周深-重生',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-重生.mp3'},
+{title : '周深-逐月',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-逐月.mp3'},
+{title : '周深-祝福',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-祝福.mp3'},
+{title : '周深-追赶春天的人',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-追赶春天的人.mp3'},
+{title : '周深-拙慕',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-拙慕.mp3'},
+{title : '周深-最好的礼物',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-最好的礼物.mp3'},
+{title : '周深-最珍贵的你',cover  : '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/周深/周深-最珍贵的你.mp3'}
+];
+new SMusic({
+	musicList:musicList
+});
+</script>
+
+<div style="text-align:center;">
+<p>在线音乐：<a href="http://www.444.info/" target="_blank">听松阁</a></p>
+</div>
+</div>
+
+</div><!-- /content-wrap -->
+		</div><!-- /container -->
+		<script src="js/classie.js"></script>
+		<script src="js/main4.js"></script>
+		
+</body>
+</html>

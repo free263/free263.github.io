@@ -1,0 +1,857 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>听松阁桌面</title>
+<link type="text/css" rel="stylesheet" href="images/main.css">
+
+<link rel="stylesheet" href="css/player.css">
+
+
+<!--[if IE 6]>
+<link rel="stylesheet" type="text/css" href="images/ie6.css" />
+<![endif]-->
+<script src="images/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="images/lightbox.min.js"></script>
+<style type="text/css">
+.wrapper{ margin:0px auto; padding:20px; border:1px solid #CCC; background:#333; width:980px; font-size:12px;}
+</style>
+<link rel="shortcut icon" type="image/x-icon" href="img/an.ico"/>
+		<style type="text/css">
+			/*样式初始化*/
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			/*去除横向滚动条*/
+			body {
+				overflow-x: hidden;
+				overflow-y: hidden;
+				background-color: 000;
+				font-size:13px;
+				color: #ffffff;
+			}
+			/*将div铺满整个窗口*/
+			.box {
+				height: 100vh;
+				min-height: 520px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+background-color: 000;
+			}
+			/*设置大ul的大小及定位*/
+			.content {
+				position: relative;
+				width: 100%;
+				height: 100%;
+background-color: 000;
+			}
+			/*设置大li样式*/
+			.content li {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+			}
+			/*将第一张图片后的图片隐藏*/
+			#li1~li{display: none;}
+			/*设置大li背景图片*/
+			#li1 {background-image: url(https://api.rryyz.com/api-pic/bg-music.php);background-size:100%;}
+			/*点击a标签,切换大图片*/
+			#li1:target,
+			#li2:target,
+			#li3:target,
+			#li4:target,
+			#li5:target,
+			#li6:target,
+			#li7:target,
+			#li8:target,
+			#li9:target,
+				display: block;
+			}
+			
+			
+		
+		</style>
+<script data-ad-client="ca-pub-8742386847853865" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<noscript></head></noscript>
+
+<body bgcolor="#000000" Scroll=no>
+	
+<div id="QPlayer" style="z-index:99;">
+	<div id="pContent">
+	
+		<div id="player">
+			<span class="cover"></span>
+			<div class="ctrl">
+				<div class="musicTag marquee">
+					<strong>Title</strong>
+					 <span> - </span>
+					<span class="artist">Artist</span>
+				</div>
+				<div class="progress">
+					<div class="timer left">0:00</div>
+					<div class="contr">
+						<div class="rewind icon"></div>
+						<div class="playback icon"></div>
+						<div class="fastforward icon"></div>
+					</div>
+					<div class="right">
+						<div class="liebiao icon"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="ssBtn" style="background:#000 none repeat scroll 0% 0%">
+				<div class="adf"></div>
+		</div>
+	</div>
+	<ol id="playlist"></ol>
+</div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.marquee.min.js"></script>
+
+<script type="text/javascript">
+var	playlist = [
+{title:"洋澜一 艾可儿-我用自己的方式爱你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link1",cover:"./t.png",},
+{title:"洋澜一 艾可儿-悟了繁华悟了你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link2",cover:"./t.png",},
+{title:"洋澜一 陈柏曦-离别的秋天 (国粤语版)",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link3",cover:"./t.png",},
+{title:"洋澜一 侯泽润-敬往事一杯",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link4",cover:"./t.png",},
+{title:"洋澜一 励志豪-风吹散眼泪 (国粤对唱版)",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link5",cover:"./t.png",},
+{title:"洋澜一 励志豪-下辈子也要找到你 (国粤语版)",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link6",cover:"./t.png",},
+{title:"洋澜一 亮声open-离别的秋天 (国粤语版)",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link7",cover:"./t.png",},
+{title:"洋澜一 清唯-凌晨的路灯陪我回家",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link8",cover:"./t.png",},
+{title:"洋澜一 田园-见一面少一面 (合唱版)",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link9",cover:"./t.png",},
+{title:"洋澜一 艺涛-听说你在远方",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link10",cover:"./t.png",},
+{title:"洋澜一-阿楚姑娘",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link11",cover:"./t.png",},
+{title:"洋澜一-爱不爱的我都不爱了",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link12",cover:"./t.png",},
+{title:"洋澜一-爱不同不相为谋",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link13",cover:"./t.png",},
+{title:"洋澜一-爱到全心全意",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link14",cover:"./t.png",},
+{title:"洋澜一-爱到最后全凭良心",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link15",cover:"./t.png",},
+{title:"洋澜一-爱得糊涂痛得刻骨",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link16",cover:"./t.png",},
+{title:"洋澜一-爱而不得的遗憾",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link17",cover:"./t.png",},
+{title:"洋澜一-爱来爱去一身伤",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link18",cover:"./t.png",},
+{title:"洋澜一-爱你比爱自己多",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link19",cover:"./t.png",},
+{title:"洋澜一-爱你痛那么多",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link20",cover:"./t.png",},
+{title:"洋澜一-爱如风情如云",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link21",cover:"./t.png",},
+{title:"洋澜一-爱似水仙",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link22",cover:"./t.png",},
+{title:"洋澜一-爱她还来折磨我",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link23",cover:"./t.png",},
+{title:"洋澜一-爱我的人和我爱的人",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link24",cover:"./t.png",},
+{title:"洋澜一-爱我还是他",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link25",cover:"./t.png",},
+{title:"洋澜一-爱我是你说的谎",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link26",cover:"./t.png",},
+{title:"洋澜一-爱一程 念一生",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link27",cover:"./t.png",},
+{title:"洋澜一-爱一个人好难",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link28",cover:"./t.png",},
+{title:"洋澜一-爱一阵子疼一辈子",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link29",cover:"./t.png",},
+{title:"洋澜一-爱与不爱又怎样",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link30",cover:"./t.png",},
+{title:"洋澜一-安静做自己",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link31",cover:"./t.png",},
+{title:"洋澜一-把悲伤留给自己",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link32",cover:"./t.png",},
+{title:"洋澜一-半纸情长",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link33",cover:"./t.png",},
+{title:"洋澜一-贝加尔湖畔",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link34",cover:"./t.png",},
+{title:"洋澜一-背着风流泪",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link35",cover:"./t.png",},
+{title:"洋澜一-被爱的人才敢说分手",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link36",cover:"./t.png",},
+{title:"洋澜一-比谁都认真",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link37",cover:"./t.png",},
+{title:"洋澜一-别爱太满",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link38",cover:"./t.png",},
+{title:"洋澜一-别把疼你的人弄丢了",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link39",cover:"./t.png",},
+{title:"洋澜一-别等太久",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link40",cover:"./t.png",},
+{title:"洋澜一-别哭我最爱的人",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link41",cover:"./t.png",},
+{title:"洋澜一-别怕我伤心",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link42",cover:"./t.png",},
+{title:"洋澜一-别让我一个人醉",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link43",cover:"./t.png",},
+{title:"洋澜一-别让昨天的雨淋湿今天的你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link44",cover:"./t.png",},
+{title:"洋澜一-别为难自己",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link45",cover:"./t.png",},
+{title:"洋澜一-别想他",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link46",cover:"./t.png",},
+{title:"洋澜一-别想她",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link47",cover:"./t.png",},
+{title:"洋澜一-卜卦",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link48",cover:"./t.png",},
+{title:"洋澜一-不爱你的人就放手",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link49",cover:"./t.png",},
+{title:"洋澜一-不定的风",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link50",cover:"./t.png",},
+{title:"洋澜一-不甘",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link51",cover:"./t.png",},
+{title:"洋澜一-不值得",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link52",cover:"./t.png",},
+{title:"洋澜一-苍天不解人间情",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link53",cover:"./t.png",},
+{title:"洋澜一-曾经心痛",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link54",cover:"./t.png",},
+{title:"洋澜一-曾说过陪我到老的人",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link55",cover:"./t.png",},
+{title:"洋澜一-禅韵",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link56",cover:"./t.png",},
+{title:"洋澜一-潮湿的心",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link57",cover:"./t.png",},
+{title:"洋澜一-沉入没有你的孤岛",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link58",cover:"./t.png",},
+{title:"洋澜一-痴情换来我伤心",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link59",cover:"./t.png",},
+{title:"洋澜一-迟来的爱",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link60",cover:"./t.png",},
+{title:"洋澜一-丑小鸭做了场白天鹅的梦",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link61",cover:"./t.png",},
+{title:"洋澜一-出卖",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link62",cover:"./t.png",},
+{title:"洋澜一-出现在梦里的人",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link63",cover:"./t.png",},
+{title:"洋澜一-除了梦里再没见过你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link64",cover:"./t.png",},
+{title:"洋澜一-穿越人海拥抱你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link65",cover:"./t.png",},
+{title:"洋澜一-此生无憾",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link66",cover:"./t.png",},
+{title:"洋澜一-赐伤",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link67",cover:"./t.png",},
+{title:"洋澜一-赐痛",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link68",cover:"./t.png",},
+{title:"洋澜一-赐我平身",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link69",cover:"./t.png",},
+{title:"洋澜一-从此一个人过",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link70",cover:"./t.png",},
+{title:"洋澜一-从前说",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link71",cover:"./t.png",},
+{title:"洋澜一-错",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link72",cover:"./t.png",},
+{title:"洋澜一-错过的爱",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link73",cover:"./t.png",},
+{title:"洋澜一-大风吹倒梧桐树",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link74",cover:"./t.png",},
+{title:"洋澜一-大山里的孩子",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link75",cover:"./t.png",},
+{title:"洋澜一-带不走四季的风",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link76",cover:"./t.png",},
+{title:"洋澜一-单身情歌",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link77",cover:"./t.png",},
+{title:"洋澜一-当爱恨成过往",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link78",cover:"./t.png",},
+{title:"洋澜一-当爱在靠近",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link79",cover:"./t.png",},
+{title:"洋澜一-到底错在哪里",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link80",cover:"./t.png",},
+{title:"洋澜一-冬起心凉",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link81",cover:"./t.png",},
+{title:"洋澜一-冬天的秘密",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link82",cover:"./t.png",},
+{title:"洋澜一-冬雪飘落",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link83",cover:"./t.png",},
+{title:"洋澜一-懂事的人总被伤的深",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link84",cover:"./t.png",},
+{title:"洋澜一-动了情伤了心",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link85",cover:"./t.png",},
+{title:"洋澜一-都是我自己的",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link86",cover:"./t.png",},
+{title:"洋澜一-独角戏",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link87",cover:"./t.png",},
+{title:"洋澜一-独饮红尘一杯酒",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link88",cover:"./t.png",},
+{title:"洋澜一-对等关系",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link89",cover:"./t.png",},
+{title:"洋澜一-对你做个收尾",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link90",cover:"./t.png",},
+{title:"洋澜一-多薄的情多深的债",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link91",cover:"./t.png",},
+{title:"洋澜一-多久不见",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link92",cover:"./t.png",},
+{title:"洋澜一-多年以前",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link93",cover:"./t.png",},
+{title:"洋澜一-多想再爱一回",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link94",cover:"./t.png",},
+{title:"洋澜一-多余的温柔",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link95",cover:"./t.png",},
+{title:"洋澜一-多余的眼泪",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link96",cover:"./t.png",},
+{title:"洋澜一-发错誓爱错人",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link97",cover:"./t.png",},
+{title:"洋澜一-凡人不想平凡",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link98",cover:"./t.png",},
+{title:"洋澜一-犯痴",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link99",cover:"./t.png",},
+{title:"洋澜一-放下所有求你回来",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link100",cover:"./t.png",},
+{title:"洋澜一-飞蛾扑火",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link101",cover:"./t.png",},
+{title:"洋澜一-分飞",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link102",cover:"./t.png",},
+{title:"洋澜一-分手",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link103",cover:"./t.png",},
+{title:"洋澜一-分手就分手",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link104",cover:"./t.png",},
+{title:"洋澜一-风吹的沙砾",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link105",cover:"./t.png",},
+{title:"洋澜一-风吹散眼泪",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link106",cover:"./t.png",},
+{title:"洋澜一-风吹雪花片片落",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link107",cover:"./t.png",},
+{title:"洋澜一-风的尽头是风",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link108",cover:"./t.png",},
+{title:"洋澜一-风的忧伤只有云知道",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link109",cover:"./t.png",},
+{title:"洋澜一-风没吹过你没来过",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link110",cover:"./t.png",},
+{title:"洋澜一-风中的遗憾",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link111",cover:"./t.png",},
+{title:"洋澜一-感性的女人伤的真",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link112",cover:"./t.png",},
+{title:"洋澜一-搁浅的鱼",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link113",cover:"./t.png",},
+{title:"洋澜一-各自好过",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link114",cover:"./t.png",},
+{title:"洋澜一-孤独的罪名",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link115",cover:"./t.png",},
+{title:"洋澜一-故乡下雪了",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link116",cover:"./t.png",},
+{title:"洋澜一-归来不问归期",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link117",cover:"./t.png",},
+{title:"洋澜一-滚滚红尘",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link118",cover:"./t.png",},
+{title:"洋澜一-过火",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link119",cover:"./t.png",},
+{title:"洋澜一-过路的晚风",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link120",cover:"./t.png",},
+{title:"洋澜一-过往",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link121",cover:"./t.png",},
+{title:"洋澜一-还不完的债",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link122",cover:"./t.png",},
+{title:"洋澜一-还岁月温柔",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link123",cover:"./t.png",},
+{title:"洋澜一-海与天",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link124",cover:"./t.png",},
+{title:"洋澜一-寒风对雪花的思恋",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link125",cover:"./t.png",},
+{title:"洋澜一-喝酒不敢醉",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link126",cover:"./t.png",},
+{title:"洋澜一-红豆",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link127",cover:"./t.png",},
+{title:"洋澜一-后海酒吧",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link128",cover:"./t.png",},
+{title:"洋澜一-后来",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link129",cover:"./t.png",},
+{title:"洋澜一-后来的你在哪",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link130",cover:"./t.png",},
+{title:"洋澜一-后来你娶的人",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link131",cover:"./t.png",},
+{title:"洋澜一-后来我试着不爱你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link132",cover:"./t.png",},
+{title:"洋澜一-花会沿途盛开",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link133",cover:"./t.png",},
+{title:"洋澜一-化风行万里",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link134",cover:"./t.png",},
+{title:"洋澜一-画你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link135",cover:"./t.png",},
+{title:"洋澜一-换了校服等不来婚纱",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link136",cover:"./t.png",},
+{title:"洋澜一-黄昏",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link137",cover:"./t.png",},
+{title:"洋澜一-回忆是解药也是毒方",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link138",cover:"./t.png",},
+{title:"洋澜一-婚纱和你都是梦",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link139",cover:"./t.png",},
+{title:"洋澜一-活得不容易",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link140",cover:"./t.png",},
+{title:"洋澜一-寂寞的人喝不醉",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link141",cover:"./t.png",},
+{title:"洋澜一-见一面少一面",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link142",cover:"./t.png",},
+{title:"洋澜一-江南的风吹落江北的雨",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link143",cover:"./t.png",},
+{title:"洋澜一-劫后余生",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link144",cover:"./t.png",},
+{title:"洋澜一-杰作",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link145",cover:"./t.png",},
+{title:"洋澜一-戒了想你戒了难过",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link146",cover:"./t.png",},
+{title:"洋澜一-今生最爱",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link147",cover:"./t.png",},
+{title:"洋澜一-今天",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link148",cover:"./t.png",},
+{title:"洋澜一-今夜风悠悠",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link149",cover:"./t.png",},
+{title:"洋澜一-仅此一年我判若两人",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link150",cover:"./t.png",},
+{title:"洋澜一-敬不到来日方长",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link151",cover:"./t.png",},
+{title:"洋澜一-敬那段难忘的时光",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link152",cover:"./t.png",},
+{title:"洋澜一-敬往事一杯",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link153",cover:"./t.png",},
+{title:"洋澜一-九十九朵玫瑰",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link154",cover:"./t.png",},
+{title:"洋澜一-九十九个回忆",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link155",cover:"./t.png",},
+{title:"洋澜一-旧情难却",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link156",cover:"./t.png",},
+{title:"洋澜一-君向南方我向北",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link157",cover:"./t.png",},
+{title:"洋澜一-看见繁花",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link158",cover:"./t.png",},
+{title:"洋澜一-看透爱情看透你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link159",cover:"./t.png",},
+{title:"洋澜一-可惜我不是风",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link160",cover:"./t.png",},
+{title:"洋澜一-空荡的酒杯",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link161",cover:"./t.png",},
+{title:"洋澜一-孔融让梨",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link162",cover:"./t.png",},
+{title:"洋澜一-哭砂",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link163",cover:"./t.png",},
+{title:"洋澜一-快乐是一种假笑",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link164",cover:"./t.png",},
+{title:"洋澜一-来人间走个过场",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link165",cover:"./t.png",},
+{title:"洋澜一-蓝眼泪",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link166",cover:"./t.png",},
+{title:"洋澜一-类似爱情",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link167",cover:"./t.png",},
+{title:"洋澜一-冷风心里吹",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link168",cover:"./t.png",},
+{title:"洋澜一-离别的秋天",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link169",cover:"./t.png",},
+{title:"洋澜一-连同青春输给他",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link170",cover:"./t.png",},
+{title:"洋澜一-凉意",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link171",cover:"./t.png",},
+{title:"洋澜一-撩夜",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link172",cover:"./t.png",},
+{title:"洋澜一-凌晨零点零分零秒",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link173",cover:"./t.png",},
+{title:"洋澜一-留不住你不如成全你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link174",cover:"./t.png",},
+{title:"洋澜一-流着眼泪抱着你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link175",cover:"./t.png",},
+{title:"洋澜一-落笔都是你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link176",cover:"./t.png",},
+{title:"洋澜一-没爱你的本事",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link177",cover:"./t.png",},
+{title:"洋澜一-没有胆量继续爱",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link178",cover:"./t.png",},
+{title:"洋澜一-没有你的城市还在下雨",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link179",cover:"./t.png",},
+{title:"洋澜一-没有你陪伴真的好孤单",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link180",cover:"./t.png",},
+{title:"洋澜一-没有你我也可以过得好",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link181",cover:"./t.png",},
+{title:"洋澜一-没有人会永远爱你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link182",cover:"./t.png",},
+{title:"洋澜一-梦醒时分",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link183",cover:"./t.png",},
+{title:"洋澜一-面对面晚安",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link184",cover:"./t.png",},
+{title:"洋澜一-明月夜",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link185",cover:"./t.png",},
+{title:"洋澜一-抹去泪水",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link186",cover:"./t.png",},
+{title:"洋澜一-拿什么来骗我",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link187",cover:"./t.png",},
+{title:"洋澜一-你逼我放手",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link188",cover:"./t.png",},
+{title:"洋澜一-你从未真正懂过我的苦",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link189",cover:"./t.png",},
+{title:"洋澜一-你的回忆里是否还有我",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link190",cover:"./t.png",},
+{title:"洋澜一-你换了一种方式伤害我",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link191",cover:"./t.png",},
+{title:"洋澜一-你看啊",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link192",cover:"./t.png",},
+{title:"洋澜一-你看我有几分像从前",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link193",cover:"./t.png",},
+{title:"洋澜一-你来去像阵风",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link194",cover:"./t.png",},
+{title:"洋澜一-你没错",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link195",cover:"./t.png",},
+{title:"洋澜一-你去吧",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link196",cover:"./t.png",},
+{title:"洋澜一-你是藏在我心底的思念",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link197",cover:"./t.png",},
+{title:"洋澜一-你是否已是最好的人",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link198",cover:"./t.png",},
+{title:"洋澜一-你是我不可预约的雪",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link199",cover:"./t.png",},
+{title:"洋澜一-你是我曾经拼了命爱过的人",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link200",cover:"./t.png",},
+{title:"洋澜一-你是我第一眼就喜欢的人",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link201",cover:"./t.png",},
+{title:"洋澜一-你说后来有了她",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link202",cover:"./t.png",},
+{title:"洋澜一-你携风带雨我乱了四季",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link203",cover:"./t.png",},
+{title:"洋澜一-你用背影换自由",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link204",cover:"./t.png",},
+{title:"洋澜一-你用玫瑰刺穿我心窝",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link205",cover:"./t.png",},
+{title:"洋澜一-你有没有真的爱过我",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link206",cover:"./t.png",},
+{title:"洋澜一-你在不在",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link207",cover:"./t.png",},
+{title:"洋澜一-你怎么才出现",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link208",cover:"./t.png",},
+{title:"洋澜一-你怎么舍得我难过",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link209",cover:"./t.png",},
+{title:"洋澜一-你只是",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link210",cover:"./t.png",},
+{title:"洋澜一-你知道不知道",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link211",cover:"./t.png",},
+{title:"洋澜一-逆流成河",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link212",cover:"./t.png",},
+{title:"洋澜一-溺水而亡",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link213",cover:"./t.png",},
+{title:"洋澜一-弄丢了爱笑的自己",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link214",cover:"./t.png",},
+{title:"洋澜一-诺言",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link215",cover:"./t.png",},
+{title:"洋澜一-女人半边天",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link216",cover:"./t.png",},
+{title:"洋澜一-女人的选择",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link217",cover:"./t.png",},
+{title:"洋澜一-陪你吃苦的人是我",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link218",cover:"./t.png",},
+{title:"洋澜一-漂洋过海来看你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link219",cover:"./t.png",},
+{title:"洋澜一-萍聚",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link220",cover:"./t.png",},
+{title:"洋澜一-七情六欲",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link221",cover:"./t.png",},
+{title:"洋澜一-七月七日晴",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link222",cover:"./t.png",},
+{title:"洋澜一-奇迹",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link223",cover:"./t.png",},
+{title:"洋澜一-牵手",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link224",cover:"./t.png",},
+{title:"洋澜一-窃爱",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link225",cover:"./t.png",},
+{title:"洋澜一-亲爱的你过的好吗",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link226",cover:"./t.png",},
+{title:"洋澜一-青春没披上嫁衣",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link227",cover:"./t.png",},
+{title:"洋澜一-青花",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link228",cover:"./t.png",},
+{title:"洋澜一-情话深深浅浅千万遍",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link229",cover:"./t.png",},
+{title:"洋澜一-情难枕",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link230",cover:"./t.png",},
+{title:"洋澜一-情人香",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link231",cover:"./t.png",},
+{title:"洋澜一-情深不换",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link232",cover:"./t.png",},
+{title:"洋澜一-情深不知痛",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link233",cover:"./t.png",},
+{title:"洋澜一-情深能怎样",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link234",cover:"./t.png",},
+{title:"洋澜一-请先说你好",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link235",cover:"./t.png",},
+{title:"洋澜一-秋风吹起",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link236",cover:"./t.png",},
+{title:"洋澜一-秋风经过",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link237",cover:"./t.png",},
+{title:"洋澜一-让我忘记曾经那个你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link238",cover:"./t.png",},
+{title:"洋澜一-人间半途",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link239",cover:"./t.png",},
+{title:"洋澜一-人生无悔",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link240",cover:"./t.png",},
+{title:"洋澜一-容易受伤的女人",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link241",cover:"./t.png",},
+{title:"洋澜一-如果晚风",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link242",cover:"./t.png",},
+{title:"洋澜一-如果有来世",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link243",cover:"./t.png",},
+{title:"洋澜一-如果云知道",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link244",cover:"./t.png",},
+{title:"洋澜一-如果最后不是你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link245",cover:"./t.png",},
+{title:"洋澜一-如你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link246",cover:"./t.png",},
+{title:"洋澜一-若再回头就该天谴",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link247",cover:"./t.png",},
+{title:"洋澜一-三年的结局",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link248",cover:"./t.png",},
+{title:"洋澜一-散心木屋",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link249",cover:"./t.png",},
+{title:"洋澜一-沙漠之花",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link250",cover:"./t.png",},
+{title:"洋澜一-伤疤还没好就忘了疼",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link251",cover:"./t.png",},
+{title:"洋澜一-伤到极致没有泪",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link252",cover:"./t.png",},
+{title:"洋澜一-伤口",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link253",cover:"./t.png",},
+{title:"洋澜一-伤心城市",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link254",cover:"./t.png",},
+{title:"洋澜一-伤心太平洋",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link255",cover:"./t.png",},
+{title:"洋澜一-上了锁的心上了锁的情",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link256",cover:"./t.png",},
+{title:"洋澜一-上你的当",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link257",cover:"./t.png",},
+{title:"洋澜一-深秋夜雨",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link258",cover:"./t.png",},
+{title:"洋澜一-生活",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link259",cover:"./t.png",},
+{title:"洋澜一-盛不盛开都是花",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link260",cover:"./t.png",},
+{title:"洋澜一-盛夏的果实",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link261",cover:"./t.png",},
+{title:"洋澜一-失去爱的城市",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link262",cover:"./t.png",},
+{title:"洋澜一-失声",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link263",cover:"./t.png",},
+{title:"洋澜一-诗酒作人间",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link264",cover:"./t.png",},
+{title:"洋澜一-时光入喉",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link265",cover:"./t.png",},
+{title:"洋澜一-时间你慢些走",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link266",cover:"./t.png",},
+{title:"洋澜一-世间俗人",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link267",cover:"./t.png",},
+{title:"洋澜一-世间所有不及你温柔",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link268",cover:"./t.png",},
+{title:"洋澜一-试图",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link269",cover:"./t.png",},
+{title:"洋澜一-是你狠是我傻",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link270",cover:"./t.png",},
+{title:"洋澜一-是我爱过了头",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link271",cover:"./t.png",},
+{title:"洋澜一-手心的温度",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link272",cover:"./t.png",},
+{title:"洋澜一-输不起的年纪",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link273",cover:"./t.png",},
+{title:"洋澜一-谁",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link274",cover:"./t.png",},
+{title:"洋澜一-谁不是累着痛笑着哭",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link275",cover:"./t.png",},
+{title:"洋澜一-谁懂我心思",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link276",cover:"./t.png",},
+{title:"洋澜一-谁懂这首伤情的歌",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link277",cover:"./t.png",},
+{title:"洋澜一-谁都会",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link278",cover:"./t.png",},
+{title:"洋澜一-谁会懂我",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link279",cover:"./t.png",},
+{title:"洋澜一-说好的不会离开我",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link280",cover:"./t.png",},
+{title:"洋澜一-思念成病",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link281",cover:"./t.png",},
+{title:"洋澜一-思念成沙",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link282",cover:"./t.png",},
+{title:"洋澜一-思念从来没饶过谁",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link283",cover:"./t.png",},
+{title:"洋澜一-思念的弦",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link284",cover:"./t.png",},
+{title:"洋澜一-思念及时雨",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link285",cover:"./t.png",},
+{title:"洋澜一-思念如雪",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link286",cover:"./t.png",},
+{title:"洋澜一-思念像风",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link287",cover:"./t.png",},
+{title:"洋澜一-撕碎一页伤悲",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link288",cover:"./t.png",},
+{title:"洋澜一-岁月刻刀",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link289",cover:"./t.png",},
+{title:"洋澜一-他他他",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link290",cover:"./t.png",},
+{title:"洋澜一-太多",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link291",cover:"./t.png",},
+{title:"洋澜一-太深",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link292",cover:"./t.png",},
+{title:"洋澜一-太委屈 (走心版)",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link293",cover:"./t.png",},
+{title:"洋澜一-太拥挤",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link294",cover:"./t.png",},
+{title:"洋澜一-掏空",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link295",cover:"./t.png",},
+{title:"洋澜一-提笔忘情",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link296",cover:"./t.png",},
+{title:"洋澜一-天际",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link297",cover:"./t.png",},
+{title:"洋澜一-天也不懂情",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link298",cover:"./t.png",},
+{title:"洋澜一-听到你的名字",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link299",cover:"./t.png",},
+{title:"洋澜一-听说当初你找过我",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link300",cover:"./t.png",},
+{title:"洋澜一-听说你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link301",cover:"./t.png",},
+{title:"洋澜一-同床共枕的人",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link302",cover:"./t.png",},
+{title:"洋澜一-同花顺",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link303",cover:"./t.png",},
+{title:"洋澜一-痛彻心扉",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link304",cover:"./t.png",},
+{title:"洋澜一-痛给了我爱给了你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link305",cover:"./t.png",},
+{title:"洋澜一-痛了没人懂哭了没人哄",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link306",cover:"./t.png",},
+{title:"洋澜一-偷偷放下",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link307",cover:"./t.png",},
+{title:"洋澜一-退而求其次",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link308",cover:"./t.png",},
+{title:"洋澜一-晚风",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link309",cover:"./t.png",},
+{title:"洋澜一-晚风吹匆匆追",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link310",cover:"./t.png",},
+{title:"洋澜一-晚风吹散了我们",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link311",cover:"./t.png",},
+{title:"洋澜一-万万千千个思念",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link312",cover:"./t.png",},
+{title:"洋澜一-万物染",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link313",cover:"./t.png",},
+{title:"洋澜一-忘不了的人",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link314",cover:"./t.png",},
+{title:"洋澜一-忘了你是风",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link315",cover:"./t.png",},
+{title:"洋澜一-望故乡",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link316",cover:"./t.png",},
+{title:"洋澜一-为你不远嫁",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link317",cover:"./t.png",},
+{title:"洋澜一-为你祈祷",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link318",cover:"./t.png",},
+{title:"洋澜一-唯独没有心疼我",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link319",cover:"./t.png",},
+{title:"洋澜一-吻别",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link320",cover:"./t.png",},
+{title:"洋澜一-稳稳的幸福",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link321",cover:"./t.png",},
+{title:"洋澜一-问(柔情版)",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link322",cover:"./t.png",},
+{title:"洋澜一-问",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link323",cover:"./t.png",},
+{title:"洋澜一-我把故事酿成酒",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link324",cover:"./t.png",},
+{title:"洋澜一-我曾",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link325",cover:"./t.png",},
+{title:"洋澜一-我曾用心爱着你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link326",cover:"./t.png",},
+{title:"洋澜一-我的好你不要",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link327",cover:"./t.png",},
+{title:"洋澜一-我的吻再吻不到你的唇",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link328",cover:"./t.png",},
+{title:"洋澜一-我感动不了心里装着别人的人",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link329",cover:"./t.png",},
+{title:"洋澜一-我好心疼现在的自己",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link330",cover:"./t.png",},
+{title:"洋澜一-我会等",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link331",cover:"./t.png",},
+{title:"洋澜一-我记得你眼里的依恋",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link332",cover:"./t.png",},
+{title:"洋澜一-我恋的不是冬",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link333",cover:"./t.png",},
+{title:"洋澜一-我留不住要走的风",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link334",cover:"./t.png",},
+{title:"洋澜一-我们到底什么关系",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link335",cover:"./t.png",},
+{title:"洋澜一-我们的爱输给了时光",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link336",cover:"./t.png",},
+{title:"洋澜一-我们的以后没有以后",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link337",cover:"./t.png",},
+{title:"洋澜一-我们还能不能走一趟",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link338",cover:"./t.png",},
+{title:"洋澜一-我们好久不见",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link339",cover:"./t.png",},
+{title:"洋澜一-我怕你对我好",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link340",cover:"./t.png",},
+{title:"洋澜一-我怕我爱了没结果",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link341",cover:"./t.png",},
+{title:"洋澜一-我骗不了自己",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link342",cover:"./t.png",},
+{title:"洋澜一-我是不是你最疼爱的人",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link343",cover:"./t.png",},
+{title:"洋澜一-我是真的爱上你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link344",cover:"./t.png",},
+{title:"洋澜一-我太笨",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link345",cover:"./t.png",},
+{title:"洋澜一-我希望",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link346",cover:"./t.png",},
+{title:"洋澜一-我笑着看你说谎",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link347",cover:"./t.png",},
+{title:"洋澜一-我养的人和养我的人",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link348",cover:"./t.png",},
+{title:"洋澜一-我也不想这样",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link349",cover:"./t.png",},
+{title:"洋澜一-我也配",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link350",cover:"./t.png",},
+{title:"洋澜一-我以为",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link351",cover:"./t.png",},
+{title:"洋澜一-我饮红尘一壶酒",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link352",cover:"./t.png",},
+{title:"洋澜一-我用一生换你一程",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link353",cover:"./t.png",},
+{title:"洋澜一-我用自己的方式爱你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link354",cover:"./t.png",},
+{title:"洋澜一-我愿心上花开",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link355",cover:"./t.png",},
+{title:"洋澜一-我走过一万年才和你遇见",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link356",cover:"./t.png",},
+{title:"洋澜一-乌兰巴托的夜",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link357",cover:"./t.png",},
+{title:"洋澜一-无常",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link358",cover:"./t.png",},
+{title:"洋澜一-无悔爱过这一回",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link359",cover:"./t.png",},
+{title:"洋澜一-无邪",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link360",cover:"./t.png",},
+{title:"洋澜一-午夜流浪的姑娘",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link361",cover:"./t.png",},
+{title:"洋澜一-悟了繁华误了你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link362",cover:"./t.png",},
+{title:"洋澜一-下辈子的誓言",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link363",cover:"./t.png",},
+{title:"洋澜一-下辈子也要找到你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link364",cover:"./t.png",},
+{title:"洋澜一-下完这场雨",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link365",cover:"./t.png",},
+{title:"洋澜一-下一站再见",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link366",cover:"./t.png",},
+{title:"洋澜一-先说爱先离开",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link367",cover:"./t.png",},
+{title:"洋澜一-相思债爱情海",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link368",cover:"./t.png",},
+{title:"洋澜一-想嫁的人结了婚",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link369",cover:"./t.png",},
+{title:"洋澜一-想念不相见",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link370",cover:"./t.png",},
+{title:"洋澜一-想让自己醉一回",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link371",cover:"./t.png",},
+{title:"洋澜一-想忘忘不得",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link372",cover:"./t.png",},
+{title:"洋澜一-小小的太阳",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link373",cover:"./t.png",},
+{title:"洋澜一-写满遗憾的日记",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link374",cover:"./t.png",},
+{title:"洋澜一-谢谢你的爱",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link375",cover:"./t.png",},
+{title:"洋澜一-心甘情愿的俘虏",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link376",cover:"./t.png",},
+{title:"洋澜一-心事故事往事",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link377",cover:"./t.png",},
+{title:"洋澜一-心碎的滋味我不想体会",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link378",cover:"./t.png",},
+{title:"洋澜一-心要让你听见",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link379",cover:"./t.png",},
+{title:"洋澜一-新一曲红尘",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link380",cover:"./t.png",},
+{title:"洋澜一-星语心愿",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link381",cover:"./t.png",},
+{title:"洋澜一-醒不来的梦",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link382",cover:"./t.png",},
+{title:"洋澜一-醒过来的梦",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link383",cover:"./t.png",},
+{title:"洋澜一-虚拟",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link384",cover:"./t.png",},
+{title:"洋澜一-学着遗忘",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link385",cover:"./t.png",},
+{title:"洋澜一-雪化云开",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link386",cover:"./t.png",},
+{title:"洋澜一-雪上的誓言留不到春天",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link387",cover:"./t.png",},
+{title:"洋澜一-烟雨唱扬州",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link388",cover:"./t.png",},
+{title:"洋澜一-眼泪不会撒谎",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link389",cover:"./t.png",},
+{title:"洋澜一-眼中有泪心中有你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link390",cover:"./t.png",},
+{title:"洋澜一-也许",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link391",cover:"./t.png",},
+{title:"洋澜一-野花",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link392",cover:"./t.png",},
+{title:"洋澜一-夜色浓",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link393",cover:"./t.png",},
+{title:"洋澜一-夜愿",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link394",cover:"./t.png",},
+{title:"洋澜一-一百个放心",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link395",cover:"./t.png",},
+{title:"洋澜一-一半心酸一半遗憾",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link396",cover:"./t.png",},
+{title:"洋澜一-一步之遥",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link397",cover:"./t.png",},
+{title:"洋澜一-一定要爱你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link398",cover:"./t.png",},
+{title:"洋澜一-一念而已",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link399",cover:"./t.png",},
+{title:"洋澜一-一生有你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link400",cover:"./t.png",},
+{title:"洋澜一-一直有花开",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link401",cover:"./t.png",},
+{title:"洋澜一-一字一句读懂我",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link402",cover:"./t.png",},
+{title:"洋澜一-遗憾",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link403",cover:"./t.png",},
+{title:"洋澜一-遗憾的过客",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link404",cover:"./t.png",},
+{title:"洋澜一-以后的以后",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link405",cover:"./t.png",},
+{title:"洋澜一-忆爱",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link406",cover:"./t.png",},
+{title:"洋澜一-拥抱你离去",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link407",cover:"./t.png",},
+{title:"洋澜一-永远希望你过得比我好",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link408",cover:"./t.png",},
+{title:"洋澜一-用余生忘记你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link409",cover:"./t.png",},
+{title:"洋澜一-有爱就不怕",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link410",cover:"./t.png",},
+{title:"洋澜一-有的人再也见不到",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link411",cover:"./t.png",},
+{title:"洋澜一-有多少爱可以重来",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link412",cover:"./t.png",},
+{title:"洋澜一-有你爱我一生该多好",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link413",cover:"./t.png",},
+{title:"洋澜一-有情变无情",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link414",cover:"./t.png",},
+{title:"洋澜一-有些人",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link415",cover:"./t.png",},
+{title:"洋澜一-有一种遗憾叫我们",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link416",cover:"./t.png",},
+{title:"洋澜一-有种遗憾叫有缘无份",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link417",cover:"./t.png",},
+{title:"洋澜一-余情若未了",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link418",cover:"./t.png",},
+{title:"洋澜一-余生不必指教",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link419",cover:"./t.png",},
+{title:"洋澜一-余生不打扰",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link420",cover:"./t.png",},
+{title:"洋澜一-余生还长",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link421",cover:"./t.png",},
+{title:"洋澜一-雨蝶",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link422",cover:"./t.png",},
+{title:"洋澜一-遇见花",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link423",cover:"./t.png",},
+{title:"洋澜一-原来你只是一个过客",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link424",cover:"./t.png",},
+{title:"洋澜一-远走高飞",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link425",cover:"./t.png",},
+{title:"洋澜一-怨苍天变了心",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link426",cover:"./t.png",},
+{title:"洋澜一-愿你我皆安好",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link427",cover:"./t.png",},
+{title:"洋澜一-愿你眼里永远有光",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link428",cover:"./t.png",},
+{title:"洋澜一-约定",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link429",cover:"./t.png",},
+{title:"洋澜一-月光落寒霜",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link430",cover:"./t.png",},
+{title:"洋澜一-月亮变了我不变",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link431",cover:"./t.png",},
+{title:"洋澜一-月亮不该出现在深夜",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link432",cover:"./t.png",},
+{title:"洋澜一-再回首",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link433",cover:"./t.png",},
+{title:"洋澜一-再见吧我最爱的你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link434",cover:"./t.png",},
+{title:"洋澜一-再没有流泪的人",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link435",cover:"./t.png",},
+{title:"洋澜一-再三保证",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link436",cover:"./t.png",},
+{title:"洋澜一-再遇只是人海",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link437",cover:"./t.png",},
+{title:"洋澜一-早已不顺路",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link438",cover:"./t.png",},
+{title:"洋澜一-怎会有人知你的苦",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link439",cover:"./t.png",},
+{title:"洋澜一-找一个字代替",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link440",cover:"./t.png",},
+{title:"洋澜一-这个被遗忘的人",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link441",cover:"./t.png",},
+{title:"洋澜一-这个年代",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link442",cover:"./t.png",},
+{title:"洋澜一-珍惜眼前人",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link443",cover:"./t.png",},
+{title:"洋澜一-挣脱月老的线",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link444",cover:"./t.png",},
+{title:"洋澜一-只是时间不凑巧",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link445",cover:"./t.png",},
+{title:"洋澜一-只是说着放下",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link446",cover:"./t.png",},
+{title:"洋澜一-只要你还需要我",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link447",cover:"./t.png",},
+{title:"洋澜一-只有我失眠的晚上",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link448",cover:"./t.png",},
+{title:"洋澜一-至少还有你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link449",cover:"./t.png",},
+{title:"洋澜一-致独一无二的你",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link450",cover:"./t.png",},
+{title:"洋澜一-竹马戏",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link451",cover:"./t.png",},
+{title:"洋澜一-祝我们各自安好",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link452",cover:"./t.png",},
+{title:"洋澜一-祝我们余生皆幸福",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link453",cover:"./t.png",},
+{title:"洋澜一-转弯",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link454",cover:"./t.png",},
+{title:"洋澜一-装大人的小孩",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link455",cover:"./t.png",},
+{title:"洋澜一-追梦人",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link456",cover:"./t.png",},
+{title:"洋澜一-总会有人",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link457",cover:"./t.png",},
+{title:"洋澜一-总以为来日方长",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link458",cover:"./t.png",},
+{title:"洋澜一-最害怕",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link459",cover:"./t.png",},
+{title:"洋澜一-最后才明白",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link460",cover:"./t.png",},
+{title:"洋澜一-最后一次",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link461",cover:"./t.png",},
+{title:"洋澜一-最后一次的温柔",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link462",cover:"./t.png",},
+{title:"洋澜一-最美的情缘",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link463",cover:"./t.png",},
+{title:"洋澜一-最痛的礼物",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link464",cover:"./t.png",},
+{title:"洋澜一-最远的你是我最近的爱",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link465",cover:"./t.png",},
+{title:"洋澜一-醉过方知酒浓",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link466",cover:"./t.png",},
+{title:"洋澜一-座位",artist:"",mp3:"https://api.rryyz.com/api-music/yanglanyi.php?link=link467",cover:"./t.png",},
+
+];
+  var isRotate = true;
+  var autoplay = false;
+</script>
+<script src="js/player.js"></script>
+<script>
+
+function bgChange(){
+	var lis= $('.lib');
+	for(var i=0; i<lis.length; i+=2)
+	lis[i].style.background = 'rgba(246, 246, 246, 0.7)';
+}
+window.onload = bgChange;
+</script>
+
+
+
+		<div class="box" style="z-index:1;">
+			<ul class="content">
+				<li id="li1"></li>
+				<li id="li2"></li>
+				<li id="li3"></li>
+				<li id="li4"></li>
+				<li id="li5"></li>
+				<li id="li6"></li>
+				<li id="li7"></li>
+				<li id="li8"></li>
+				<li id="li9"></li>
+			</ul>
+		</div>
+
+<!-- 代码 开始 -->
+<div class="fish" style="position:absolute; width:1350px; height:500px; z-index:1; left: 20px; top: 40px;backgroud-color:000;">
+<table>
+	
+	<!-- 第1行 -->
+    <tr>
+     <td align="center" width="60"><a href="https://pan.111.gs" target="_blank"><img name="folder" src="./computer/folder.gif" width="50" height="50" border="0" id="index_r2_c2" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="https://111.gs/photo/" target="_blank"><img name="pictures" src="./computer/pictures.gif" width="50" height="50" border="0" id="index_r2_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="https://111.gs/vip/" target="_blank"><img name="vip" src="./computer/vip.gif" width="50" height="50" border="0" id="index_r2_c6" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./ziran.html" target="_blank"><img name="vip" src="./computer/icon-ziran.png" width="50" height="50" border="0" id="index_r2_c6" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+    </tr>
+    <tr>
+     <td align="center" width="60">我的文档</td>
+     <td width="20"></td>
+     <td align="center" width="60">我的相册</td>
+     <td width="20"></td>
+     <td align="center" width="60">视频解析</td>
+     <td width="20"></td>
+     <td align="center" width="60">自然之声</td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+    </tr>
+    <tr>
+     <td>&nbsp;</td>
+    </tr>
+    
+<!-- 第2行 -->   
+    <tr>
+     <td align="center" width="60"><a href="https://yun.rryyz.com" target="_blank"><img name="computer" src="./computer/computer.gif" width="50" height="50" border="0" id="index_r5_c2" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./china.html"><img name="poem" src="./computer/zyxyy.gif" width="50" height="50" border="0" id="index_r5_c6" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./chun.html"><img name="music" src="./computer/lxyy.gif" width="50" height="50" border="0" id="index_r11_c2" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./zyx.html"><img name="music" src="./computer/icon-zyx.gif" width="50" height="50" border="0" id="index_r11_c2" alt="" /></a></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+    </tr>
+    <tr>
+     <td align="center" width="60">我的电脑</td>
+     <td width="20"></td>
+     <td align="center" width="60">国语精选</td>
+     <td width="20"></td>
+     <td align="center" width="60">纯音乐</td>
+     <td width="20"></td>
+     <td align="center" width="60">治愈系舒缓音乐</td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+    </tr>
+    <tr>
+     <td>&nbsp;</td>
+    </tr>
+    
+<!-- 第3行 -->
+    <tr>
+     <td align="center" width="60"><a href="https://111.gs/wuxia/" target="_blank"><img name="wuxia" src="./computer/wuxia.gif" width="50" height="50" border="0" id="index_r8_c6" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./usa.html"><img name="down" src="./computer/log.png" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./india.html"><img name="down" src="./computer/wmcyy.gif" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./zhoushen.html"><img name="down" src="./computer/icon-zhou.png" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+    </tr>
+    <tr>
+     <td align="center" width="60">武侠小说</td>
+     <td width="20"></td>
+     <td align="center" width="60">欧美音乐</td>
+     <td width="20"></td>
+     <td align="center" width="60">印度音乐</td>
+     <td width="20"></td>
+     <td align="center" width="60">周深</td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+    </tr>
+    <tr>
+     <td>&nbsp;</td>
+    </tr>
+    
+<!-- 第4行 -->
+    <tr>
+     <td align="center" width="60"><a href="https://blog1.hhhnn.com/" target="_blank"><img name="blog" src="./computer/blog.gif" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./japan.html"><img name="share" src="./computer/share.gif" width="50" height="50" border="0" id="index_r5_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./korea.html"><img name="share" src="./computer/zrzs.gif" width="50" height="50" border="0" id="index_r5_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./yanglanyi.html"><img name="share" src="./computer/icon-yang.png" width="50" height="50" border="0" id="index_r5_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+    </tr>
+   <tr>
+    <td align="center" width="60">我的博客</td>
+    <td width="20"></td>
+    <td align="center" width="60">日本音乐</td>
+    <td width="20"></td>
+    <td align="center" width="60">韩国音乐</td>
+    <td width="20"></td>
+    <td align="center" width="60">洋澜一</td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+   </tr>
+   <tr>
+    <td >&nbsp;</td>
+   </tr>
+<!-- 第5行 -->
+    <tr>
+     <td align="center" width="60"><a href="https://111.gs/book/" target="_blank"><img name="mail" src="./computer/poem.gif" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./thai.html"><img name="mail" src="./computer/mi.png" width="50" height="50" border="0" id="index_r11_c4" alt="" /></a></td>
+     <td width="20"></td>
+     <td align="center" width="60"><a href="./qing.html"><img name="mail" src="./computer/qyy.gif" width="50" height="50" border="0" id="index_r11_c4" alt="" /></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+     <td align="center" width="60"></td>
+     <td width="20"></td>
+    </tr>
+   <tr>
+    <td align="center" width="60">古典诗词</td>
+    <td width="20"></td>
+    <td align="center" width="60">泰国音乐</td>
+    <td width="20"></td>
+    <td align="center" width="60">唯美纯音乐</td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+    <td align="center" width="60"></td>
+    <td width="20"></td>
+   </tr>
+   <tr>
+    <td >&nbsp;</td>
+   </tr>
+
+  </table>
+</div>
+
+
+<!-- 动态图 -->
+<div  style="position:absolute; width:581px; height:371px; z-index:1; left: 839px; top: 248px;backgroud-color:000;">
+<img src="./images/fish.gif" width="581" height="371" border="0" alt="">
+</div>
+
+<!-- 底部和按钮 -->
+<div  style="position:relative; width:100%; height:39; z-index:1; left:0px; bottom: 39px;">
+ <table style="border-collapse:collapse;width:100%; height:39;">
+ 	<tr>
+ 	 <td align="left"><img src="./images/bottom-left.jpg" width="109" height="39" border="0"></td>
+	 <td align="center" width="100%" height="39" border="0" background="./images/bottom-center.jpg"></td>
+   <td align="right"><img src="./images/bottom-right.jpg" width="273" height="39" border="0"></td>
+  </tr>
+ </table>
+</div>
+
+<div class="fish" style="position:absolute; width:50; height:50; z-index:1; left: 0px; bottom: -3px;backgroud-color:000;">
+<table>
+	<tr>
+		<td><a href="http://my.2345.ltd/" target="_blank"><img src="./computer/space.gif" width="40" height="50" border="0" alt=""></a></td>
+		<td width="20">&nbsp;</td>
+		<td><a href="http://cloud.2345.ltd/" target="_blank"><img src="./computer/space.gif" width="40" height="50" border="0" alt=""></a></td>
+		<td width="1050">&nbsp;</td>
+		<td><a href="http://wx.qq.com/?lightbox[iframe]=true&lightbox[width]=800&lightbox[height]=540" class="lightbox"><img src="./computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		<td width="10">&nbsp;</td>
+		<td><a href="http://www.360.cn/" target="_blank"><img src="./computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		<td width="7">&nbsp;</td>
+		<td><a href="http://odj.cc/" target="_blank"><img src="./computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		<td width="6">&nbsp;</td>
+		<td><a href="http://odj.cc/" target="_blank"><img src="./computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		<td width="4">&nbsp;</td>
+		<td><a href="http://odj.cc/" target="_blank"><img src="./computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		
+			
+	</tr>
+</table>
+</div>
+
+
+<div class="fish" style="position:absolute; width:550px; height:20; z-index:1; right: 220px; bottom: -3px;backgroud-color:000;">
+ <table width="550px">
+	<tr>
+		<td align="right" width="100%" height="30px" >
+
+				
+
+		</td>
+  </tr>
+ </table>
+</div>
+
+
+</div>
+<!-- 代码 结束 -->
+	</body>
+
+</html>
