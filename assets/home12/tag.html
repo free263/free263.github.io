@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)https://jm.777171.xyz/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net/">
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net/">
+  <link href="./tag/semantic.min.css" rel="stylesheet">
+  <style>
+    /* 动画效果 - 添加的部分 */
+    .animated {
+        -webkit-animation-duration: 1s;
+        animation-duration: 1s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+    }
+    
+    @-webkit-keyframes fadeInLeft {
+        0% {
+            opacity: 0;
+            -webkit-transform: translateX(-20px);
+            transform: translateX(-20px);
+        }
+        100% {
+            opacity: 1;
+            -webkit-transform: translateX(0);
+            transform: translateX(0);
+        }
+    }
+    
+    @keyframes fadeInLeft {
+        0% {
+            opacity: 0;
+            -webkit-transform: translateX(-20px);
+            -ms-transform: translateX(-20px);
+            transform: translateX(-20px);
+        }
+        100% {
+            opacity: 1;
+            -webkit-transform: translateX(0);
+            -ms-transform: translateX(0);
+            transform: translateX(0);
+        }
+    }
+    
+    .fadeInLeft {
+        -webkit-animation-name: fadeInLeft;
+        animation-name: fadeInLeft;
+    }
+    
+    body,dd,dl,fieldset,form,h1,h2,h3,h4,h5,h6,input,legend,ol,p,select,td,textarea,th,ul{margin:0;padding:0}
+    img{border:0;vertical-align:middle}
+    ul{margin:0;padding:0;border:none;list-style:none;font-size:12px}
+    a{color:#fff;text-decoration:none}
+    body{overflow:hidden;height:100%;font-size:100%;background:url(https://dh.hiir.cn:1112/img/icloud.png) repeat fixed!important;background-attachment:fixed;overflow:hidden;font-family:'Helvetica Neue','Microsoft Yahei',SimHei,sans-serif}
+    #wrap{width:100%;height:100%;margin:0 auto;overflow:hidden}
+    #top{margin-top:3%;width:100%;height:auto} /* 减少顶部间距，为图标区腾出空间 */
+    #main{margin-top:2%} /* 减少主内容区上边距 */
+    #logo{width:240px;margin:0 auto;text-align:center}
+    #logo img{width:141px}
+    #logo h1{color:#fff;text-align:center;text-shadow:0 0 10px #111;font-weight:200;font-size:26px;margin-top:15px}
+    ul li{list-style-type:none;float:left;margin:10px 10px 15px 25px}
+    #app1{display:none}
+    div ul li a,div ul li a strong,ul li{display:block;width:128px}
+    div ul li a:visited,ul li a:active,ul li a:link{text-decoration:none}
+    ul li a strong{height:32px;color:#FFF;text-align:center;text-shadow:0 0 10px #111;font-weight:400;font-size:14px;line-height:32px}
+    #footer{width:100%;height:50px;-webkit-font-smoothing:antialiased;text-align:right;font-size:13px;font-weight:400;color:#fff;color:rgba(255,255,255,.8);overflow:visible!important;z-index:10}
+    .footer-contents{position:absolute;bottom:14px;right:10px;left:10px;height:auto;outline:0}
+    .footer-contents .footer-link-separator{background-color:#e6eaed;background-color:rgba(230,234,237,.2);display:inline-block;width:1px;height:10px;vertical-align:baseline}
+    .footer-contents a,.footer-contents a:active,.footer-contents a:focus{text-decoration:none;color:#fff;color:rgba(255,255,255,.8)}
+    .footer-contents a:hover{color:#fff}
+    .coffee_cup{width:20px;height:24px;border:1px rgba(255,255,255,1) solid;border-radius:0 0 5px 5px;position:absolute;margin:36px auto;left:48%;top:45%}
+    .coffee_cup:after,.coffee_cup:before{position:absolute;content:""}
+    .coffee_cup:after{width:5px;height:12px;border:1px #fff solid;border-left:none;border-radius:0 20px 20px 0;left:20px}
+    .coffee_cup:before{width:1px;height:6px;background-color:rgba(255,255,255,1);top:-10px;left:4px;box-shadow:5px 0 0 0 rgba(255,255,255,1),5px -5px 0 0 rgba(255,255,255,1),10px 0 0 0 rgba(255,255,255,1);-webkit-animation:steam 1s linear infinite alternate;-moz-animation:steam 1s linear infinite alternate;animation:steam 1s linear infinite alternate}
+    @-webkit-keyframes steam{0%{height:0}100%{height:6px}}
+    @-moz-keyframes steam{0%{height:0}100%{height:6px}}
+    @keyframes steam{0%{height:0}100%{height:6px}}
+    @keyframes shake-bounce{0%,100%{-webkit-transform:rotate(0);-moz-transform:rotate(0);transform:rotate(0)}25%{-webkit-transform:rotate(15deg);-moz-transform:rotate(15deg);transform:rotate(15deg)}50%{-webkit-transform:rotate(-15deg);-moz-transform:rotate(-15deg);transform:rotate(-15deg)}75%{-webkit-transform:rotate(5deg);-moz-transform:rotate(5deg);transform:rotate(5deg)}85%{-webkit-transform:rotate(-5deg);-moz-transform:rotate(-5deg);transform:rotate(-5deg)}}
+    .shake:hover{-webkit-animation:shake-bounce .5s alternate;-moz-animation:shake-bounce .5s alternate;-o-animation:shake-bounce .5s alternate;animation:shake-bounce .5s alternate}
+    
+    @media screen and (min-width:1200px){#wrap{width:1024px;height:900px}}
+    @media screen and (min-width:960px) and (max-width:1199px){#wrap{width:1024px}}
+    @media screen and (min-width:768px) and (max-width:959px){#wrap{width:750px}}
+    @media only screen and (min-width:480px) and (max-width:767px){.app ul li a img{width:96px;height:96px}div ul li a,div ul li a strong,ul li{display:block;width:96px}}
+    @media only screen and (max-width:479px){.app ul li a img{width:64px;height:64px}div ul li a,ul li{display:block;width:64px}div ul li a strong{width:70px}ul li{list-style-type:none;float:left;margin:0 0 15px 25px}}
+    
+    #title-section {
+      margin-bottom: 20px; /* 减少标题底部间距 */
+    }
+    .inverted.header .content {
+      text-shadow: 0 0 10px #111;
+    }
+    .inverted.header .sub.header {
+      color: rgba(255,255,255,0.8);
+      text-shadow: 0 0 5px #111;
+    }
+    .title-center-container {
+      text-align: center !important;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0 !important;
+      padding-bottom: 0 !important;
+    }
+    .title-center-container .ui.inverted.header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%; /* 添加宽度100%确保在移动端正常显示 */
+    }
+    .title-center-container .ui.inverted.header .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%; /* 添加宽度100% */
+    }
+    .header-no-icon {
+      margin-bottom: 15px; /* 减少标题与内容区的间距 */
+      width: 100%; /* 确保宽度100% */
+    }
+    /* 修改主标题样式 - 加大字号并加粗 */
+    .header-no-icon .content {
+      text-align: center;
+      font-size: 2.2em !important; /* 稍微减小主标题字号 */
+      font-weight: 300 !important; /* 加粗字体 */
+      line-height: 1.1; /* 优化行高 */
+      margin-bottom: 5px; /* 主标题底部间距 */
+      width: 100%; /* 确保宽度100% */
+      letter-spacing: 3px; /* 减小字间距 */
+    }
+    /* 副标题样式 - 保持原有样式 */
+    .header-no-icon .sub.header {
+      margin-top: 10px !important; /* 减少主副标题间距 */
+      font-size: 0.6em !important; /* 稍微减小副标题字号 */
+      color: rgba(255,255,255,0.9);
+      font-weight: 300; /* 使用更细的字重，与主标题形成对比 */
+      line-height: 1.4; /* 优化行高 */
+      width: 100%; /* 确保宽度100% */
+    }
+    
+    /* ============== 正文区（站点图标区域）居中样式 ============== */
+    .app {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 15px 10px; /* 减少内边距，为内容腾出空间 */
+      min-height: 500px; /* 设置最小高度确保有足够空间显示所有图标 */
+    }
+    
+    /* ============== 新增：整体图标区的玻璃磨砂背景框 ============== */
+    .glass-container {
+      width: 98%; /* 增加宽度为98%，留出更多空间 */
+      max-width: 1500px; /* 增加最大宽度 */
+      margin: 0 auto;
+      padding: 20px 20px 30px 20px; /* 恢复原来的内边距 */
+      border-radius: 20px; /* 圆角 */
+      
+      /* 玻璃磨砂效果 */
+      background: rgba(255, 255, 255, 0.15); /* 半透明白色背景 */
+      backdrop-filter: blur(15px); /* 模糊效果 */
+      -webkit-backdrop-filter: blur(15px); /* Safari支持 */
+      
+      /* 边框效果 */
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.2), /* 外层阴影 */
+        inset 0 0 20px rgba(255, 255, 255, 0.1); /* 内发光效果 */
+      
+      /* 确保在Safari等浏览器上的兼容性 */
+      background-clip: padding-box;
+      min-height: 450px; /* 设置最小高度确保能容纳两行图标 */
+    }
+    
+    /* 确保在移动设备上也能正常显示 */
+    @supports not (backdrop-filter: blur(15px)) {
+      .glass-container {
+        background: rgba(255, 255, 255, 0.2); /* 不支持模糊效果时使用更透明的背景 */
+      }
+    }
+    
+    /* ============== 响应式调整玻璃磨砂框 ============== */
+    @media screen and (max-width: 768px) {
+      .glass-container {
+        width: 95%;
+        padding: 20px 15px 30px 15px; /* 恢复原来的内边距 */
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        min-height: 400px; /* 移动端最小高度 */
+      }
+    }
+    
+    @media screen and (max-width: 480px) {
+      .glass-container {
+        width: 96%;
+        padding: 15px 10px 25px 10px; /* 恢复原来的内边距 */
+        border-radius: 12px;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        min-height: 350px;
+      }
+    }
+    
+    /* ============== 图标列表样式调整 ============== */
+    .app ul {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 0 auto;
+      padding: 0;
+      max-width: 1500px; /* 增加最大宽度 */
+      width: 100%;
+    }
+    
+    .app ul li {
+      float: none; /* 移除浮动，使用flex布局 */
+      margin: 12px; /* 稍微减小间距，让更多内容显示 */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-sizing: border-box; /* 确保内边距和边框包含在宽度内 */
+    }
+    
+    /* ============= PC端：大于1024px，一行显示6个 ============= */
+    /* 修改：调整图标尺寸和间距，确保所有内容都能显示 */
+    @media screen and (min-width: 1025px) {
+      .app ul {
+        max-width: 1400px; /* 增加最大宽度 */
+        padding-left: 0; /* 确保左边没有内边距 */
+      }
+      
+      .app ul li {
+        width: calc((100% - 300px) / 6); /* 6个图标，每个图标左右间距共50px */
+        margin: 15px 25px; /* 减小左右间距，增加显示空间 */
+      }
+      
+      /* 图标样式 */
+      .app ul li a img {
+        width: 110px; /* 稍微减小图标尺寸 */
+        height: 110px;
+        transition: transform 0.3s ease; /* 添加悬停动画 */
+      }
+      
+      /* 图标悬停效果 */
+      .app ul li a img:hover {
+        transform: scale(1.1); /* 悬停时稍微放大 */
+        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5)); /* 使用filter实现光晕效果 */
+      }
+      
+      /* 增大站点名称容器 */
+      div ul li a, div ul li a strong, ul li {
+        display: block;
+        width: 150px; /* 调整宽度 */
+      }
+      
+      /* 调整站点名称样式 */
+      ul li a strong {
+        height: 26px; /* 减小高度 */
+        font-size: 13px; /* 减小字体大小 */
+        line-height: 26px;
+        margin-top: 6px; /* 调整图标和文字之间的间距 */
+        width: 100%;
+        color: #fff;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        font-weight: 500;
+      }
+      
+      /* 修改：PC端标题字号加大 */
+      .header-no-icon .content {
+        font-size: 2.8em !important; /* 修改：从2.2em增加到2.8em */
+        font-weight: 400 !important; /* 修改：增加字重 */
+      }
+    }
+
+    /* ============= 大桌面端：大于1200px，一行显示6个 ============= */
+    @media screen and (min-width: 1201px) {
+      .app ul {
+        max-width: 1500px; /* 更大屏幕可以使用更宽的容器 */
+        padding-left: 0; /* 确保左边没有内边距 */
+      }
+      
+      .app ul li {
+        width: calc((100% - 300px) / 6);
+        margin: 20px 25px; /* 保持适当的间距 */
+      }
+      
+      .app ul li a img {
+        width: 120px; /* 更大屏幕可以显示更大图标 */
+        height: 120px;
+      }
+      
+      div ul li a, div ul li a strong, ul li {
+        width: 160px; /* 稍微增加宽度 */
+      }
+      
+      ul li a strong {
+        font-size: 14px;
+        height: 28px;
+        line-height: 28px;
+        margin-top: 8px;
+      }
+      
+      /* 增加玻璃容器的最小高度，确保两行图标能完全显示 */
+      .glass-container {
+        min-height: 500px;
+      }
+    }
+
+    /* 平板端：769px-1024px，一行显示4个 - 保持原有尺寸 */
+    @media screen and (min-width: 769px) and (max-width: 1024px) {
+      /* 修改平板端标题样式 */
+      .header-no-icon .content {
+        font-size: 2.5em !important; /* 稍微减小平板端主标题 */
+      }
+      .header-no-icon .sub.header {
+        font-size: 0.55em !important; /* 平板端副标题 */
+        margin-top: 15px !important;
+      }
+      
+      #top {
+        margin-top: 4% !important; /* 平板设备减少顶部间距 */
+      }
+      
+      .glass-container {
+        width: 95%;
+        padding: 20px 15px 30px 15px; /* 恢复原来的内边距 */
+        min-height: 450px;
+      }
+      
+      .app ul {
+        max-width: 950px; /* 增加平板端宽度 */
+        justify-content: space-between; /* 修改：使用space-between让图标均匀分布 */
+        padding-left: 5px; /* 添加：稍微减小左边内边距 */
+        padding-right: 5px; /* 添加：稍微减小右边内边距 */
+      }
+      
+      .app ul li {
+        width: calc((100% - 120px) / 4); /* 4个图标，调整宽度计算，减小总间距 */
+        margin: 12px 0; /* 修改：移除左右外边距，上下保留12px */
+      }
+      
+      /* 调整第一个图标的左边距 */
+      .app ul li:first-child {
+        margin-left: 5px; /* 修改：第一个图标左边距更小 */
+      }
+      
+      /* 调整最后一个图标的右边距 */
+      .app ul li:last-child {
+        margin-right: 5px; /* 修改：最后一个图标右边距更小 */
+      }
+      
+      .app ul li a img {
+        width: 95px; /* 修改：从90px增加到95px */
+        height: 95px;
+      }
+      
+      .app ul li a img:hover {
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
+      }
+      
+      div ul li a, div ul li a strong, ul li {
+        width: 140px;
+      }
+      
+      ul li a strong {
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        margin-top: 5px;
+      }
+      
+      /* 平板端玻璃容器最小高度 */
+      .glass-container {
+        min-height: 450px;
+      }
+    }
+
+    /* 修改移动端：768px及以下，一行显示4个 - 保持原有尺寸 */
+    @media screen and (max-width: 768px) {
+      .header-no-icon .content {
+        font-size: 2.0em !important; /* 移动端主标题字号 */
+        font-weight: 300 !important;
+        line-height: 1.1;
+      }
+      .header-no-icon .sub.header {
+        font-size: 0.5em !important; /* 移动端副标题字号 */
+        margin-top: 12px !important;
+        line-height: 1.3;
+      }
+      .title-center-container {
+        padding: 0 15px;
+      }
+      #top {
+        margin-top: 8% !important; /* 移动端增加顶部间距 */
+      }
+      
+      #main {
+        margin-top: 5% !important; /* 移动端增加间距 */
+      }
+      
+      .app ul {
+        max-width: 100%;
+        justify-content: space-between; /* 修改：使用space-between让图标均匀分布 */
+        padding-left: 3px; /* 添加：稍微减小左边内边距 */
+        padding-right: 3px; /* 添加：稍微减小右边内边距 */
+      }
+      
+      .app ul li {
+        width: calc((100% - 60px) / 4); /* 4个图标，调整宽度计算，减小总间距 */
+        margin: 8px 0; /* 修改：移除左右外边距，上下保留8px */
+      }
+      
+      /* 调整第一个图标的左边距 */
+      .app ul li:first-child {
+        margin-left: 3px; /* 修改：第一个图标左边距更小 */
+      }
+      
+      /* 调整最后一个图标的右边距 */
+      .app ul li:last-child {
+        margin-right: 3px; /* 修改：最后一个图标右边距更小 */
+      }
+      
+      .app ul li a img {
+        width: 75px; /* 修改：从70px增加到75px */
+        height: 75px;
+      }
+      
+      div ul li a, div ul li a strong, ul li {
+        width: 100px; /* 移动端适当减小 */
+      }
+      
+      ul li a strong {
+        font-size: 11px;
+        height: 22px;
+        line-height: 22px;
+        margin-top: 4px;
+      }
+    }
+
+    /* 修改更小屏幕的响应式调整 */
+    @media screen and (max-width: 480px) {
+      .header-no-icon .content {
+        font-size: 1.7em !important;
+        font-weight: 300 !important;
+      }
+      .header-no-icon .sub.header {
+        font-size: 0.45em !important;
+        margin-top: 10px !important;
+      }
+      #top {
+        margin-top: 10% !important;
+      }
+      
+      #main {
+        margin-top: 8% !important;
+      }
+      
+      .app ul {
+        padding-left: 2px; /* 添加：进一步减小左边内边距 */
+        padding-right: 2px; /* 添加：进一步减小右边内边距 */
+      }
+      
+      .app ul li {
+        width: calc((100% - 40px) / 4); /* 调整：进一步减小总间距 */
+        margin: 6px 0; /* 修改：移除左右外边距，上下保留6px */
+      }
+      
+      /* 调整第一个图标的左边距 */
+      .app ul li:first-child {
+        margin-left: 2px; /* 修改：第一个图标左边距更小 */
+      }
+      
+      /* 调整最后一个图标的右边距 */
+      .app ul li:last-child {
+        margin-right: 2px; /* 修改：最后一个图标右边距更小 */
+      }
+      
+      .app ul li a img {
+        width: 60px; /* 修改：从55px增加到60px */
+        height: 60px;
+      }
+      
+      div ul li a, div ul li a strong, ul li {
+        width: 80px;
+      }
+      
+      ul li a strong {
+        font-size: 10px;
+        height: 20px;
+        line-height: 20px;
+        margin-top: 3px;
+      }
+    }
+
+    /* 修改超小屏幕设备的调整 */
+    @media screen and (max-width: 360px) {
+      .header-no-icon .content {
+        font-size: 1.4em !important;
+        font-weight: 200 !important;
+      }
+      #top {
+        margin-top: 12% !important;
+      }
+      
+      #main {
+        margin-top: 10% !important;
+      }
+      
+      .glass-container {
+        width: 97%;
+        padding: 15px 10px 25px 10px; /* 恢复原来的内边距 */
+        min-height: 350px;
+      }
+      
+      .app ul {
+        padding-left: 1px; /* 添加：进一步减小左边内边距 */
+        padding-right: 1px; /* 添加：进一步减小右边内边距 */
+      }
+      
+      .app ul li {
+        width: calc((100% - 20px) / 4); /* 调整：进一步减小总间距 */
+        margin: 4px 0; /* 修改：移除左右外边距，上下保留4px */
+      }
+      
+      /* 调整第一个图标的左边距 */
+      .app ul li:first-child {
+        margin-left: 1px; /* 修改：第一个图标左边距更小 */
+      }
+      
+      /* 调整最后一个图标的右边距 */
+      .app ul li:last-child {
+        margin-right: 1px; /* 修改：最后一个图标右边距更小 */
+      }
+      
+      .app ul li a img {
+        width: 50px; /* 修改：从45px增加到50px */
+        height: 50px;
+      }
+      
+      div ul li a, div ul li a strong, ul li {
+        width: 65px;
+      }
+      
+      ul li a strong {
+        font-size: 9px;
+        height: 18px;
+        line-height: 18px;
+        margin-top: 2px;
+      }
+    }
+        
+    /* 确保图标容器宽度与搜索框一致 */
+    .app ul {
+      width: 100%;
+    }
+    
+    /* 中等屏幕设备（小桌面）的响应式调整 */
+    @media screen and (min-width: 1025px) and (max-width: 1200px) {
+      .header-no-icon .content {
+        font-size: 2.0em !important; /* 中等屏幕主标题 */
+      }
+      #top {
+        margin-top: 4% !important; /* 中等屏幕设备适当调整顶部间距 */
+      }
+      
+      .glass-container {
+        min-height: 480px; /* 中等屏幕最小高度 */
+      }
+    }
+    
+    /* 特别为矮屏幕设备优化 */
+    @media screen and (max-height: 800px) {
+      #top {
+        margin-top: 2% !important;
+      }
+      
+      #main {
+        margin-top: 1% !important;
+      }
+      
+      .header-no-icon {
+        margin-bottom: 10px !important;
+      }
+      
+      .header-no-icon .content {
+        font-size: 1.8em !important;
+      }
+      
+      .header-no-icon .sub.header {
+        margin-top: 8px !important;
+        font-size: 0.55em !important;
+      }
+      
+      .app {
+        min-height: 400px;
+        padding: 10px 5px;
+      }
+      
+      .glass-container {
+        min-height: 400px;
+        padding: 20px 15px 30px 15px;
+      }
+    }
+    
+  </style>
+  <link data-rh="true" rel="apple-touch-icon" href="https://dh.hiir.cn:1112/img/png/apple-touch-icon1-152.png">
+  <link data-rh="true" rel="apple-touch-icon" href="https://dh.hiir.cn:1112/img/png/apple-touch-icon1-152.png" sizes="152x152">
+  <link data-rh="true" rel="apple-touch-icon" href="https://dh.hiir.cn:1112/img/png/apple-touch-icon1-120.png" sizes="120x120">
+  <link data-rh="true" rel="apple-touch-icon" href="https://dh.hiir.cn:1112/img/png/apple-touch-icon1-76.png" sizes="76x76">
+  <link data-rh="true" rel="apple-touch-icon" href="https://dh.hiir.cn:1112/img/png/apple-touch-icon1-60.png" sizes="60x60">
+  <link crossorigin="" rel="shortcut icon" type="image/x-icon" href="https://dh.hiir.cn:1112/img/png/favicon3.ico">
+  <title>网络书签</title>
+<style type="text/css">.qa-sdk-wrapper {
+  position: fixed;
+  width: 400px;
+  right: -600px;
+  max-height: 530px;
+  overflow: hidden;
+  border-radius: 4px;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.1);
+  transition: all 0.5s ease-in-out;
+  background: #fff;
+}
+
+.qa-sdk-close-btn {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.qa-sdk-close-btn:hover {
+  border-radius: 50%;
+  background-color: #d5d9df;
+}
+
+#qa-sdk-iframe {
+  width: 400px;
+}
+
+@media (min-width: 1024px) and (max-width: 1366px) {
+  .qa-sdk-wrapper{
+    width: 356px;
+  }
+  #qa-sdk-iframe {
+    width: 356px;
+  }
+}
+</style><style id="ai-assist-webType-style">
+    .ai-assist-highlight {
+      background: yellow;
+    }
+    @media print {
+      #ai-assist-root-bangs,
+      #ai-assist-root-bilibili,
+      #ai-assist-root-new {
+        display: none !important;
+      }
+    }
+  </style></head>
+<body>
+  <div id="wrap">
+    <div id="top">
+      <!-- 管理后台链接已移除 -->
+      
+      <div id="title-section">
+        <div class="ui inverted vertical masthead center aligned segment" style="background: transparent; border: none; box-shadow: none; padding-bottom: 0;">
+          <div class="ui text container title-center-container">
+            <h1 class="ui inverted header header-no-icon">
+              <div class="content">
+                网络书签
+                <div class="sub header"></div>
+              </div>
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="main">
+      <div id="app" class="app animated fadeInLeft">
+        <!-- 添加玻璃磨砂背景框 -->
+        <div class="glass-container">
+          <ul>
+            
+              <li>
+                <a href="https://www.hiir.cn:12580/" target="_blank"><img class="shake" src="./tag/blog.png"><strong>我的博客</strong></a>
+              </li>
+            
+              <li>
+                <a href="http://4v4.hiir.cn:5244/" target="_blank"><img class="shake" src="./tag/iCloud-Drive.png"><strong>公子云盘</strong></a>
+              </li>
+            
+              <li>
+                <a href="https://jm.777171.xyz/dh.html" target="_parent"><img class="shake" src="./tag/daohang.png"><strong>常用网址</strong></a>
+              </li>
+            
+              <li>
+                <a href="https://jm.777171.xyz/pt.html" target="_parent"><img class="shake" src="./tag/pt1.png"><strong>PT专区</strong></a>
+              </li>
+            
+              <li>
+                <a href="http://920.hiir.cn:8096/" target="_blank"><img class="shake" src="./tag/emby.png"><strong>emby</strong></a>
+              </li>
+            
+              <li>
+                <a href="http://4v6.hiir.cn:9000/" target="_blank"><img class="shake" src="./tag/jellyfin.png"><strong>jellyfin</strong></a>
+              </li>
+            
+              <li>
+                <a href="http://4v6.hiir.cn:8088/" target="_blank"><img class="shake" src="./tag/qb.png"><strong>QB下载</strong></a>
+              </li>
+            
+              <li>
+                <a href="http://192.168.4.3:3003/" target="_blank"><img class="shake" src="./tag/nastool.png"><strong>NAStools</strong></a>
+              </li>
+            
+              <li>
+                <a href="https://4v6.hiir.cn:5443/" target="_blank"><img class="shake" src="./tag/Photos.png"><strong>私人照片</strong></a>
+              </li>
+            
+              <li>
+                <a href="http://4v4.hiir.cn:11888/" target="_blank"><img class="shake" src="./tag/qd.png"><strong>签到打卡</strong></a>
+              </li>
+            
+              <li>
+                <a href="http://4v4.hiir.cn:10000/" target="_blank"><img class="shake" src="./tag/openwrt.png"><strong>路由管理</strong></a>
+              </li>
+            
+              <li>
+                <a href="https://jm.777171.xyz/yh.html" target="_parent"><img class="shake" src="./tag/bxg.png"><strong>私人文件</strong></a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+      <div style="clear: both;"></div>
+    </div>
+  </div>
+  <div id="footer">
+    <div class="footer-contents">
+      <div class="links">
+        <div class="line">
+          <span class="footer-link-separator"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="copyright">Copyright © 2021 杨公子.</span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://beian.miit.gov.cn/" target="_blank">鄂ICP备2021020263号-1</a></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // 加载动画
+    document.addEventListener('DOMContentLoaded', function() {
+      var _PageHeight = document.documentElement.clientHeight,
+          _PageWidth = document.documentElement.clientWidth;
+      var _LoadingTop = _PageHeight > 100 ? (_PageHeight - 100) / 2 : 0,
+          _LoadingLeft = _PageWidth > 35 ? (_PageWidth - 35) / 2 : 0;
+      
+      var loadingDiv = document.createElement('div');
+      loadingDiv.id = 'loadingDiv';
+      loadingDiv.style.cssText = 'position:absolute;left:0;width:100%;height:' + _PageHeight + 'px;top:0; opacity:0.3; filter: alpha(opacity=30); background-color:#000;z-index:10000;';
+      loadingDiv.innerHTML = '<div class="coffee_cup"></div>';
+      document.body.appendChild(loadingDiv);
+      
+      function completeLoading() {
+        if (document.readyState == "complete") {
+          var loadingMask = document.getElementById('loadingDiv');
+          if (loadingMask && loadingMask.parentNode) {
+            loadingMask.parentNode.removeChild(loadingMask);
+          }
+        }
+      }
+      
+      document.onreadystatechange = completeLoading;
+      if (document.readyState == "complete") {
+        completeLoading();
+      }
+    });
+  </script>
+<script defer="" src="./tag/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;3f9c3ca7665e44baa18e21dc20b75363&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+
+
+ </html>
