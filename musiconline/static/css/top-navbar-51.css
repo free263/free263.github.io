@@ -1,0 +1,144 @@
+/******************************************
+ File Name: top-navbar-5.css 
+ Item Name: My Navbar
+ Created By: Design Collection 
+ Version: 1.1 
+ *******************************************/
+
+
+/** #     [Table of contents]
+            
+            * Body Part
+            # 01  -  Top Navbar
+            # 02  -  Header Image
+            # 03  -  Headding 
+            # 03  -  Title
+            # 03  -  paragraph
+
+        
+        
+                
+            # [Color codes]
+            
+            Top BG :  #000
+            Content : #ffffff (Pure-White), #333
+            Hyper Link :  #007bff (Dodger Blue)
+            
+    
+            
+            **/
+
+
+/* Style Begin */
+
+.navbar-light .navbar-nav .active>.nav-link,
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-nav .nav-link.show,
+.navbar-light .navbar-nav .show>.nav-link {
+  color: #fff!important;
+}
+
+#nav-5 .navbar-light .navbar-nav .nav-link {
+  color: #fff;
+  padding: 0px 5px;
+  font-size: 12px;
+  margin: 9px 8px;
+  font-family: 'Open Sans', sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+#nav-5 a.nav-link:hover {
+  outline: 0;
+  color: #000000 !important;
+  background-color: transparent;
+}
+
+#nav-5 .nav-item {
+  position: relative;
+}
+
+#nav-5 .nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0px;
+  height: 3px;
+  left: 50%;
+  bottom: 0;
+  background-color: #000;
+  transition: all ease-in-out .2s;
+}
+
+#nav-5 .nav-link:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+#nav-5 .fixed-top-scroll {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+  background: rgba(0, 0, 0, 0.3) !important;
+  padding: 10px 0px !important;
+  transition: all 0.6s ease;
+}
+
+#nav-5 .logo {
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: -1px;
+  color: #fff!important;
+  font-family: 'Open Sans', sans-serif;
+  text-transform: capitalize;
+}
+
+#nav-5 .logo .fa-long-arrow-alt-up {
+  height: 18px;
+  line-height: 26px;
+  width: 9px;
+  color: #333;
+  text-align: center;
+  border-radius: 3px;
+  color: #fff;
+}
+
+#nav-5 .logo .fa-long-arrow-alt-down {
+  height: 18px;
+  line-height: 26px;
+  width: 16px;
+  color: #333;
+  text-align: center;
+  border-radius: 3px;
+  color: #fff;
+}
+
+.navbar-expand-lg .navbar-nav .dropdown-menu {
+  position: absolute;
+  top: 40px;
+  box-shadow: none;
+  padding: 4px 0;
+  border-radius: 4px !important;
+  -webkit-animation: dropdownOpen 0.3s ease-out;
+  -o-animation: dropdownOpen 0.3s ease-out;
+  animation: dropdownOpen 0.3s ease-out;
+  border: 0;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
+}
+
+#nav-5 .navbar {
+  position: fixed;
+  width: 100%;
+  padding-top: 30px;
+  transition: padding .5s linear;
+}
+
+#about,
+#home,
+#service,
+#product,
+#Portfolio,
+#contact {
+  padding-top: 150px;
+}

@@ -1,0 +1,275 @@
+	/* Body Class This is demo purpose only */
+	
+	.demo {
+		position: relative;
+		color: #333;
+		font-family: 'Open Sans', sans-serif;
+		line-height: 25px;
+		background: #f0f0f0;
+	}
+	/* Navigation Bar Section */
+	
+	.my-nav .navbar-toggle {
+		background-color: transparent;
+		padding: 6px 15px;
+	}
+	/* Browser Selection */
+	
+	::selection {
+		background: rgba(151, 160, 175, 0.5);
+		color: #ffffff;
+	}
+	::-moz-selection {
+		background: rgba(151, 160, 175, 0.5);
+		color: #ffffff;
+	}
+	/* Hover Effect */
+	
+	a:hover,
+	a:focus,
+	.a:active {
+		text-decoration: none;
+		outline: none !important;
+	}
+	/* Button Style */
+	
+	.my-nav .btn.mnav {
+		border-radius: 2px;
+		padding: 8px 16px;
+		outline: none !important;
+	}
+	.my-nav .btn-sm.mnav {
+		padding: 5px 10px !important;
+	}
+	/* Top Navbar */
+	
+	.my-nav .btn-inverse.mnav {
+		color: #ffffff;
+	}
+	.my-nav .btn-inverse.mnav {
+		background-color: #f0f0f0;
+		border: 1px solid #ccc;
+	}
+	.my-nav .btn-inverse.mnav:hover,
+	.my-nav .btn-inverse.mnav:focus,
+	.my-nav .btn-inverse.mnav:active,
+	.my-nav .btn-inverse.mnav.active,
+	.my-nav .btn-inverse.focus,
+	.my-nav .btn-inverse.mnav:active,
+	.my-nav .btn-inverse.mnav:focus,
+	.btn-inverse.mnav:hover,
+	.my-nav .open > .dropdown-toggle.btn-inverse {
+		background-color: #414a58;
+		border: 1px solid #414a58;
+	}
+	/* Dropdown List */
+	
+	.my-nav .dropdown-menu.mnav {
+		box-shadow: none;
+		padding: 4px 0;
+		border-radius: 4px !important;
+		-webkit-animation: dropdownOpen 0.3s ease-out;
+		-o-animation: dropdownOpen 0.3s ease-out;
+		animation: dropdownOpen 0.3s ease-out;
+		border: 0;
+		box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
+	}
+	/* Dropdown List Link */
+	
+	.my-nav .dropdown-menu.mnav > li > a {
+		padding: 6px 20px;
+		font-size: 15px !important;
+		color: #ffffff;
+		font-family: 'Open Sans', sans-serif;
+	}
+	/* Dropdown Animation Transform */
+	
+	@-webkit-keyframes dropdownOpen {
+		0% {
+			-webkit-transform: scale(0);
+			-ms-transform: scale(0);
+			-o-transform: scale(0);
+			transform: scale(0);
+			opacity: 0;
+		}
+		100% {
+			-webkit-transform: scale(1);
+			-ms-transform: scale(1);
+			-o-transform: scale(1);
+			transform: scale(1);
+			opacity: 1;
+		}
+	}
+	@keyframes dropdownOpen {
+		0% {
+			-webkit-transform: scale(0);
+			-ms-transform: scale(0);
+			-o-transform: scale(0);
+			transform: scale(0);
+			opacity: 0;
+		}
+		100% {
+			-webkit-transform: scale(1);
+			-ms-transform: scale(1);
+			-o-transform: scale(1);
+			transform: scale(1);
+			opacity: 1;
+		}
+	}
+	/* Navbar Custom List */
+	
+	.my-nav .navbar-nav.mnav>li>.dropdown-menu.mnav {
+		margin-top: -5px !important;
+	}
+	.my-nav .navbar-custom.mnav {
+		background-color: #f8f8ff;
+		width: 100%;
+		border-radius: 0px;
+		z-index: 999;
+		padding: 0px;
+		margin-bottom: 0px;
+		-webkit-transition: all 0.5s ease-in-out;
+		-moz-transition: all 0.5s ease-in-out;
+		-o-transition: all 0.5s ease-in-out;
+		transition: all 0.5s ease-in-out;
+		-moz-box-shadow: 0 0 5px #777;
+		-webkit-box-shadow: 0 0 5px #777;
+		box-shadow: 0 0 5px #777;
+	}
+	.my-nav .navbar-custom.mnav .navbar-nav.mnav li a {
+		color: #333;
+		font-size: 15px;
+		margin: 9px 0px;
+		font-family: 'Open Sans', sans-serif;
+	}
+	.my-nav .navbar-custom.mnav .nav>li>a:focus,
+	.my-nav .navbar-custom.mnav .nav.mnav>li>a:hover {
+		background-color: #dfdcdc;
+		-webkit-transition: all 0.5s ease-in-out;
+		-moz-transition: all 0.5s ease-in-out;
+		-o-transition: all 0.5s ease-in-out;
+		transition: all 0.5s ease-in-out;
+	}
+	.my-nav .my-nav.mnav {
+		padding: 4px 15px !important;
+		font-size: 14px !important;
+		margin-top: 9px !important;
+		background-color: transparent !important;
+		border: 2px solid #4C5667 !important;
+		color: #4C5667 !important;
+		border-radius: 5px;
+		font-family: 'Open Sans', sans-serif;
+	}
+	/* Nav Logo */
+	
+	.my-nav .logo.mnav {
+		font-weight: 500;
+		font-size: 22px;
+		color: #374760 !important;
+		letter-spacing: 1px;
+		padding-top: 12px;
+		font-family: 'Open Sans', sans-serif;
+	}
+	/* Nav Logo Icon */
+	
+	.my-nav .logo.mnav i {
+		font-size: 18px;
+		height: 26px;
+		line-height: 26px;
+		width: 26px;
+		color: #333;
+		padding: 0px 8px;
+		text-align: center;
+		border-radius: 3px;
+	}
+	/* Humberger Icon */
+	
+	.my-nav .navbar-toggle.mnav {
+		font-size: 30px;
+		padding: 1px 7px !important;
+		font-family: 'Open Sans', sans-serif;
+	}
+	/* Top Custom Style */
+	
+	.my-nav .navbar-custom.mnav .btn-custom.mnav {
+		margin-top: 8px;
+		margin-left: 20px;
+	}
+	.my-nav .nav.mnav .open>a,
+	.my-nav .nav.mnav .open>a:focus,
+	.my-nav.mnav .nav .open>a:hover {
+		background-color: transparent;
+		border-color: #337ab7;
+	}
+	.my-nav .sticky-wrapper.mnav {
+		position: absolute;
+		width: 100%;
+	}
+	.my-nav .sticky-wrapper.is-sticky .navbar-custom.mnav {
+		padding: 10px 0px !important;
+	}
+	/* Responsive Style */
+	
+	@media (min-width: 768px) {
+		.my-nav .nav-custom-left.mnav {
+			margin-left: 5%;
+		}
+		.my-nav .navbar-nav.mnav>li>a {
+			padding-top: 5px;
+			padding-bottom: 5px;
+		}
+	}
+	@media (max-width: 768px) {
+		.my-nav .navbar-custom.mnav {
+			-moz-box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+			-webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+			box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+		}
+	}
+	@media only screen and (min-width: 768px) and (max-width: 991px) {
+		.my-nav .navbar-custom.mnav .navbar-nav.mnav li a {
+			font-size: 12px;
+			font-family: 'Open Sans', sans-serif;
+		}
+	}
+	/* Content Section */
+	
+	#bsec #home,
+	#bsec #about,
+	#bsec #service,
+	#bsec #product,
+	#bsec #portfolio,
+	#bsec #contact {
+		padding-top: 80px;
+	}
+	/* Horizantal link CSS */
+	
+	#bsec hr {
+		margin-top: 10px !important;
+		margin-bottom: 0px !important;
+		border: 0;
+		border-top: 2px solid #ccc;
+	}
+	/* Heading CSS */
+	
+	#bsec #home h4,
+	#bsec #about h4,
+	#bsec #service h4,
+	#bsec #product h4,
+	#bsec #portfolio h4,
+	#bsec #contact h4 {
+		text-transform: capitalize;
+		font-family: 'Open Sans', sans-serif;
+		font-size: 15px;
+		font-weight: bold;
+		line-height: 25px;
+		color: #696969;
+	}
+	/* Padding Top and Bottom */
+	
+	#bsec .pad-top {
+		padding-top: 50px;
+	}
+	#bsec .pad-bot {
+		padding-bottom: 50px;
+	}

@@ -1,0 +1,168 @@
+	/* Body Class This is demo purpose only */
+	
+	.demo {
+	    position: relative;
+	    color: #333;
+	    font-family: 'Open Sans', sans-serif;
+	    line-height: 25px;
+	    background: #f0f0f0;
+	}
+	/* Top menu */
+	
+	.navbar {
+	    margin-bottom: 0;
+	    background: #333;
+	    border: 0;
+	    -moz-border-radius: 0;
+	    -webkit-border-radius: 0;
+	    border-radius: 0;
+	    font-family: 'Open Sans', sans-serif;
+	}
+	/* Navbar List */
+	ul.navbar-nav {
+	    font-size: 18px;
+	    color: #fff;
+	    line-height: 32px;
+	    font-family: 'Open Sans', sans-serif;
+	}
+	/* Navbar List Link */
+	ul.navbar-nav li a {
+	    padding-top: 15px;
+	    padding-bottom: 15px;
+	    background: #333;
+	    color: #fff;
+	    font-size: 15px;
+	    font-family: 'Open Sans', sans-serif;
+	}
+	/* Hover list */
+	ul.navbar-nav li a:hover {
+	    background: #333;
+	    color: #ffff00;
+	}
+	ul.navbar-nav li a:focus {
+	    background: #333;
+	    color: #fff;
+	    outline: 0;
+	}
+	.nav .open > a,
+	.nav .open > a:hover,
+	.nav .open > a:focus {
+	    background: #333;
+	}
+	/* Navbar Dropdown List */
+	.dropdown-menu {
+	    background: #333;
+	    border: 0;
+	    -moz-border-radius: 0;
+	    -webkit-border-radius: 0;
+	    border-radius: 0;
+	    -moz-box-shadow: 0 6px 10px rgba(0, 0, 0, .15);
+	    -webkit-box-shadow: 0 6px 10px rgba(0, 0, 0, .15);
+	    box-shadow: 0 6px 10px rgba(0, 0, 0, .15);
+	    -o-transition: all .5s;
+	    -moz-transition: all .5s;
+	    -webkit-transition: all .5s;
+	    -ms-transition: all .5s;
+	    transition: all .5s;
+	    font-family: 'Open Sans', sans-serif;
+	    border-bottom: 2px solid #ffff00;
+	}
+	/* Dropdown Color */
+	li.dropdown.open ul li:hover {
+	    background: #2781ba;
+	}
+	/* Padding List */
+	ul.navbar-nav li .dropdown-menu a {
+	    padding-top: 10px;
+	    padding-bottom: 10px;
+	    font-size: 14px;
+	    line-height: 20px;
+	}
+	/* Navbar Brand Style */
+	.navbar>.container .navbar-brand {
+	    margin-left: 0;
+	}
+	.navbar-brand {
+	    color: #f0f0f0;
+	    font-family: 'Open Sans', sans-serif;
+	}
+	a.navbar-brand:hover {
+	    color: #f0f0f0;
+	}
+	@media (max-width: 767px) {
+	/* Collapse & Toggle Style */
+	    .navbar>.container .navbar-brand {
+	        margin-left: 15px;
+	    }
+	    .navbar-collapse {
+	        border: 0;
+	    }
+	    .navbar-toggle {
+	        margin-top: 13px;
+	    }
+	    .navbar-toggle .icon-bar {
+	        background: #fff;
+	        font-family: 'Open Sans', sans-serif;
+	    }
+		/* Navbar List */
+	    .navbar-nav .open .dropdown-menu > li > a {
+	        text-align: center;
+	    }
+	    .navbar-nav .open .dropdown-menu > li > a,
+	    .navbar-nav .open .dropdown-menu .dropdown-header {
+	        padding: 15px;
+	    }
+		/* Top Fix Navbar */
+	    .navbar-fixed-top {
+	        position: static;
+	        top: auto;
+	        left: auto;
+	        right: auto;
+	        font-family: 'Open Sans', sans-serif;
+	    }
+	    .navbar-fixed-top .navbar-collapse {
+	        max-height: none;
+	        font-family: 'Open Sans', sans-serif;
+	    }
+	}
+	/* Content Section */
+	
+	#bsec #home,
+	#bsec #about,
+	#bsec #service,
+	#bsec #product,
+	#bsec #portfolio,
+	#bsec #contact {
+	    padding-top: 40px;
+	}
+	/* Horizantal link CSS */
+	
+	#bsec hr {
+	    margin-top: 10px !important;
+	    margin-bottom: 0px !important;
+	    border: 0;
+	    border-top: 2px solid #ccc;
+	}
+	/* Heading CSS */
+	
+	#bsec #home h4,
+	#bsec #about h4,
+	#bsec #service h4,
+	#bsec #product h4,
+	#bsec #portfolio h4,
+	#bsec #contact h4 {
+	    text-transform: capitalize;
+	    font-family: 'Open Sans', sans-serif;
+	    font-size: 15px;
+	    font-weight: bold;
+	    line-height: 25px;
+	    color: #696969;
+	}
+	/* Padding Top and Bottom */
+	
+	#bsec .pad-top {
+	    padding-top: 50px;
+	}
+	#bsec .pad-bot {
+	    padding-bottom: 50px;
+	}
