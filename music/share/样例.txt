@@ -4,3 +4,9 @@
 
 多行转维一行
 notepad++批量替换，正则表达式方式，\r\n替换为空
+
+中文转UNICODE
+https://www.jyshare.com/front-end/3602/
+
+多行转为一行
+https://tool.hiofd.com/multi-to-one-line-online/
