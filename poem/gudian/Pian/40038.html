@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)https://www.zhennue.com/bookdemo/0-qianyan -->
+<html lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content=""><title>归田赋 | 听松阁</title>
+  <meta name="keywords" content="Jekyll,blog">
+  <meta name="description" content="分享编程、生活感悟、旅游随感、读书随笔等。">
+  <link rel="stylesheet" href="../images//main.css">
+<style>
+  td, th {
+    padding: 0;
+  }
+  /* 逐行显示的样式 */
+  .line {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    margin-bottom: 10px;
+	font-size: 24px; /* 设置字体大小为16px */
+	max-width: 800px; 
+    padding: 5px 0;
+  }
+  .line.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* 容器样式优化 */
+  #m {
+    padding: 50px 0;
+  }
+</style>
+</head>
+
+<body class="body-chapter">
+<div class="book__wrapper sidebar-right" id="bookMain">
+
+<div class="top" style="position:absolute; width:100vw; height:100vh; z-index:1; text-align:center; left: 0; top: 0; background-color:fff;">
+<table width="100%" height="100%">
+ <tr>
+  <td background="../images/top.png" width="100%" height="417" border="0" id="top" valign="bottom" alt="">
+      <font size="9"><b>听 松 阁</b></font><br>
+      <font size="5">枕上听松语，槛外看潮生。</font><br><br><br><br><br>
+      <font size="7">归田赋</font><br>
+	  <font size="6">两汉 张衡</font>
+  </td>
+ </tr>
+ <tr>
+  <td background="../images/m.png" width="100%" height="100%" border="0" id="m" alt="" align="center">
+<!-- 文章开始 -->
+
+ <div class="line">　　游都邑以永久，无明略以佐时。徒临川以羡鱼，俟河清乎未期。感蔡子之慷慨，从唐生以决疑。谅天道之微昧，追渔父以同嬉。超埃尘以遐逝，与世事乎长辞。<br></div><div class="line"><br></div><div class="line">　　于是仲春令月，时和气清；原隰郁茂，百草滋荣。王雎鼓翼，鸧鹒哀鸣；交颈颉颃，关关嘤嘤。于焉逍遥，聊以娱情。<br></div><div class="line"><br></div><div class="line">　　尔乃龙吟方泽，虎啸山丘。仰飞纤缴，俯钓长流。触矢而毙，贪饵吞钩。落云间之逸禽，悬渊沉之魦鰡。<br></div><div class="line"><br></div><div class="line">　　于时曜灵俄景，继以望舒。极般游之至乐，虽日夕而忘劬。感老氏之遗诫，将回驾乎蓬庐。弹五弦之妙指，咏周、孔之图书。挥翰墨以奋藻，陈三皇之轨模。苟纵心于物外，安知荣辱之所如。</div>
+
+<!-- 文章结束 -->
+  </td>
+ </tr>
+ <tr>
+  <td background="../images/bottom.png" width="100%" height="354" border="0" id="bottom" alt="">
+   <div style="text-align:center;" >
+    <p style="margin-bottom:30px">
+	 <hr style="height:1px;border:none;border-top:0px dashed blue;" />🍀 By <a href="/about">听松阁</a> 🍀
+	</p>
+	<p>如果有什么想对他吐槽的，💌<a href="mailto:info@skywq.com>写封邮件给她</a>吧！
+	</p>
+  <footer class="site-footer">
+  © 2023<a href="https://www.free345.com/">听松阁</a>. Power By <a href="https://github.com/" target="_blank">Github</a> Theme<a href="https://github.com/erlzhang/jekyll-theme-persephone" target="_blank">Persephone</a>
+</footer>
+</div>
+  </td>
+ </tr>
+</table>
+<a href="../index.html" class="logo"><img src="../images/logo.svg" class="logo_img"><h1>听松阁</h1></a>
+<a href="../archive.html" class="sidebar__toggler">
+		<span class="sidebar__toggler_top"></span>
+		<span class="sidebar__toggler_middle"></span>
+		<span class="sidebar__toggler_bottom"></span>
+     </a>
+<a href="./40037.html" class="navigation navigation-prev" aria-label="Previous page: 上一篇文章"><svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+  <path d="M20 30 L8 16 20 2"></path>
+</svg>
+</a>
+
+<a href="./40039.html" class="navigation navigation-next" aria-label="Next page: 下一篇文章"><svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+  <path d="M12 30 L24 16 12 2"></path>
+</svg>
+</a>
+
+</div>
+</div>
+<script>
+// 页面加载完成后执行逐行显示
+window.onload = function() {
+  const lines = document.querySelectorAll('.line');
+  let delay = 0;
+  
+  // 逐行显示文字
+  lines.forEach((line, index) => {
+    setTimeout(() => {
+      line.classList.add('visible');
+    }, delay);
+    delay += 500; // 每行间隔500毫秒，可根据需求调整
+  });
+};
+</script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)https://www.zhennue.com/bookdemo/0-qianyan -->
+<html lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content=""><title>黠鼠赋 | 听松阁</title>
+  <meta name="keywords" content="Jekyll,blog">
+  <meta name="description" content="分享编程、生活感悟、旅游随感、读书随笔等。">
+  <link rel="stylesheet" href="../images//main.css">
+<style>
+  td, th {
+    padding: 0;
+  }
+  /* 逐行显示的样式 */
+  .line {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    margin-bottom: 10px;
+	font-size: 24px; /* 设置字体大小为16px */
+	max-width: 800px; 
+    padding: 5px 0;
+  }
+  .line.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* 容器样式优化 */
+  #m {
+    padding: 50px 0;
+  }
+</style>
+</head>
+
+<body class="body-chapter">
+<div class="book__wrapper sidebar-right" id="bookMain">
+
+<div class="top" style="position:absolute; width:100vw; height:100vh; z-index:1; text-align:center; left: 0; top: 0; background-color:fff;">
+<table width="100%" height="100%">
+ <tr>
+  <td background="../images/top.png" width="100%" height="417" border="0" id="top" valign="bottom" alt="">
+      <font size="9"><b>听 松 阁</b></font><br>
+      <font size="5">枕上听松语，槛外看潮生。</font><br><br><br><br><br>
+      <font size="7">黠鼠赋</font><br>
+	  <font size="6">宋 苏轼</font>
+  </td>
+ </tr>
+ <tr>
+  <td background="../images/m.png" width="100%" height="100%" border="0" id="m" alt="" align="center">
+<!-- 文章开始 -->
+
+ <div class="line">　　苏子夜坐，有鼠方啮。拊床而止之，既止复作。使童子烛之，有橐中空。嘐嘐聱聱，声在橐中。曰：“噫！此鼠之见闭而不得去者也。”发而视之，寂无所有，举烛而索，中有死鼠。童子惊曰：“是方啮也，而遽死也？向为何声，岂其鬼耶？”覆而出之，堕地乃走，虽有敏者，莫措其手。<br></div><div class="line"><br></div><div class="line">　　苏子叹曰：“异哉，是鼠之黠也！闭于橐中，橐坚而不可穴也。故不啮而啮，以声致人；不死而死，以形求脱也。吾闻有生，莫智于人。扰龙伐蛟，登龟狩麟，役万物而君之，卒见使于一鼠，堕此虫之计中，惊脱兔于处女，乌在其为智也？”<br></div><div class="line"><br></div><div class="line">　　坐而假寐，私念其故。若有告余者，曰：“汝为多学而识之，望道而未见也，不一于汝而二于物，故一鼠之啮而为之变也。人能碎千金之璧而不能无失声于破釜，能搏猛虎不能无变色于蜂虿，此不一之患也。言出于汝而忘之耶！”余俛而笑，仰而觉。使童子执笔，记余之作。</div>
+
+<!-- 文章结束 -->
+  </td>
+ </tr>
+ <tr>
+  <td background="../images/bottom.png" width="100%" height="354" border="0" id="bottom" alt="">
+   <div style="text-align:center;" >
+    <p style="margin-bottom:30px">
+	 <hr style="height:1px;border:none;border-top:0px dashed blue;" />🍀 By <a href="/about">听松阁</a> 🍀
+	</p>
+	<p>如果有什么想对他吐槽的，💌<a href="mailto:info@skywq.com>写封邮件给她</a>吧！
+	</p>
+  <footer class="site-footer">
+  © 2023<a href="https://www.free345.com/">听松阁</a>. Power By <a href="https://github.com/" target="_blank">Github</a> Theme<a href="https://github.com/erlzhang/jekyll-theme-persephone" target="_blank">Persephone</a>
+</footer>
+</div>
+  </td>
+ </tr>
+</table>
+<a href="../index.html" class="logo"><img src="../images/logo.svg" class="logo_img"><h1>听松阁</h1></a>
+<a href="../archive.html" class="sidebar__toggler">
+		<span class="sidebar__toggler_top"></span>
+		<span class="sidebar__toggler_middle"></span>
+		<span class="sidebar__toggler_bottom"></span>
+     </a>
+<a href="./40039.html" class="navigation navigation-prev" aria-label="Previous page: 上一篇文章"><svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+  <path d="M20 30 L8 16 20 2"></path>
+</svg>
+</a>
+
+<a href="./40041.html" class="navigation navigation-next" aria-label="Next page: 下一篇文章"><svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+  <path d="M12 30 L24 16 12 2"></path>
+</svg>
+</a>
+
+</div>
+</div>
+<script>
+// 页面加载完成后执行逐行显示
+window.onload = function() {
+  const lines = document.querySelectorAll('.line');
+  let delay = 0;
+  
+  // 逐行显示文字
+  lines.forEach((line, index) => {
+    setTimeout(() => {
+      line.classList.add('visible');
+    }, delay);
+    delay += 500; // 每行间隔500毫秒，可根据需求调整
+  });
+};
+</script>
+</body>
+</html>

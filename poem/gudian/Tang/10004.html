@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)https://www.zhennue.com/bookdemo/0-qianyan -->
+<html lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content=""><title>将进酒 | 听松阁</title>
+  <meta name="keywords" content="Jekyll,blog">
+  <meta name="description" content="分享编程、生活感悟、旅游随感、读书随笔等。">
+  <link rel="stylesheet" href="../images//main.css">
+<style>
+  td, th {
+    padding: 0;
+  }
+  /* 逐行显示的样式 */
+  .line {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    margin-bottom: 10px;
+	font-size: 24px; /* 设置字体大小为16px */
+	max-width: 800px; 
+    padding: 5px 0;
+  }
+  .line.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* 容器样式优化 */
+  #m {
+    padding: 50px 0;
+  }
+</style>
+</head>
+
+<body class="body-chapter">
+<div class="book__wrapper sidebar-right" id="bookMain">
+
+<div class="top" style="position:absolute; width:100vw; height:100vh; z-index:1; text-align:center; left: 0; top: 0; background-color:fff;">
+<table width="100%" height="100%">
+ <tr>
+  <td background="../images/top.png" width="100%" height="417" border="0" id="top" valign="bottom" alt="">
+      <font size="9"><b>听 松 阁</b></font><br>
+      <font size="5">枕上听松语，槛外看潮生。</font><br><br><br><br><br>
+      <font size="7">将进酒</font><br>
+	  <font size="6">唐 李白</font>
+  </td>
+ </tr>
+ <tr>
+  <td background="../images/m.png" width="100%" height="100%" border="0" id="m" alt="" align="center">
+<!-- 文章开始 -->
+
+ <div class="line">君不见黄河之水天上来，奔流到海不复回！<br></div><div class="line">君不见高堂明镜悲白发，朝如青丝暮成雪。<br></div><div class="line">人生得意须尽欢，莫使金樽空对月。<br></div><div class="line">天生我才必有用，千金散尽还复来。<br></div><div class="line">烹羊宰牛且为乐，会须一饮三百杯。<br></div><div class="line">岑夫子，丹丘生，将进酒，杯莫停！<br></div><div class="line">与君歌一曲，请君为我倾耳听！<br></div><div class="line">钟鼓馔玉不足贵，但愿长醉不愿醒！<br></div><div class="line">古来圣贤皆寂寞，唯有饮者留其名。<br></div><div class="line">陈王昔时宴平乐，斗酒十千恣欢谑。<br></div><div class="line">主人何为言少钱，径须沽取对君酌！<br></div><div class="line">五花马，千金裘，呼儿将出换美酒，<br></div><div class="line">与尔同销万古愁！</div>
+
+<!-- 文章结束 -->
+  </td>
+ </tr>
+ <tr>
+  <td background="../images/bottom.png" width="100%" height="354" border="0" id="bottom" alt="">
+   <div style="text-align:center;" >
+    <p style="margin-bottom:30px">
+	 <hr style="height:1px;border:none;border-top:0px dashed blue;" />🍀 By <a href="/about">听松阁</a> 🍀
+	</p>
+	<p>如果有什么想对他吐槽的，💌<a href="mailto:info@skywq.com>写封邮件给她</a>吧！
+	</p>
+  <footer class="site-footer">
+  © 2023<a href="https://www.free345.com/">听松阁</a>. Power By <a href="https://github.com/" target="_blank">Github</a> Theme<a href="https://github.com/erlzhang/jekyll-theme-persephone" target="_blank">Persephone</a>
+</footer>
+</div>
+  </td>
+ </tr>
+</table>
+<a href="../index.html" class="logo"><img src="../images/logo.svg" class="logo_img"><h1>听松阁</h1></a>
+<a href="../archive.html" class="sidebar__toggler">
+		<span class="sidebar__toggler_top"></span>
+		<span class="sidebar__toggler_middle"></span>
+		<span class="sidebar__toggler_bottom"></span>
+     </a>
+<a href="./10003.html" class="navigation navigation-prev" aria-label="Previous page: 上一篇文章"><svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+  <path d="M20 30 L8 16 20 2"></path>
+</svg>
+</a>
+
+<a href="./10005.html" class="navigation navigation-next" aria-label="Next page: 下一篇文章"><svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+  <path d="M12 30 L24 16 12 2"></path>
+</svg>
+</a>
+
+</div>
+</div>
+<script>
+// 页面加载完成后执行逐行显示
+window.onload = function() {
+  const lines = document.querySelectorAll('.line');
+  let delay = 0;
+  
+  // 逐行显示文字
+  lines.forEach((line, index) => {
+    setTimeout(() => {
+      line.classList.add('visible');
+    }, delay);
+    delay += 500; // 每行间隔500毫秒，可根据需求调整
+  });
+};
+</script>
+</body>
+</html>

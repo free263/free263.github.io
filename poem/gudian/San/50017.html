@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)https://www.zhennue.com/bookdemo/0-qianyan -->
+<html lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content=""><title>冷泉亭记 | 听松阁</title>
+  <meta name="keywords" content="Jekyll,blog">
+  <meta name="description" content="分享编程、生活感悟、旅游随感、读书随笔等。">
+  <link rel="stylesheet" href="../images//main.css">
+<style>
+  td, th {
+    padding: 0;
+  }
+  /* 逐行显示的样式 */
+  .line {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    margin-bottom: 10px;
+	font-size: 24px; /* 设置字体大小为16px */
+	max-width: 800px; 
+    padding: 5px 0;
+  }
+  .line.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* 容器样式优化 */
+  #m {
+    padding: 50px 0;
+  }
+</style>
+</head>
+
+<body class="body-chapter">
+<div class="book__wrapper sidebar-right" id="bookMain">
+
+<div class="top" style="position:absolute; width:100vw; height:100vh; z-index:1; text-align:center; left: 0; top: 0; background-color:fff;">
+<table width="100%" height="100%">
+ <tr>
+  <td background="../images/top.png" width="100%" height="417" border="0" id="top" valign="bottom" alt="">
+      <font size="9"><b>听 松 阁</b></font><br>
+      <font size="5">枕上听松语，槛外看潮生。</font><br><br><br><br><br>
+      <font size="7">冷泉亭记</font><br>
+	  <font size="6">唐 白居易</font>
+  </td>
+ </tr>
+ <tr>
+  <td background="../images/m.png" width="100%" height="100%" border="0" id="m" alt="" align="center">
+<!-- 文章开始 -->
+
+ <div class="line">　　东南山水，余杭郡为最。就郡言，灵隐寺为尤。由寺观，冷泉亭为甲。亭在山下，水中央，寺西南隅。高不倍寻，广不累丈；而撮奇得要，地搜胜概，物无遁形。春之日，吾爱其草薰薰，木欣欣，可以导和纳粹，畅人血气。夏之夜，吾爱其泉渟渟，风泠泠，可以蠲烦析酲，起人心情。山树为盖，岩石为屏，云从栋生，水与阶平。坐而玩之者，可濯足于床下；卧而狎之者，可垂钓于枕上。矧又潺湲洁彻，粹冷柔滑。若俗士，若道人，眼耳之尘，心舌之垢，不待盥涤，见辄除去。潜利阴益，咳胜言哉？斯所以最余杭而甲灵隐也。杭自郡城抵四封，丛山复湖，易为形胜。先是，领郡者，有相里尹造作虚白亭，有韩仆射皋作候仙亭，有裴庶子棠棣作观风亭，有卢给事元辅作见山亭，及右司郎中河南元藇最后作比亭。于是五亭相望，如指之列，可谓佳境殚矣，能事毕矣。后来者，虽有敏心巧目，无所加焉。故吾继之，述而不作。长庆三年，八月十三日记。</div>
+
+<!-- 文章结束 -->
+  </td>
+ </tr>
+ <tr>
+  <td background="../images/bottom.png" width="100%" height="354" border="0" id="bottom" alt="">
+   <div style="text-align:center;" >
+    <p style="margin-bottom:30px">
+	 <hr style="height:1px;border:none;border-top:0px dashed blue;" />🍀 By <a href="/about">听松阁</a> 🍀
+	</p>
+	<p>如果有什么想对他吐槽的，💌<a href="mailto:info@skywq.com>写封邮件给她</a>吧！
+	</p>
+  <footer class="site-footer">
+  © 2023<a href="https://www.free345.com/">听松阁</a>. Power By <a href="https://github.com/" target="_blank">Github</a> Theme<a href="https://github.com/erlzhang/jekyll-theme-persephone" target="_blank">Persephone</a>
+</footer>
+</div>
+  </td>
+ </tr>
+</table>
+<a href="../index.html" class="logo"><img src="../images/logo.svg" class="logo_img"><h1>听松阁</h1></a>
+<a href="../archive.html" class="sidebar__toggler">
+		<span class="sidebar__toggler_top"></span>
+		<span class="sidebar__toggler_middle"></span>
+		<span class="sidebar__toggler_bottom"></span>
+     </a>
+<a href="./50016.html" class="navigation navigation-prev" aria-label="Previous page: 上一篇文章"><svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+  <path d="M20 30 L8 16 20 2"></path>
+</svg>
+</a>
+
+<a href="./50018.html" class="navigation navigation-next" aria-label="Next page: 下一篇文章"><svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+  <path d="M12 30 L24 16 12 2"></path>
+</svg>
+</a>
+
+</div>
+</div>
+<script>
+// 页面加载完成后执行逐行显示
+window.onload = function() {
+  const lines = document.querySelectorAll('.line');
+  let delay = 0;
+  
+  // 逐行显示文字
+  lines.forEach((line, index) => {
+    setTimeout(() => {
+      line.classList.add('visible');
+    }, delay);
+    delay += 500; // 每行间隔500毫秒，可根据需求调整
+  });
+};
+</script>
+</body>
+</html>

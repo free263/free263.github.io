@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)https://www.zhennue.com/bookdemo/0-qianyan -->
+<html lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content=""><title>观潮 | 听松阁</title>
+  <meta name="keywords" content="Jekyll,blog">
+  <meta name="description" content="分享编程、生活感悟、旅游随感、读书随笔等。">
+  <link rel="stylesheet" href="../images//main.css">
+<style>
+  td, th {
+    padding: 0;
+  }
+  /* 逐行显示的样式 */
+  .line {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    margin-bottom: 10px;
+	font-size: 24px; /* 设置字体大小为16px */
+	max-width: 800px; 
+    padding: 5px 0;
+  }
+  .line.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* 容器样式优化 */
+  #m {
+    padding: 50px 0;
+  }
+</style>
+</head>
+
+<body class="body-chapter">
+<div class="book__wrapper sidebar-right" id="bookMain">
+
+<div class="top" style="position:absolute; width:100vw; height:100vh; z-index:1; text-align:center; left: 0; top: 0; background-color:fff;">
+<table width="100%" height="100%">
+ <tr>
+  <td background="../images/top.png" width="100%" height="417" border="0" id="top" valign="bottom" alt="">
+      <font size="9"><b>听 松 阁</b></font><br>
+      <font size="5">枕上听松语，槛外看潮生。</font><br><br><br><br><br>
+      <font size="7">观潮</font><br>
+	  <font size="6">宋 周密</font>
+  </td>
+ </tr>
+ <tr>
+  <td background="../images/m.png" width="100%" height="100%" border="0" id="m" alt="" align="center">
+<!-- 文章开始 -->
+
+ <div class="line">　　浙江之潮，天下之伟观也。自既望以至十八日为盛。方其远出海门，仅如银线；既而渐近，则玉城雪岭际天而来，大声如雷霆，震撼激射，吞天沃日，势极雄豪。杨诚斋诗云“海涌银为郭，江横玉系腰”者是也。<br></div><div class="line"><br></div><div class="line">　　每岁京尹出浙江亭教阅水军，艨艟数百，分列两岸；既而尽奔腾分合五阵之势，并有乘骑弄旗标枪舞刀于水面者，如履平地。倏尔黄烟四起，人物略不相睹，水爆轰震，声如崩山。烟消波静，则一舸无迹，仅有“敌船”为火所焚，随波而逝。<br></div><div class="line"><br></div><div class="line">　　吴儿善泅者数百，皆披发文身，手持十幅大彩旗，争先鼓勇，溯迎而上，出没于鲸波万仞中，腾身百变，而旗尾略不沾湿，以此夸能。<br></div><div class="line"><br></div><div class="line">　　江干上下十余里间，珠翠罗绮溢目，车马塞途，饮食百物皆倍穹常时，而僦赁看幕，虽席地不容间也。</div>
+
+<!-- 文章结束 -->
+  </td>
+ </tr>
+ <tr>
+  <td background="../images/bottom.png" width="100%" height="354" border="0" id="bottom" alt="">
+   <div style="text-align:center;" >
+    <p style="margin-bottom:30px">
+	 <hr style="height:1px;border:none;border-top:0px dashed blue;" />🍀 By <a href="/about">听松阁</a> 🍀
+	</p>
+	<p>如果有什么想对他吐槽的，💌<a href="mailto:info@skywq.com>写封邮件给她</a>吧！
+	</p>
+  <footer class="site-footer">
+  © 2023<a href="https://www.free345.com/">听松阁</a>. Power By <a href="https://github.com/" target="_blank">Github</a> Theme<a href="https://github.com/erlzhang/jekyll-theme-persephone" target="_blank">Persephone</a>
+</footer>
+</div>
+  </td>
+ </tr>
+</table>
+<a href="../index.html" class="logo"><img src="../images/logo.svg" class="logo_img"><h1>听松阁</h1></a>
+<a href="../archive.html" class="sidebar__toggler">
+		<span class="sidebar__toggler_top"></span>
+		<span class="sidebar__toggler_middle"></span>
+		<span class="sidebar__toggler_bottom"></span>
+     </a>
+<a href="./40023.html" class="navigation navigation-prev" aria-label="Previous page: 上一篇文章"><svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+  <path d="M20 30 L8 16 20 2"></path>
+</svg>
+</a>
+
+<a href="./40025.html" class="navigation navigation-next" aria-label="Next page: 下一篇文章"><svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+  <path d="M12 30 L24 16 12 2"></path>
+</svg>
+</a>
+
+</div>
+</div>
+<script>
+// 页面加载完成后执行逐行显示
+window.onload = function() {
+  const lines = document.querySelectorAll('.line');
+  let delay = 0;
+  
+  // 逐行显示文字
+  lines.forEach((line, index) => {
+    setTimeout(() => {
+      line.classList.add('visible');
+    }, delay);
+    delay += 500; // 每行间隔500毫秒，可根据需求调整
+  });
+};
+</script>
+</body>
+</html>
