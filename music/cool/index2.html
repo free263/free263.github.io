@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>极光琉璃 · 音乐</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: #0f0c1f;
+      background-image: url('https://img10.360buyimg.com/ddimg/jfs/t1/453252/16/14264/106854/6a37426aF81bc450f/00155a036eee5406.jpg');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            background-attachment: fixed;
+            background-color: #111827;
+            overflow: hidden;
+            height: 100vh;
+            padding: 20px;
+    }
+    .player-card {
+      width: 620px; max-width: 96%;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(28px) saturate(200%);
+      -webkit-backdrop-filter: blur(28px) saturate(200%);
+      border-radius: 48px;
+      padding: 32px 34px 26px;
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      box-shadow: 0 20px 80px rgba(0, 0, 0, 0.7), inset 0 0 60px rgba(180, 120, 255, 0.08);
+      display: flex; flex-direction: column; gap: 24px;
+      transition: 0.3s;
+    }
+    .player-card:hover { border-color: rgba(200, 150, 255, 0.30); box-shadow: 0 20px 90px rgba(140, 80, 255, 0.15); }
+    /* 顶部 */
+    .top-row { display: flex; align-items: center; gap: 18px; }
+    .cover {
+      width: 76px; height: 76px; border-radius: 22px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.12); flex-shrink: 0;
+      background: linear-gradient(135deg, #6c3cff, #b86cff);
+    }
+    .cover img { width: 100%; height: 100%; object-fit: cover; }
+    .track-info { flex: 1; min-width: 0; }
+    .track-name { font-size: 20px; font-weight: 600; color: #f0ecff; letter-spacing: -0.2px; text-shadow: 0 0 30px rgba(180, 140, 255, 0.2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .track-artist { font-size: 14px; color: rgba(200, 180, 255, 0.6); margin-top: 2px; }
+    /* 进度 */
+    .progress-area { display: flex; flex-direction: column; gap: 8px; }
+    .progress-row { display: flex; align-items: center; gap: 12px; }
+    .time { font-size: 13px; color: rgba(200, 180, 255, 0.4); min-width: 38px; font-variant-numeric: tabular-nums; }
+    .progress-bar { flex: 1; height: 5px; background: rgba(255,255,255,0.08); border-radius: 20px; cursor: pointer; position: relative; transition: height 0.2s; }
+    .progress-bar:hover { height: 7px; }
+    .progress-fill { width: 0%; height: 100%; border-radius: 20px; background: linear-gradient(90deg, #a78bfa, #e879f9); box-shadow: 0 0 20px rgba(167, 139, 250, 0.4); transition: width 0.05s linear; }
+    /* 控制 */
+    .controls { display: flex; align-items: center; gap: 12px; margin-top: 4px; }
+    .ctrl-btn { background: transparent; border: none; color: rgba(200, 180, 255, 0.5); cursor: pointer; padding: 4px; border-radius: 40px; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
+    .ctrl-btn:hover { color: #fff; transform: scale(1.06); }
+    .ctrl-btn:active { transform: scale(0.92); }
+    .ctrl-btn svg { width: 22px; height: 22px; fill: currentColor; }
+    .play-btn svg { width: 36px; height: 36px; }
+    .play-btn { background: rgba(167, 139, 250, 0.15); border-radius: 40px; padding: 2px 8px; border: 1px solid rgba(167, 139, 250, 0.15); }
+    .play-btn:hover { background: rgba(167, 139, 250, 0.25); }
+    .shuffle-btn.active { color: #a78bfa; filter: drop-shadow(0 0 16px #a78bfa); }
+    /* 列表 */
+    .list-section { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 18px; }
+    .list-header { display: flex; justify-content: space-between; color: rgba(200, 180, 255, 0.3); font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 10px; }
+    .playlist { list-style: none; max-height: 180px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: rgba(167,139,250,0.2) transparent; padding-right: 4px; }
+    .playlist::-webkit-scrollbar { width: 4px; }
+    .playlist::-webkit-scrollbar-thumb { background: rgba(167,139,250,0.2); border-radius: 12px; }
+    .playlist li {
+      display: flex; align-items: center; padding: 8px 12px; border-radius: 14px;
+      cursor: pointer; color: rgba(200, 180, 255, 0.6); border: 1px solid transparent;
+      transition: 0.15s; margin-bottom: 2px;
+    }
+    .playlist li:hover { background: rgba(167, 139, 250, 0.06); border-color: rgba(167,139,250,0.08); }
+    .playlist li.active { background: rgba(167, 139, 250, 0.10); border-color: rgba(167,139,250,0.20); color: #f0ecff; }
+    .playlist li .idx { font-size: 11px; color: rgba(200,180,255,0.2); min-width: 26px; text-align: right; margin-right: 12px; }
+    .playlist li .info { flex: 1; overflow: hidden; }
+    .playlist li .info .title { font-size: 14px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .playlist li .info .artist { font-size: 11px; color: rgba(200,180,255,0.35); }
+    .playlist li .dur { font-size: 11px; color: rgba(200,180,255,0.2); margin-left: 8px; }
+    .playlist li .indicator { opacity: 0; margin-left: 6px; color: #a78bfa; font-size: 12px; }
+    .playlist li.active .indicator { opacity: 1; }
+    .credit { text-align: center; font-size: 10px; color: rgba(200,180,255,0.12); border-top: 1px solid rgba(255,255,255,0.04); padding-top: 14px; margin-top: 6px; }
+  </style>
+</head>
+<body>
+<div class="player-card">
+  <div class="top-row">
+    <div class="cover"><img src="https://img12.360buyimg.com/ddimg/jfs/t1/463758/11/18904/23837/6a474a5bF2581a1f1/00151901907a00b7.jpg" alt="cover"></div>
+    <div class="track-info"><div class="track-name" id="trackName">夜航星</div><div class="track-artist" id="trackArtist">不才</div></div>
+  </div>
+  <div class="progress-area">
+    <div class="progress-row">
+      <span class="time" id="currentTime">0:00</span>
+      <div class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="time" id="totalTime">0:00</span>
+    </div>
+    <div class="controls">
+      <button class="ctrl-btn" id="prevBtn"><svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg></button>
+      <button class="ctrl-btn play-btn" id="playBtn"><svg viewBox="0 0 24 24" id="playIcon"><path d="M8 5v14l11-7z"/></svg></button>
+      <button class="ctrl-btn" id="nextBtn"><svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg></button>
+      <button class="ctrl-btn shuffle-btn" id="shuffleBtn"><svg viewBox="0 0 24 24"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm0.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></svg></button>
+    </div>
+  </div>
+  <div class="list-section">
+    <div class="list-header"><span>✦ 极光歌单</span><span id="listCount">0 首</span></div>
+    <ul class="playlist" id="playlistContainer"></ul>
+  </div>
+  <div class="credit">✦ 琉璃极光 · 梦幻声场</div>
+</div>
+<script src="music.js"></script>
+<script>
+(function(){
+  const raw = (typeof MUSIC_DATA !== 'undefined' && Array.isArray(MUSIC_DATA)) ? MUSIC_DATA : [];
+  const playlist = raw.length ? raw : [
+    {id:1,title:'夜航星',artist:'不才',src:'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',duration:210},
+    {id:2,title:'Lemon',artist:'米津玄師',src:'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',duration:245}
+  ];
+  const audio = new Audio();
+  let current = 0, playing = false, dragging = false, shuffle = false;
+  let shuffleHist = [], shuffleRemain = [];
+  const $ = id => document.getElementById(id);
+  const trackName = $('trackName'), trackArtist = $('trackArtist');
+  const playBtn = $('playBtn'), playIcon = $('playIcon');
+  const prevBtn = $('prevBtn'), nextBtn = $('nextBtn'), shuffleBtn = $('shuffleBtn');
+  const progressFill = $('progressFill'), progressBar = $('progressBar');
+  const currentTime = $('currentTime'), totalTime = $('totalTime');
+  const container = $('playlistContainer'), listCount = $('listCount');
+
+  function fmt(s){ if(isNaN(s)||s<0)return '0:00'; const m=Math.floor(s/60), sec=Math.floor(s%60); return m+':'+String(sec).padStart(2,'0'); }
+  function loadTrack(index){
+    const t = playlist[index]; if(!t) return;
+    audio.src = t.src; audio.load();
+    trackName.textContent = t.title; trackArtist.textContent = t.artist;
+    totalTime.textContent = t.duration ? fmt(t.duration) : '0:00';
+    progressFill.style.width='0%'; currentTime.textContent='0:00';
+    highlight(index);
+    if(playing) audio.play().catch(()=>{});
+  }
+  function highlight(index){ [...container.children].forEach((li,i)=>li.classList.toggle('active',i===index)); }
+  function renderList(){
+    container.innerHTML='';
+    playlist.forEach((t,i)=>{
+      const li=document.createElement('li');
+      li.innerHTML=`
+        <span class="idx">${String(i+1).padStart(2,'0')}</span>
+        <div class="info"><div class="title">${t.title}</div><div class="artist">${t.artist}</div></div>
+        <span class="dur">${t.duration?fmt(t.duration):'--:--'}</span>
+        <span class="indicator">▶</span>
+      `;
+      li.addEventListener('click',()=>{ if(current===i && playing)return; current=i; if(shuffle)resetShuffle(); loadTrack(current); if(!playing){playing=true; updatePlayBtn(); audio.play().catch(()=>{});} else audio.play().catch(()=>{}); });
+      container.appendChild(li);
+    });
+    listCount.textContent = playlist.length+' 首';
+    highlight(current);
+  }
+  function updatePlayBtn(){ playIcon.innerHTML = playing ? '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>' : '<path d="M8 5v14l11-7z"/>'; }
+  function togglePlay(){ if(!playlist.length)return; if(audio.paused){ audio.play().catch(()=>{}); playing=true; } else { audio.pause(); playing=false; } updatePlayBtn(); }
+  function resetShuffle(){ const arr=Array.from({length:playlist.length},(_,i)=>i).filter(i=>i!==current); for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } shuffleRemain=arr; shuffleHist=[current]; }
+  function getNextShuffle(){ if(!shuffleRemain.length) resetShuffle(); const n=shuffleRemain.shift(); if(n===current && shuffleRemain.length){ const alt=shuffleRemain.shift(); if(alt!==undefined){ shuffleRemain.unshift(n); return alt; } } return n; }
+  function playNext(){ if(!playlist.length)return; if(shuffle){ const idx=getNextShuffle(); if(idx===undefined)return; current=idx; loadTrack(current); if(!playing){playing=true; updatePlayBtn();} audio.play().catch(()=>{}); } else { current=(current+1)%playlist.length; loadTrack(current); if(!playing){playing=true; updatePlayBtn();} audio.play().catch(()=>{}); } }
+  function playPrev(){ if(!playlist.length)return; if(shuffle){ if(shuffleHist.length>1){ shuffleHist.pop(); const idx=shuffleHist[shuffleHist.length-1]; if(idx!==undefined){ current=idx; loadTrack(current); if(!playing){playing=true; updatePlayBtn();} audio.play().catch(()=>{}); shuffleHist.push(current); return; } } current=(current-1+playlist.length)%playlist.length; loadTrack(current); if(!playing){playing=true; updatePlayBtn();} audio.play().catch(()=>{}); resetShuffle(); } else { current=(current-1+playlist.length)%playlist.length; loadTrack(current); if(!playing){playing=true; updatePlayBtn();} audio.play().catch(()=>{}); } }
+  function toggleShuffle(){ shuffle=!shuffle; shuffleBtn.classList.toggle('active',shuffle); if(shuffle) resetShuffle(); else { shuffleRemain=[]; shuffleHist=[]; } }
+  playBtn.addEventListener('click', togglePlay);
+  prevBtn.addEventListener('click', playPrev);
+  nextBtn.addEventListener('click', playNext);
+  shuffleBtn.addEventListener('click', toggleShuffle);
+  audio.addEventListener('loadedmetadata', ()=>{ if(audio.duration && isFinite(audio.duration)) totalTime.textContent=fmt(audio.duration); });
+  audio.addEventListener('timeupdate', ()=>{ if(dragging)return; if(audio.duration && isFinite(audio.duration)){ const p=(audio.currentTime/audio.duration)*100; progressFill.style.width=p+'%'; currentTime.textContent=fmt(audio.currentTime); } else currentTime.textContent=fmt(audio.currentTime); });
+  audio.addEventListener('ended', playNext);
+  function handleProgress(e){ const rect=progressBar.getBoundingClientRect(); const x=Math.min(1,Math.max(0,(e.clientX-rect.left)/rect.width)); if(audio.duration && isFinite(audio.duration)){ const nt=x*audio.duration; audio.currentTime=nt; progressFill.style.width=x*100+'%'; currentTime.textContent=fmt(nt); } }
+  progressBar.addEventListener('mousedown',(e)=>{ dragging=true; handleProgress(e); });
+  window.addEventListener('mousemove',(e)=>{ if(dragging) handleProgress(e); });
+  window.addEventListener('mouseup',()=>{ dragging=false; });
+  progressBar.addEventListener('touchstart',(e)=>{ dragging=true; const t=e.touches[0]; handleProgress({clientX:t.clientX}); });
+  progressBar.addEventListener('touchmove',(e)=>{ if(dragging){ const t=e.touches[0]; handleProgress({clientX:t.clientX}); } });
+  progressBar.addEventListener('touchend',()=>{ dragging=false; });
+  document.addEventListener('keydown',(e)=>{ if(e.code==='Space' && e.target.tagName!=='INPUT'){ e.preventDefault(); togglePlay(); } });
+  renderList();
+  if(playlist.length){ current=0; loadTrack(0); playing=false; updatePlayBtn(); audio.pause(); shuffleBtn.classList.remove('active'); shuffle=false; shuffleRemain=[]; shuffleHist=[]; }
+})();
+</script>
+</body>
+</html>
