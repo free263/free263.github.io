@@ -1,0 +1,293 @@
+  /******************************************
+ File Name: top-navbar-10.css 
+ Item Name: My Navbar
+ Created By: Design Collection 
+ Version: 1.1 
+ *******************************************/
+
+
+/** #     [Table of contents]
+            
+            * Body Part
+            # 01  -  Top Navbar
+            # 02  -  Header Image
+            # 03  -  Headding 
+            # 03  -  Title
+            # 03  -  paragraph
+
+        
+        
+                
+            # [Color codes]
+            
+            Top BG :  #000
+            Content : #ffffff (Pure-White), #333
+            Hyper Link :  #007bff (Dodger Blue)
+            
+    
+            
+            **/
+
+
+/* Style Begin */
+
+#nav-10 .navbar-light .navbar-nav .active>.nav-link,
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-nav .nav-link.show,
+.navbar-light .navbar-nav .show>.nav-link {
+  color: rgba(255, 255, 255, .8)!important;
+}
+
+#nav-10 .navbar-light .navbar-nav .nav-link {
+  color: #FFF;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 20px 12px;
+  font-size: 13px;
+}
+
+#nav-10 .navbar-light .navbar-nav .active>.nav-link,
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-nav .nav-link.show,
+.navbar-light .navbar-nav .show>.nav-link {
+  color: #fff!important;
+}
+
+#nav-10 a.nav-link:hover {
+  outline: 0;
+  color: #000 !important;
+}
+
+#nav-10 .nav-item {
+  position: relative;
+}
+
+#nav-10 .nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0px;
+  height: 2px;
+  left: 50%;
+  bottom: 0;
+  background-color: #000;
+  transition: all ease-in-out .2s;
+}
+
+#nav-10 .nav-link:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+#nav-10 .fixed-top-scroll {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+  padding: 0px!important;
+  -webkit-transition: padding .2s linear;
+  -moz-transition: padding .2s linear;
+  -o-transition: padding .2s linear;
+  transition: padding .2s linear;
+  background-color: rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+#nav-10 .logo {
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -1px;
+  color: #fff!important;
+  font-family: 'Open Sans', sans-serif;
+  text-transform: capitalize;
+}
+
+#nav-10 .logo .fa-long-arrow-alt-up {
+  height: 18px;
+  line-height: 26px;
+  width: 9px;
+  color: #333;
+  text-align: center;
+  border-radius: 3px;
+  color: #fff;
+}
+
+#nav-10 .logo .fa-long-arrow-alt-down {
+  height: 18px;
+  line-height: 26px;
+  width: 16px;
+  color: #333;
+  text-align: center;
+  border-radius: 3px;
+  color: #fff;
+}
+
+.navbar-expand-lg .navbar-nav .dropdown-menu {
+  position: absolute;
+  top: 40px;
+  box-shadow: none;
+  padding: 4px 0;
+  border-radius: 4px !important;
+  -webkit-animation: dropdownOpen 0.3s ease-out;
+  -o-animation: dropdownOpen 0.3s ease-out;
+  animation: dropdownOpen 0.3s ease-out;
+  border: 0;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
+}
+
+#nav-10 .navbar {
+  position: fixed;
+  width: 100%;
+  padding: 15px 0px;
+  transition: padding .5s linear;
+}
+
+#nav-10 .logo {
+  display: none;
+}
+
+#about,
+#home,
+#service,
+#product,
+#Portfolio,
+#contact {
+  padding-top: 150px;
+}
+
+
+/* Smartphones (portrait and landscape) -- -- -- -- -- - */
+
+@media screen and (min-width: 320px) and (max-width: 667px) {
+  /* Styles */
+  #nav-10 .logo {
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -1px;
+    color: #fff!important;
+    font-family: 'Open Sans', sans-serif;
+    text-transform: capitalize;
+    display: block;
+  }
+  #nav-10 .navbar-light .navbar-toggler {
+    margin-right: 15px;
+  }
+  #nav-10 .navbar-light .navbar-toggler {
+    position: relative;
+    float: right;
+    padding: 5px 14px;
+    margin-top: 8px;
+    margin-right: 15px;
+    margin-bottom: 8px;
+    background-image: none;
+    border: 1px solid #333;
+    border-radius: 4px;
+    color: #fff;
+  }
+  #nav-10 .logo {
+    margin-left: 15px;
+  }
+  #nav-10 .navbar {
+    padding: 6px 0px;
+  }
+  #nav-10 .navbar-light .navbar-nav .nav-link {
+    padding: 10px 15px;
+  }
+  #nav-10 .nav-link::after {
+    display: none;
+  }
+  #nav-10 .navbar {
+    background: #000;
+  }
+  #nav-10 a.nav-link:hover {
+    outline: 0;
+    color: #fff !important;
+  }
+  #nav-10 .logo .fa-long-arrow-alt-up {
+    height: 18px;
+    line-height: 26px;
+    width: 9px;
+    color: #333;
+    text-align: center;
+    border-radius: 3px;
+    color: #fff;
+  }
+  #nav-10 .logo .fa-long-arrow-alt-down {
+    height: 18px;
+    line-height: 26px;
+    width: 16px;
+    color: #333;
+    text-align: center;
+    border-radius: 3px;
+    color: #fff;
+  }
+}
+
+
+/* iPads (portrait and landscape) -- -- -- -- -- - */
+
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+  /* Styles */
+  #nav-10 .logo {
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -1px;
+    color: #fff!important;
+    font-family: 'Open Sans', sans-serif;
+    text-transform: capitalize;
+    display: block;
+  }
+  #nav-10 .navbar-light .navbar-toggler {
+    margin-right: 15px;
+  }
+  #nav-10 .navbar-light .navbar-toggler {
+    position: relative;
+    float: right;
+    padding: 5px 14px;
+    margin-top: 8px;
+    margin-right: 15px;
+    margin-bottom: 8px;
+    background-image: none;
+    border: 1px solid #333;
+    border-radius: 4px;
+    color: #fff;
+  }
+  #nav-10 .logo {
+    margin-left: 15px;
+  }
+  #nav-10 .navbar {
+    padding: 6px 0px;
+  }
+  #nav-10 .navbar-light .navbar-nav .nav-link {
+    padding: 10px 15px;
+  }
+  #nav-10 .nav-link::after {
+    display: none;
+  }
+  #nav-10 .navbar {
+    background: #000;
+  }
+  #nav-10 a.nav-link:hover {
+    outline: 0;
+    color: #fff !important;
+  }
+  #nav-10 .logo .fa-long-arrow-alt-up {
+    height: 18px;
+    line-height: 26px;
+    width: 9px;
+    color: #333;
+    text-align: center;
+    border-radius: 3px;
+    color: #fff;
+  }
+  #nav-10 .logo .fa-long-arrow-alt-down {
+    height: 18px;
+    line-height: 26px;
+    width: 16px;
+    color: #333;
+    text-align: center;
+    border-radius: 3px;
+    color: #fff;
+  }

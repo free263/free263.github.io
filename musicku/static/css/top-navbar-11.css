@@ -1,0 +1,150 @@
+#nav-1 .navbar-light .navbar-brand:focus,
+.navbar-light .navbar-brand:hover {
+    color: #fff;
+}
+
+#nav-1 .navbar-light .navbar-brand {
+    color: #fff;
+    letter-spacing: 2px;
+    font-size: 18px;
+    font-weight: 300;
+}
+
+#nav-1 .bars svg {
+    color: #fff;
+}
+
+#nav-1 .bg-light {
+    position: fixed;
+    background-color: transparent!important;
+    width: 100%;
+    padding: 0px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+#nav-1 .navbar-light .navbar-nav .active>.nav-link,
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-nav .nav-link.show,
+.navbar-light .navbar-nav .show>.nav-link {
+    color: #fff;
+}
+
+#nav-1 .navbar-light .navbar-nav .nav-link {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 13px 25px;
+    border-right: 1px solid rgba(255, 255, 255, 0.07);
+    border-bottom: 1px solid transparent;
+    margin-bottom: -1px;
+}
+
+#nav-1 .solid {
+    background: #232323!important;
+    z-index: 999999;
+}
+
+#nav-1 .navbar-light .navbar-nav .nav-link:focus,
+.navbar-light .navbar-nav .nav-link:hover {
+    background: #448aff;
+    color: #fff !important;
+}
+
+#nav-1 .dropdown-item:focus,
+.dropdown-item:hover {
+    color: #fff;
+    text-decoration: none;
+    background-color: #448aff;
+}
+
+#nav-1 .dropdown-item {
+    color: #fff;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    list-style: none;
+    font-size: 13px;
+    font-family: 'Open Sans', sans-serif;
+    text-align: left;
+    background-color: #404040;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    background-clip: padding-box;
+}
+
+#nav-1 #about,
+#home,
+#service,
+#product,
+#Portfolio,
+#contact {
+    padding-top: 150px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+/* Smartphones (portrait and landscape) -- -- -- -- -- - */
+
+@media screen and (min-width: 320px) and (max-width: 667px) {
+    /* Styles */
+    #nav-1 #about,
+    #home,
+    #service,
+    #product,
+    #Portfolio,
+    #contact {
+        padding-top: 100px;
+    }
+    #nav-1 .bg-light {
+        position: fixed;
+        background-color: #232323!important;
+    }
+    #nav-1 .navbar-light .navbar-nav .nav-link {
+        padding: 8px 25px;
+    }
+    #nav-1 .navbar-light .navbar-brand {
+        padding: 10px 0px;
+    }
+    #nav-1 .navbar-light .navbar-brand {
+        margin-left: 15px;
+    }
+    #nav-1 .navbar-btn {
+        position: absolute;
+        bottom: 11px;
+        right: 13px;
+    }
+    .navbar-light .navbar-toggler {
+        position: relative;
+        float: right;
+        padding: 5px 14px;
+        margin-top: 8px;
+        margin-right: 15px;
+        margin-bottom: 8px;
+        background-image: none;
+        border: 1px solid #333;
+        border-radius: 4px;
+    }
+    button.navbar-toggler:focus,
+    button.navbar-toggler:active {
+        outline: none;
+        background-color: #333;
+    }
+    .dropdown-menu {
+        background-color: #232323;
+    }
+}
