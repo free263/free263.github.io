@@ -1,0 +1,475 @@
+/* ===== 重置样式 ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body, #app {
+    height: 100%;
+    width: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: #f0f2f5;
+    color: #333;
+    overflow: hidden;
+}
+
+/* ===== 顶部分类菜单 ===== */
+.header {
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 16px 40px;
+    position: relative;
+    z-index: 10;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+}
+
+.category-container {
+    display: flex;
+    gap: 12px;
+    flex-wrap: nowrap;
+    min-width: 100%;
+}
+
+.category-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 6px 14px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    min-width: 70px;
+}
+
+.category-item:hover {
+    background: rgba(26, 188, 156, 0.1);
+    transform: translateY(-2px);
+}
+
+.category-item.active {
+    background: rgba(26, 188, 156, 0.15);
+}
+
+.category-item img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.category-item.active img {
+    border-color: #1abc9c;
+}
+
+.category-item .cat-name {
+    font-size: 12px;
+    margin-top: 4px;
+    color: #666;
+    white-space: nowrap;
+}
+
+.category-item.active .cat-name {
+    color: #1abc9c;
+    font-weight: 600;
+}
+
+/* ===== 主内容区 ===== */
+.main-content {
+    display: flex;
+    height: calc(100% - 80px - 110px);
+    padding: 20px 40px 20px 40px;
+    gap: 20px;
+    overflow: hidden;
+}
+
+/* ===== 左侧歌曲列表 ===== */
+.song-list-wrapper {
+    flex: 1;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.song-list-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+    background: #fafafa;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.back-btn:hover {
+    background: rgba(0,0,0,0.05);
+}
+
+.back-btn i {
+    font-size: 18px;
+}
+
+.category-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    flex: 1;
+}
+
+.song-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 0;
+}
+
+.song-item {
+    padding: 12px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+    font-size: 14px;
+}
+
+.song-item:hover {
+    background: #f5f7fa;
+}
+
+.song-item.active {
+    background: rgba(26, 188, 156, 0.08);
+    border-left-color: #1abc9c;
+}
+
+.song-item .index {
+    color: #999;
+    font-size: 12px;
+    min-width: 30px;
+    text-align: right;
+}
+
+.song-item .name {
+    flex: 1;
+    color: #333;
+}
+
+.song-item.active .name {
+    color: #1abc9c;
+    font-weight: 500;
+}
+
+.song-item .playing-indicator {
+    display: none;
+    width: 20px;
+    height: 20px;
+    background: url('data:image/gif;base64,R0lGODlhGAAYAIABAI6Ojv///yH5BAEAAAEALAAAAAAYABgAAAI+jI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyTNf2jef6zvf+DwwKh8Si8YhMKpfMpvMJjUqn1Kr1is0EADs=') no-repeat center;
+    background-size: contain;
+}
+
+.song-item.active .playing-indicator {
+    display: block;
+}
+
+.empty-tip {
+    text-align: center;
+    color: #999;
+    padding: 60px 20px;
+    font-size: 16px;
+}
+
+/* ===== 右侧评论区 ===== */
+.comment-wrapper {
+    width: 340px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.comment-placeholder {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+}
+
+.download-link {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #f0f0f0;
+    text-align: center;
+}
+
+.download-link a {
+    color: #1abc9c;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+}
+
+.download-link a:hover {
+    color: #d7191a;
+}
+
+/* ===== 底部播放器 ===== */
+.player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 110px;
+    background: #fff;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    z-index: 100;
+}
+
+.player-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.ctrl-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #555;
+    font-size: 24px;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+}
+
+.ctrl-btn:hover {
+    background: rgba(0,0,0,0.05);
+    color: #1abc9c;
+}
+
+.ctrl-btn:active {
+    transform: scale(0.92);
+}
+
+.play-btn {
+    font-size: 32px;
+    color: #1abc9c;
+}
+
+.play-btn:hover {
+    color: #16a085;
+}
+
+.player-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.song-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.progress-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.time-current,
+.time-duration {
+    font-size: 12px;
+    color: #999;
+    flex-shrink: 0;
+    min-width: 40px;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 4px;
+    background: #e8e8e8;
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #1abc9c;
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.1s linear;
+}
+
+.progress-bar:hover .progress-fill {
+    background: #16a085;
+}
+
+.player-volume {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.player-volume i {
+    font-size: 20px;
+    color: #555;
+}
+
+.volume-bar {
+    width: 80px;
+    height: 4px;
+    background: #e8e8e8;
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+}
+
+.volume-fill {
+    height: 100%;
+    background: #1abc9c;
+    border-radius: 2px;
+    width: 100%;
+}
+
+/* ===== 滚动条美化 ===== */
+.song-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.song-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.song-list::-webkit-scrollbar-thumb {
+    background: #ddd;
+    border-radius: 2px;
+}
+
+.song-list::-webkit-scrollbar-thumb:hover {
+    background: #bbb;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 768px) {
+    .header {
+        padding: 12px 16px;
+        height: 60px;
+    }
+    
+    .category-item {
+        min-width: 56px;
+        padding: 4px 10px;
+    }
+    
+    .category-item img {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .main-content {
+        flex-direction: column;
+        padding: 12px;
+        height: calc(100% - 60px - 100px);
+        gap: 12px;
+    }
+    
+    .comment-wrapper {
+        width: 100%;
+        height: 200px;
+        flex-shrink: 0;
+    }
+    
+    .player {
+        height: 100px;
+        padding: 12px 16px;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+    
+    .player-controls {
+        gap: 4px;
+    }
+    
+    .ctrl-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+    }
+    
+    .play-btn {
+        font-size: 24px;
+    }
+    
+    .player-volume {
+        display: none;
+    }
+    
+    .song-name {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 500px) {
+    .main-content {
+        padding: 8px;
+        height: calc(100% - 60px - 90px);
+    }
+    
+    .player {
+        height: 90px;
+        padding: 8px 12px;
+        gap: 8px;
+    }
+    
+    .time-current,
+    .time-duration {
+        min-width: 32px;
+        font-size: 10px;
+    }
+}

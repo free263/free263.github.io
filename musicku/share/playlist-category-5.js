@@ -1,0 +1,38 @@
+// 日语流行 - 分类ID: 5
+window.__categoryData = window.__categoryData || {};
+window.__categoryData[5] = {
+  name: "日语流行",
+  cover: "./music/japan.jpg",
+  category: 5,
+  musics: [
+{"id":[5,1],"name":"azu-angel","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/azu-angel.mp3"},
+{"id":[5,2],"name":"juju-この夜を止めてよ","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/juju-この夜を止めてよ.mp3"},
+{"id":[5,3],"name":"rania-DrFeelGood","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/rania-DrFeelGood.mp3"},
+{"id":[5,4],"name":"滨崎步-A_Song_For_Xx","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/滨崎步-A_Song_For_Xx.mp3"},
+{"id":[5,5],"name":"滨崎步-Blue_Bird","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/滨崎步-Blue_Bird.mp3"},
+{"id":[5,6],"name":"滨崎步-depend_on_you","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/滨崎步-depend_on_you.mp3"},
+{"id":[5,7],"name":"滨崎步-fly_high","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/滨崎步-fly_high.mp3"},
+{"id":[5,8],"name":"滨崎步-M","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/滨崎步-M.mp3"},
+{"id":[5,9],"name":"滨崎步-To_Be","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/滨崎步-To_Be.mp3"},
+{"id":[5,10],"name":"初音未来-甩葱歌","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/初音未来-甩葱歌.mp3"},
+{"id":[5,11],"name":"川嶋あい-大丈夫だよ","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/川嶋あい-大丈夫だよ.mp3"},
+{"id":[5,12],"name":"大冢爱-プラネタリウム","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/大冢爱-プラネタリウム.mp3"},
+{"id":[5,13],"name":"大冢爱-桃ノ花ビラ","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/大冢爱-桃ノ花ビラ.mp3"},
+{"id":[5,14],"name":"谷村新司-いい日旅立ち","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/谷村新司-いい日旅立ち.mp3"},
+{"id":[5,15],"name":"谷村新司-カノン","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/谷村新司-カノン.mp3"},
+{"id":[5,16],"name":"谷村新司-昂一すばゐ","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/谷村新司-昂一すばゐ.mp3"},
+{"id":[5,17],"name":"谷村新司-风姿花传","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/谷村新司-风姿花传.mp3"},
+{"id":[5,18],"name":"谷村新司-君の歌","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/谷村新司-君の歌.mp3"},
+{"id":[5,19],"name":"谷村新司-睡莲","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/谷村新司-睡莲.mp3"},
+{"id":[5,20],"name":"谷村新司-忘れないで","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/谷村新司-忘れないで.mp3"},
+{"id":[5,21],"name":"谷村新司-星","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/谷村新司-星.mp3"},
+{"id":[5,22],"name":"日本歌曲 星の在り処","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/日本歌曲 星の在り処.mp3"},
+{"id":[5,23],"name":"日本歌曲-漠然の莹","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/日本歌曲-漠然の莹.mp3"},
+{"id":[5,24],"name":"少女时代-mr taxi","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/少女时代-mr taxi.mp3"},
+{"id":[5,25],"name":"少女时代-the boys","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/少女时代-the boys.mp3"},
+{"id":[5,26],"name":"宇多田光-First_Love","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/宇多田光-First_Love.mp3"},
+{"id":[5,27],"name":"中岛美嘉-雪華","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/中岛美嘉-雪華.mp3"},
+{"id":[5,28],"name":"中島みゆき-容易受伤的女人原曲","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/中島みゆき-容易受伤的女人原曲.mp3"},
+{"id":[5,29],"name":"宗次郎-故乡的原风景","src":"https://cloud.hhhnn.com/d/189Family133/音乐视听/日本音乐/宗次郎-故乡的原风景.mp3"},
+  ]
+};
