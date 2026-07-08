@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="https://100713.xyz/H.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="yandex-verification" content="a7df0a1903eaf996" />
+    <meta name="360-site-verification" content="8436c264b3932cd2b6b1f8d454b313bc" />
+    <meta name="google-site-verification" content="mD2l3_aOmwjXLEvIAyB7bLGNGBnq7u88vPoK2oNuy3c" />
+    <meta name="description" content="静水深流博客音乐播放导航页，游戏原声音轨在线播放">
+    <meta name="author" content="Ethaniel">
+    <title>听松阁 · 音乐导航</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ===== 全局重置 & 蒙太奇背景 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 30px 20px 40px;
+            margin: 0;
+            position: relative;
+            /* === 蒙太奇背景：多层叠加 + 动态模糊 === */
+            background:
+                /* 第1层：深色渐变蒙版 (增加对比) */
+                radial-gradient(ellipse at 30% 20%, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.75)),
+                /* 第2层：动态噪点纹理 (蒙太奇质感) */
+                repeating-linear-gradient(45deg,
+                    rgba(255, 255, 255, 0.008) 0px,
+                    rgba(255, 255, 255, 0.008) 2px,
+                    transparent 2px,
+                    transparent 6px),
+                repeating-linear-gradient(-45deg,
+                    rgba(255, 255, 255, 0.005) 0px,
+                    rgba(255, 255, 255, 0.005) 3px,
+                    transparent 3px,
+                    transparent 8px),
+                /* 第3层：光晕散射 (蒙太奇光效) */
+                radial-gradient(circle at 70% 80%, rgba(180, 140, 100, 0.06), transparent 50%),
+                radial-gradient(circle at 20% 30%, rgba(200, 170, 130, 0.04), transparent 40%),
+                /* 第4层：主背景图 (带轻微模糊) */
+                url('https://api.rryyz.com/api-pic/126.php') center/cover no-repeat fixed;
+            backdrop-filter: blur(2px);
+        }
+
+        /* ===== 蒙太奇叠加层 (额外胶片颗粒感) ===== */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                /* 胶片颗粒 */
+                repeating-conic-gradient(rgba(255, 255, 255, 0.003) 0% 25%, transparent 0% 50%) 0 0 / 12px 12px,
+                /* 暗角 */
+                radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.3) 100%);
+            mix-blend-mode: overlay;
+        }
+
+        /* ===== 页头 ===== */
+        .page-header {
+            width: 100%;
+            max-width: 1200px;
+            text-align: center;
+            margin-bottom: 36px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-header h1 {
+            font-size: 2.8rem;
+            font-weight: 500;
+            letter-spacing: 4px;
+            background: linear-gradient(135deg, #f6e3c9, #f0d6b0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 4px 40px rgba(0, 0, 0, 0.6), 0 0 60px rgba(246, 194, 126, 0.06);
+            display: inline-block;
+            padding: 0 30px;
+            position: relative;
+        }
+
+        .page-header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(246, 194, 126, 0.3), transparent);
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(246, 194, 126, 0.06);
+        }
+
+        .page-header .subtitle {
+            color: rgba(220, 205, 180, 0.4);
+            font-weight: 300;
+            letter-spacing: 6px;
+            font-size: 0.95rem;
+            margin-top: 14px;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ===== 卡片网格 ===== */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 28px;
+            max-width: 1300px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===== 卡片包装 ===== */
+        .card-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .card-wrapper:hover {
+            transform: translateY(-6px);
+        }
+
+        /* ===== 卡片 — 毛玻璃 + 立体感 + 白色边框 ===== */
+        .card {
+            width: 200px;
+            height: 200px;
+            border-radius: 32px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            background: rgba(18, 28, 42, 0.25);
+            backdrop-filter: blur(14px) saturate(180%);
+            -webkit-backdrop-filter: blur(14px) saturate(180%);
+            /* ★ 白色边框：1px 半透明白色边框，让图标更清晰 ★ */
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3),
+                        0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+                        0 4px 12px rgba(0, 0, 0, 0.2);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card:hover {
+            transform: scale(1.06);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5),
+                        0 0 0 1px rgba(255, 215, 140, 0.08) inset;
+            border-color: rgba(255, 255, 255, 0.35);
+        }
+
+        /* 卡片内图片 */
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease, filter 0.4s ease;
+            filter: brightness(0.85) saturate(0.9) contrast(1.05);
+        }
+
+        .card:hover img {
+            transform: scale(1.04);
+            filter: brightness(0.95) saturate(1.05) contrast(1.0);
+        }
+
+        /* 卡片上的浮动遮罩 (光晕) */
+        .card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 32px;
+            background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.04), transparent 70%);
+            pointer-events: none;
+        }
+
+        /* ===== 卡片信息 (立体文字) ===== */
+        .card-info {
+            text-align: center;
+            margin-top: 14px;
+            padding: 0 6px;
+            max-width: 200px;
+        }
+
+        .card-info h2 {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: rgba(240, 235, 225, 0.85);
+            letter-spacing: 1px;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+            transition: color 0.3s;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .card-wrapper:hover .card-info h2 {
+            color: #f6e3c9;
+            text-shadow: 0 2px 20px rgba(246, 194, 126, 0.15);
+        }
+
+        .card-info p {
+            font-size: 0.75rem;
+            color: rgba(200, 185, 165, 0.35);
+            letter-spacing: 2px;
+            margin-top: 4px;
+            font-weight: 300;
+            text-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 768px) {
+            body { padding: 20px 16px 30px; }
+            .page-header h1 { font-size: 2.0rem; letter-spacing: 2px; }
+            .page-header h1::after { width: 80px; }
+            .page-header .subtitle { font-size: 0.8rem; letter-spacing: 4px; }
+            .container { gap: 18px; }
+            .card { width: 160px; height: 160px; border-radius: 24px; }
+            .card-info h2 { font-size: 0.9rem; }
+            .card-info { max-width: 160px; }
+        }
+
+        @media (max-width: 480px) {
+            .card { width: 130px; height: 130px; border-radius: 20px; }
+            .card-info h2 { font-size: 0.8rem; }
+            .card-info { max-width: 130px; }
+            .container { gap: 14px; }
+            .page-header h1 { font-size: 1.6rem; }
+        }
+
+        /* ===== 底部 ===== */
+        .footer-note {
+            margin-top: 40px;
+            color: rgba(200, 185, 165, 0.12);
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            font-weight: 300;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-note span {
+            color: rgba(246, 194, 126, 0.12);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== 页头 ===== -->
+    <header class="page-header">
+        <h1>♫ 听松阁</h1>
+        <div class="subtitle">— 琉 璃 乐 坊 · 音 乐 导 航 —</div>
+    </header>
+
+    <!-- ===== 卡片网格 ===== -->
+    <div class="container">
+
+        <!-- 国语流行 -->
+        <div class="card-wrapper">
+            <div class="card" onclick="window.open('./china.html', '_blank');">
+                <img src="./images/china.jpg" alt="国语流行音乐精选">
+            </div>
+            <div class="card-info">
+                <h2>国语流行</h2>
+                <p>精选</p>
+            </div>
+        </div>
+
+        <!-- 国外纯音乐 -->
+        <div class="card-wrapper">
+            <div class="card" onclick="window.open('./chun.html', '_blank');">
+                <img src="./images/chun.jpg" alt="国外纯音乐精选">
+            </div>
+            <div class="card-info">
+                <h2>国外纯音乐</h2>
+                <p>精选</p>
+            </div>
+        </div>
+
+        <!-- 唯美纯音乐 -->
+        <div class="card-wrapper">
+            <div class="card" onclick="window.open('./weimei.html', '_blank');">
+                <img src="./images/weimei.jpg" alt="唯美纯音乐">
+            </div>
+            <div class="card-info">
+                <h2>唯美纯音乐</h2>
+                <p>舒缓</p>
+            </div>
+        </div>
+
+        <!-- 韩国流行 -->
+        <div class="card-wrapper">
+            <div class="card" onclick="window.open('./korea.html', '_blank');">
+                <img src="./images/korea.jpg" alt="韩国流行音乐精选">
+            </div>
+            <div class="card-info">
+                <h2>韩国流行</h2>
+                <p>精选</p>
+            </div>
+        </div>
+
+        <!-- 欧美流行 -->
+        <div class="card-wrapper">
+            <div class="card" onclick="window.open('./usa.html', '_blank');">
+                <img src="./images/usa.jpg" alt="欧美流行音乐精选">
+            </div>
+            <div class="card-info">
+                <h2>欧美流行</h2>
+                <p>精选</p>
+            </div>
+        </div>
+
+        <!-- 日本流行 -->
+        <div class="card-wrapper">
+            <div class="card" onclick="window.open('./japan.html', '_blank');">
+                <img src="./images/japan.jpg" alt="日本流行音乐精选">
+            </div>
+            <div class="card-info">
+                <h2>日本流行</h2>
+                <p>精选</p>
+            </div>
+        </div>
+
+        <!-- 泰国流行 -->
+        <div class="card-wrapper">
+            <div class="card" onclick="window.open('./thailand.html', '_blank');">
+                <img src="./images/thailand.jpg" alt="泰国流行音乐精选">
+            </div>
+            <div class="card-info">
+                <h2>泰国流行</h2>
+                <p>精选</p>
+            </div>
+        </div>
+
+        <!-- 印度流行 -->
+        <div class="card-wrapper">
+            <div class="card" onclick="window.open('./india.html', '_blank');">
+                <img src="./images/india.jpg" alt="印度流行音乐精选">
+            </div>
+            <div class="card-info">
+                <h2>印度流行</h2>
+                <p>精选</p>
+            </div>
+        </div>
+
+        <!-- 治愈系 -->
+        <div class="card-wrapper">
+            <div class="card" onclick="window.open('./zhiyu.html', '_blank');">
+                <img src="./images/zhiyu.jpg" alt="治愈系放空舒缓音乐">
+            </div>
+            <div class="card-info">
+                <h2>治愈舒缓</h2>
+                <p>放空</p>
+            </div>
+        </div>
+
+        <!-- 自然之声 -->
+        <div class="card-wrapper">
+            <div class="card" onclick="window.open('./ziran.html', '_blank');">
+                <img src="./images/ziran.jpg" alt="自然之声放松精神">
+            </div>
+            <div class="card-info">
+                <h2>自然之声</h2>
+                <p>放松</p>
+            </div>
+        </div>
+
+        <!-- 周深 -->
+        <div class="card-wrapper">
+            <div class="card" onclick="window.open('./zhoushen.html', '_blank');">
+                <img src="./images/zhoushen.jpg" alt="周深">
+            </div>
+            <div class="card-info">
+                <h2>周深</h2>
+                <p>天籁</p>
+            </div>
+        </div>
+
+        <!-- 洋澜一 -->
+        <div class="card-wrapper">
+            <div class="card" onclick="window.open('./yanglanyi.html', '_blank');">
+                <img src="./images/yanglanyi.jpg" alt="洋澜一">
+            </div>
+            <div class="card-info">
+                <h2>洋澜一</h2>
+                <p>深情</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ===== 底部 ===== -->
+    <div class="footer-note">
+        <span>✦</span> 静水深流 · 听松阁 <span>✦</span>
+    </div>
+
+</body>
+</html>
