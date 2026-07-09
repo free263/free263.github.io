@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>音乐导航 · 风格切换</title>
+  <style>
+    /* ===== 全局重置 & 字体 ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0b0b0e;
+      background-image: url('https://img10.360buyimg.com/ddimg/jfs/t1/453252/16/14264/106854/6a37426aF81bc450f/00155a036eee5406.jpg');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      background-attachment: fixed;
+      background-color: #111827;
+      padding: 20px;
+      overflow-x: hidden;
+      transition: background 0.3s;
+    }
+
+    /* ===== 卡片容器 ===== */
+    .nav-card {
+      width: 76%;
+      max-width: 1100px;
+      min-width: 320px;
+      background: rgba(18, 17, 22, 0.45);
+      backdrop-filter: blur(38px) saturate(240%);
+      -webkit-backdrop-filter: blur(38px) saturate(240%);
+      border-radius: 60px;
+      padding: 32px 38px 28px;
+      box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      transition: all 0.4s ease;
+      max-height: 94vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nav-card:hover {
+      border-color: rgba(255, 255, 255, 0.45);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    /* ===== 顶部：Logo + 风格切换 ===== */
+    .nav-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 28px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 18px;
+      flex-shrink: 0;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 6px 20px rgba(108, 92, 231, 0.3);
+      flex-shrink: 0;
+    }
+    .logo-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .logo-text {
+      font-size: 24px;
+      font-weight: 700;
+      color: #f5f5ff;
+      letter-spacing: -0.3px;
+      text-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
+      background: linear-gradient(135deg, #ffffff 60%, rgba(255, 255, 255, 0.5));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .logo-text span {
+      background: none;
+      -webkit-text-fill-color: rgba(255, 255, 255, 0.3);
+      font-weight: 400;
+    }
+
+    .style-switcher {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .style-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 40px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      letter-spacing: 0.3px;
+      backdrop-filter: blur(4px);
+      font-family: inherit;
+    }
+    .style-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .style-btn.active {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+    }
+
+    /* ===== 分类网格 ===== */
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 20px 18px;
+      flex: 1;
+      overflow-y: auto;
+      padding: 6px 4px 14px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
+    }
+
+    .category-grid::-webkit-scrollbar {
+      width: 4px;
+    }
+    .category-grid::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .category-grid::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+    }
+
+    .category-item {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 32px;
+      padding: 18px 8px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      min-height: 120px;
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .category-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.04), transparent 70%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .category-item:hover::after {
+      opacity: 1;
+    }
+
+    .category-item:hover {
+      background: rgba(255, 255, 255, 0.10);
+      border-color: rgba(255, 255, 255, 0.20);
+      transform: translateY(-5px) scale(1.01);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+      color: #ffffff;
+    }
+    .category-item:active {
+      transform: scale(0.96);
+    }
+
+    .category-icon {
+      font-size: 36px;
+      line-height: 1;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.15));
+      transition: transform 0.3s ease;
+    }
+    .category-item:hover .category-icon {
+      transform: scale(1.06);
+    }
+
+    .category-name {
+      font-size: 15px;
+      font-weight: 550;
+      letter-spacing: 0.3px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      background: linear-gradient(135deg, #f0f0ff, rgba(255, 255, 255, 0.7));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* 特色分类 */
+    .category-item.featured {
+      background: rgba(108, 92, 231, 0.12);
+      border-color: rgba(108, 92, 231, 0.25);
+    }
+    .category-item.featured:hover {
+      background: rgba(108, 92, 231, 0.22);
+      border-color: rgba(108, 92, 231, 0.45);
+    }
+    .category-item.featured .category-name {
+      background: linear-gradient(135deg, #ffffff, #c4b5fd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ===== 底部 ===== */
+    .nav-footer {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.13);
+      letter-spacing: 0.4px;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      padding-top: 14px;
+      flex-shrink: 0;
+      font-weight: 300;
+    }
+    .nav-footer a {
+      color: rgba(255, 255, 255, 0.2);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-footer a:hover {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* ============================================================
+       风格变体
+       ============================================================ */
+
+    /* 风格1: 极简 · 银灰 */
+    body.style-minimal .nav-card {
+      background: rgba(10, 10, 15, 0.4);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+    body.style-minimal .category-item {
+      background: rgba(255, 255, 255, 0.03);
+      border-color: rgba(255, 255, 255, 0.04);
+    }
+    body.style-minimal .category-item:hover {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+    body.style-minimal .logo-text {
+      background: linear-gradient(135deg, #e8e8f0, #a0a0b0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    body.style-minimal .category-name {
+      background: linear-gradient(135deg, #d0d0e0, #9090a0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    body.style-minimal .category-item.featured {
+      background: rgba(160, 160, 180, 0.08);
+      border-color: rgba(200, 200, 220, 0.15);
+    }
+
+    /* 风格2: 典雅 · 香槟金 */
+    body.style-elegant .nav-card {
+      background: rgba(25, 20, 15, 0.45);
+      border-color: rgba(255, 215, 150, 0.25);
+    }
+    body.style-elegant .category-item {
+      background: rgba(255, 215, 150, 0.05);
+      border-color: rgba(255, 215, 150, 0.08);
+    }
+    body.style-elegant .category-item:hover {
+      background: rgba(255, 215, 150, 0.12);
+      border-color: rgba(255, 215, 150, 0.2);
+    }
+    body.style-elegant .logo-text {
+      background: linear-gradient(135deg, #f5e6d3, #d4af87);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    body.style-elegant .category-name {
+      background: linear-gradient(135deg, #f0ddd0, #c9a88a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    body.style-elegant .category-item.featured {
+      background: rgba(255, 215, 150, 0.10);
+      border-color: rgba(255, 215, 150, 0.20);
+    }
+    body.style-elegant .category-item.featured .category-name {
+      background: linear-gradient(135deg, #f5e0d0, #dbb594);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* 风格3: 活力 · 霓虹紫 */
+    body.style-vibrant .nav-card {
+      background: rgba(20, 10, 30, 0.5);
+      border-color: rgba(180, 80, 255, 0.2);
+    }
+    body.style-vibrant .category-item {
+      background: rgba(180, 80, 255, 0.06);
+      border-color: rgba(180, 80, 255, 0.08);
+    }
+    body.style-vibrant .category-item:hover {
+      background: rgba(180, 80, 255, 0.14);
+      border-color: rgba(180, 80, 255, 0.25);
+      box-shadow: 0 16px 40px rgba(180, 80, 255, 0.15);
+    }
+    body.style-vibrant .logo-text {
+      background: linear-gradient(135deg, #e8c0ff, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    body.style-vibrant .category-name {
+      background: linear-gradient(135deg, #e0c0ff, #b070f0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    body.style-vibrant .category-item.featured {
+      background: rgba(180, 80, 255, 0.12);
+      border-color: rgba(180, 80, 255, 0.20);
+    }
+    body.style-vibrant .category-item.featured .category-name {
+      background: linear-gradient(135deg, #f0d0ff, #c080ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ===== 响应式 ===== */
+    @media (max-width: 1024px) {
+      .nav-card {
+        width: 88%;
+        padding: 28px 28px 24px;
+        border-radius: 48px;
+      }
+      .category-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 18px;
+      }
+      .category-item {
+        min-height: 108px;
+        padding: 16px 8px 14px;
+        border-radius: 28px;
+      }
+      .category-icon {
+        font-size: 32px;
+      }
+      .category-name {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-card {
+        width: 96%;
+        padding: 22px 16px 18px;
+        border-radius: 36px;
+      }
+      .category-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 14px;
+      }
+      .category-item {
+        min-height: 94px;
+        padding: 14px 6px 12px;
+        border-radius: 24px;
+      }
+      .category-icon {
+        font-size: 28px;
+      }
+      .category-name {
+        font-size: 13px;
+      }
+      .nav-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      .style-switcher {
+        width: 100%;
+        justify-content: flex-start;
+      }
+      .style-btn {
+        padding: 4px 14px;
+        font-size: 11px;
+      }
+      .logo-text {
+        font-size: 20px;
+      }
+      .logo-icon {
+        width: 44px;
+        height: 44px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-card {
+        padding: 16px 12px 14px;
+        border-radius: 28px;
+      }
+      .category-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+      .category-item {
+        min-height: 82px;
+        padding: 12px 4px 10px;
+        border-radius: 20px;
+      }
+      .category-icon {
+        font-size: 24px;
+      }
+      .category-name {
+        font-size: 11px;
+      }
+      .logo-text {
+        font-size: 17px;
+      }
+      .logo-icon {
+        width: 38px;
+        height: 38px;
+      }
+      .style-btn {
+        font-size: 10px;
+        padding: 3px 12px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body class="style-minimal">
+
+<div class="nav-card" role="navigation" aria-label="音乐分类导航">
+
+  <!-- 顶部 -->
+  <div class="nav-header">
+    <div class="logo-area">
+      <div class="logo-icon">
+        <img src="https://img12.360buyimg.com/ddimg/jfs/t1/463758/11/18904/23837/6a474a5bF2581a1f1/00151901907a00b7.jpg" alt="Muse·ic Logo">
+      </div>
+      <div class="logo-text">Muse<span>·ic</span></div>
+    </div>
+    <div class="style-switcher">
+      <button class="style-btn active" data-style="minimal">极简</button>
+      <button class="style-btn" data-style="elegant">典雅</button>
+      <button class="style-btn" data-style="vibrant">活力</button>
+    </div>
+  </div>
+
+  <!-- 分类网格 — 您可以直接修改 href 为具体地址，链接将正常跳转 -->
+  <div class="category-grid">
+    <a href="china.html" class="category-item" data-category="国语" target="_blank"><span class="category-icon">🇨🇳</span><span class="category-name">国语精选</span></a>
+    <a href="usa.html" class="category-item" data-category="欧美" target="_blank"><span class="category-icon">🌍</span><span class="category-name">欧美音乐</span></a>
+    <a href="korea.html" class="category-item" data-category="韩国" target="_blank"><span class="category-icon">🇰🇷</span><span class="category-name">韩国音乐</span></a>
+    <a href="japan.html" class="category-item" data-category="日本" target="_blank"><span class="category-icon">🇯🇵</span><span class="category-name">日本音乐</span></a>
+    <a href="pure.html" class="category-item" data-category="纯音乐" target="_blank"><span class="category-icon">🎹</span><span class="category-name">纯音乐</span></a>
+    <a href="thai.html" class="category-item" data-category="泰国" target="_blank"><span class="category-icon">🇹🇭</span><span class="category-name">泰国音乐</span></a>
+    <a href="india.html" class="category-item" data-category="印度" target="_blank"><span class="category-icon">🇮🇳</span><span class="category-name">印度音乐</span></a>
+    <a href="yanglanyi.html" class="category-item featured" data-category="洋澜一" target="_blank"><span class="category-icon">🌊</span><span class="category-name">洋澜一</span></a>
+    <a href="zhoushen.html" class="category-item featured" data-category="周深" target="_blank"><span class="category-icon">✨</span><span class="category-name">周深</span></a>
+  </div>
+
+  <!-- 底部 -->
+  <div class="nav-footer">
+    <a href="#" target="_blank">🎧 毛玻璃 · 音乐导航</a>  · 切换风格体验
+  </div>
+</div>
+
+<script>
+  (function() {
+    // ---- 风格切换 ----
+    const styleBtns = document.querySelectorAll('.style-btn');
+    const body = document.body;
+
+    function removeAllStyles() {
+      body.classList.remove('style-minimal', 'style-elegant', 'style-vibrant');
+    }
+
+    styleBtns.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const style = this.getAttribute('data-style');
+        if (!style) return;
+
+        styleBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+
+        removeAllStyles();
+        body.classList.add('style-' + style);
+        console.log(`🎨 切换到风格: ${style}`);
+      });
+    });
+
+    // ---- 分类点击：仅做视觉反馈，不阻止默认跳转 ----
+    const items = document.querySelectorAll('.category-item');
+    items.forEach(item => {
+      item.addEventListener('click', function(e) {
+        // ⚠️ 注意：这里不再使用 e.preventDefault()
+        // 链接会正常跳转，同时我们添加视觉反馈
+        const name = this.getAttribute('data-category') || '分类';
+        console.log(`🎵 导航到「${name}」分类`);
+
+        // 视觉反馈（不影响跳转）
+        this.style.transition = 'transform 0.1s';
+        this.style.transform = 'scale(0.94)';
+        setTimeout(() => {
+          this.style.transform = '';
+        }, 120);
+      });
+    });
+
+    // ---- 默认激活极简 ----
+    document.querySelector('.style-btn[data-style="minimal"]')?.classList.add('active');
+  })();
+</script>
+
+</body>
+</html>
