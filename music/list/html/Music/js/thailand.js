@@ -6,20 +6,27 @@
 		continous = true,
 		autoplay = true,
 		playlist = [
-{title:"Lydia-DontLeaveMeHere.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/Lydia-DontLeaveMeHere.mp3",},
-{title:"Lydia-YOU.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/Lydia-YOU.mp3",},
-{title:"Lydia-前女友的规则.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/Lydia-前女友的规则.mp3",},
-{title:"Lydia-如果我说爱你行吗.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/Lydia-如果我说爱你行吗.mp3",},
-{title:"Sara-总好过难过.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/Sara-总好过难过.mp3",},
-{title:"Sara-没关系.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/Sara-没关系.mp3",},
-{title:"Zaza-KuamPidTidTua.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/Zaza-KuamPidTidTua.mp3",},
-{title:"focus-等待着你.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/focus-等待着你.mp3",},
-{title:"lydia-为什么不接电话.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/lydia-为什么不接电话.mp3",},
-{title:"sara-即使知道要见面.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/sara-即使知道要见面.mp3",},
-{title:"sara-想说什么吗.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/sara-想说什么吗.mp3",},
-{title:"sara-是否要忘记.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/sara-是否要忘记.mp3",},
-{title:"泰国歌曲-慢嗨舞曲.mp3",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/泰国歌曲-慢嗨舞曲.mp3",}
-
+{title:"B Ray_Han Sara_Masew-Xin Dung Nhac May",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/B Ray_Han Sara_Masew-Xin Dung Nhac May.mp3",},
+{title:"Chillies_SUNI孙夏铃_Rhymastic-Cu Chill Thoi",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/Chillies_SUNI孙夏铃_Rhymastic-Cu Chill Thoi.mp3",},
+{title:"focus-等待着你",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/focus-等待着你.mp3",},
+{title:"HKT-Them Mot Lan Dau(痛多一次)",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/HKT-Them Mot Lan Dau(痛多一次).mp3",},
+{title:"Lydia-DontLeaveMeHere",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/Lydia-DontLeaveMeHere.mp3",},
+{title:"Lydia-YOU",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/Lydia-YOU.mp3",},
+{title:"Lydia-前女友的规则",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/Lydia-前女友的规则.mp3",},
+{title:"Lydia-如果我说爱你行吗",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/Lydia-如果我说爱你行吗.mp3",},
+{title:"lydia-为什么不接电话",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/lydia-为什么不接电话.mp3",},
+{title:"Phao_Masew-2 Phut Han(两分多钟)",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/Phao_Masew-2 Phut Han(两分多钟).mp3",},
+{title:"sara-即使知道要见面",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/sara-即使知道要见面.mp3",},
+{title:"Sara-没关系",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/Sara-没关系.mp3",},
+{title:"sara-是否要忘记",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/sara-是否要忘记.mp3",},
+{title:"sara-想说什么吗",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/sara-想说什么吗.mp3",},
+{title:"Sara-总好过难过",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/Sara-总好过难过.mp3",},
+{title:"Zaza-KuamPidTidTua",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/Zaza-KuamPidTidTua.mp3",},
+{title:"曾维新 BAE-D? Vu(夜舞)",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/曾维新 BAE-D? Vu(夜舞).mp3",},
+{title:"曾维新 Phong Max-Ngay Tho(天真)",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/曾维新 Phong Max-Ngay Tho(天真).mp3",},
+{title:"黄垂玲-Ke Cap Gap Ba Gia",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/黄垂玲-Ke Cap Gap Ba Gia.mp3",},
+{title:"黄垂玲-See Tình(遇见挚爱)",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/黄垂玲-See Tình(遇见挚爱).mp3",},
+{title:"泰国歌曲-慢嗨舞曲",artist: "",album:" ",cover:"img/1.jpg",mp3:"https://cloud.hhhnn.com/d/189Family133/音乐视听/泰国音乐/泰国歌曲-慢嗨舞曲.mp3",}
 ];
 
 	// Load playlist
