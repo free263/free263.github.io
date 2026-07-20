@@ -1,0 +1,243 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<link rel="stylesheet" href="src/css/smusic.css"/>
+<title>听松阁-HTML5列表式音乐播放器SMusic</title>
+</head>
+<body bgcolor="#ffffff">
+	
+<div style="position:absolute; width:100%; height:100%; z-index:1; left: 0px; top: 0px;"> 
+<SCRIPT language=JavaScript src="./images/mainnew.js"></SCRIPT>
+</div>
+
+<div style="position:absolute; width:100%; height:100%; z-index:2; left: 0px; top: 0px;"> 
+<div class="grid-music-container f-usn">
+    <div class="m-music-play-wrap">
+        <div class="u-cover"></div>
+        <div class="m-now-info">
+            <h1 class="u-music-title"><strong>标题</strong><small>歌手</small></h1>
+            <div class="m-now-controls">
+                <div class="u-control u-process">
+                    <span class="buffer-process"></span>
+                    <span class="current-process"></span>
+                </div>
+                <div class="u-control u-time">00:00/00:00</div>
+                <div class="u-control u-volume">
+                    <div class="volume-process" data-volume="0.50">
+                        <span class="volume-current"></span>
+                        <span class="volume-bar"></span>
+                        <span class="volume-event"></span>
+                    </div>
+                    <a class="volume-control"></a>
+                </div>
+            </div>
+            <div class="m-play-controls">
+                <a class="u-play-btn prev" title="上一曲"></a>
+                <a class="u-play-btn ctrl-play play" title="暂停"></a>
+                <a class="u-play-btn next" title="下一曲"></a>
+                <a class="u-play-btn mode mode-list current" title="列表循环"></a>
+                <a class="u-play-btn mode mode-random" title="随机播放"></a>
+                <a class="u-play-btn mode mode-single" title="单曲循环"></a>
+            </div>
+        </div>
+    </div>
+    <div class="f-cb">&nbsp;</div>
+    <div class="m-music-list-wrap"></div>
+</div>
+</div>
+<script src="src/js/smusic.min.js"></script>
+<script>
+var musicList = [
+{title : 'BoA-Addiction(Bo)',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Addiction(Bo).mp3'},
+{title : 'BoA-Adrenaline',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Adrenaline.mp3'},
+{title : 'BoA-AmazingKiss',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-AmazingKiss.mp3'},
+{title : 'BoA-Atl(AtlantisPrincess)',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Atl(AtlantisPrincess).mp3'},
+{title : 'BoA-AzaleA',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Azalea.mp3'},
+{title : 'BoA-BadDrive',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-BadDrive.mp3'},
+{title : 'BoA-BeautifulFlowers',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-BeautifulFlowers.mp3'},
+{title : 'BoA-BelieveinLOVE',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-BelieveinLOVE.mp3'},
+{title : 'BoA-BesideYou',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-BesideYou.mp3'},
+{title : 'BoA-BestFriend',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-BestFriend.mp3'},
+{title : 'BoA-BIO',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-BIO.mp3'},
+{title : 'BoA-BoA',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-BoA.mp3'},
+{title : 'BoA-BokuWoYuboKoe',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-BokuWoYuboKoe.mp3'},
+{title : 'BoA-Brave',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Brave.mp3'},
+{title : 'BoA-Butterfly',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Butterfly.mp3'},
+{title : 'BoA-CAMO',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-CAMO.mp3'},
+{title : 'BoA-CandleLights',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-CandleLights.mp3'},
+{title : 'BoA-CantLetGo',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-CantLetGo.mp3'},
+{title : 'BoA-CloseToMe',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-CloseToMe.mp3'},
+{title : 'BoA-Cloud',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Cloud.mp3'},
+{title : 'BoA-Control',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Control.mp3'},
+{title : 'BoA-Dangerous',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Dangerous.mp3'},
+{title : 'BoA-DearMyLove',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-DearMyLove.mp3'},
+{title : 'BoA-DiamondHeart',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-DiamondHeart.mp3'},
+{title : 'BoA-DidYA',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-DidYa.mp3'},
+{title : 'BoA-Dis(Disturbance)',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Dis(Disturbance).mp3'},
+{title : 'BoA-Discovery',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Discovery.mp3'},
+{title : 'BoA-Distance',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Distance.mp3'},
+{title : 'BoA-Distiny',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Distiny.mp3'},
+{title : 'BoA-DontKnowWhatToSay',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-DontKnowWhatToSay.mp3'},
+{title : 'BoA-DontStartNow',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-DontStartNow.mp3'},
+{title : 'BoA-DoTheMotion',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-DoTheMotion.mp3'},
+{title : 'BoA-Double',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Double.mp3'},
+{title : 'BoA-DoYouLoveMe',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-DoYouLoveMe.mp3'},
+{title : 'BoA-DreamsComeTrue',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-DreamsComeTrue.mp3'},
+{title : 'BoA-DressOff',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-DressOff.mp3'},
+{title : 'BoA-Duvet',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Duvet.mp3'},
+{title : 'BoA-Earthsong',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Earthsong.mp3'},
+{title : 'BoA-EatYouUp',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-EatYouUp.mp3'},
+{title : 'BoA-Energetic',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Energetic.mp3'},
+{title : 'BoA-EVERYBODYKNOWS',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-EVERYBODYKNOWS.mp3'},
+{title : 'BoA-EveryHeart',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-EveryHeart.mp3'},
+{title : 'BoA-EverythingNeedsLove',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-EverythingNeedsLove.mp3'},
+{title : 'BoA-FeelMe',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-FeelMe.mp3'},
+{title : 'BoA-FeelTheSame',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-FeelTheSame.mp3'},
+{title : 'BoA-FirstSnow',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-FirstSnow.mp3'},
+{title : 'BoA-Flower',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Flower.mp3'},
+{title : 'BoA-Fox',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Fox.mp3'},
+{title : 'BoA-GardenInTheAir',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-GardenInTheAir.mp3'},
+{title : 'BoA-GirlsOnTop',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-GirlsOnTop.mp3'},
+{title : 'BoA-GotMeGood',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-GotMeGood.mp3'},
+{title : 'BoA-GraciousDays',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-GraciousDays.mp3'},
+{title : 'BoA-Gravity',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Gravity.mp3'},
+{title : 'BoA-GreenLight',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-GreenLight.mp3'},
+{title : 'BoA-Happiness',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Happiness.mp3'},
+{title : 'BoA-HappinessLies',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-HappinessLies.mp3'},
+{title : 'BoA-HappyBirthday',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-HappyBirthday.mp3'},
+{title : 'BoA-Heroine(Bo)',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Heroine(Bo).mp3'},
+{title : 'BoA-HoneyDiamonds',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-HoneyDiamonds.mp3'},
+{title : 'BoA-HurricaneVenus',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-HurricaneVenus.mp3'},
+{title : 'BoA-HypnoticDancefloor',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-HypnoticDancefloor.mp3'},
+{title : 'BoA-Ibelieve',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Ibelieve.mp3'},
+{title : 'BoA-IDontMind',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-IDontMind.mp3'},
+{title : 'BoA-IdPeaceB',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-IdPeaceB.mp3'},
+{title : 'BoA-ImSorry',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-ImSorry.mp3'},
+{title : 'BoA-ImYourLadyTonight',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-ImYourLadyTonight.mp3'},
+{title : 'BoA-ISpy',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-ISpy.mp3'},
+{title : 'BoA-JewelSong',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-JewelSong.mp3'},
+{title : 'BoA-JoyfulSmile',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-JoyfulSmile.mp3'},
+{title : 'BoA-KeyOfHeart',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-KeyOfHeart.mp3'},
+{title : 'BoA-KissMyLips',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-KissMyLips.mp3'},
+{title : 'BoA-LALLAOLALOVESONG',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-LALLAOLALOVESONG.mp3'},
+{title : 'BoA-LastCristmas',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-LastCristmas.mp3'},
+{title : 'BoA-LetMe',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-LetMe.mp3'},
+{title : 'BoA-LetUGo',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-LetUGo.mp3'},
+{title : 'BoA-ListenToMyHeart',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-ListenToMyHeart.mp3'},
+{title : 'BoA-LittleBird',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-LittleBird.mp3'},
+{title : 'BoA-LittleMore',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-LittleMore.mp3'},
+{title : 'BoA-LOLLIPOP',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-LOLLIPOP.mp3'},
+{title : 'BoA-LongTimeNoSee',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-LongTimeNoSee.mp3'},
+{title : 'BoA-LookWhosTalking',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-LookWhosTalking.mp3'},
+{title : 'BoA-LOVE',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-LOVE.mp3'},
+{title : 'BoA-LoveCanMakeAMiracle',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-LoveCanMakeAMiracle.mp3'},
+{title : 'BoA-LoveHurts',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-LoveHurts.mp3'},
+{title : 'BoA-LoveIsJustWhatYouCan’tSee',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-LoveIsJustWhatYouCan’tSee.mp3'},
+{title : 'BoA-LoveLetter',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-LoveLetter.mp3'},
+{title : 'BoA-MakeASecret',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-MakeASecret.mp3'},
+{title : 'BoA-MASAYUMECHASING',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-MASAYUMECHASING.mp3'},
+{title : 'BoA-MaydayMayday',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-MaydayMayday.mp3'},
+{title : 'BoA-MegaStep',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-MegaStep.mp3'},
+{title : 'BoA-MEP(MyElectronicPiano)',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-MEP(MyElectronicPiano).mp3'},
+{title : 'BoA-Milestone',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Milestone.mp3'},
+{title : 'BoA-MilkyWay',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-MilkyWay.mp3'},
+{title : 'BoA-MoonSunrise',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-MoonSunrise.mp3'},
+{title : 'BoA-Moto',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Moto.mp3'},
+{title : 'BoA-MyGenie',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-MyGenie.mp3'},
+{title : 'BoA-MyName',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-MyName.mp3'},
+{title : 'BoA-MyOnlyOne',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-MyOnlyOne.mp3'},
+{title : 'BoA-MySweetie',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-MySweetie.mp3'},
+{title : 'BoA-NEGADOLA',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-NEGADOLA.mp3'},
+{title : 'BoA-NextStep',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-NextStep.mp3'},
+{title : 'BoA-No1',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-No1.mp3'},
+{title : 'BoA-NobodyButYou',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-NobodyButYou.mp3'},
+{title : 'BoA-NoMoreMakeMeSick',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-NoMoreMakeMeSick.mp3'},
+{title : 'BoA-NothingsGonnaChange',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-NothingsGonnaChange.mp3'},
+{title : 'BoA-NotOverU',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-NotOverU.mp3'},
+{title : 'BoA-NoWay',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-NoWay.mp3'},
+{title : 'BoA-Obsessed',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Obsessed.mp3'},
+{title : 'BoA-OndWingsEmbracingEachOther',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-OndWingsEmbracingEachOther.mp3'},
+{title : 'BoA-ONESHOTTWOSHOT',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-ONESHOTTWOSHOT.mp3'},
+{title : 'BoA-OnlyOne',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-OnlyOne.mp3'},
+{title : 'BoA-Op',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Op.mp3'},
+{title : 'BoA-OurLoveToMyParents',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-OurLoveToMyParents.mp3'},
+{title : 'BoA-OutgrowReadyButterfly',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-OutgrowReadyButterfly.mp3'},
+{title : 'BoA-PainLove',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-PainLove.mp3'},
+{title : 'BoA-POL(PowerOfLove)',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-POL(PowerOfLove).mp3'},
+{title : 'BoA-Power',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Power.mp3'},
+{title : 'BoA-pr(SpringRain)',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-pr(SpringRain).mp3'},
+{title : 'BoA-Precious',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Precious.mp3'},
+{title : 'BoA-REALIZE(staywithme)',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-REALIZE(staywithme).mp3'},
+{title : 'BoA-RECOLLECTION',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-RECOLLECTION.mp3'},
+{title : 'BoA-RightHereRightEverywhere',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-RightHereRightEverywhere.mp3'},
+{title : 'BoA-RockWithYou',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-RockWithYou.mp3'},
+{title : 'BoA-SARA',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-SARA.mp3'},
+{title : 'BoA-Sars',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Sars.mp3'},
+{title : 'BoA-SearchingForTruth',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-SearchingForTruth.mp3'},
+{title : 'BoA-ShareYourHeart(WithMe)',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-ShareYourHeart(WithMe).mp3'},
+{title : 'BoA-Shattered',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Shattered.mp3'},
+{title : 'BoA-ShineWeAre',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-ShineWeAre.mp3'},
+{title : 'BoA-shinewoare',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-shinewoare.mp3'},
+{title : 'BoA-ShyLove',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-ShyLove.mp3'},
+{title : 'BoA-SilentScreamerz',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-SilentScreamerz.mp3'},
+{title : 'BoA-SmileAgain',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-SmileAgain.mp3'},
+{title : 'BoA-SnowWhite',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-SnowWhite.mp3'},
+{title : 'BoA-SomedaySomewhere',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-SomedaySomewhere.mp3'},
+{title : 'BoA-SongWithNoName',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-SongWithNoName.mp3'},
+{title : 'BoA-SoReal',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-SoReal.mp3'},
+{title : 'BoA-Soundscape',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Soundscape.mp3'},
+{title : 'BoA-Sparkling',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Sparkling.mp3'},
+{title : 'BoA-StartOver',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-StartOver.mp3'},
+{title : 'BoA-StayMyGold',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-StayMyGold.mp3'},
+{title : 'BoA-Still.',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Still..mp3'},
+{title : 'BoA-Style',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Style.mp3'},
+{title : 'BoA-Sunshine',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Sunshine.mp3'},
+{title : 'BoA-SweetImpact',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-SweetImpact.mp3'},
+{title : 'BoA-Temptations',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Temptations.mp3'},
+{title : 'BoA-TheChristmasSong',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-TheChristmasSong.mp3'},
+{title : 'BoA-TheLightsOfSeoul',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-TheLightsOfSeoul.mp3'},
+{title : 'BoA-TheShadow',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-TheShadow.mp3'},
+{title : 'BoA-TheShowMustGoOn',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-TheShowMustGoOn.mp3'},
+{title : 'BoA-TheTop',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-TheTop.mp3'},
+{title : 'BoA-TimeToBegin',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-TimeToBegin.mp3'},
+{title : 'BoA-Touch',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Touch.mp3'},
+{title : 'BoA-Touched',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Touched.mp3'},
+{title : 'BoA-Tragic',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Tragic.mp3'},
+{title : 'BoA-Tree',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Tree.mp3'},
+{title : 'BoA-ve(EveryBreathYouTake)',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-ve(EveryBreathYouTake).mp3'},
+{title : 'BoA-We(Bo)',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-We(Bo).mp3'},
+{title : 'BoA-Whatever',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Whatever.mp3'},
+{title : 'BoA-WhiteChristmas',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-WhiteChristmas.mp3'},
+{title : 'BoA-WhiteWishes(EnglishVersion)',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-WhiteWishes(EnglishVersion).mp3'},
+{title : 'BoA-WhiteWishes',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-WhiteWishes.mp3'},
+{title : 'BoA-WinterLove',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-WinterLove.mp3'},
+{title : 'BoA-WithYou',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-WithYou.mp3'},
+{title : 'BoA-Woman',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-Woman.mp3'},
+{title : 'BoA-WOOWEEKEND',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-WOOWEEKEND.mp3'},
+{title : 'BoA-YourColor',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-YourColor.mp3'},
+{title : 'BoA-薄雾',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-薄雾.mp3'},
+{title : 'BoA-抱きしめる',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-抱きしめる.mp3'},
+{title : 'BoA-大家的心情',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-大家的心情.mp3'},
+{title : 'BoA-红鼻子的驯鹿',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-红鼻子的驯鹿.mp3'},
+{title : 'BoA-奇蹟',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-奇蹟.mp3'},
+{title : 'BoA-气持ちはつたわる',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-气持ちはつたわる.mp3'},
+{title : 'BoA-世界の片隅で',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-世界の片隅で.mp3'},
+{title : 'BoA-世界的象征',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-世界的象征.mp3'},
+{title : 'BoA-心の手紙',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-心の手紙.mp3'},
+{title : 'BoA-永远',singer:'',cover :'images/Maroon5.jpg',src:'https://cloud.hhhnn.com/d/189Family133/音乐视听/BoA/BoA-永远.mp3'}
+];
+new SMusic({
+	musicList:musicList
+});
+</script>
+
+
+
+<div style="text-align:center;margin:550px 0; font:normal 36px/48px 'MicroSoft YaHei';z-index:3;">
+<p><a href="http://free163.com/" target="_blank">听松阁</a></p>
+</div>
+</body>
+</html>
