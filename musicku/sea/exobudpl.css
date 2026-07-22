@@ -1,0 +1,32 @@
+A {
+	COLOR: #ffffff; TEXT-DECORATION: none
+}
+A:link {
+	COLOR: #ffffff; TEXT-DECORATION: none
+}
+A:visited {
+	COLOR: #cccccc; TEXT-DECORATION: none
+}
+A:active {
+	COLOR: #ffffff; TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #ffff99; TEXT-DECORATION: none
+}
+BODY {
+	BACKGROUND-POSITION: center top; 
+	BACKGROUND-ATTACHMENT: fixed; 
+	BACKGROUND-IMAGE: none; 
+	MARGIN: 0px; 
+	CURSOR: crosshair; 
+	BACKGROUND-REPEAT: repeat;
+	BACKGROUND-COLOR: transparent;
+	FONT-SIZE: 8pt;  
+	FONT-FAMILY: 'Tahoma','Verdana','Arial'
+}
+TD {
+	FONT-SIZE: 8pt; 
+	COLOR: #fbfbb0; 
+	FONT-FAMILY: 'Tahoma','Verdana','Arial';
+	BACKGROUND-COLOR: transparent;
+}

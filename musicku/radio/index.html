@@ -1,0 +1,179 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>:: 海棠别苑 - 音乐在线 ::</title>
+<meta name="Author" content="ExoBUD, Jinwoong Yu,yune_lee">
+<meta name="Keywords" content="ExoBUD MP">
+<meta name="Description" content="asf,asx,wma,wmx,wmv,wvx,mp3,wav,mid 网站媒体播放程序">
+<link rel="stylesheet" type="text/css" href="exobud.css">
+<!-- 加载 ExoBUD MP(II) 主程序 -->
+<script language="JavaScript" src="exobud.js"></script>
+<!-- 加载 ExoBUD MP(II) 基本设定档 -->
+<script language="JavaScript" src="exobudset.js"></script>
+<!-- 加载 ExoBUD MP(II) 播放清单设定文件 -->
+<script language="JavaScript" src="china.js"></script>
+<!-- 如果您不熟悉原始码编辑，请勿随便修改下面使用 JScript 的部份，否则可能会导致程序不能正常运作 -->
+<script language="JScript" for="Exobud" event="openStateChange(sf)">evtOSChg(sf);</script>
+<script language="JScript" for="Exobud" event="playStateChange(ns)">evtPSChg(ns);</script>
+<script language="JScript" for="Exobud" event="error()">evtWmpError();</script>
+<script language="JScript" for="Exobud" event="Buffering(bf)">evtWmpBuff(bf);</script>
+<!-- 加载动态按钮图片的 JavaScript 程序文件 -->
+<script language="JavaScript" src="imgchg.js"></script>
+</head>
+
+
+<BODY onLoad="initExobud();" oncontextmenu="return false" ondragstart="return false" onselectstart="return false" style="overflow:hidden; margin:0; padding:0; width:100%; height:100%;" topmargin=0 leftmargin=0 marginwidth=0 marginheight=0>
+<div id="audioContainer" style="display:none;"></div>
+<script>
+// 创建音频元素
+var audioElement = document.createElement('audio');
+audioElement.id = 'audioPlayer';
+audioElement.style.display = 'none';
+document.getElementById('audioContainer').appendChild(audioElement);
+</script>
+
+<!-- 保留Exobud对象引用以便兼容 -->
+<script>
+// 将audio元素引用到Exobud对象
+var Exobud = {
+    // 将在exobud.js中定义
+};
+</script>
+
+<!-- 外层容器：用于实现居中，整体上移10px -->
+<div style="position:absolute; left:50%; top:calc(50% - 0px); transform:translate(-50%, -50%); display:table;">
+
+<table border="0" cellpadding="0" cellspacing="0" width="449">
+<!-- fwtable fwsrc="bg.png" fwbase="index.gif" fwstyle="Dreamweaver" fwdocid = "742308039" fwnested="0" -->
+  <tr>
+   <td><img src="img/spacer.gif" width="45" height="1" border="0" alt=""></td>
+   <td><img src="img/spacer.gif" width="4" height="1" border="0" alt=""></td>
+   <td><img src="img/spacer.gif" width="22" height="1" border="0" alt=""></td>
+   <td><img src="img/spacer.gif" width="3" height="1" border="0" alt=""></td>
+   <td><img src="img/spacer.gif" width="22" height="1" border="0" alt=""></td>
+   <td><img src="img/spacer.gif" width="3" height="1" border="0" alt=""></td>
+   <td><img src="img/spacer.gif" width="24" height="1" border="0" alt=""></td>
+   <td><img src="img/spacer.gif" width="3" height="1" border="0" alt=""></td>
+   <td><img src="img/spacer.gif" width="9" height="1" border="0" alt=""></td>
+   <td><img src="img/spacer.gif" width="179" height="1" border="0" alt=""></td>
+   <td><img src="img/spacer.gif" width="12" height="1" border="0" alt=""></td>
+   <td><img src="img/spacer.gif" width="2" height="1" border="0" alt=""></td>
+   <td><img src="img/spacer.gif" width="22" height="1" border="0" alt=""></td>
+   <td><img src="img/spacer.gif" width="3" height="1" border="0" alt=""></td>
+   <td><img src="img/spacer.gif" width="22" height="1" border="0" alt=""></td>
+   <td><img src="img/spacer.gif" width="3" height="1" border="0" alt=""></td>
+   <td><img src="img/spacer.gif" width="22" height="1" border="0" alt=""></td>
+   <td><img src="img/spacer.gif" width="4" height="1" border="0" alt=""></td>
+   <td><img src="img/spacer.gif" width="45" height="1" border="0" alt=""></td>
+   <td><img src="img/spacer.gif" width="1" height="1" border="0" alt=""></td>
+  </tr>
+
+  <tr>
+    <td rowspan="4">&nbsp;</td> <td rowspan="2" colspan="7">&nbsp;</td>
+   <td colspan="3"><img name="index_r1_c9" src="img/index_r1_c9.gif" width="200" height="17" border="0" alt=""></td>
+    <td rowspan="2" colspan="7">&nbsp;</td> <td rowspan="4">&nbsp;</td>
+   <td><img src="img/spacer.gif" width="1" height="17" border="0" alt=""></td>
+  </tr>
+  <tr>
+   <td rowspan="3"><img name="index_r2_c9" src="img/index_r2_c9.gif" width="9" height="31" border="0" alt=""></td>
+    <td rowspan="2">&nbsp;</td>
+   <td rowspan="3"><img name="index_r2_c11" src="img/index_r2_c11.gif" width="12" height="31" border="0" alt=""></td>
+   <td><img src="img/spacer.gif" width="1" height="19" border="0" alt=""></td>
+  </tr>
+  <tr>
+   <td><img name="index_r3_c2" src="img/index_r3_c2.gif" width="4" height="10" border="0" alt=""></td>
+   <td><img name="index_r3_c3" src="img/index_r3_c3.gif" width="22" height="10" border="0" alt=""></td>
+   <td><img name="index_r3_c4" src="img/index_r3_c4.gif" width="3" height="10" border="0" alt=""></td>
+   <td><img name="plist" src="img/plist.gif" width="22" height="10" border="0" alt=""></td>
+   <td><img name="index_r3_c6" src="img/index_r3_c6.gif" width="3" height="10" border="0" alt=""></td>
+   <td><img name="index_r3_c7" src="img/index_r3_c7.gif" width="24" height="10" border="0" alt=""></td>
+   <td><img name="index_r3_c8" src="img/index_r3_c8.gif" width="3" height="10" border="0" alt=""></td>
+   <td><img name="index_r3_c12" src="img/index_r3_c12.gif" width="2" height="10" border="0" alt=""></td>
+   <td><img name="index_r3_c13" src="img/index_r3_c13.gif" width="22" height="10" border="0" alt=""></td>
+   <td><img name="index_r3_c14" src="img/index_r3_c14.gif" width="3" height="10" border="0" alt=""></td>
+   <td><img name="index_r3_c15" src="img/index_r3_c15.gif" width="22" height="10" border="0" alt=""></td>
+   <td><img name="index_r3_c16" src="img/index_r3_c16.gif" width="3" height="10" border="0" alt=""></td>
+   <td><img name="index_r3_c17" src="img/index_r3_c17.gif" width="22" height="10" border="0" alt=""></td>
+   <td><img name="index_r3_c18" src="img/index_r3_c18.gif" width="4" height="10" border="0" alt=""></td>
+   <td><img src="img/spacer.gif" width="1" height="10" border="0" alt=""></td>
+  </tr>
+  <tr>
+   <td colspan="7"><img name="index_r4_c2" src="img/index_r4_c2.gif" width="81" height="2" border="0" alt=""></td>
+   <td><img name="index_r4_c10" src="img/index_r4_c10.gif" width="179" height="2" border="0" alt=""></td>
+   <td colspan="7"><img name="index_r4_c12" src="img/index_r4_c12.gif" width="78" height="2" border="0" alt=""></td>
+   <td><img src="img/spacer.gif" width="1" height="2" border="0" alt=""></td>
+  </tr>
+  <tr>
+   <td colspan="19"><img name="word" src="img/word.gif" width="449" height="51" border="0" alt=""></td>
+   <td><img src="img/spacer.gif" width="1" height="51" border="0" alt=""></td>
+  </tr>
+  <tr>
+   <td rowspan="2" colspan="7"><img name="index_r6_c1" src="img/index_r6_c1.gif" width="123" height="127" border="0" alt=""></td>
+   <td colspan="4"><img name="index_r6_c8" src="img/index_r6_c8.gif" width="203" height="94" border="0" alt=""></td>
+   <td rowspan="2" colspan="8"><img name="index_r6_c12" src="img/index_r6_c12.gif" width="123" height="127" border="0" alt=""></td>
+   <td><img src="img/spacer.gif" width="1" height="94" border="0" alt=""></td>
+  </tr>
+  <tr>
+   <td colspan="4"><img name="btn" src="img/btn.gif" width="203" height="33" border="0" alt=""></td>
+   <td><img src="img/spacer.gif" width="1" height="33" border="0" alt=""></td>
+  </tr>
+</table>
+
+<!-- 滚动字幕部分 -->
+<div id="layer14" style="width:56px; height:52px; position:absolute; left:105px; top:61px; z-index:1;">
+    <TABLE  border=0 cellspacing=0 cellpadding=0>
+  		<TD width=56 height=16 align=center valign=TOP NOWRAP><marquee behavior="scroll"  scrolldelay=1 scrollamount=1 width=156 height=16><span id="disp1" width=50 height=16 class="title" align=left valign=top>海棠别苑 - 音乐播放系统</span></marquee></TD></TR>
+		</TABLE>
+</div>
+<!-- 播放时间部分 -->
+<div id="layer13" style="width:108px; height:22px; position:absolute; left:260px; top:58px; z-index:1;">
+    <TABLE  border=0 cellspacing=0 cellpadding=0 >
+  <TR><TD width=108 height=20  align=center background="./img/bg_1.gif" NOWRAP onClick="chgTimeFmt();this.blur();"><span id="disp2" width=105 class="time" align="center" title ="时间长度显示方式 (正常/倒数s)" style="cursor:hand;">00:00 | 00:00</span>
+    </TD></TR></table>
+</div>
+<!-- 播放暂停部分 -->
+<div id="layer5" style="width:15px; height:16px; position:absolute; left:183px; top:185px; z-index:1;">
+    <p><img name="pauzt" src="img/btn_pauz_off.gif" width="5" height="6" border="0" onClick="wmpPP();this.blur();" onMouseOver="imgtog('pauzt',2);" onMouseOut="imgtog('pauzt',3)" style="cursor:hand;" title="暂停/恢复"></p>
+</div>
+<!-- 播放开始部分 -->
+<div id="layer4" style="width:16px; height:16px; position:absolute; left:225px; top:185px; z-index:1;">
+    <p><img name="playt" src="img/btn_play.gif" width="7" height="9" border="0" onClick="startExobud();this.blur();" onMouseOver="imgtog('playt',2);" onMouseOut="imgtog('playt',3)" style="cursor:hand;" title="播放"></p>
+</div>
+<!-- 播放停止部分 -->
+<div id="layer6" style="width:15px; height:16px; position:absolute; left:263px; top:185px; z-index:1;">
+    <p><img name="stopt" src="img/btn_stop.gif" width="6" height="6" border="0" onClick="wmpStop();this.blur();" onMouseOver="imgtog('stopt',2);" onMouseOut="imgtog('stopt',3)" style="cursor:hand;" title="停止"></p>
+</div>
+<!-- 播放次序部分 -->
+<div id="layer2" style="width:16px; height:17px; position:absolute; left:143px; top:185px; z-index:1;">
+    <p><img name="prevt" src="img/btn_prev.gif" width="7" height="7" border="0" onClick="playPrev();this.blur();" onMouseOver="imgtog('prevt',2);" onMouseOut="imgtog('prevt',3)" style="cursor:hand;" title="前一首"></p>
+</div>
+<div id="layer3" style="width:16px; height:16px; position:absolute; left:302px; top:185px; z-index:1;">
+    <p><img name="nextt" src="img/btn_next.gif" width="7" height="7" border="0" onClick="playNext();this.blur();" onMouseOver="imgtog('nextt',2);" onMouseOut="imgtog('nextt',3)" style="cursor:hand;" title="下一首"></p>
+</div>
+<!-- 音量控制部分 -->
+<div id="layer7" style="width:15px; height:13px; position:absolute; left:370px; top:40px; z-index:1;">
+    <p><img name="vup" src="img/btn_vup.gif" width="29" height="28" border="0" onClick="wmpVolUp();this.blur();" onMouseOver="imgtog('vup',2);" onMouseOut="imgtog('vup',3)" style="cursor:hand;" title="增加音量"></p>
+</div>
+<div id="layer9" style="width:15px; height:13px; position:absolute; left:49px; top:40px; z-index:1;">
+    <p><img name="vdn" src="img/btn_vdn.gif" width="29" height="28" border="0" onClick="wmpVolDn();this.blur();" onMouseOver="imgtog('vdn',2);" onMouseOut="imgtog('vdn',3)" style="cursor:hand;" title="降低音量"></p>
+</div>
+<!-- 播放清单部分 -->
+<div id="layer1" style="width:19px; height:8px; position:absolute; left:74px; top:25px; z-index:1;">
+    <p><img name="plist" src="img/btn_plist.gif" width="22" height="10" border="0" onClick="openPlist();this.blur();" onMouseOver="imgtog('plist',2);" onMouseOut="imgtog('plist',3)" style="cursor:hand;" title="打开播放清单"></p>
+</div>
+<!-- 播放顺序部分 -->
+<div id="layer10" style="width:29px; height:16px; position:absolute; left:49px; top:25px; z-index:1;">
+    <p><img name="pmode" src="img/btn_rndmode_off.gif" width="22" height="10" border="0" onClick="chgPMode();this.blur();" onMouseOver="imgtog('pmode',2);" onMouseOut="imgtog('pmode',3)" style="cursor:hand;" title="播放顺序(循环/随机)"></p>
+</div>
+<!-- 重复播放部分 -->
+<div id="layer11" style="width:26px; height:16px; position:absolute; left:99px; top:25px; z-index:1;">
+    <p><img name="rept" src="img/btn_rept_off.gif" width="22" height="10" border="0" onClick="chkRept();this.blur();" onMouseOver="imgtog('rept',2);" onMouseOut="imgtog('rept',3)" style="cursor:hand;" title="重复播放当前曲目"></p>
+</div>
+<!-- 音频显示部分 -->
+<div style="position:absolute;left:129px;top:119px;"><img name="music" src="img/bx.gif" width="192" height="60" border="0" alt=""></div>
+
+</div><!-- 外层容器结束 -->
+
+
+</body>
+</html>

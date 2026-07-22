@@ -1,0 +1,181 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>:: 海棠别苑 - 音乐在线 ::</title>
+<meta name="Author" content="ExoBUD, Jinwoong Yu",yune_lee>
+<meta name="Keywords" content="ExoBUD MP">
+<meta name="Description" content="asf,asx,wma,wmx,wmv,wvx,mp3,wav,mid 网站媒体播放程序">
+<link rel="stylesheet" type="text/css" href="exobudpl.css">
+<!-- 
+===============================[程序信息及版权宣告]===================================
+ExoBUD MP(II) v4.1tc+ [Sample Chinese Version]
+Copyright(Pe) 1999-2004 Jinwoong Yu[ExoBUD], yune_lee[liyu.net]
+======================================================================================
+程序原作者: 庾珍雄(Jinwoong Yu) 
+个人网站: http://exobud.nayana.org 
+电子邮件: exobud@hanmail.net
+简体中文化作者: liyu(yune_lee)
+个人网站: http://www.liyu.net
+电子邮件: yune_lee@163.net
+0ICQ 账号: 4410162
+发表日期: 2003.01.10(此版本原韩文版) 
+发表日期: 2003.05.22(简体中文首个版本)
+======================================================================================
+版权所有。
+   请尊重智慧财产权： 无论您对本程序 ExoBUD MP(II) 作任何修改、制作(或翻译)面板，请您
+*必须*保留此段版权宣告的内容，包括程序(及面板)原作者及中文化作者的名字和网站连结。
+ 如果您想要以繁体中文版或简体中文版的程序为基础，翻译成其它语言的版本，及／或在因特网
+上，公开发表您所修改过的版本，请您首先以传送电子邮件的方式，征求我们的同意。
+  请不要将程序(或面板)原作者或中文化作者的名字改成您自己的名字，然后以另一程序名称重新
+命名后在网络上公开发表及散播本程序，因为这是严重的侵权行为。
+  这是公益免费程序，所以请不要使用在商业用途上。
+  另外，您亦不可将本程序(全部或部份)复制到其它储存媒体(例如光盘片)上作贩卖获利用途。
+  假如因为使用本程序而令您蒙受数据遗失或损毁，程序原作者及中文化作者均不用对其负责。
+===============================[面板(Skin)制作信息]===================================
+ExoBUD MP(II) v4.1tc+ 飞鱼面板(www.dearfish.com) 
+特别感谢飞鱼允许雨网国际(www.liyu.net)提供独家面板下载！
+欢迎大家参观飞鱼的酷站--www.dearfish.com
+===============================[注意事项]=============================================
+  如果你不是十分熟悉html和JavaScript语言，请不要修改以下的代码，否则十分容易造成程序错
+误。当您修改本程序的原始码时，请注意执行修改后的程序，可能会导致一些正在执行中的应用程
+序无法正常运作；另外亦要留意在JavaScript上所使用的变量名称和设定值，大小写是有分别的。
+======================================================================================
+-->
+
+<SCRIPT language="JavaScript"><!--
+	var via = opener;
+	var write_via = "opener";
+	var iLoc= self.location.href;
+// 如果您是面板制作者(或播放器的进阶使用者)，想要将播放清单的内容，固定显示在页面上某个框架，
+// 则上面这几个变量可能会对你有帮助。
+
+// "via" 这个变量，是代表播放器本身 (exobud.htm) 的位置，相对于播放清单 (exobudpl.htm) 而言。
+// 如果您想要将播放清单嵌入使用者定义的框架 (frameset或iframe)，
+// "via" 的设定值应为 "top.使用者定义的框架名称..." ，而 top 就是指以 index.htm(php) 为起始。
+
+	function playSel(){via.wmpStop();via.startExobud();}
+	function refreshPl(){ self.location=iLoc;}
+	function chkSel(){via.chkAllSel();refreshPl();}
+	function chkDesel(){via.chkAllDesel();refreshPl();}
+
+	function dspList(n){
+		var elmABlock= 18;  // 设定每页可显示多少个播放项目
+		var totElm = via.intMmCnt;
+		var totBlock= Math.floor((via.intMmCnt -1) / elmABlock)+1;
+		var cblock;
+		if(n==null){cblock=1;}
+		else{cblock=n;}
+		var seed;
+		var limit;
+		if(cblock < totBlock){seed= elmABlock * (cblock-1); limit =  cblock*elmABlock -1}
+		else{seed=elmABlock * (cblock-1); limit= totElm-1;}
+
+	if(via.intMmCnt >0 ){
+		var list_num=0;
+		mmList.innerHTML='<p>';
+		pageList.innerHTML=' &nbsp;Page ';
+		for (var i=seed; i <= limit; i++)
+		{	list_num = i + 1;
+			if(via.objMmInfo[i].selMm=="t"){elm=' <input type=checkbox  style="cursor:hand;" onClick='+ write_via + '.chkItemSel('+ i +'); checked>' ;}
+			else{elm = ' <input type=checkbox style="cursor:hand;" onClick='+ write_via + '.chkItemSel('+ i +');>' ;}
+			elm = elm + '&nbsp;⑤' + list_num + '. ' 
+			elm = elm + '<a href=javascript:' + write_via + '.selPlPlay(' + i + ');'
+			elm = elm + ' onclick=\"this.blur();\">'
+			if(via.objMmInfo[i].mmTit =="nAnT"){ elm = elm + "未指定媒体标题(等待自动取得媒体信息)";}
+			else{elm = elm + via.objMmInfo[i].mmTit;}
+			elm= elm+  '</a><br>';
+			mmList.innerHTML=mmList.innerHTML+elm;
+		}
+		for(var j=1; j<=totBlock; j++){
+			page='<a href=javascript:dspList('+j+')>['+j+']<a> ';
+			pageList.innerHTML=pageList.innerHTML+page;
+		}
+
+
+
+		pageInfo.innerHTML=' '+cblock+ '  / '+ totBlock;
+	}
+	else { mmList.innerHTML='<div align=center> 播放清单上没有设定任何曲目。 </div>'; }
+	 }
+
+--></SCRIPT>
+<script language="JavaScript">
+<!--
+function na_restore_img_src(name, nsdoc)
+{
+  var img = eval((navigator.appName.indexOf('Netscape', 0) != -1) ? nsdoc+'.'+name : 'document.all.'+name);
+  if (name == '')
+    return;
+  if (img && img.altsrc) {
+    img.src    = img.altsrc;
+    img.altsrc = null;
+  } 
+}
+
+function na_preload_img()
+{ 
+  var img_list = na_preload_img.arguments;
+  if (document.preloadlist == null) 
+    document.preloadlist = new Array();
+  var top = document.preloadlist.length;
+  for (var i=0; i < img_list.length; i++) {
+    document.preloadlist[top+i]     = new Image;
+    document.preloadlist[top+i].src = img_list[i+1];
+  } 
+}
+
+function na_change_img_src(name, nsdoc, rpath, preload)
+{ 
+  var img = eval((navigator.appName.indexOf('Netscape', 0) != -1) ? nsdoc+'.'+name : 'document.all.'+name);
+  if (name == '')
+    return;
+  if (img) {
+    img.altsrc = img.src;
+    img.src    = rpath;
+  } 
+}
+
+// -->
+</script>
+</HEAD>
+
+<BODY onLoad="dspList(); this.focus();na_preload_img(false, 'img/play_ovr.gif', 'img/allsel_ovr.gif', 'img/alldesel_ovr.gif', 'img/close_ovr.gif');" oncontextmenu="return false" ondragstart="return false" onselectstart="return false" text="silver" topmargin=0 leftmargin=0 marginwidth=0 marginheight=0 style="border: 0px solid black; margin: 0pt;">
+
+<br>
+<br>
+ <TABLE border=0 cellpadding=0 cellspacing=0 width=257 height=428 align=center>
+  <TR><TD width="100%" height="25" background="" align=center valign=middle><IMG src="" border=0 width="0" height="0"><IMG src="" width="0" height="0" border=0><IMG src="" border=0 width="0" height="0"></TD></TR>
+  <TR><TD width=100% height=*% background="white" valign=top align=left ><DIV id="mmList"><P></DIV></TD></TR>
+  <TR><TD  valign=bottom align=center><DIV id="pageList"><P></DIV></TD></TR></TABLE>
+
+
+<TABLE border=0 cellpadding=0 cellspacing=0 width=100% height=16>
+<TR>
+<TD height="16" align=center valign=top><SPAN id="pageInfo"></SPAN></td></TR>
+ </TABLE>
+
+ <TABLE border=0 cellpadding=0 cellspacing=0 width=100%>
+<TR>
+<TD width="100%" align=center valign=top>
+
+ <table height="24" cellpadding="0" cellspacing="0">
+  <TR>
+      
+      <TD height=24 width=40 align=right valign=top><A onfocus=blur() href="javascript:playSel();window.top.close()" onFocus="this.blur()" title="立即播放" OnMouseOut="na_restore_img_src('image1', 'document')" OnMouseOver="na_change_img_src('image1', 'document', './img/play_ovr.gif', true)"><img src="./img/play.gif" width="20" height="24" border="0" name="image1"></A></TD>
+	  
+	  <TD height=24 width=17 align=left valign=bottom><A onfocus=blur() href="javascript:chkSel()" onFocus="this.blur()" title="全部选取" OnMouseOut="na_restore_img_src('image2', 'document')" OnMouseOver="na_change_img_src('image2', 'document', './img/allsel_ovr.gif', true)"><img src="./img/allsel.gif" width="17" height="18" border="0" name="image2"></A></TD>
+	  
+	  <TD height=24 width=17 align=left valign=bottom><A onfocus=blur() href="javascript:chkDesel()" onFocus="this.blur()" title="全部不选" OnMouseOut="na_restore_img_src('image3', 'document')" OnMouseOver="na_change_img_src('image3', 'document', './img/alldesel_ovr.gif', true)"><img src="./img/alldesel.gif" width="16" height="16" border="0" name="image3"></A></TD>
+	  
+	  <TD height=24 width=19 align=left valign=bottom><A onfocus=blur() href="javascript:window.top.close()" onFocus="this.blur()" title="关闭窗口" OnMouseOut="na_restore_img_src('image4', 'document')" OnMouseOver="na_change_img_src('image4', 'document', './img/close_ovr.gif', true)"><img src="./img/close.gif" width="16" height="16" border="0" name="image4"></A></TD>
+
+	  <TD height=24 width=190 align=center valign=bottom></TD>
+   </TR>
+ </TABLE>
+
+</td>
+</TR>
+</TABLE>
+
+</BODY>
+</HTML>

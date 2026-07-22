@@ -1,0 +1,8 @@
+@font-face {font-family:tahoma;src:url("");} 
+     A:link { COLOR: silver; TEXT-DECORATION: none } 
+    A:hover { COLOR: white; TEXT-DECORATION: none } 
+    A:active { COLOR: white; TEXT-DECORATION: none } 
+    A:visited { COLOR: silver; TEXT-DECORATION: none } 
+    BODY { margin: 0px 0px 0px 0px; background:transparent; background-color : #C0C0C0; cursor:crosshair;} 
+	.title{ font-family: tahoma; font-size: 15px; color:#cccccc;}
+	.time{font-family: tahoma; font-size: 15px; color:#4C7938;}

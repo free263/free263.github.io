@@ -1,0 +1,24 @@
+A {
+	COLOR: #AEE7FC; TEXT-DECORATION: none
+}
+A:link {
+	COLOR: #AEE7FC; TEXT-DECORATION: none
+}
+A:visited {
+	COLOR: #AEE7FC; TEXT-DECORATION: none
+}
+A:active {
+	COLOR: #AEE7FC; TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #ffff99; TEXT-DECORATION: none
+}
+BODY {
+	BACKGROUND-POSITION: center top; BACKGROUND-ATTACHMENT: fixed; BACKGROUND-IMAGE: none; MARGIN: 0px; CURSOR: crosshair; BACKGROUND-REPEAT: repeat
+}
+BODY {
+	BACKGROUND-COLOR : #840000; BACKGROUND : url("img/bg.jpg"); FONT-SIZE: 8pt; COLOR: #AEE7FC; FONT-FAMILY: 'Tahoma','Verdana','Arial'
+}
+TD {
+	FONT-SIZE: 8pt; COLOR: #AEE7FC; FONT-FAMILY: 'Tahoma','Verdana','Arial'
+}
