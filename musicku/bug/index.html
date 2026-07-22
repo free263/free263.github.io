@@ -1,56 +1,56 @@
 <html>
 <head>
-<title>:: º£ÌÄ±ğÔ· - ÒôÀÖÔÚÏß ::</title>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>:: æµ·æ£ åˆ«è‹‘ - éŸ³ä¹åœ¨çº¿ ::</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="Author" content="ExoBUD, Jinwoong Yu">
 <meta name="Keywords" content="ExoBUD MP">
-<meta name="Description" content="asf,asx,wma,wmx,wmv,wvx,mp3,wav,mid ÍøÕ¾Ã½Ìå²¥·Å³ÌĞò">
+<meta name="Description" content="asf,asx,wma,wmx,wmv,wvx,mp3,wav,mid ç½‘ç«™åª’ä½“æ’­æ”¾ç¨‹åº">
 <link rel="stylesheet" type="text/css" href="exobudpl.css">
 </head>
 <body bgcoloe="#840000" background="img/bg.jpg" leftMargin=0 topMargin=0 marginheight="0" marginwidth="0" scroll=no style="margin:0; padding:0; overflow:hidden; width:100%; height:100%; display:flex; align-items:center; justify-content:center;">
 <div id="audioContainer" style="display:none;"></div>
 <script>
-// ´´½¨ÒôÆµÔªËØ
+// åˆ›å»ºéŸ³é¢‘å…ƒç´ 
 var audioElement = document.createElement('audio');
 audioElement.id = 'audioPlayer';
 audioElement.style.display = 'none';
 document.getElementById('audioContainer').appendChild(audioElement);
 </script>
 
-<!-- ±£ÁôExobud¶ÔÏóÒıÓÃÒÔ±ã¼æÈİ -->
+<!-- ä¿ç•™Exobudå¯¹è±¡å¼•ç”¨ä»¥ä¾¿å…¼å®¹ -->
 <script>
-// ½«audioÔªËØÒıÓÃµ½Exobud¶ÔÏó
+// å°†audioå…ƒç´ å¼•ç”¨åˆ°Exobudå¯¹è±¡
 var Exobud = {
-    // ½«ÔÚexobud.jsÖĞ¶¨Òå
+    // å°†åœ¨exobud.jsä¸­å®šä¹‰
 };
 </script>
 <style>
 BODY {
 	SCROLLBAR-FACE-COLOR: #666666; SCROLLBAR-HIGHLIGHT-COLOR: #666666; SCROLLBAR-SHADOW-COLOR: #ebebeb; SCROLLBAR-3DLIGHT-COLOR: #ebebeb; SCROLLBAR-ARROW-COLOR: #ebebeb; SCROLLBAR-TRACK-COLOR: #666666; SCROLLBAR-DARKSHADOW-COLOR: #666666
 }
-/* ¾ÓÖĞÈİÆ÷ */
+/* å±…ä¸­å®¹å™¨ */
 .centered-wrapper {
     position: relative;
     display: inline-block;
 }
 </style>
 <script language="JavaScript" src="exobud.js"></script>
-<!-- ¼ÓÔØ ExoBUD MP(II) »ù±¾Éè¶¨µµ -->
+<!-- åŠ è½½ ExoBUD MP(II) åŸºæœ¬è®¾å®šæ¡£ -->
 <script language="JavaScript" src="exobudset.js"></script>
-<!-- ¼ÓÔØ ExoBUD MP(II) ²¥·ÅÇåµ¥Éè¶¨ÎÄ¼ş -->
+<!-- åŠ è½½ ExoBUD MP(II) æ’­æ”¾æ¸…å•è®¾å®šæ–‡ä»¶ -->
 <script language="JavaScript" src="china.js"></script>
-<!-- Èç¹ûÄú²»ÊìÏ¤Ô­Ê¼Âë±à¼­£¬ÇëÎğËæ±ãĞŞ¸ÄÏÂÃæÊ¹ÓÃ JScript µÄ²¿·İ£¬·ñÔò¿ÉÄÜ»áµ¼ÖÂ³ÌĞò²»ÄÜÕı³£ÔË×÷ -->
+<!-- å¦‚æœæ‚¨ä¸ç†Ÿæ‚‰åŸå§‹ç ç¼–è¾‘ï¼Œè¯·å‹¿éšä¾¿ä¿®æ”¹ä¸‹é¢ä½¿ç”¨ JScript çš„éƒ¨ä»½ï¼Œå¦åˆ™å¯èƒ½ä¼šå¯¼è‡´ç¨‹åºä¸èƒ½æ­£å¸¸è¿ä½œ -->
 <script language="JScript" for="Exobud" event="openStateChange(sf)">evtOSChg(sf);</script>
 <script language="JScript" for="Exobud" event="playStateChange(ns)">evtPSChg(ns);</script>
 <script language="JScript" for="Exobud" event="error()">evtWmpError();</script>
 <script language="JScript" for="Exobud" event="Buffering(bf)">evtWmpBuff(bf);</script>
-<!-- ¼ÓÔØ¡¸¶¯Ì¬°´Å¥Í¼ÎÄ¼şÇĞ»»¡¹µÄ JavaScript ³ÌĞòÎÄ¼ş -->
+<!-- åŠ è½½ã€ŒåŠ¨æ€æŒ‰é’®å›¾æ–‡ä»¶åˆ‡æ¢ã€çš„ JavaScript ç¨‹åºæ–‡ä»¶ -->
 <script language="JavaScript" src="imgchg.js"></script>
 </head> 
 <body onLoad="initExobud();" onDragStart="return false" onSelectStart="return false"
 topmargin=0 leftmargin=0 marginwidth=0 marginheight=0 style="margin:0; padding:0; overflow:hidden; width:100%; height:100%; display:flex; align-items:center; justify-content:center;">
 
-<!-- ¾ÓÖĞÈİÆ÷ -->
+<!-- å±…ä¸­å®¹å™¨ -->
 <div style="position:relative;">
 
 <table border="0" cellpadding="0" cellspacing="0" width="1001">
@@ -89,37 +89,37 @@ topmargin=0 leftmargin=0 marginwidth=0 marginheight=0 style="margin:0; padding:0
   </tr>
 </table>
 
-<!-- ¿ØÖÆ°´Å¥²¿·Ö -->
+<!-- æ§åˆ¶æŒ‰é’®éƒ¨åˆ† -->
 <div style="position:absolute;left:592px;top:50px;"><img name="music" src="img/bx.gif" width="140" height="29" border="0" alt=""></div>
 <div style="position:absolute;left:240px;top:60px;"><marquee behavior="alternate" width=150 height=12 scrollamount=1 scrolldelay=100>
-     <span id="disp1" class="mulu1">º£ÌÄ±ğÔ·</span></marquee></div>
+     <span id="disp1" class="mulu1">æµ·æ£ åˆ«è‹‘</span></marquee></div>
 <div style="position:absolute;left:280px;top:40px;">
  <table>
    <tr>
-     <td nowrap onClick="chgTimeFmt()" style="cursor:hand" title="[µ¹/Ë³]¼ÆÊ±·½Ê½">
+     <td nowrap onClick="chgTimeFmt()" style="cursor:hand" title="[å€’/é¡º]è®¡æ—¶æ–¹å¼">
        <span id="disp2" class="mulu1" style="width:60;">00:00</span>
      </td>
    </tr>
  </table>
 </div>
 <div style="position:absolute;left:482px;top:45px;"><img name="plist" src="img/btn_plist.gif" width=24 height=22 border=0 onClick="openPlist()"
-onMouseOver="imgtog('plist',2)" onMouseOut="imgtog('plist',3)" style="cursor:hand" title="ÏÔÊ¾²¥·ÅÇåµ¥ÄÚÈİ"
+onMouseOver="imgtog('plist',2)" onMouseOut="imgtog('plist',3)" style="cursor:hand" title="æ˜¾ç¤ºæ’­æ”¾æ¸…å•å†…å®¹"
 ></div>
 <div style="position:absolute;left:468px;top:70px;"><img name="prevt" src="img/btn_prev.gif" width=15 height=19 border=0 onClick="playPrev()"
-onMouseOver="this.src='img/btn_prev_ovr.gif'" onMouseOut="this.src='img/btn_prev.gif'" style="cursor:hand" title="ÉÏÒ»Ê×ÇúÄ¿"></div>
+onMouseOver="this.src='img/btn_prev_ovr.gif'" onMouseOut="this.src='img/btn_prev.gif'" style="cursor:hand" title="ä¸Šä¸€é¦–æ›²ç›®"></div>
 <div style="position:absolute;left:501px;top:70px;"><img name="nextt" src="img/btn_next.gif" width=20 height=20 border=0 onClick="playNext()"
-onMouseOver="this.src='img/btn_next_ovr.gif'" onMouseOut="this.src='img/btn_next.gif'" style="cursor:hand" title="ÏÂÒ»Ê×ÇúÄ¿"></div>
+onMouseOver="this.src='img/btn_next_ovr.gif'" onMouseOut="this.src='img/btn_next.gif'" style="cursor:hand" title="ä¸‹ä¸€é¦–æ›²ç›®"></div>
 <div style="position:absolute;left:486px;top:90px;"><img name="stopt" src="img/btn_stop.gif" width=16 height=14 border=0 onClick="wmpStop()"
-onMouseOver="imgtog('stopt',2)" onMouseOut="imgtog('stopt',3)" style="cursor:hand" title="Í£Ö¹"
+onMouseOver="imgtog('stopt',2)" onMouseOut="imgtog('stopt',3)" style="cursor:hand" title="åœæ­¢"
 ></div>
 <div style="position:absolute;left:489px;top:120px;"><img name="playt" src="img/btn_play.gif" width=10 height=10 border=0 onClick="startExobud()"
-onMouseOver="imgtog('playt',2)" onMouseOut="imgtog('playt',3)" style="cursor:hand" title="²¥·Å"
+onMouseOver="imgtog('playt',2)" onMouseOut="imgtog('playt',3)" style="cursor:hand" title="æ’­æ”¾"
 ></div>
 <div style="position:absolute;left:316px;top:127px;"><img name="vup" src="img/btn_vup.gif" width=120 height=73 border=0 onClick="wmpVolUp()"
-onMouseOver="imgtog('vup',2)" onMouseOut="imgtog('vup',3)" style="cursor:hand" title="Ôö¼ÓÒôÁ¿"
+onMouseOver="imgtog('vup',2)" onMouseOut="imgtog('vup',3)" style="cursor:hand" title="å¢åŠ éŸ³é‡"
 ></div>
 <div style="position:absolute;left:550px;top:127px;"><img name="vdn" src="img/btn_vdn.gif" width=120 height=73 border=0 onClick="wmpVolDn()"
-onMouseOver="imgtog('vdn',2)" onMouseOut="imgtog('vdn',3)" style="cursor:hand" title="¼õÉÙÒôÁ¿"
+onMouseOver="imgtog('vdn',2)" onMouseOut="imgtog('vdn',3)" style="cursor:hand" title="å‡å°‘éŸ³é‡"
 ></div>
 
 
@@ -129,49 +129,49 @@ onMouseOver="imgtog('vdn',2)" onMouseOut="imgtog('vdn',3)" style="cursor:hand" t
     <tr> 
       <td> <table height=31 align=center cellpadding=0 cellspacing=0 border=0>
           <tr> 
-            <!-- ÏÔÊ¾²¥·Å×´Ì¬µÄ Scope ¶¯Ì¬Í¼ÎÄ¼ş£º
-Èç¹ûÄúÏëÒª±ä¸üÕâ¸öÍ¼µµ£¬ÇëÍ¬Ê±²Î¿¼¼°ĞŞ¸Ä imgchg.js ½Ó½ü™nÄ©µÄ²¿·İ¡£ -->
+            <!-- æ˜¾ç¤ºæ’­æ”¾çŠ¶æ€çš„ Scope åŠ¨æ€å›¾æ–‡ä»¶ï¼š
+å¦‚æœæ‚¨æƒ³è¦å˜æ›´è¿™ä¸ªå›¾æ¡£ï¼Œè¯·åŒæ—¶å‚è€ƒåŠä¿®æ”¹ imgchg.js æ¥è¿‘æª”æœ«çš„éƒ¨ä»½ã€‚ -->
             <td width=30 height=31 align=center
 ><img name="scope" src="shiting/exobud/img/scope_off.gif" width=30 height=25
-onClick="vizExobud()" style="cursor:help" title="µ½·Ã ExoBUD MP Ô­×÷Õß Jinwoong Yu µÄÍøÕ¾ [º«ÎÄ]"
+onClick="vizExobud()" style="cursor:help" title="åˆ°è®¿ ExoBUD MP åŸä½œè€… Jinwoong Yu çš„ç½‘ç«™ [éŸ©æ–‡]"
 ></td>
             
-            <!-- ²¥·ÅÆ÷¿ØÖÆÃæ°åÉÏµÄËùÓĞ°´Å¥£º
-Èç¹ûÄúÏëÒª±ä¸üÕâĞ©Í¼µµ£¬ÇëÍ¬Ê±²Î¿¼¼°ĞŞ¸Ä imgchg.js Õâ¸öµµ°¸µÄÄÚÈİ¡£ -->
+            <!-- æ’­æ”¾å™¨æ§åˆ¶é¢æ¿ä¸Šçš„æ‰€æœ‰æŒ‰é’®ï¼š
+å¦‚æœæ‚¨æƒ³è¦å˜æ›´è¿™äº›å›¾æ¡£ï¼Œè¯·åŒæ—¶å‚è€ƒåŠä¿®æ”¹ imgchg.js è¿™ä¸ªæ¡£æ¡ˆçš„å†…å®¹ã€‚ -->
             <td width="45" nowrap
 ></td>
             <td width=11></td>
             <td width="30" nowrap
 ><img name="pmode" src="img/btn_rndmode_off.gif" width=15 height=25 border=0 onClick="chgPMode()"
-onMouseOver="imgtog('pmode',2)" onMouseOut="imgtog('pmode',3)" style="cursor:hand" title="²¥·ÅË³Ğò (S=Ñ­Ğò R=Ëæ»ú)"
+onMouseOver="imgtog('pmode',2)" onMouseOut="imgtog('pmode',3)" style="cursor:hand" title="æ’­æ”¾é¡ºåº (S=å¾ªåº R=éšæœº)"
 ><img name="rept" src="img/btn_rept_off.gif" width=15 height=25 border=0 onClick="chkRept()"
-onMouseOver="imgtog('rept',2)" onMouseOut="imgtog('rept',3)" style="cursor:hand" title="ÇĞ»»ÊÇ·ñÖØ¸´²¥·ÅÄ¿Ç°µÄÇúÄ¿"
+onMouseOver="imgtog('rept',2)" onMouseOut="imgtog('rept',3)" style="cursor:hand" title="åˆ‡æ¢æ˜¯å¦é‡å¤æ’­æ”¾ç›®å‰çš„æ›²ç›®"
 ></td>
             <td width=11></td>
             <td width="60" nowrap
 ><img name="pauzt" src="img/btn_pauz_off.gif" width=20 height=25 border=0 onClick="wmpPP()"
-onMouseOver="imgtog('pauzt',2)" onMouseOut="imgtog('pauzt',3)" style="cursor:hand" title="ÔİÍ££®¼ÌĞø"
+onMouseOver="imgtog('pauzt',2)" onMouseOut="imgtog('pauzt',3)" style="cursor:hand" title="æš‚åœï¼ç»§ç»­"
 ></td>
             <td width=11></td>
             <td width=20></td>
             <td width=11></td>
             <td width=11><img name="plist" src="img/btn_plist.gif" width=20 height=20 border=0 onClick="openPlist()"
-onMouseOver="imgtog('plist',2)" onMouseOut="imgtog('plist',3)" style="cursor:hand" title="ÏÔÊ¾²¥·ÅÇåµ¥ÄÚÈİ"
+onMouseOver="imgtog('plist',2)" onMouseOut="imgtog('plist',3)" style="cursor:hand" title="æ˜¾ç¤ºæ’­æ”¾æ¸…å•å†…å®¹"
 ></td>
           </tr>
         </table></td>
     </tr>
     <tr> 
       <td height=0> 
-        <!-- ÏÔÊ¾×ÖÄ»¿òµÄ²¿·İ£º
-Èç¹ûÄúÏëÒªÊ¹ÓÃ×ÖÄ»¹¦ÄÜ£¬Äú±ãĞèÒªÔ¤ÁôÒ³ÃæÒ»Ğ©¿Õ¼äÓÃÀ´ÏÔÊ¾Õâ¸ö×ÖÄ»¿ò¡£
-ÎŞÂÛÄúÊÇ·ñÊ¹ÓÃ×ÖÄ»¹¦ÄÜ£¬ÇëÎğËæ±ãĞŞ¸Ä»òÉ¾³ıÏÂÃæÕâ¶Î DIV Çø¿éµÄÓï·¨¡£ -->
-<div id="capText">ExoBUD MP(II) ×ÖÄ»ÏÔÊ¾ÏµÍ³(SMI)</div></td>
+        <!-- æ˜¾ç¤ºå­—å¹•æ¡†çš„éƒ¨ä»½ï¼š
+å¦‚æœæ‚¨æƒ³è¦ä½¿ç”¨å­—å¹•åŠŸèƒ½ï¼Œæ‚¨ä¾¿éœ€è¦é¢„ç•™é¡µé¢ä¸€äº›ç©ºé—´ç”¨æ¥æ˜¾ç¤ºè¿™ä¸ªå­—å¹•æ¡†ã€‚
+æ— è®ºæ‚¨æ˜¯å¦ä½¿ç”¨å­—å¹•åŠŸèƒ½ï¼Œè¯·å‹¿éšä¾¿ä¿®æ”¹æˆ–åˆ é™¤ä¸‹é¢è¿™æ®µ DIV åŒºå—çš„è¯­æ³•ã€‚ -->
+<div id="capText">ExoBUD MP(II) å­—å¹•æ˜¾ç¤ºç³»ç»Ÿ(SMI)</div></td>
     </tr>
   </table>
 </div>
 
-</div><!-- ¾ÓÖĞÈİÆ÷½áÊø -->
+</div><!-- å±…ä¸­å®¹å™¨ç»“æŸ -->
 
 
 </body>

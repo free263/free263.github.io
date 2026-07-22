@@ -1,23 +1,23 @@
-//ÒôÀÖ²Ëµ¥
+//ç§žæ°ˆç²•ç­‰
 mkList("http://disk.kugou.com/player/0/1/0/1/default/200/7558FD84D2E8BCA4/mini.swf","111","","t");
-mkList("http://s4.my.pp.ru/bln-everytime.wma","²¼À¼ÄÝ2 - everytime","","t");
-mkList("http://s4.my.pp.ru/bln-everytime.wma","²¼À¼ÄÝ3 - everytime","","t");
-mkList("http://s4.my.pp.ru/bln-everytime.wma","²¼À¼ÄÝ4 - everytime","","t");
-mkList("http://s4.my.pp.ru/bln-everytime.wma","²¼À¼ÄÝ5 - everytime","","t");
-mkList("http://s4.my.pp.ru/bln-everytime.wma","²¼À¼ÄÝ6 - everytime","","t");
-mkList("http://s4.my.pp.ru/bln-everytime.wma","²¼À¼ÄÝ7 - everytime","","t");
-mkList("http://s4.my.pp.ru/bln-everytime.wma","²¼À¼ÄÝ8 - everytime","","t");
-mkList("http://s4.my.pp.ru/bln-everytime.wma","²¼À¼ÄÝ9 - everytime","","t");
-mkList("http://s4.my.pp.ru/bln-everytime.wma","²¼À¼ÄÝ10 - everytime","","t");
-mkList("http://s4.my.pp.ru/bln-everytime.wma","²¼À¼ÄÝ11 - everytime","","t");
-mkList("http://s4.my.pp.ru/bln-everytime.wma","²¼À¼ÄÝ12 - everytime","","t");
-mkList("http://s4.my.pp.ru/bln-everytime.wma","²¼À¼ÄÝ13 - everytime","","t");
-mkList("http://s4.my.pp.ru/bln-everytime.wma","²¼À¼ÄÝ14 - everytime","","t");
-mkList("http://s4.my.pp.ru/bln-everytime.wma","²¼À¼ÄÝ15 - everytime","","t");
-mkList("http://s4.my.pp.ru/bln-everytime.wma","²¼À¼ÄÝ16 - everytime","","t");
-mkList("http://s4.my.pp.ru/bln-everytime.wma","²¼À¼ÄÝ17 - everytime","","t");
-mkList("http://s4.my.pp.ru/bln-everytime.wma","²¼À¼ÄÝ18 - everytime","","t");
-mkList("http://s4.my.pp.ru/bln-everytime.wma","²¼À¼ÄÝ19 - everytime","","t");
+mkList("http://s4.my.pp.ru/bln-everytime.wma","ç¥¨æ“˜å±¬2 - everytime","","t");
+mkList("http://s4.my.pp.ru/bln-everytime.wma","ç¥¨æ“˜å±¬3 - everytime","","t");
+mkList("http://s4.my.pp.ru/bln-everytime.wma","ç¥¨æ“˜å±¬4 - everytime","","t");
+mkList("http://s4.my.pp.ru/bln-everytime.wma","ç¥¨æ“˜å±¬5 - everytime","","t");
+mkList("http://s4.my.pp.ru/bln-everytime.wma","ç¥¨æ“˜å±¬6 - everytime","","t");
+mkList("http://s4.my.pp.ru/bln-everytime.wma","ç¥¨æ“˜å±¬7 - everytime","","t");
+mkList("http://s4.my.pp.ru/bln-everytime.wma","ç¥¨æ“˜å±¬8 - everytime","","t");
+mkList("http://s4.my.pp.ru/bln-everytime.wma","ç¥¨æ“˜å±¬9 - everytime","","t");
+mkList("http://s4.my.pp.ru/bln-everytime.wma","ç¥¨æ“˜å±¬10 - everytime","","t");
+mkList("http://s4.my.pp.ru/bln-everytime.wma","ç¥¨æ“˜å±¬11 - everytime","","t");
+mkList("http://s4.my.pp.ru/bln-everytime.wma","ç¥¨æ“˜å±¬12 - everytime","","t");
+mkList("http://s4.my.pp.ru/bln-everytime.wma","ç¥¨æ“˜å±¬13 - everytime","","t");
+mkList("http://s4.my.pp.ru/bln-everytime.wma","ç¥¨æ“˜å±¬14 - everytime","","t");
+mkList("http://s4.my.pp.ru/bln-everytime.wma","ç¥¨æ“˜å±¬15 - everytime","","t");
+mkList("http://s4.my.pp.ru/bln-everytime.wma","ç¥¨æ“˜å±¬16 - everytime","","t");
+mkList("http://s4.my.pp.ru/bln-everytime.wma","ç¥¨æ“˜å±¬17 - everytime","","t");
+mkList("http://s4.my.pp.ru/bln-everytime.wma","ç¥¨æ“˜å±¬18 - everytime","","t");
+mkList("http://s4.my.pp.ru/bln-everytime.wma","ç¥¨æ“˜å±¬19 - everytime","","t");
 
 
 
