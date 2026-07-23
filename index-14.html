@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+  <title>个人引导页 | 听松阁</title>
+  <style>
+    /* ===== 完全保留原有样式，仅调整 .card 宽度 ===== */
+    * {
+      box-sizing: border-box;
+    }
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    a {
+      text-decoration: none;
+    }
+    body {
+      color: #2b2c48;
+      font-family: "Jost", sans-serif;
+      background-image: url(https://api.rryyz.com/api-pic/bg-dark.php);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      min-height: 100vh;
+      display: -webkit-box;
+      display: flex;
+      flex-wrap: wrap;
+      padding: 20px;
+    }
+
+    /* ★ 修改核心：宽度改为窗口宽度的 70%，并限制最大/最小宽度以保持美观 */
+    .card {
+      width: 70vw;           /* 窗口宽度的 70% */
+      max-width: 800px;      /* 避免在大屏上过宽 */
+      min-width: 320px;      /* 小屏保持可读性 */
+      height: 460px;
+      margin: auto;
+      overflow-y: auto;
+      position: relative;
+      z-index: 1;
+      overflow-x: hidden;
+      background-color: #ffffff8f;
+      display: -webkit-box;
+      display: flex;
+      -webkit-transition: 0.3s;
+      transition: 0.3s;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      flex-direction: column;
+      border-radius: 10px;
+      box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.2);
+	  overflow-y: hidden;
+    }
+
+    /* 其余样式完全保持不变 */
+    .card[data-state="#about"] .card-main {
+      padding-top: 0;
+    }
+    .card[data-state="#contact"] {
+      height: 450px;
+    }
+    .card.is-active .card-header {
+      height: 80px;
+    }
+    .card.is-active .card-cover {
+      height: 100px;
+      top: -50px;
+    }
+    .card.is-active .card-avatar {
+      -webkit-transform: none;
+      transform: none;
+      left: 20px;
+      width: 50px;
+      height: 50px;
+      bottom: 10px;
+    }
+    .card.is-active .card-fullname,
+    .card.is-active .card-jobtitle {
+      left: 86px;
+      -webkit-transform: none;
+      transform: none;
+    }
+    .card.is-active .card-fullname {
+      bottom: 18px;
+      font-size: 19px;
+    }
+    .card.is-active .card-jobtitle {
+      bottom: 16px;
+      letter-spacing: 1px;
+      font-size: 10px;
+    }
+    .card-header {
+      position: relative;
+      display: -webkit-box;
+      display: flex;
+      height: 200px;
+      flex-shrink: 0;
+      width: 100%;
+      -webkit-transition: 0.3s;
+      transition: 0.3s;
+    }
+    .card-header * {
+      -webkit-transition: 0.3s;
+      transition: 0.3s;
+    }
+    .card-cover {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      height: 160px;
+      top: -20%;
+      left: 0;
+      will-change: top;
+      background-size: cover;
+      background-position: center;
+      -webkit-filter: blur(30px);
+      filter: blur(30px);
+      -webkit-transform: scale(1.2);
+      transform: scale(1.2);
+      -webkit-transition: 0.5s;
+      transition: 0.5s;
+    }
+    .card-avatar {
+      width: 100px;
+      height: 100px;
+      box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 50%;
+      -o-object-position: center;
+      object-position: center;
+      -o-object-fit: cover;
+      object-fit: cover;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      -webkit-transform: translateX(-50%) translateY(-64px);
+      transform: translateX(-50%) translateY(-64px);
+    }
+    .card-fullname {
+      position: absolute;
+      bottom: 0;
+      font-size: 22px;
+      font-weight: 700;
+      text-align: center;
+      white-space: nowrap;
+      -webkit-transform: translateY(-10px) translateX(-50%);
+      transform: translateY(-10px) translateX(-50%);
+      left: 50%;
+    }
+    .card-jobtitle {
+      position: absolute;
+      bottom: 0;
+      font-size: 11px;
+      white-space: nowrap;
+      font-weight: 500;
+      opacity: 0.7;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin: 0;
+      left: 50%;
+      -webkit-transform: translateX(-50%) translateY(-7px);
+      transform: translateX(-50%) translateY(-7px);
+    }
+    .card-subtitle {
+      font-weight: 700;
+      font-size: 13px;
+      margin-top: 0px;
+    }
+    .card-content {
+      padding-top: 0px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    .card-content2 {
+      padding-top: 20px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    .card-content3 {
+      padding-top: 20px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    .card-desc {
+      line-height: 1.6;
+      color: #636b6f;
+      font-size: 14px;
+      margin: 0;
+      font-weight: 400;
+      font-family: "DM Sans", sans-serif;
+    }
+    .card-social {
+      display: -webkit-box;
+      display: flex;
+      -webkit-box-align: center;
+      align-items: center;
+      padding: 0 20px;
+      margin-bottom: 30px;
+    }
+    .card-social svg {
+      fill: #a5b5ce;
+      width: 16px;
+      display: block;
+      -webkit-transition: 0.3s;
+      transition: 0.3s;
+    }
+    .card-social a {
+      color: #8797a1;
+      height: 32px;
+      width: 32px;
+      border-radius: 50%;
+      display: -webkit-inline-box;
+      display: inline-flex;
+      -webkit-box-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      justify-content: center;
+      -webkit-transition: 0.3s;
+      transition: 0.3s;
+      background-color: rgba(93, 133, 193, 0.05);
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    .card-social a:hover svg {
+      fill: #637faa;
+    }
+    .card-social a:last-child {
+      margin-right: 0;
+    }
+    .card-buttons {
+      display: -webkit-box;
+      display: flex;
+      background-color: #ffffff00;
+      margin-top: auto;
+      position: -webkit-sticky;
+      position: sticky;
+      bottom: 0;
+      left: 0;
+    }
+    .card-buttons button {
+      -webkit-box-flex: 1;
+      flex: 1 1 auto;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      background: 0;
+      font-size: 13px;
+      border: 0;
+      padding: 15px 5px;
+      cursor: pointer;
+      color: #5c5c6d;
+      -webkit-transition: 0.3s;
+      transition: 0.3s;
+      font-family: "Jost", sans-serif;
+      font-weight: 500;
+      outline: 0;
+      border-bottom: 3px solid transparent;
+    }
+    .card-buttons button.is-active,
+    .card-buttons button:hover {
+      color: #2b2c48;
+      border-bottom: 3px solid #8a84ff;
+      background: -webkit-gradient(linear, left top, left bottom, from(rgba(127, 199, 231, 0)), color-stop(44%, rgba(207, 204, 255, 0.2)), to(rgba(211, 226, 255, 0.4)));
+      background: linear-gradient(to bottom, rgba(127, 199, 231, 0) 0%, rgba(207, 204, 255, 0.2) 44%, rgba(211, 226, 255, 0.4) 100%);
+    }
+    .card-section {
+      display: none;
+    }
+    .card-section.is-active {
+      display: block;
+      -webkit-animation: fadeIn 0.6s both;
+      animation: fadeIn 0.6s both;
+    }
+    @-webkit-keyframes fadeIn {
+      0% {
+        opacity: 0;
+        -webkit-transform: translatey(40px);
+        transform: translatey(40px);
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        -webkit-transform: translatey(40px);
+        transform: translatey(40px);
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+    .card-timeline {
+      margin-top: 0px;
+      position: relative;
+    }
+    .card-timeline:after {
+      background: -webkit-gradient(linear, left bottom, left top, from(rgba(134, 214, 243, 0)), to(#516acc));
+      background: linear-gradient(to top, rgba(134, 214, 243, 0) 0%, #516acc 100%);
+      content: "";
+      left: 42px;
+      width: 2px;
+      top: 0;
+      height: 100%;
+      position: absolute;
+    }
+    .card-item {
+      position: relative;
+      padding-top: 0px;
+      padding-left: 60px;
+      padding-right: 20px;
+      padding-bottom: 30px;
+      z-index: 1;
+    }
+    .card-item:last-child {
+      padding-bottom: 5px;
+    }
+    .card-item:after {
+      content: attr(data-year);
+      width: 10px;
+      position: absolute;
+      top: 0;
+      left: 37px;
+      width: 8px;
+      height: 8px;
+      line-height: 0.6;
+      border: 2px solid #fff;
+      font-size: 11px;
+      text-indent: -35px;
+      border-radius: 50%;
+      color: rgba(134, 134, 134, 0.7);
+      background: -webkit-gradient(linear, left top, left bottom, from(#a0aee3), to(#516acc));
+      background: linear-gradient(to bottom, #a0aee3 0%, #516acc 100%);
+    }
+    .card-item-title {
+      font-weight: 500;
+      font-size: 14px;
+      margin-bottom: 0px;
+      margin-top: 12px;
+    }
+    .card-item-desc {
+      font-size: 13px;
+      color: #6f6f7b;
+      line-height: 1.5;
+      font-family: "DM Sans", sans-serif;
+    }
+    .card-contact-wrapper {
+      margin-top: 0px;
+    }
+    .card-contact {
+      display: -webkit-box;
+      display: flex;
+      -webkit-box-align: center;
+      align-items: center;
+      font-size: 13px;
+      color: #6f6f7b;
+      font-family: "DM Sans", sans-serif;
+      line-height: 1.6;
+      cursor: pointer;
+    }
+    .card-contact + .card-contact {
+      margin-top: 16px;
+    }
+    .card-contact svg {
+      flex-shrink: 0;
+      width: 30px;
+      min-height: 34px;
+      margin-right: 12px;
+      -webkit-transition: 0.3s;
+      transition: 0.3s;
+      padding-right: 12px;
+      border-right: 1px solid #dfe2ec;
+    }
+    .contact-me {
+      border: 0;
+      outline: none;
+      background: -webkit-gradient(linear, left top, right top, from(rgba(83, 200, 239, 0.8)), color-stop(96%, rgba(81, 106, 204, 0.8)));
+      background: linear-gradient(to right, rgba(83, 200, 239, 0.8) 0%, rgba(81, 106, 204, 0.8) 96%);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+      color: #fff;
+      padding: 12px 16px;
+      width: 100%;
+      border-radius: 5px;
+      margin-top: 25px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: "Jost", sans-serif;
+      -webkit-transition: 0.3s;
+      transition: 0.3s;
+    }
+
+    /* ===== 新增：主页图标网格布局 ===== */
+    .home-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px 10px;
+      margin: 10px 0 6px 0;
+    }
+    .home-grid a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.35);
+      backdrop-filter: blur(2px);
+      padding: 12px 4px;
+      border-radius: 12px;
+      color: #2b2c48;
+      transition: 0.25s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+      border: 1px solid rgba(255,255,255,0.3);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 13px;
+      min-height: 80px;
+    }
+    .home-grid a:hover {
+      background: rgba(255,255,255,0.65);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+      border-color: rgba(138, 132, 255, 0.3);
+    }
+    .home-grid a svg {
+      width: 28px;
+      height: 28px;
+      margin-bottom: 6px;
+      stroke: #2b2c48;
+      stroke-width: 1.8;
+      fill: none;
+    }
+    .home-grid a span {
+      font-size: 12px;
+      letter-spacing: 0.3px;
+      color: #3d3e5a;
+    }
+
+    /* 小屏适配 */
+    @media screen and (max-width: 480px) {
+      .card {
+        width: 70vw;
+        min-width: 280px;
+      }
+      .home-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px 8px;
+      }
+      .home-grid a {
+        min-height: 70px;
+        padding: 10px 2px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card" data-state="#about">
+
+  <div class="card-header">
+    <div class="card-cover" style="background-image: url('./assets/home14/img/logo.png')"></div>
+    <img class="card-avatar" src="./assets/home14/img/logo.png" alt="avatar" />
+    <h1 class="card-fullname">听 松 阁</h1>
+    <h2 class="card-jobtitle">枕上听松语，槛外看潮生。</h2>
+  </div>
+
+  <!-- ========== 主页（图标+文字网格） ========== -->
+  <div class="card-section is-active" id="about">
+    <div class="card-content" style="padding-top: 8px;">
+      <!-- 图标网格 -->
+      <div class="home-grid">
+        <!-- 云空间 -->
+        <a target="_blank" href="./cloud/" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/>
+          </svg>
+          <span>云空间</span>
+        </a>
+        <!-- 博客 -->
+        <a target="_blank" href="https://blog1.hhhnn.com/" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <path d="M8 8h8M8 12h6M8 16h4"/>
+          </svg>
+          <span>我的博客</span>
+        </a>
+        <!-- 网址导航 -->
+        <a target="_blank" href="./index/" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          <span>网址导航</span>
+        </a>
+        <!-- 相册 -->
+        <a target="_blank" href="https://bing.rryyz.com/" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
+          </svg>
+          <span>Bing壁纸</span>
+        </a>
+        <!-- 留言板 -->
+        <a target="_blank" href="./musicku/coolsort/" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+          </svg>
+          <span>音乐视听</span>
+        </a>
+        <!-- 关于 -->
+        <a target="_blank" href="./book/" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="16" x2="12" y2="12"/>
+            <line x1="12" y1="8" x2="12.01" y2="8"/>
+          </svg>
+          <span>古典诗词</span>
+        </a>
+		
+      </div>
+      <!-- 原有的格言保留（可选） -->
+      <!-- <p class="card-desc" style="text-align:center; opacity:0.6; margin-top:4px;">枕上听松语，槛外看潮生。</p> -->
+    </div>
+  </div>
+
+  <!-- ========== 联系我 ========== -->
+  <div class="card-section" id="experience">
+    <div class="card-content2">
+      <div class="card-subtitle"></div>
+      <div class="card-contact-wrapper">
+        <div class="card-contact">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+            <circle cx="12" cy="10" r="3" />
+          </svg>
+          中国-江西
+        </div>
+        <div class="card-contact">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
+          </svg>
+          (+86) 待添加
+        </div>
+        <div class="card-contact">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+            <path d="M22 6l-10 7L2 6" />
+          </svg>
+          6666666@qq.com
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 时间轴 ========== -->
+  <div class="card-section" id="contact">
+    <div class="card-content3">
+      <div class="card-contact-wrapper">
+        <div class="card-timeline">
+          <div class="card-item" data-year="2022">
+            <div class="card-item-title"><span>9-16 16:52 </span></div>
+            <div class="card-item-desc">建立 个人引导页</div>
+            <div class="card-item-title"><span>10-02 18:08 </span></div>
+            <div class="card-item-desc">修改 个人引导页无动态效果</div>
+            <div class="card-item-title"><span>10-10 12:11 </span></div>
+            <div class="card-item-desc"><del>听松阁 个人引导页</del></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 底部按钮 -->
+  <div class="card-buttons">
+    <button data-section="#about" class="is-active">主页</button>
+    <button data-section="#experience">联系我</button>
+    <button data-section="#contact">时间轴</button>
+  </div>
+
+</div>
+
+<script>
+  // ===== 保留原始交互脚本（完全未改动） =====
+  (function() {
+    const card = document.querySelector('.card');
+    const buttons = document.querySelectorAll('.card-buttons button');
+    const sections = document.querySelectorAll('.card-section');
+
+    function setActiveSection(sectionId) {
+      sections.forEach(section => {
+        section.classList.toggle('is-active', section.id === sectionId.replace('#', ''));
+      });
+      buttons.forEach(btn => {
+        btn.classList.toggle('is-active', btn.dataset.section === sectionId);
+      });
+      card.dataset.state = sectionId;
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const sectionId = this.dataset.section;
+        if (!sectionId) return;
+        setActiveSection(sectionId);
+      });
+    });
+
+    setActiveSection('#about');
+  })();
+</script>
+
+</body>
+</html>
