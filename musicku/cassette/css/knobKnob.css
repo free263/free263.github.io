@@ -1,0 +1,123 @@
+/*----------------------------
+	knobKnob Styles
+-----------------------------*/
+.knob{
+	width: 100px;
+	height: 100px;
+	position: relative;
+}
+
+.knob .top{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: url(../images/knob.jpg) no-repeat center center;
+	z-index: 10;
+	cursor: default !important;
+	border-radius: 50%;
+	box-shadow: inset 0 0 3px 2px rgba(255,255,255,0.6);
+}
+
+/* ===== 歌单按钮 - 位于音量旋钮正中间 ===== */
+.knob .playlist-btn {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 20;
+	width: 44px;
+	height: 44px;
+	border-radius: 50%;
+	background: rgba(20, 18, 16, 0.85);
+	border: 2px solid rgba(200, 180, 150, 0.4);
+	color: #e0d8c8;
+	font-size: 18px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.3s ease;
+	box-shadow: 0 2px 12px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
+	pointer-events: auto !important;
+	user-select: none;
+	padding: 0;
+	line-height: 1;
+}
+.knob .playlist-btn:hover {
+	background: rgba(60, 55, 50, 0.95);
+	border-color: #f0c850;
+	transform: translate(-50%, -50%) scale(1.12);
+	box-shadow: 0 0 30px rgba(240, 200, 80, 0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+.knob .playlist-btn:active {
+	transform: translate(-50%, -50%) scale(0.92);
+}
+.knob .playlist-btn .icon {
+	font-size: 20px;
+	margin-top: 1px;
+}
+/* 歌单按钮上的小光晕提示 */
+.knob .playlist-btn::after {
+	content: '';
+	position: absolute;
+	top: -4px;
+	right: -4px;
+	width: 14px;
+	height: 14px;
+	background: radial-gradient(circle, rgba(240, 200, 80, 0.4), transparent);
+	border-radius: 50%;
+	animation: pulseDot 2s ease-in-out infinite;
+}
+@keyframes pulseDot {
+	0%, 100% { opacity: 0.4; transform: scale(1); }
+	50% { opacity: 1; transform: scale(1.3); }
+}
+
+.knob .base{
+	width: 100%;
+	height: 100%;
+	box-shadow: 0 5px 0 #555, 0px 5px 5px black;
+	position: absolute;
+	z-index: 1;
+	border-radius: 50%;
+}
+
+.knob .top:after{
+	content: '';
+	width: 4px;
+	height: 4px;
+	background-color: #666;
+	position: absolute;
+	top: 50%;
+	margin-top: -2px;
+	left: 4px;
+	border-radius: 50%;
+	cursor: default !important;
+	box-shadow:  
+		0 0 1px #5a5a5a inset, 
+		1px -1px 1px rgba(255,255,255,0.5);
+}
+
+.knob [draggable] {
+  -moz-user-select:  none;
+  -webkit-user-select:  none;
+  user-select:  none;
+}
+
+/* 适配小屏幕 */
+@media (max-width: 600px) {
+	.knob .playlist-btn {
+		width: 34px;
+		height: 34px;
+		font-size: 14px;
+	}
+	.knob .playlist-btn .icon {
+		font-size: 15px;
+	}
+	.knob .playlist-btn::after {
+		width: 10px;
+		height: 10px;
+		top: -3px;
+		right: -3px;
+	}
+}
