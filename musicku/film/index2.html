@@ -1,0 +1,616 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>胶片播放器 · 古典右侧面板</title>
+  <link type="text/css" href="css/style.css" rel="stylesheet" />
+  <style>
+    /* ===== 全局重置与字体 ===== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      min-height: 100vh;
+      background: url(./img/page-bg.jpg) no-repeat 50%/100% 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Georgia', 'Times New Roman', 'Microsoft YaHei', serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    /* ===== 主容器 ===== */
+    .player-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      padding: 20px 30px;
+      max-width: 1100px;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+
+    /* ===== 唱片区域 (完全保留原样) ===== */
+    .btns-bg {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 653px;
+      height: 653px;
+      flex-shrink: 0;
+      max-width: 70vw;
+      max-height: 70vw;
+    }
+    .PlayEy {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      background: url(./img/bg_circle.png), url(./img/bg_center.png) no-repeat center;
+      background-size: contain, auto;
+    }
+    .Btn {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 95px;
+      height: 95px;
+      background: url(./img/btn-bg.png) no-repeat;
+      animation: Btn-bg 3s linear infinite;
+      pointer-events: none;
+    }
+    .Play {
+      position: absolute;
+      width: 29px;
+      height: 36px;
+      background: url(img/pause.png) no-repeat center;
+      background-size: contain;
+      transition: .5s;
+      cursor: pointer;
+      z-index: 10;
+    }
+    @keyframes Btn-bg {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* ===== 右侧控制面板 · 古典风格 ===== */
+    .control-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      background: linear-gradient(145deg, #2c241e 0%, #1f1814 100%);
+      border-radius: 48px 48px 48px 48px;
+      padding: 32px 28px 28px 28px;
+      min-width: 220px;
+      border: 2px solid #8b7a6b;
+      box-shadow: 
+        inset 0 2px 8px rgba(255, 215, 180, 0.08),
+        0 16px 40px rgba(0, 0, 0, 0.7),
+        0 0 0 1px #5a4a3a inset;
+      flex-shrink: 0;
+      position: relative;
+    }
+    /* 面板装饰纹理 (仿旧) */
+    .control-panel::before {
+      content: '';
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      right: 6px;
+      bottom: 6px;
+      border-radius: 40px;
+      border: 1px solid rgba(180, 150, 120, 0.15);
+      pointer-events: none;
+    }
+    /* 面板顶部装饰线 */
+    .control-panel::after {
+      content: '';
+      position: absolute;
+      top: 16px;
+      left: 20%;
+      right: 20%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #b8a090, transparent);
+      opacity: 0.3;
+    }
+
+    /* ===== 歌曲名称 (滚动) ===== */
+    .panel-song-name {
+      color: #e8d5c4;
+      font-size: 20px;
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+      text-align: center;
+      padding: 6px 10px 10px 10px;
+      width: 100%;
+      max-width: 220px;
+      white-space: nowrap;
+      overflow: hidden;
+      position: relative;
+      font-family: 'Georgia', serif;
+      border-bottom: 1px solid rgba(180, 150, 120, 0.2);
+      margin-bottom: 4px;
+    }
+    /* 滚动字幕 */
+    .song-name-scroll {
+      display: inline-block;
+      padding-left: 100%;
+      animation: scrollSong 12s linear infinite;
+      animation-delay: 1s;
+    }
+    @keyframes scrollSong {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-200%); }
+    }
+    /* 暂停滚动 (当鼠标悬停时) */
+    .panel-song-name:hover .song-name-scroll {
+      animation-play-state: paused;
+    }
+    /* 如果文字较短则不需要滚动 */
+    .panel-song-name .song-name-scroll.short {
+      animation: none;
+      padding-left: 0;
+      display: block;
+    }
+
+    /* ===== 按钮网格: 正方形四角布局 ===== */
+    .panel-buttons {
+      display: grid;
+      grid-template-columns: 72px 72px;
+      grid-template-rows: 72px 72px;
+      gap: 14px 18px;
+      justify-content: center;
+      align-items: center;
+      padding: 6px 0;
+    }
+
+    .panel-btn {
+      background: rgba(60, 45, 35, 0.7);
+      border: 1px solid #7a6858;
+      color: #dccfc4;
+      font-size: 28px;
+      width: 100%;
+      height: 100%;
+      border-radius: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 
+        inset 0 -3px 0 #3d2e22,
+        0 4px 12px rgba(0, 0, 0, 0.4);
+      font-family: 'Georgia', serif;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+      position: relative;
+    }
+    .panel-btn:hover {
+      background: rgba(120, 90, 70, 0.6);
+      border-color: #b09880;
+      transform: scale(1.04);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6), inset 0 -2px 0 #5a4030;
+      color: #f5e6d3;
+    }
+    .panel-btn:active {
+      transform: scale(0.94);
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.6);
+    }
+
+    /* 模式按钮特殊样式 */
+    .panel-btn.mode-btn {
+      font-size: 24px;
+      background: rgba(50, 35, 28, 0.8);
+      border-color: #6a5a4a;
+    }
+    .panel-btn.mode-btn.active {
+      background: rgba(160, 120, 90, 0.35);
+      border-color: #c8a888;
+      color: #f0dcc8;
+      box-shadow: 0 0 20px rgba(200, 160, 130, 0.15), inset 0 -2px 0 #8a7058;
+    }
+
+    /* 播放/暂停按钮 (右下角) */
+    .panel-btn.play-toggle {
+      font-size: 32px;
+      background: rgba(80, 60, 45, 0.7);
+      border-color: #8a7a6a;
+      grid-column: 2 / 3;
+      grid-row: 2 / 3;
+    }
+    .panel-btn.play-toggle:hover {
+      background: rgba(140, 100, 75, 0.5);
+      border-color: #b09880;
+    }
+
+    /* 四角摆放: 
+       左上: 上一首, 右上: 下一首
+       左下: 模式, 右下: 播放/暂停 
+    */
+    .panel-btn[data-action="prev"] { grid-column: 1; grid-row: 1; }
+    .panel-btn[data-action="next"] { grid-column: 2; grid-row: 1; }
+    .panel-btn[data-action="mode"] { grid-column: 1; grid-row: 2; }
+    .panel-btn[data-action="play"] { grid-column: 2; grid-row: 2; }
+
+    /* ===== 响应式 ===== */
+    @media (max-width: 850px) {
+      .player-container {
+        flex-direction: column;
+        gap: 24px;
+        padding: 10px;
+      }
+      .btns-bg {
+        max-width: 80vw;
+        max-height: 80vw;
+        width: auto;
+        height: auto;
+        aspect-ratio: 1/1;
+      }
+      .control-panel {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 18px 22px 20px 22px;
+        border-radius: 36px;
+        min-width: unset;
+        width: 92%;
+        max-width: 500px;
+        gap: 10px;
+      }
+      .panel-song-name {
+        font-size: 17px;
+        max-width: 200px;
+        border-bottom: none;
+        padding-bottom: 4px;
+        width: auto;
+        flex: 1 1 100%;
+        text-align: center;
+        margin-bottom: 2px;
+      }
+      .panel-buttons {
+        grid-template-columns: 58px 58px;
+        grid-template-rows: 58px 58px;
+        gap: 10px 14px;
+      }
+      .panel-btn {
+        font-size: 22px;
+        border-radius: 14px;
+      }
+      .panel-btn.play-toggle {
+        font-size: 26px;
+      }
+      .panel-btn.mode-btn {
+        font-size: 20px;
+      }
+      .control-panel::after {
+        display: none;
+      }
+    }
+    @media (max-width: 480px) {
+      .panel-buttons {
+        grid-template-columns: 50px 50px;
+        grid-template-rows: 50px 50px;
+        gap: 8px 10px;
+      }
+      .panel-btn {
+        font-size: 18px;
+        border-radius: 12px;
+      }
+      .panel-btn.play-toggle {
+        font-size: 22px;
+      }
+      .panel-song-name {
+        font-size: 14px;
+        max-width: 140px;
+      }
+      .control-panel {
+        padding: 12px 14px 14px 14px;
+        border-radius: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="player-container">
+  <!-- ===== 唱片 ===== -->
+  <div class="btns-bg">
+    <div class="PlayEy"></div>
+    <div class="Btn"></div>
+    <div class="Play" id="playBtn">
+      <audio id="audios" preload="metadata"></audio>
+    </div>
+  </div>
+
+  <!-- ===== 右侧控制面板 ===== -->
+  <div class="control-panel">
+    <!-- 歌曲名称 (滚动) -->
+    <div class="panel-song-name" id="songNameContainer">
+      <span class="song-name-scroll" id="currentSongName">🎵 加载中...</span>
+    </div>
+
+    <!-- 四角按钮布局 -->
+    <div class="panel-buttons">
+      <button class="panel-btn" data-action="prev" id="prevBtn" title="上一首">⏮</button>
+      <button class="panel-btn" data-action="next" id="nextBtn" title="下一首">⏭</button>
+      <button class="panel-btn mode-btn" data-action="mode" id="modeBtn" title="播放模式">🔁</button>
+      <button class="panel-btn play-toggle" data-action="play" id="playToggleBtn" title="播放 / 暂停">▶</button>
+    </div>
+  </div>
+</div>
+
+<!-- 引入音乐列表 -->
+<script type="text/javascript" src="js/music.js"></script>
+<script type="text/javascript">
+  (function() {
+    // ---------- DOM ----------
+    var oPlayEy = document.querySelector('.PlayEy');
+    var oPlay = document.getElementById('playBtn');
+    var audios = document.getElementById('audios');
+    var songNameSpan = document.getElementById('currentSongName');
+    var songContainer = document.getElementById('songNameContainer');
+    var prevBtn = document.getElementById('prevBtn');
+    var nextBtn = document.getElementById('nextBtn');
+    var modeBtn = document.getElementById('modeBtn');
+    var playToggleBtn = document.getElementById('playToggleBtn');
+
+    // ---------- 音乐数据 ----------
+    var musicData = window.musicList || [];
+    if (!musicData.length) {
+      console.warn('music.js 未加载');
+      songNameSpan.textContent = '⚠️ 无音乐列表';
+      songNameSpan.classList.add('short');
+    }
+
+    // ---------- 状态 ----------
+    var currentIndex = 0;
+    var currentSong = musicData.length ? musicData[0] : null;
+    var isPlaying = false;
+    var rotateInterval = null;
+    var rotateDeg = 0;
+
+    // 播放模式: 0-顺序, 1-单曲, 2-随机
+    var playMode = 0;
+    var modeIcons = ['🔁', '🔂', '🎲'];
+    var modeLabels = ['顺序循环', '单曲循环', '随机播放'];
+
+    // ---------- 辅助: 更新歌曲名称滚动状态 ----------
+    function updateSongNameScroll(text) {
+      songNameSpan.textContent = text || '🎵 未知歌曲';
+      // 检查文字长度，如果短则取消滚动
+      if (songNameSpan.textContent.length < 12) {
+        songNameSpan.classList.add('short');
+      } else {
+        songNameSpan.classList.remove('short');
+      }
+      // 重置动画
+      songNameSpan.style.animation = 'none';
+      void songNameSpan.offsetWidth; // 触发回流
+      songNameSpan.style.animation = '';
+    }
+
+    // ---------- 核心函数 ----------
+    function loadSongByIndex(index) {
+      if (!musicData.length) {
+        updateSongNameScroll('⚠️ 无音乐');
+        return;
+      }
+      if (index < 0) index = musicData.length - 1;
+      if (index >= musicData.length) index = 0;
+      var song = musicData[index];
+      if (!song || !song.url) return;
+      currentIndex = index;
+      currentSong = song;
+      audios.src = song.url;
+      var displayName = '🎵 ' + (song.name || '未知歌曲');
+      updateSongNameScroll(displayName);
+      if (isPlaying) {
+        audios.play().catch(function(e) {});
+        startRotation();
+      } else {
+        stopRotation();
+      }
+    }
+
+    function togglePlay() {
+      if (!musicData.length) return;
+      if (!audios.src || audios.src === '') {
+        if (musicData[currentIndex]) {
+          audios.src = musicData[currentIndex].url;
+          updateSongNameScroll('🎵 ' + (musicData[currentIndex].name || '未知'));
+        } else {
+          return;
+        }
+      }
+
+      if (audios.paused) {
+        audios.play().catch(function(e) { console.warn('播放失败', e); });
+        isPlaying = true;
+        startRotation();
+        oPlay.style.backgroundImage = "url(img/play.png)";
+        oPlay.style.width = "32px";
+        oPlay.style.height = "32px";
+        playToggleBtn.textContent = '⏸';
+      } else {
+        audios.pause();
+        isPlaying = false;
+        stopRotation();
+        oPlay.style.backgroundImage = "url(img/pause.png)";
+        oPlay.style.width = "29px";
+        oPlay.style.height = "36px";
+        playToggleBtn.textContent = '▶';
+      }
+    }
+
+    function startRotation() {
+      if (rotateInterval) return;
+      rotateInterval = setInterval(function() {
+        rotateDeg = (rotateDeg + 1) % 360;
+        oPlayEy.style.transform = "rotate(" + rotateDeg + "deg)";
+        if (audios.paused) {
+          stopRotation();
+        }
+      }, 30);
+    }
+
+    function stopRotation() {
+      if (rotateInterval) {
+        clearInterval(rotateInterval);
+        rotateInterval = null;
+      }
+    }
+
+    function nextSong() {
+      if (!musicData.length) return;
+      var nextIdx = currentIndex;
+      if (playMode === 0) {
+        nextIdx = (currentIndex + 1) % musicData.length;
+      } else if (playMode === 1) {
+        nextIdx = currentIndex;
+      } else if (playMode === 2) {
+        var randomIdx;
+        do {
+          randomIdx = Math.floor(Math.random() * musicData.length);
+        } while (musicData.length > 1 && randomIdx === currentIndex);
+        nextIdx = randomIdx;
+      }
+      loadSongByIndex(nextIdx);
+      if (isPlaying) {
+        audios.play().catch(function(e) {});
+        startRotation();
+        oPlay.style.backgroundImage = "url(img/play.png)";
+        oPlay.style.width = "32px";
+        oPlay.style.height = "32px";
+        playToggleBtn.textContent = '⏸';
+      } else {
+        stopRotation();
+        playToggleBtn.textContent = '▶';
+      }
+    }
+
+    function prevSong() {
+      if (!musicData.length) return;
+      var prevIdx = currentIndex;
+      if (playMode === 0) {
+        prevIdx = (currentIndex - 1 + musicData.length) % musicData.length;
+      } else if (playMode === 1) {
+        prevIdx = currentIndex;
+      } else if (playMode === 2) {
+        var randomIdx;
+        do {
+          randomIdx = Math.floor(Math.random() * musicData.length);
+        } while (musicData.length > 1 && randomIdx === currentIndex);
+        prevIdx = randomIdx;
+      }
+      loadSongByIndex(prevIdx);
+      if (isPlaying) {
+        audios.play().catch(function(e) {});
+        startRotation();
+        oPlay.style.backgroundImage = "url(img/play.png)";
+        oPlay.style.width = "32px";
+        oPlay.style.height = "32px";
+        playToggleBtn.textContent = '⏸';
+      } else {
+        stopRotation();
+        playToggleBtn.textContent = '▶';
+      }
+    }
+
+    function cycleMode() {
+      playMode = (playMode + 1) % 3;
+      modeBtn.textContent = modeIcons[playMode];
+      modeBtn.title = modeLabels[playMode];
+      modeBtn.classList.toggle('active', playMode !== 0);
+      console.log('播放模式:', modeLabels[playMode]);
+    }
+
+    // ---------- 事件绑定 ----------
+    oPlay.onclick = function(e) {
+      e.stopPropagation();
+      togglePlay();
+    };
+    playToggleBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      togglePlay();
+    });
+    prevBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      prevSong();
+    });
+    nextBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      nextSong();
+    });
+    modeBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      cycleMode();
+    });
+
+    // 播放结束自动下一首
+    audios.addEventListener('ended', function() {
+      if (playMode === 1) {
+        audios.currentTime = 0;
+        audios.play().catch(function(e) {});
+        return;
+      }
+      nextSong();
+    });
+
+    // 监听播放/暂停状态 (同步UI)
+    audios.addEventListener('play', function() {
+      isPlaying = true;
+      startRotation();
+      oPlay.style.backgroundImage = "url(img/play.png)";
+      oPlay.style.width = "32px";
+      oPlay.style.height = "32px";
+      playToggleBtn.textContent = '⏸';
+    });
+    audios.addEventListener('pause', function() {
+      isPlaying = false;
+      stopRotation();
+      oPlay.style.backgroundImage = "url(img/pause.png)";
+      oPlay.style.width = "29px";
+      oPlay.style.height = "36px";
+      playToggleBtn.textContent = '▶';
+    });
+
+    // ---------- 初始化 ----------
+    if (musicData.length) {
+      loadSongByIndex(0);
+      isPlaying = false;
+      oPlay.style.backgroundImage = "url(img/pause.png)";
+      oPlay.style.width = "29px";
+      oPlay.style.height = "36px";
+      playToggleBtn.textContent = '▶';
+      modeBtn.textContent = modeIcons[playMode];
+      modeBtn.title = modeLabels[playMode];
+      modeBtn.classList.remove('active');
+    } else {
+      updateSongNameScroll('⚠️ 请检查 music.js');
+      oPlay.style.backgroundImage = "url(img/pause.png)";
+      playToggleBtn.textContent = '▶';
+    }
+
+    // 暴露调试
+    window.__player = {
+      play: togglePlay,
+      next: nextSong,
+      prev: prevSong,
+      mode: cycleMode,
+      list: musicData
+    };
+    console.log('🎵 古典右侧面板启动, 歌曲数:', musicData.length);
+  })();
+</script>
+</body>
+</html>

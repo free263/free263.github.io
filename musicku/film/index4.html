@@ -1,0 +1,456 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>胶片音乐播放器 · 顶部控制</title>
+  <link type="text/css" href="css/style.css" rel="stylesheet" />
+  <style>
+    /* ===== 保持原有风格，调整布局 ===== */
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: url(./img/page-bg.jpg) no-repeat 50%/100% 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
+    }
+
+    /* 主容器：垂直居中，顶部留出控制栏空间 */
+    .player-wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px auto;
+      width: 653px;
+      max-width: 92vw;
+    }
+
+    /* 顶部控制栏：歌曲名 + 控制按钮 */
+    .top-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      padding: 10px 18px;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(8px);
+      border-radius: 60px;
+      border: 1px solid rgba(255, 215, 180, 0.2);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+      margin-bottom: 20px;
+      box-sizing: border-box;
+      flex-wrap: nowrap;
+      z-index: 30;
+    }
+
+    .top-controls .ctrl-btn {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 215, 180, 0.15);
+      color: #f0e0d8;
+      font-size: 22px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(2px);
+      font-family: inherit;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .top-controls .ctrl-btn:hover {
+      background: rgba(255, 215, 180, 0.25);
+      transform: scale(1.08);
+      border-color: rgba(255, 215, 180, 0.5);
+      color: #fff;
+    }
+    .top-controls .ctrl-btn:active {
+      transform: scale(0.92);
+    }
+
+    /* 歌曲名称显示区域 (居中可伸缩) */
+    .song-name-display {
+      flex: 1 1 auto;
+      text-align: center;
+      color: #f5e6d3;
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: 1.5px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+      padding: 0 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 60px;
+      max-width: 280px;
+    }
+
+    /* 模式按钮特殊样式 */
+    .mode-btn {
+      font-size: 18px;
+      min-width: 42px;
+      background: rgba(255, 215, 180, 0.08);
+    }
+    .mode-btn.active {
+      background: rgba(255, 215, 180, 0.25);
+      border-color: #f0c8b0;
+      color: #ffdcc9;
+      box-shadow: 0 0 14px rgba(255, 200, 160, 0.2);
+    }
+
+    /* 唱片区域 (与原来一致) */
+    .btns-bg {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 653px;
+      height: 653px;
+      max-width: 92vw;
+      max-height: 92vw;
+    }
+
+    .PlayEy {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      background: url(./img/bg_circle.png), url(./img/bg_center.png) no-repeat center;
+      background-size: contain, auto;
+    }
+
+    .Btn {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 95px;
+      height: 95px;
+      background: url(./img/btn-bg.png) no-repeat;
+      animation: Btn-bg 3s linear infinite;
+      pointer-events: none;
+    }
+
+    .Play {
+      position: absolute;
+      width: 29px;
+      height: 36px;
+      background: url(img/pause.png) no-repeat center;
+      background-size: contain;
+      transition: .5s;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    /* 响应式适配 */
+    @media (max-width: 680px) {
+      .player-wrapper { width: 92vw; }
+      .top-controls {
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: 40px;
+      }
+      .top-controls .ctrl-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+      }
+      .song-name-display {
+        font-size: 14px;
+        max-width: 120px;
+      }
+      .btns-bg {
+        width: 92vw;
+        height: 92vw;
+      }
+    }
+
+    @keyframes Btn-bg {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* 底部保留原占位 */
+    .footer-placeholder {
+      text-align: center;
+      margin: 10px 0;
+      font: normal 14px/24px 'MicroSoft YaHei';
+      color: rgba(255,255,255,0.2);
+    }
+  </style>
+</head>
+<body>
+
+<div class="player-wrapper">
+  <!-- ===== 顶部控制栏 ===== -->
+  <div class="top-controls" id="topControls">
+    <button class="ctrl-btn" id="prevBtn" title="上一首">⏮</button>
+    <span class="song-name-display" id="currentSongName">🎵 加载中...</span>
+    <button class="ctrl-btn" id="nextBtn" title="下一首">⏭</button>
+    <button class="ctrl-btn mode-btn" id="modeBtn" title="播放模式">🔁</button>
+  </div>
+
+  <!-- ===== 唱片区域 ===== -->
+  <div class="btns-bg">
+    <div class="PlayEy"></div>
+    <div class="Btn"></div>
+    <div class="Play" id="playBtn">
+      <audio id="audios" preload="metadata"></audio>
+    </div>
+  </div>
+</div>
+
+<!-- 底部占位 (保留原样式) -->
+<div class="footer-placeholder">
+  <!-- 原底部信息 -->
+</div>
+
+<!-- 引入音乐列表 -->
+<script type="text/javascript" src="js/music.js"></script>
+<script type="text/javascript">
+  (function() {
+    // ---------- DOM 元素 ----------
+    var oPlayEy = document.querySelector('.PlayEy');
+    var oPlay = document.getElementById('playBtn');
+    var audios = document.getElementById('audios');
+    var songNameEl = document.getElementById('currentSongName');
+    var prevBtn = document.getElementById('prevBtn');
+    var nextBtn = document.getElementById('nextBtn');
+    var modeBtn = document.getElementById('modeBtn');
+
+    // ---------- 音乐列表 ----------
+    var musicData = window.musicList || [];
+    if (!musicData.length) {
+      console.warn('music.js 未加载或列表为空');
+      songNameEl.textContent = '⚠️ 无音乐列表';
+    }
+
+    // ---------- 播放状态 ----------
+    var currentIndex = 0;
+    var currentSong = musicData.length ? musicData[0] : null;
+    var isPlaying = false;
+    var rotateInterval = null;
+    var rotateDeg = 0;
+
+    // 播放模式: 0-顺序循环, 1-单曲循环, 2-随机
+    var playMode = 0;
+    var modeIcons = ['🔁', '🔂', '🎲'];
+    var modeLabels = ['顺序循环', '单曲循环', '随机播放'];
+
+    // ---------- 核心函数 ----------
+    function loadSongByIndex(index) {
+      if (!musicData.length) {
+        songNameEl.textContent = '⚠️ 无音乐';
+        return;
+      }
+      if (index < 0) index = musicData.length - 1;
+      if (index >= musicData.length) index = 0;
+      var song = musicData[index];
+      if (!song || !song.url) {
+        console.warn('歌曲无效', index);
+        return;
+      }
+      currentIndex = index;
+      currentSong = song;
+      audios.src = song.url;
+      var displayName = song.name || '未知歌曲';
+      songNameEl.textContent = '🎵 ' + displayName;
+      // 如果当前是播放状态，加载后继续播放
+      if (isPlaying) {
+        audios.play().catch(function(e) {});
+        startRotation();
+      } else {
+        stopRotation();
+      }
+    }
+
+    function togglePlay() {
+      if (!musicData.length) return;
+      if (!audios.src || audios.src === '') {
+        if (musicData[currentIndex]) {
+          audios.src = musicData[currentIndex].url;
+          songNameEl.textContent = '🎵 ' + (musicData[currentIndex].name || '未知');
+        } else {
+          return;
+        }
+      }
+
+      if (audios.paused) {
+        audios.play().catch(function(e) { console.warn('播放失败', e); });
+        isPlaying = true;
+        startRotation();
+        oPlay.style.backgroundImage = "url(img/play.png)";
+        oPlay.style.width = "32px";
+        oPlay.style.height = "32px";
+      } else {
+        audios.pause();
+        isPlaying = false;
+        stopRotation();
+        oPlay.style.backgroundImage = "url(img/pause.png)";
+        oPlay.style.width = "29px";
+        oPlay.style.height = "36px";
+      }
+    }
+
+    function startRotation() {
+      if (rotateInterval) return;
+      rotateInterval = setInterval(function() {
+        rotateDeg = (rotateDeg + 1) % 360;
+        oPlayEy.style.transform = "rotate(" + rotateDeg + "deg)";
+        if (audios.paused) {
+          stopRotation();
+        }
+      }, 30);
+    }
+
+    function stopRotation() {
+      if (rotateInterval) {
+        clearInterval(rotateInterval);
+        rotateInterval = null;
+      }
+    }
+
+    // 下一首
+    function nextSong() {
+      if (!musicData.length) return;
+      var nextIdx = currentIndex;
+      if (playMode === 0) {
+        nextIdx = (currentIndex + 1) % musicData.length;
+      } else if (playMode === 1) {
+        nextIdx = currentIndex;
+      } else if (playMode === 2) {
+        var randomIdx;
+        do {
+          randomIdx = Math.floor(Math.random() * musicData.length);
+        } while (musicData.length > 1 && randomIdx === currentIndex);
+        nextIdx = randomIdx;
+      }
+      loadSongByIndex(nextIdx);
+      if (isPlaying) {
+        audios.play().catch(function(e) {});
+        startRotation();
+        oPlay.style.backgroundImage = "url(img/play.png)";
+        oPlay.style.width = "32px";
+        oPlay.style.height = "32px";
+      } else {
+        stopRotation();
+      }
+    }
+
+    // 上一首
+    function prevSong() {
+      if (!musicData.length) return;
+      var prevIdx = currentIndex;
+      if (playMode === 0) {
+        prevIdx = (currentIndex - 1 + musicData.length) % musicData.length;
+      } else if (playMode === 1) {
+        prevIdx = currentIndex;
+      } else if (playMode === 2) {
+        var randomIdx;
+        do {
+          randomIdx = Math.floor(Math.random() * musicData.length);
+        } while (musicData.length > 1 && randomIdx === currentIndex);
+        prevIdx = randomIdx;
+      }
+      loadSongByIndex(prevIdx);
+      if (isPlaying) {
+        audios.play().catch(function(e) {});
+        startRotation();
+        oPlay.style.backgroundImage = "url(img/play.png)";
+        oPlay.style.width = "32px";
+        oPlay.style.height = "32px";
+      } else {
+        stopRotation();
+      }
+    }
+
+    // 切换模式
+    function cycleMode() {
+      playMode = (playMode + 1) % 3;
+      modeBtn.textContent = modeIcons[playMode];
+      modeBtn.title = modeLabels[playMode];
+      modeBtn.classList.toggle('active', playMode !== 0);
+      console.log('播放模式:', modeLabels[playMode]);
+    }
+
+    // ---------- 事件绑定 ----------
+    oPlay.onclick = function(e) {
+      e.stopPropagation();
+      togglePlay();
+    };
+
+    prevBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      prevSong();
+    });
+    nextBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      nextSong();
+    });
+    modeBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      cycleMode();
+    });
+
+    // 播放结束自动下一首
+    audios.addEventListener('ended', function() {
+      if (playMode === 1) {
+        audios.currentTime = 0;
+        audios.play().catch(function(e) {});
+        return;
+      }
+      nextSong();
+    });
+
+    // 监听播放/暂停状态 (同步UI)
+    audios.addEventListener('play', function() {
+      isPlaying = true;
+      startRotation();
+      oPlay.style.backgroundImage = "url(img/play.png)";
+      oPlay.style.width = "32px";
+      oPlay.style.height = "32px";
+    });
+    audios.addEventListener('pause', function() {
+      isPlaying = false;
+      stopRotation();
+      oPlay.style.backgroundImage = "url(img/pause.png)";
+      oPlay.style.width = "29px";
+      oPlay.style.height = "36px";
+    });
+
+    // ---------- 初始化 ----------
+    if (musicData.length) {
+      loadSongByIndex(0);
+      isPlaying = false;
+      oPlay.style.backgroundImage = "url(img/pause.png)";
+      oPlay.style.width = "29px";
+      oPlay.style.height = "36px";
+      modeBtn.textContent = modeIcons[playMode];
+      modeBtn.title = modeLabels[playMode];
+      modeBtn.classList.remove('active');
+    } else {
+      songNameEl.textContent = '⚠️ 请检查 music.js';
+      oPlay.style.backgroundImage = "url(img/pause.png)";
+    }
+
+    // 暴露调试
+    window.__playerCtrl = {
+      play: togglePlay,
+      next: nextSong,
+      prev: prevSong,
+      mode: cycleMode,
+      list: musicData
+    };
+    console.log('🎵 播放器已启动 (顶部控制), 歌曲数:', musicData.length);
+  })();
+</script>
+</body>
+</html>
