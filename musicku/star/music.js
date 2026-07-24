@@ -1,0 +1,1840 @@
+// music.js - 星空音乐播放器音乐列表与控制逻辑
+// 包含完整的播放器功能：播放/暂停、上一首/下一首、模式切换、进度控制
+
+(function() {
+    'use strict';
+
+    // ============================================================
+    // 1. 音乐列表（请在此处替换为您自己的音乐文件）
+    // ============================================================
+    var musicList = [
+{title: '5566-我难过',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/5566-我难过.mp3'},
+{title: 'ALin-给我一个理由忘记',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/ALin-给我一个理由忘记.mp3'},
+{title: 'ALin-有一种悲伤',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/ALin-有一种悲伤.mp3'},
+{title: 'AvrilLavigne-IamWithYou',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/AvrilLavigne-IamWithYou.mp3'},
+{title: 'BackstreetBoys-As_Long_As_You_Love_M',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/BackstreetBoys-As_Long_As_You_Love_M.mp3'},
+{title: 'Beyond-不再犹豫',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/Beyond-不再犹豫.mp3'},
+{title: 'Beyond-大地',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/Beyond-大地.mp3'},
+{title: 'Beyond-光辉岁月',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/Beyond-光辉岁月.mp3'},
+{title: 'Beyond-海阔天空',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/Beyond-海阔天空.mp3'},
+{title: 'Beyond-喜欢你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/Beyond-喜欢你.mp3'},
+{title: 'Beyond-真的爱你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/Beyond-真的爱你.mp3'},
+{title: 'Dana Winner-Moonlight Shadow',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/Dana Winner-Moonlight Shadow.mp3'},
+{title: 'DemiLovato-LetItGo',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/DemiLovato-LetItGo.mp3'},
+{title: 'DJ小鱼儿-黑桃A',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/DJ小鱼儿-黑桃A.mp3'},
+{title: 'EdSheeran-ShapeOfYou',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/EdSheeran-ShapeOfYou.mp3'},
+{title: 'Ella[陈嘉桦]-都几岁了',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/Ella[陈嘉桦]-都几岁了.mp3'},
+{title: 'Enya-May It Be',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/Enya-May It Be.mp3'},
+{title: 'en-嚣张',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/en-嚣张.mp3'},
+{title: 'F4-流星雨',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/F4-流星雨.mp3'},
+{title: 'HITA-赤伶',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/HITA-赤伶.mp3'},
+{title: 'HITA-牵丝戏',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/HITA-牵丝戏.mp3'},
+{title: 'HITA-水龙吟',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/HITA-水龙吟.mp3'},
+{title: 'HITA-昔言',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/HITA-昔言.mp3'},
+{title: 'HITA-长恨歌',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/HITA-长恨歌.mp3'},
+{title: 'Justin Bieber Luis Fonsi Daddy Yankee-Despacito(Remix)',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/Justin Bieber Luis Fonsi Daddy Yankee-Despacito(Remix).mp3'},
+{title: 'JustinBieber-Baby',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/JustinBieber-Baby.mp3'},
+{title: 'kiss-因为是女子',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/kiss-因为是女子.mp3'},
+{title: 'LBI利比（时柏尘）-跳楼机',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/LBI利比（时柏尘）-跳楼机.mp3'},
+{title: 'LionelRichie-SayYouSayMe',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/LionelRichie-SayYouSayMe.mp3'},
+{title: 'Luis Fonsi-Despacito',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/Luis Fonsi-Despacito.mp3'},
+{title: 'MinnieRiperton-LovingYou',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/MinnieRiperton-LovingYou.mp3'},
+{title: 'S.H.E-SuperStar',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/S.H.E-SuperStar.mp3'},
+{title: 'S.H.E-半糖主义',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/S.H.E-半糖主义.mp3'},
+{title: 'S.H.E-波斯猫',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/S.H.E-波斯猫.mp3'},
+{title: 'S.H.E-不想长大',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/S.H.E-不想长大.mp3'},
+{title: 'S.H.E-触电',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/S.H.E-触电.mp3'},
+{title: 'S.H.E-候鸟',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/S.H.E-候鸟.mp3'},
+{title: 'S.H.E-恋人未满',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/S.H.E-恋人未满.mp3'},
+{title: 'S.H.E-美丽新世界',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/S.H.E-美丽新世界.mp3'},
+{title: 'S.H.E-热带雨林',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/S.H.E-热带雨林.mp3'},
+{title: 'S.H.E-他还是不懂',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/S.H.E-他还是不懂.mp3'},
+{title: 'S.H.E-一眼万年',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/S.H.E-一眼万年.mp3'},
+{title: 'S.H.E-中国话',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/S.H.E-中国话.mp3'},
+{title: 'S.H.E-紫藤花',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/S.H.E-紫藤花.mp3'},
+{title: 'sarahBrightman-斯卡布罗集市',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/sarahBrightman-斯卡布罗集市.mp3'},
+{title: 'SarahCoonor-just one last dance',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/SarahCoonor-just one last dance.mp3'},
+{title: 'sara-爱很美',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/sara-爱很美.mp3'},
+{title: 'Sweety-樱花草',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/Sweety-樱花草.mp3'},
+{title: 'T.R.Y-不是因为寂寞才想你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/T.R.Y-不是因为寂寞才想你.mp3'},
+{title: 'T.R.Y-不要在我寂寞的时候说爱我',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/T.R.Y-不要在我寂寞的时候说爱我.mp3'},
+{title: 'TFBOYS-青春修炼手册',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/TFBOYS-青春修炼手册.mp3'},
+{title: 'Twins-莫斯科没有眼泪',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/Twins-莫斯科没有眼泪.mp3'},
+{title: 'Twins-下一站天后',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/Twins-下一站天后.mp3'},
+{title: 'Vitas-奉献',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/Vitas-奉献.mp3'},
+{title: 'Vitas-歌剧2',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/Vitas-歌剧2.mp3'},
+{title: 'Vitas-星星',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/Vitas-星星.mp3'},
+{title: 'WAX-改变化装',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/WAX-改变化装.mp3'},
+{title: 'WAX-渴望爱情',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/WAX-渴望爱情.mp3'},
+{title: 'WAX-余情',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/WAX-余情.mp3'},
+{title: 'WhitneyHouston-IWillAlwaysLoveYou',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/WhitneyHouston-IWillAlwaysLoveYou.mp3'},
+{title: 'WizKhalifa-See You Again',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/WizKhalifa-See You Again.mp3'},
+{title: '阿YueYue-不负人间',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/阿YueYue-不负人间.mp3'},
+{title: '阿YueYue-云与海',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/阿YueYue-云与海.mp3'},
+{title: '阿杜-Andy',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/阿杜-Andy.mp3'},
+{title: '阿杜-坚持到底',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/阿杜-坚持到底.mp3'},
+{title: '阿杜-离别',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/阿杜-离别.mp3'},
+{title: '阿杜-撕夜',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/阿杜-撕夜.mp3'},
+{title: '阿杜-他一定很爱你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/阿杜-他一定很爱你.mp3'},
+{title: '阿杜-天黑',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/阿杜-天黑.mp3'},
+{title: '阿梨粤-秒针',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/阿梨粤-秒针.mp3'},
+{title: '阿梨粤-晚风心里吹',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/阿梨粤-晚风心里吹.mp3'},
+{title: '阿木-有一种爱叫做放手',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/阿木-有一种爱叫做放手.mp3'},
+{title: '阿悄-陪我去流浪',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/阿悄-陪我去流浪.mp3'},
+{title: '阿冗-你的答案',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/阿冗-你的答案.mp3'},
+{title: '阿桑-疯了',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/阿桑-疯了.mp3'},
+{title: '阿桑-寂寞在唱歌',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/阿桑-寂寞在唱歌.mp3'},
+{title: '阿桑-受了点伤',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/阿桑-受了点伤.mp3'},
+{title: '阿桑-叶子',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/阿桑-叶子.mp3'},
+{title: '阿桑-一直很安静',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/阿桑-一直很安静.mp3'},
+{title: '阿泱-氧气',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/阿泱-氧气.mp3'},
+{title: '阿悠悠-旧梦一场',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/阿悠悠-旧梦一场.mp3'},
+{title: '阿悠悠-你若三冬',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/阿悠悠-你若三冬.mp3'},
+{title: '艾辰-错位时空',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/艾辰-错位时空.mp3'},
+{title: '艾辰-他他他',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/艾辰-他他他.mp3'},
+{title: '艾可薇 -没出息',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/艾可薇 -没出息.mp3'},
+{title: '爱乐团王超-放开',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/爱乐团王超-放开.mp3'},
+{title: '安琥-天使的翅膀',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/安琥-天使的翅膀.mp3'},
+{title: '白鹿-临江仙',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/白鹿-临江仙.mp3'},
+{title: '半阳-一曲相思',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/半阳-一曲相思.mp3'},
+{title: '伯爵Johnny 唐伯虎Annie-西厢寻他',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/伯爵Johnny 唐伯虎Annie-西厢寻他.mp3'},
+{title: '不才-化身孤岛的鲸',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/不才-化身孤岛的鲸.mp3'},
+{title: '不是鱼-今生啊多相见',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/不是鱼-今生啊多相见.mp3'},
+{title: '布兰妮-BabyOneMoreTime',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/布兰妮-BabyOneMoreTime.mp3'},
+{title: '布兰妮-everytime',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/布兰妮-everytime.mp3'},
+{title: '蔡淳佳-依恋',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/蔡淳佳-依恋.mp3'},
+{title: '蔡国权-不装饰你的梦',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/蔡国权-不装饰你的梦.mp3'},
+{title: '蔡国权-顺流逆流',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/蔡国权-顺流逆流.mp3'},
+{title: '蔡健雅-Letting Go',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/蔡健雅-Letting Go.mp3'},
+{title: '蔡健雅-红色高跟鞋',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/蔡健雅-红色高跟鞋.mp3'},
+{title: '蔡健雅-无底洞',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/蔡健雅-无底洞.mp3'},
+{title: '蔡琴-把悲伤留给自己',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/蔡琴-把悲伤留给自己.mp3'},
+{title: '蔡琴-被遺忘的時光',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/蔡琴-被遺忘的時光.mp3'},
+{title: '蔡幸娟-问情',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/蔡幸娟-问情.mp3'},
+{title: '蔡徐坤-WaitWaitWait',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/蔡徐坤-WaitWaitWait.mp3'},
+{title: '蔡妍-摇摆',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/蔡妍-摇摆.mp3'},
+{title: '蔡依林 陶喆-今天你要嫁给我',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/蔡依林 陶喆-今天你要嫁给我.mp3'},
+{title: '蔡依林 周杰伦-海盗',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/蔡依林 周杰伦-海盗.mp3'},
+{title: '蔡依林-LOVELOVELOVE',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/蔡依林-LOVELOVELOVE.mp3'},
+{title: '蔡依林-爱情三十六计',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/蔡依林-爱情三十六计.mp3'},
+{title: '蔡依林-布拉格广场',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/蔡依林-布拉格广场.mp3'},
+{title: '蔡依林-看我72变',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/蔡依林-看我72变.mp3'},
+{title: '蔡依林-日不落',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/蔡依林-日不落.mp3'},
+{title: '蔡依林-说爱你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/蔡依林-说爱你.mp3'},
+{title: '蔡依林-我知道你很难过',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/蔡依林-我知道你很难过.mp3'},
+{title: '蔡依林-舞娘',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/蔡依林-舞娘.mp3'},
+{title: '曹格 卓文萱-梁山伯与茱丽叶',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/曹格 卓文萱-梁山伯与茱丽叶.mp3'},
+{title: '草蜢-宝贝对不起',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/草蜢-宝贝对不起.mp3'},
+{title: '草蜢-失恋阵线联盟',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/草蜢-失恋阵线联盟.mp3'},
+{title: '岑宁儿-追光者',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/岑宁儿-追光者.mp3'},
+{title: '岑雨桥 萧全-触电(爱的魔力转圈圈)',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/岑雨桥 萧全-触电(爱的魔力转圈圈).mp3'},
+{title: '曾春年-最幸福的人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/曾春年-最幸福的人.mp3'},
+{title: '陈百强-偏偏喜欢你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈百强-偏偏喜欢你.mp3'},
+{title: '陈百强-一生何求',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈百强-一生何求.mp3'},
+{title: '陈楚生-有没有人告诉你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈楚生-有没有人告诉你.mp3'},
+{title: '陈妃平-永远到底有多远',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈妃平-永远到底有多远.mp3'},
+{title: '陈冠蒲-就让你走',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈冠蒲-就让你走.mp3'},
+{title: '陈冠蒲-太多',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈冠蒲-太多.mp3'},
+{title: '陈光荣-再见...警察...再见',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈光荣-再见...警察...再见.mp3'},
+{title: '陈红-走过长安街',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈红-走过长安街.mp3'},
+{title: '陈慧琳-不如跳舞',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈慧琳-不如跳舞.mp3'},
+{title: '陈慧琳-花花宇宙',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈慧琳-花花宇宙.mp3'},
+{title: '陈慧琳-记事本',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈慧琳-记事本.mp3'},
+{title: '陈慧娴-千千阙歌',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈慧娴-千千阙歌.mp3'},
+{title: '陈慧娴-人生何处不相逢',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈慧娴-人生何处不相逢.mp3'},
+{title: '陈乐基-月半小夜曲',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈乐基-月半小夜曲.mp3'},
+{title: '陈琳-爱就爱了',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈琳-爱就爱了.mp3'},
+{title: '陈琳-你的柔情我永远不懂',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈琳-你的柔情我永远不懂.mp3'},
+{title: '陈明-等你爱我',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈明-等你爱我.mp3'},
+{title: '陈明-快乐老家',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈明-快乐老家.mp3'},
+{title: '陈明-为你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈明-为你.mp3'},
+{title: '陈明-我要找到你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈明-我要找到你.mp3'},
+{title: '陈明真-变心的翅膀',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈明真-变心的翅膀.mp3'},
+{title: '陈明真-到哪里找那么好的人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈明真-到哪里找那么好的人.mp3'},
+{title: '陈明真-我用自己的方式爱你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈明真-我用自己的方式爱你.mp3'},
+{title: '陈瑞-白狐',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈瑞-白狐.mp3'},
+{title: '陈升 刘佳慧-北京一夜',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈升 刘佳慧-北京一夜.mp3'},
+{title: '陈淑桦-梦醒时分',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈淑桦-梦醒时分.mp3'},
+{title: '陈淑桦-情关',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈淑桦-情关.mp3'},
+{title: '陈淑桦-笑红尘',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈淑桦-笑红尘.mp3'},
+{title: '陈伟霆 宝石Gem-野狼Disco',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈伟霆 宝石Gem-野狼Disco.mp3'},
+{title: '陈小春-独家记忆',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈小春-独家记忆.mp3'},
+{title: '陈小春-街角的晚风',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈小春-街角的晚风.mp3'},
+{title: '陈小春-没那种命',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈小春-没那种命.mp3'},
+{title: '陈小春-你好毒',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈小春-你好毒.mp3'},
+{title: '陈小春-神啊救救我',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈小春-神啊救救我.mp3'},
+{title: '陈小春-算你狠',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈小春-算你狠.mp3'},
+{title: '陈晓东-比我幸福',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈晓东-比我幸福.mp3'},
+{title: '陈旭-哥只是个传说',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈旭-哥只是个传说.mp3'},
+{title: '陈雪凝-绿色',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈雪凝-绿色.mp3'},
+{title: '陈雪凝-你的酒馆对我打了烊',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈雪凝-你的酒馆对我打了烊.mp3'},
+{title: '陈雅森-下辈子不一定还能遇见你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈雅森-下辈子不一定还能遇见你.mp3'},
+{title: '陈奕迅 王菲-因为爱情',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈奕迅 王菲-因为爱情.mp3'},
+{title: '陈奕迅-K歌之王',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈奕迅-K歌之王.mp3'},
+{title: '陈奕迅-爱情转移',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈奕迅-爱情转移.mp3'},
+{title: '陈奕迅-浮夸',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈奕迅-浮夸.mp3'},
+{title: '陈奕迅-富士山下',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈奕迅-富士山下.mp3'},
+{title: '陈奕迅-孤勇者',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈奕迅-孤勇者.mp3'},
+{title: '陈奕迅-好久不见',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈奕迅-好久不见.mp3'},
+{title: '陈奕迅-十年',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈奕迅-十年.mp3'},
+{title: '陈卓璇-八日蝉鸣',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陈卓璇-八日蝉鸣.mp3'},
+{title: '成都永哥-爱过的你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/成都永哥-爱过的你.mp3'},
+{title: '成都永哥-撤退',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/成都永哥-撤退.mp3'},
+{title: '成龙 陈淑桦-明明白白我的心',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/成龙 陈淑桦-明明白白我的心.mp3'},
+{title: '成龙 范晓萱-身不由己',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/成龙 范晓萱-身不由己.mp3'},
+{title: '成龙 金喜善-无尽的爱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/成龙 金喜善-无尽的爱.mp3'},
+{title: '成龙 李宗盛 周华健-真心英雄',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/成龙 李宗盛 周华健-真心英雄.mp3'},
+{title: '成龙 苏慧伦-在我生命中的每一天',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/成龙 苏慧伦-在我生命中的每一天.mp3'},
+{title: '成龙-男儿当自强',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/成龙-男儿当自强.mp3'},
+{title: '成龙-你给我一片天',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/成龙-你给我一片天.mp3'},
+{title: '成龙-普通人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/成龙-普通人.mp3'},
+{title: '成龙-万里长城永不倒',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/成龙-万里长城永不倒.mp3'},
+{title: '成龙-问心无愧',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/成龙-问心无愧.mp3'},
+{title: '成龙-我是谁',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/成龙-我是谁.mp3'},
+{title: '成龙-相信自己',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/成龙-相信自己.mp3'},
+{title: '成龙-英雄故事',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/成龙-英雄故事.mp3'},
+{title: '成龙-油菜花',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/成龙-油菜花.mp3'},
+{title: '成龙-真的用了心',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/成龙-真的用了心.mp3'},
+{title: '成龙-壮志在我胸',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/成龙-壮志在我胸.mp3'},
+{title: '成龙-醉拳',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/成龙-醉拳.mp3'},
+{title: '承桓-爱过的你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/承桓-爱过的你.mp3'},
+{title: '承桓-撤退',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/承桓-撤退.mp3'},
+{title: '承桓-婚纱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/承桓-婚纱.mp3'},
+{title: '承桓-他他他',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/承桓-他他他.mp3'},
+{title: '承桓-我明明那么好',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/承桓-我明明那么好.mp3'},
+{title: '承桓-座位',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/承桓-座位.mp3'},
+{title: '程琳-信天游',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/程琳-信天游.mp3'},
+{title: '程响-等你归来',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/程响-等你归来.mp3'},
+{title: '程响-可能',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/程响-可能.mp3'},
+{title: '程响-人间烟火',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/程响-人间烟火.mp3'},
+{title: '程响-时光洪流',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/程响-时光洪流.mp3'},
+{title: '程响-世界这么大还是遇见你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/程响-世界这么大还是遇见你.mp3'},
+{title: '程响-四季予你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/程响-四季予你.mp3'},
+{title: '初音未来-甩葱歌',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/初音未来-甩葱歌.mp3'},
+{title: '川青-下潜',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/川青-下潜.mp3'},
+{title: '崔子格-卜卦',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/崔子格-卜卦.mp3'},
+{title: '大欢-三生石下',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/大欢-三生石下.mp3'},
+{title: '大鹏-都选C',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/大鹏-都选C.mp3'},
+{title: '大张伟-倍儿爽',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/大张伟-倍儿爽.mp3'},
+{title: '大张伟-我怎么这么好看',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/大张伟-我怎么这么好看.mp3'},
+{title: '大冢爱-桃ノ花ビラ',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/大冢爱-桃ノ花ビラ.mp3'},
+{title: '大壮-我们不一样',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/大壮-我们不一样.mp3'},
+{title: '大籽-白月光与朱砂痣',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/大籽-白月光与朱砂痣.mp3'},
+{title: '戴佩妮-爱疯了',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/戴佩妮-爱疯了.mp3'},
+{title: '戴佩妮-街角的祝福',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/戴佩妮-街角的祝福.mp3'},
+{title: '戴佩妮-你要的爱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/戴佩妮-你要的爱.mp3'},
+{title: '戴佩妮-怎样',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/戴佩妮-怎样.mp3'},
+{title: '戴羽彤-来迟',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/戴羽彤-来迟.mp3'},
+{title: '刀郎-2002年的第一场雪',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刀郎-2002年的第一场雪.mp3'},
+{title: '刀郎-爱是你我',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刀郎-爱是你我.mp3'},
+{title: '刀郎-冲动的惩罚',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刀郎-冲动的惩罚.mp3'},
+{title: '刀郎-披着羊皮的狼',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刀郎-披着羊皮的狼.mp3'},
+{title: '刀郎-情人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刀郎-情人.mp3'},
+{title: '刀郎-西海情歌',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刀郎-西海情歌.mp3'},
+{title: '等什么君-赤伶',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/等什么君-赤伶.mp3'},
+{title: '等什么君-关山酒',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/等什么君-关山酒.mp3'},
+{title: '等什么君-江湖策马',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/等什么君-江湖策马.mp3'},
+{title: '等什么君-踏雪',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/等什么君-踏雪.mp3'},
+{title: '等什么君-一花一剑',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/等什么君-一花一剑.mp3'},
+{title: '邓丽君-独上西楼',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/邓丽君-独上西楼.mp3'},
+{title: '邓丽君-漫步人生路',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/邓丽君-漫步人生路.mp3'},
+{title: '邓丽君-甜蜜蜜',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/邓丽君-甜蜜蜜.mp3'},
+{title: '邓丽君-我只在乎你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/邓丽君-我只在乎你.mp3'},
+{title: '邓丽君-小城故事',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/邓丽君-小城故事.mp3'},
+{title: '邓丽君-月亮代表我的心',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/邓丽君-月亮代表我的心.mp3'},
+{title: '邓丽欣 方力申-十分爱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/邓丽欣 方力申-十分爱.mp3'},
+{title: '邓紫棋-倒数',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/邓紫棋-倒数.mp3'},
+{title: '邓紫棋-多远都要在一起',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/邓紫棋-多远都要在一起.mp3'},
+{title: '邓紫棋-光年之外',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/邓紫棋-光年之外.mp3'},
+{title: '邓紫棋-来自天堂的魔鬼',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/邓紫棋-来自天堂的魔鬼.mp3'},
+{title: '邓紫棋-你把我灌醉',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/邓紫棋-你把我灌醉.mp3'},
+{title: '邓紫棋-泡沫',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/邓紫棋-泡沫.mp3'},
+{title: '邓紫棋-桃花诺',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/邓紫棋-桃花诺.mp3'},
+{title: '邓紫棋-喜欢你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/邓紫棋-喜欢你.mp3'},
+{title: '迪克牛仔-有多少爱可以重来',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/迪克牛仔-有多少爱可以重来.mp3'},
+{title: '迪丽热巴 汪苏泷-偏偏',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/迪丽热巴 汪苏泷-偏偏.mp3'},
+{title: '电影原声-沧海一声笑',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/电影原声-沧海一声笑.mp3'},
+{title: '刁寒-花好月圆',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刁寒-花好月圆.mp3'},
+{title: '丁当-猜不透',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/丁当-猜不透.mp3'},
+{title: '丁当-手掌心',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/丁当-手掌心.mp3'},
+{title: '冬季恋歌-从开始到现在',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/冬季恋歌-从开始到现在.mp3'},
+{title: '动力火车-背叛情歌',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/动力火车-背叛情歌.mp3'},
+{title: '动力火车-当',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/动力火车-当.mp3'},
+{title: '动力火车-第一滴泪',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/动力火车-第一滴泪.mp3'},
+{title: '动力火车-明天的明天的明天',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/动力火车-明天的明天的明天.mp3'},
+{title: '动力火车-那就这样吧',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/动力火车-那就这样吧.mp3'},
+{title: '动力火车-无情的情书',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/动力火车-无情的情书.mp3'},
+{title: '动力火车-忠孝东路走九遍',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/动力火车-忠孝东路走九遍.mp3'},
+{title: '杜德伟-情人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/杜德伟-情人.mp3'},
+{title: '樊凡-等不到的爱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/樊凡-等不到的爱.mp3'},
+{title: '樊凡-燃烧翅膀',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/樊凡-燃烧翅膀.mp3'},
+{title: '范玮琪-是非题',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/范玮琪-是非题.mp3'},
+{title: '范玮琪-我们的纪念日',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/范玮琪-我们的纪念日.mp3'},
+{title: '范玮琪-一个像夏天一个像秋天',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/范玮琪-一个像夏天一个像秋天.mp3'},
+{title: '范玮琪-最初的梦想',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/范玮琪-最初的梦想.mp3'},
+{title: '范玮琪-最重要的决定',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/范玮琪-最重要的决定.mp3'},
+{title: '范晓萱-雪人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/范晓萱-雪人.mp3'},
+{title: '范逸臣-放生',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/范逸臣-放生.mp3'},
+{title: '房东的猫-云烟成雨',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/房东的猫-云烟成雨.mp3'},
+{title: '飞儿乐团-LydiA',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/飞儿乐团-Lydia.mp3'},
+{title: '飞儿乐团-你的微笑',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/飞儿乐团-你的微笑.mp3'},
+{title: '飞儿乐团-千年之恋',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/飞儿乐团-千年之恋.mp3'},
+{title: '飞儿乐团-我们的爱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/飞儿乐团-我们的爱.mp3'},
+{title: '飞儿乐团-月牙湾',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/飞儿乐团-月牙湾.mp3'},
+{title: '飞轮海 田馥甄-只对你有感觉',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/飞轮海 田馥甄-只对你有感觉.mp3'},
+{title: '费玉清-梦驼铃',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/费玉清-梦驼铃.mp3'},
+{title: '费玉清-一剪梅',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/费玉清-一剪梅.mp3'},
+{title: '冯晓泉-冰糖葫芦',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/冯晓泉-冰糖葫芦.mp3'},
+{title: '凤飞飞-莫让红颜守空尘',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/凤飞飞-莫让红颜守空尘.mp3'},
+{title: '凤飞飞-追梦人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/凤飞飞-追梦人.mp3'},
+{title: '凤凰传奇-海底（Live）',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/凤凰传奇-海底（Live）.mp3'},
+{title: '凤凰传奇-荷塘月色',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/凤凰传奇-荷塘月色.mp3'},
+{title: '凤凰传奇-奢香夫人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/凤凰传奇-奢香夫人.mp3'},
+{title: '凤凰传奇-我从草原来',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/凤凰传奇-我从草原来.mp3'},
+{title: '凤凰传奇-月亮之上',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/凤凰传奇-月亮之上.mp3'},
+{title: '凤凰传奇-自由飞翔',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/凤凰传奇-自由飞翔.mp3'},
+{title: '付笛声 任静-知心爱人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/付笛声 任静-知心爱人.mp3'},
+{title: '甘萍-潮湿的心',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/甘萍-潮湿的心.mp3'},
+{title: '高安,黑鸭子-红尘情歌',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/高安,黑鸭子-红尘情歌.mp3'},
+{title: '高慧君 张学友-你最珍贵',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/高慧君 张学友-你最珍贵.mp3'},
+{title: '高进-别想她',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/高进-别想她.mp3'},
+{title: '高林生-牵挂你的人是我',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/高林生-牵挂你的人是我.mp3'},
+{title: '高胜美 左宏元-渡情',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/高胜美 左宏元-渡情.mp3'},
+{title: '高胜美-千年等一回',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/高胜美-千年等一回.mp3'},
+{title: '高胜美-青青河边草',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/高胜美-青青河边草.mp3'},
+{title: '高晓松-一个北京人在北京',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/高晓松-一个北京人在北京.mp3'},
+{title: '格格-火苗',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/格格-火苗.mp3'},
+{title: '葛东琪-悬溺',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/葛东琪-悬溺.mp3'},
+{title: '贡维特-想你想到眼泪流',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/贡维特-想你想到眼泪流.mp3'},
+{title: '古巨基-好想好想',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/古巨基-好想好想.mp3'},
+{title: '谷村新司-风姿花传',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/谷村新司-风姿花传.mp3'},
+{title: '关淑怡-难得有情人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/关淑怡-难得有情人.mp3'},
+{title: '关喆-想你的夜',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/关喆-想你的夜.mp3'},
+{title: '光良-第一次',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/光良-第一次.mp3'},
+{title: '光良-都是你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/光良-都是你.mp3'},
+{title: '光良-童话',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/光良-童话.mp3'},
+{title: '光头李进-你在他乡还好吗',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/光头李进-你在他乡还好吗.mp3'},
+{title: '郭富城-动起来',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/郭富城-动起来.mp3'},
+{title: '郭富城-对你爱不完',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/郭富城-对你爱不完.mp3'},
+{title: '郭富城-我是不是该安静的走开',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/郭富城-我是不是该安静的走开.mp3'},
+{title: '郭富城-樱花之恋',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/郭富城-樱花之恋.mp3'},
+{title: '郭美美-爱情女神',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/郭美美-爱情女神.mp3'},
+{title: '郭美美-不怕不怕',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/郭美美-不怕不怕.mp3'},
+{title: '郭沁 周深-大鱼',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/郭沁 周深-大鱼.mp3'},
+{title: '郭沁-紫',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/郭沁-紫.mp3'},
+{title: '国风新语 浮生梦 汐音社-探窗',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/国风新语 浮生梦 汐音社-探窗.mp3'},
+{title: '海来阿木-浮生记',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/海来阿木-浮生记.mp3'},
+{title: '海伦-桥边姑娘',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/海伦-桥边姑娘.mp3'},
+{title: '海伦-游山恋',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/海伦-游山恋.mp3'},
+{title: '海鸣威-老人与海',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/海鸣威-老人与海.mp3'},
+{title: '韩宝仪-粉红色的回忆',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/韩宝仪-粉红色的回忆.mp3'},
+{title: '韩宝仪-往事只能回味',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/韩宝仪-往事只能回味.mp3'},
+{title: '韩红-九儿',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/韩红-九儿.mp3'},
+{title: '韩红-那片海',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/韩红-那片海.mp3'},
+{title: '韩红-天亮了',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/韩红-天亮了.mp3'},
+{title: '韩红-天路',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/韩红-天路.mp3'},
+{title: '韩磊-等待',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/韩磊-等待.mp3'},
+{title: '韩磊-向天再借五百年',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/韩磊-向天再借五百年.mp3'},
+{title: '韩磊-走四方',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/韩磊-走四方.mp3'},
+{title: '韩雪-飘雪',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/韩雪-飘雪.mp3'},
+{title: '韩雪-想起',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/韩雪-想起.mp3'},
+{title: '杭天琪-前门情思大碗茶',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/杭天琪-前门情思大碗茶.mp3'},
+{title: '浩瀚-分手在那个秋天',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/浩瀚-分手在那个秋天.mp3'},
+{title: '何炅-栀子花开',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/何炅-栀子花开.mp3'},
+{title: '何洁-你一定要幸福',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/何洁-你一定要幸福.mp3'},
+{title: '何璐-让她降落',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/何璐-让她降落.mp3'},
+{title: '何晟铭-佛说',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/何晟铭-佛说.mp3'},
+{title: '黑豹乐队-无地自容',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黑豹乐队-无地自容.mp3'},
+{title: '侯旭-逃',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/侯旭-逃.mp3'},
+{title: '后弦 sara-你还欠我一个拥抱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/后弦 sara-你还欠我一个拥抱.mp3'},
+{title: '后弦 柳岩-孙尚香',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/后弦 柳岩-孙尚香.mp3'},
+{title: '胡夏 李玉刚-将进酒',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/胡夏 李玉刚-将进酒.mp3'},
+{title: '胡夏 郁可唯-知否知否',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/胡夏 郁可唯-知否知否.mp3'},
+{title: '胡夏-那些年',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/胡夏-那些年.mp3'},
+{title: '胡彦斌-红颜',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/胡彦斌-红颜.mp3'},
+{title: '胡彦斌-月光',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/胡彦斌-月光.mp3'},
+{title: '胡杨林-香水有毒',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/胡杨林-香水有毒.mp3'},
+{title: '花儿乐队-穷开心',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/花儿乐队-穷开心.mp3'},
+{title: '花儿乐队-嘻唰唰',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/花儿乐队-嘻唰唰.mp3'},
+{title: '花僮-浪子闲话',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/花僮-浪子闲话.mp3'},
+{title: '华晨宇-齐天',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/华晨宇-齐天.mp3'},
+{title: '黄安-东南西北风',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄安-东南西北风.mp3'},
+{title: '黄安-新鸳鸯蝴蝶梦',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄安-新鸳鸯蝴蝶梦.mp3'},
+{title: '黄安-样样红',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄安-样样红.mp3'},
+{title: '黄磊-我想我是海',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄磊-我想我是海.mp3'},
+{title: '黄龄 Tang Duy Tan-叹',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄龄 Tang Duy Tan-叹.mp3'},
+{title: '黄龄 许嵩-惊鸿一面',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄龄 许嵩-惊鸿一面.mp3'},
+{title: '黄龄-High歌',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄龄-High歌.mp3'},
+{title: '黄龄-啊',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄龄-啊.mp3'},
+{title: '黄龄-达拉崩吧',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄龄-达拉崩吧.mp3'},
+{title: '黄龄-风月',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄龄-风月.mp3'},
+{title: '黄龄-谎言',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄龄-谎言.mp3'},
+{title: '黄龄-琵琶行',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄龄-琵琶行.mp3'},
+{title: '黄龄-牵丝戏（梦幻西游盘丝洞门派曲）',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄龄-牵丝戏（梦幻西游盘丝洞门派曲）.mp3'},
+{title: '黄龄-入画江南',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄龄-入画江南.mp3'},
+{title: '黄龄-三拜红尘凉',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄龄-三拜红尘凉.mp3'},
+{title: '黄龄-守',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄龄-守.mp3'},
+{title: '黄龄-锁',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄龄-锁.mp3'},
+{title: '黄龄-听夜雨',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄龄-听夜雨.mp3'},
+{title: '黄龄-问情',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄龄-问情.mp3'},
+{title: '黄龄-小雨',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄龄-小雨.mp3'},
+{title: '黄龄-烟雨画卷',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄龄-烟雨画卷.mp3'},
+{title: '黄龄-痒',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄龄-痒.mp3'},
+{title: '黄龄-夜舞',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄龄-夜舞.mp3'},
+{title: '黄龄-鸳鸯戏',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄龄-鸳鸯戏.mp3'},
+{title: '黄龄-醉',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄龄-醉.mp3'},
+{title: '黄品源 莫文蔚-那么爱你为什么',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄品源 莫文蔚-那么爱你为什么.mp3'},
+{title: '黄品源-海浪',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄品源-海浪.mp3'},
+{title: '黄品源-你怎么舍得我难过',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄品源-你怎么舍得我难过.mp3'},
+{title: '黄品源-小薇',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄品源-小薇.mp3'},
+{title: '黄绮珊-剪爱(Live)',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄绮珊-剪爱(Live).mp3'},
+{title: '黄霄雲-星辰大海',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄霄雲-星辰大海.mp3'},
+{title: '黄小琥-伴',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄小琥-伴.mp3'},
+{title: '黄小琥-没那么简单',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄小琥-没那么简单.mp3'},
+{title: '黄小琥-顺其自然',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄小琥-顺其自然.mp3'},
+{title: '黄小琥-重来',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄小琥-重来.mp3'},
+{title: '黄怡-少年心',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄怡-少年心.mp3'},
+{title: '黄勇-勇敢勇敢',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黄勇-勇敢勇敢.mp3'},
+{title: '回小仙-醒不来的梦',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/回小仙-醒不来的梦.mp3'},
+{title: '火箭少女101-卡路里',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/火箭少女101-卡路里.mp3'},
+{title: '霍尊-卷珠帘',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/霍尊-卷珠帘.mp3'},
+{title: '贾乃亮,甜馨-大王叫我来巡山',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/贾乃亮,甜馨-大王叫我来巡山.mp3'},
+{title: '剑网3缘起印象曲-眉间雪',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/剑网3缘起印象曲-眉间雪.mp3'},
+{title: '江美琪-亲爱的你怎么不在我身边',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/江美琪-亲爱的你怎么不在我身边.mp3'},
+{title: '江美琪-下辈子如果我还记得你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/江美琪-下辈子如果我还记得你.mp3'},
+{title: '江涛-愚公移山',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/江涛-愚公移山.mp3'},
+{title: '江远兮-这一别是永远',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/江远兮-这一别是永远.mp3'},
+{title: '姜鹏-问佛',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/姜鹏-问佛.mp3'},
+{title: '姜鹏-赢在江湖',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/姜鹏-赢在江湖.mp3'},
+{title: '姜育恒-梅花三弄',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/姜育恒-梅花三弄.mp3'},
+{title: '姜育恒-驿动的心',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/姜育恒-驿动的心.mp3'},
+{title: '姜育恒-再回首',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/姜育恒-再回首.mp3'},
+{title: '蒋雪儿-梦的翅膀受了伤',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/蒋雪儿-梦的翅膀受了伤.mp3'},
+{title: '蒋雪儿-莫问归期',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/蒋雪儿-莫问归期.mp3'},
+{title: '蒋雪儿-谁在意我留下的泪',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/蒋雪儿-谁在意我留下的泪.mp3'},
+{title: '蒋雪儿-燕无歇',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/蒋雪儿-燕无歇.mp3'},
+{title: '降央卓玛-西海情歌',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/降央卓玛-西海情歌.mp3'},
+{title: '金海心-爱似水仙',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/金海心-爱似水仙.mp3'},
+{title: '金海心-把耳朵叫醒',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/金海心-把耳朵叫醒.mp3'},
+{title: '金海心-悲伤的秋千',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/金海心-悲伤的秋千.mp3'},
+{title: '金海心-那么骄傲',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/金海心-那么骄傲.mp3'},
+{title: '金南玲-逆流成河',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/金南玲-逆流成河.mp3'},
+{title: '金莎-梦千年之恋',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/金莎-梦千年之恋.mp3'},
+{title: '金莎-星月神话',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/金莎-星月神话.mp3'},
+{title: '井胧 井迪儿-骁',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/井胧 井迪儿-骁.mp3'},
+{title: '景岗山-我的眼里只有你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/景岗山-我的眼里只有你.mp3'},
+{title: '就是南方凯-离别开出花',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/就是南方凯-离别开出花.mp3'},
+{title: '卡朋特-YesterdayOnceMore',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/卡朋特-YesterdayOnceMore.mp3'},
+{title: '侃侃-滴答',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/侃侃-滴答.mp3'},
+{title: '筷子兄弟-小苹果',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/筷子兄弟-小苹果.mp3'},
+{title: '蓝色生死恋-祈祷',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/蓝色生死恋-祈祷.mp3'},
+{title: '蓝心湄-一见钟情',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/蓝心湄-一见钟情.mp3'},
+{title: '蓝心羽-寂寞烟火',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/蓝心羽-寂寞烟火.mp3'},
+{title: '老狼-恋恋风尘',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/老狼-恋恋风尘.mp3'},
+{title: '老狼-同桌的你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/老狼-同桌的你.mp3'},
+{title: '乐凡-你是我心里的宝',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/乐凡-你是我心里的宝.mp3'},
+{title: '雷佳-芦花',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/雷佳-芦花.mp3'},
+{title: '雷佳-人世间',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/雷佳-人世间.mp3'},
+{title: '冷漠-没有你陪伴我真的好孤单',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/冷漠-没有你陪伴我真的好孤单.mp3'},
+{title: '黎明-深秋的黎明',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/黎明-深秋的黎明.mp3'},
+{title: '李彩桦-我爱雨天',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李彩桦-我爱雨天.mp3'},
+{title: '李常超（Lao乾妈）-盗墓笔记·十年人间',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李常超（Lao乾妈）-盗墓笔记·十年人间.mp3'},
+{title: '李春波-小芳',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李春波-小芳.mp3'},
+{title: '李慧珍-爱死了昨天',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李慧珍-爱死了昨天.mp3'},
+{title: '李慧珍-习惯',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李慧珍-习惯.mp3'},
+{title: '李佳璐-如果下辈子还能遇见你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李佳璐-如果下辈子还能遇见你.mp3'},
+{title: '李佳璐-无法原谅',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李佳璐-无法原谅.mp3'},
+{title: '李佳薇-煎熬',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李佳薇-煎熬.mp3'},
+{title: '李佳薇-天后',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李佳薇-天后.mp3'},
+{title: '李健-贝加尔湖畔',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李健-贝加尔湖畔.mp3'},
+{title: '李健-春风十里不如你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李健-春风十里不如你.mp3'},
+{title: '李健-当你老了(Live)',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李健-当你老了(Live).mp3'},
+{title: '李健-风吹麦浪',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李健-风吹麦浪.mp3'},
+{title: '李健-假如爱有天意',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李健-假如爱有天意.mp3'},
+{title: '李克勤-爱不释手',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李克勤-爱不释手.mp3'},
+{title: '李克勤-红日',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李克勤-红日.mp3'},
+{title: '李克勤-护花使者',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李克勤-护花使者.mp3'},
+{title: '李克勤-旧欢如梦',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李克勤-旧欢如梦.mp3'},
+{title: '李克勤-一生不变',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李克勤-一生不变.mp3'},
+{title: '李克勤-月半小夜曲',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李克勤-月半小夜曲.mp3'},
+{title: '李丽芬-爱不释手',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李丽芬-爱不释手.mp3'},
+{title: '李丽芬-爱江山更爱美人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李丽芬-爱江山更爱美人.mp3'},
+{title: '李丽芬-得意的笑',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李丽芬-得意的笑.mp3'},
+{title: '李玲玉-人在旅途',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李玲玉-人在旅途.mp3'},
+{title: '李玟 周杰伦-刀马旦',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李玟 周杰伦-刀马旦.mp3'},
+{title: '李玟-Baby对不起',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李玟-Baby对不起.mp3'},
+{title: '李玟-DiDaDi',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李玟-DiDaDi.mp3'},
+{title: '李玟-好心情',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李玟-好心情.mp3'},
+{title: '李玟-美丽笨女人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李玟-美丽笨女人.mp3'},
+{title: '李玟-魔镜',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李玟-魔镜.mp3'},
+{title: '李玟-想你的365天',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李玟-想你的365天.mp3'},
+{title: '李玟-月光爱人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李玟-月光爱人.mp3'},
+{title: '李娜-好人一生平安',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李娜-好人一生平安.mp3'},
+{title: '李娜-黄土高坡',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李娜-黄土高坡.mp3'},
+{title: '李娜-女人是老虎',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李娜-女人是老虎.mp3'},
+{title: '李娜-青藏高原',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李娜-青藏高原.mp3'},
+{title: '李娜-嫂子颂',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李娜-嫂子颂.mp3'},
+{title: '李娜-信天游',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李娜-信天游.mp3'},
+{title: '李沁-小偷',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李沁-小偷.mp3'},
+{title: '李琼-山路十八弯',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李琼-山路十八弯.mp3'},
+{title: '李荣浩-不将就',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李荣浩-不将就.mp3'},
+{title: '李荣浩-李白',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李荣浩-李白.mp3'},
+{title: '李荣浩-麻雀',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李荣浩-麻雀.mp3'},
+{title: '李荣浩-模特',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李荣浩-模特.mp3'},
+{title: '李荣浩-年少有为',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李荣浩-年少有为.mp3'},
+{title: '李圣杰-痴心绝对',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李圣杰-痴心绝对.mp3'},
+{title: '李圣杰-你那么爱她',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李圣杰-你那么爱她.mp3'},
+{title: '李圣杰-手放开',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李圣杰-手放开.mp3'},
+{title: '李殊-原谅我过去不懂',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李殊-原谅我过去不懂.mp3'},
+{title: '李晓杰-朋友的酒',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李晓杰-朋友的酒.mp3'},
+{title: '李孝利-10minutes',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李孝利-10minutes.mp3'},
+{title: '李昕融 樊桐舟 李凯稠-你笑起来真好看',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李昕融 樊桐舟 李凯稠-你笑起来真好看.mp3'},
+{title: '李秀英-AlsoILoveYou',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李秀英-AlsoILoveYou.mp3'},
+{title: '李秀英-NEVERAGAIN',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李秀英-NEVERAGAIN.mp3'},
+{title: '李翊君-风中的承诺',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李翊君-风中的承诺.mp3'},
+{title: '李翊君-诺言',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李翊君-诺言.mp3'},
+{title: '李翊君-沙漠寂寞',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李翊君-沙漠寂寞.mp3'},
+{title: '李翊君-婉君',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李翊君-婉君.mp3'},
+{title: '李翊君-雨蝶',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李翊君-雨蝶.mp3'},
+{title: '李宇春-梨花香',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李宇春-梨花香.mp3'},
+{title: '李宇春-无价之姐',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李宇春-无价之姐.mp3'},
+{title: '李宇春-下个路口见',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李宇春-下个路口见.mp3'},
+{title: '李雨儿 石头-雨花石',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李雨儿 石头-雨花石.mp3'},
+{title: '李玉刚-赤伶',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李玉刚-赤伶.mp3'},
+{title: '李玉刚-刚好遇见你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李玉刚-刚好遇见你.mp3'},
+{title: '李玉刚-贵妃醉酒',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李玉刚-贵妃醉酒.mp3'},
+{title: '李玉刚-菊花台',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李玉刚-菊花台.mp3'},
+{title: '李玉刚-铁血丹心',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李玉刚-铁血丹心.mp3'},
+{title: '李玉刚-万疆',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李玉刚-万疆.mp3'},
+{title: '李玉刚-枉凝眉',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李玉刚-枉凝眉.mp3'},
+{title: '李玉刚-新贵妃醉酒',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李玉刚-新贵妃醉酒.mp3'},
+{title: '李宗盛-山丘',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/李宗盛-山丘.mp3'},
+{title: '梁静茹-爱你不是两三天',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/梁静茹-爱你不是两三天.mp3'},
+{title: '梁静茹-分手快乐',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/梁静茹-分手快乐.mp3'},
+{title: '梁静茹-会呼吸的痛',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/梁静茹-会呼吸的痛.mp3'},
+{title: '梁静茹-可惜不是你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/梁静茹-可惜不是你.mp3'},
+{title: '梁静茹-宁夏',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/梁静茹-宁夏.mp3'},
+{title: '梁静茹-暖暖',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/梁静茹-暖暖.mp3'},
+{title: '梁静茹-燕尾蝶',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/梁静茹-燕尾蝶.mp3'},
+{title: '梁静茹-勇气',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/梁静茹-勇气.mp3'},
+{title: '梁咏琪-胆小鬼',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/梁咏琪-胆小鬼.mp3'},
+{title: '梁咏琪-向左走向右走',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/梁咏琪-向左走向右走.mp3'},
+{title: '林宸希-不再问',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林宸希-不再问.mp3'},
+{title: '林俊杰 蔡卓妍-小酒窝',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林俊杰 蔡卓妍-小酒窝.mp3'},
+{title: '林俊杰-爱笑的眼睛',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林俊杰-爱笑的眼睛.mp3'},
+{title: '林俊杰-背对背拥抱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林俊杰-背对背拥抱.mp3'},
+{title: '林俊杰-编号89757',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林俊杰-编号89757.mp3'},
+{title: '林俊杰-不潮不用花钱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林俊杰-不潮不用花钱.mp3'},
+{title: '林俊杰-不死之身',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林俊杰-不死之身.mp3'},
+{title: '林俊杰-曹操',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林俊杰-曹操.mp3'},
+{title: '林俊杰-关键词',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林俊杰-关键词.mp3'},
+{title: '林俊杰-黑武士',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林俊杰-黑武士.mp3'},
+{title: '林俊杰-江南',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林俊杰-江南.mp3'},
+{title: '林俊杰-就是我',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林俊杰-就是我.mp3'},
+{title: '林俊杰-可惜没如果',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林俊杰-可惜没如果.mp3'},
+{title: '林俊杰-美人鱼',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林俊杰-美人鱼.mp3'},
+{title: '林俊杰-杀手',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林俊杰-杀手.mp3'},
+{title: '林俊杰-她说',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林俊杰-她说.mp3'},
+{title: '林俊杰-一千年以后',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林俊杰-一千年以后.mp3'},
+{title: '林俊杰-醉赤壁',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林俊杰-醉赤壁.mp3'},
+{title: '林心如-落花',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林心如-落花.mp3'},
+{title: '林心如-倾听我',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林心如-倾听我.mp3'},
+{title: '林依轮-爱情鸟',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林依轮-爱情鸟.mp3'},
+{title: '林忆莲-爱上一个不回家的人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林忆莲-爱上一个不回家的人.mp3'},
+{title: '林忆莲-不必在乎我是谁',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林忆莲-不必在乎我是谁.mp3'},
+{title: '林忆莲-伤痕',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林忆莲-伤痕.mp3'},
+{title: '林忆莲-为你我受冷风吹',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林忆莲-为你我受冷风吹.mp3'},
+{title: '林忆莲-至少还有你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林忆莲-至少还有你.mp3'},
+{title: '林宥嘉-你是我的眼',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林宥嘉-你是我的眼.mp3'},
+{title: '林宥嘉-说谎',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林宥嘉-说谎.mp3'},
+{title: '林志炫-operA',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林志炫-opera.mp3'},
+{title: '林志炫-单身情歌',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林志炫-单身情歌.mp3'},
+{title: '林志炫-没离开过',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林志炫-没离开过.mp3'},
+{title: '林志炫-蒙娜丽莎的眼泪',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林志炫-蒙娜丽莎的眼泪.mp3'},
+{title: '林志炫-烟花易冷',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林志炫-烟花易冷.mp3'},
+{title: '林志颖-稻草人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林志颖-稻草人.mp3'},
+{title: '林志颖-十七岁的雨季',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林志颖-十七岁的雨季.mp3'},
+{title: '林子祥-敢爱敢做',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林子祥-敢爱敢做.mp3'},
+{title: '林子祥-男儿当自强',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林子祥-男儿当自强.mp3'},
+{title: '林子祥-数字人生',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林子祥-数字人生.mp3'},
+{title: '林子祥-谁能明白我',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林子祥-谁能明白我.mp3'},
+{title: '林子祥-长路漫漫伴你闯',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林子祥-长路漫漫伴你闯.mp3'},
+{title: '林子祥-真的汉子',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/林子祥-真的汉子.mp3'},
+{title: '零点乐队-爱不爱我',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/零点乐队-爱不爱我.mp3'},
+{title: '零点乐队-相信自己',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/零点乐队-相信自己.mp3'},
+{title: '刘德华 陈慧琳-我不够爱你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘德华 陈慧琳-我不够爱你.mp3'},
+{title: '刘德华-17岁',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘德华-17岁.mp3'},
+{title: '刘德华-爱你一万年',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘德华-爱你一万年.mp3'},
+{title: '刘德华-笨小孩',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘德华-笨小孩.mp3'},
+{title: '刘德华-冰雨',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘德华-冰雨.mp3'},
+{title: '刘德华-独自去偷欢',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘德华-独自去偷欢.mp3'},
+{title: '刘德华-恭喜发财',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘德华-恭喜发财.mp3'},
+{title: '刘德华-孤星泪',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘德华-孤星泪.mp3'},
+{title: '刘德华-今天',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘德华-今天.mp3'},
+{title: '刘德华-来生缘',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘德华-来生缘.mp3'},
+{title: '刘德华-练习',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘德华-练习.mp3'},
+{title: '刘德华-木鱼与金鱼',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘德华-木鱼与金鱼.mp3'},
+{title: '刘德华-男人哭吧不是罪',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘德华-男人哭吧不是罪.mp3'},
+{title: '刘德华-你是我的女人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘德华-你是我的女人.mp3'},
+{title: '刘德华-你是我的温柔',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘德华-你是我的温柔.mp3'},
+{title: '刘德华-亲爱的小孩',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘德华-亲爱的小孩.mp3'},
+{title: '刘德华-如果天有情',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘德华-如果天有情.mp3'},
+{title: '刘德华-世界第一等',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘德华-世界第一等.mp3'},
+{title: '刘德华-天意',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘德华-天意.mp3'},
+{title: '刘德华-忘情水',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘德华-忘情水.mp3'},
+{title: '刘德华-我恨我痴心',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘德华-我恨我痴心.mp3'},
+{title: '刘德华-谢谢你的爱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘德华-谢谢你的爱.mp3'},
+{title: '刘德华-一起走过的日子',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘德华-一起走过的日子.mp3'},
+{title: '刘德华-中国人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘德华-中国人.mp3'},
+{title: '刘端端 陈卓璇-黑洞',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘端端 陈卓璇-黑洞.mp3'},
+{title: '刘嘉亮-你到底爱谁',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘嘉亮-你到底爱谁.mp3'},
+{title: '刘珂矣-半壶纱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘珂矣-半壶纱.mp3'},
+{title: '刘珂矣-芙蓉雨',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘珂矣-芙蓉雨.mp3'},
+{title: '刘若英-很爱很爱你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘若英-很爱很爱你.mp3'},
+{title: '刘若英-后来',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘若英-后来.mp3'},
+{title: '刘若英-为爱痴狂',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘若英-为爱痴狂.mp3'},
+{title: '刘若英-一辈子的孤单',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘若英-一辈子的孤单.mp3'},
+{title: '刘诗诗-等你的季节',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘诗诗-等你的季节.mp3'},
+{title: '刘惜君-拆心',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘惜君-拆心.mp3'},
+{title: '刘惜君-我很快乐',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘惜君-我很快乐.mp3'},
+{title: '刘小慧-初恋情人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘小慧-初恋情人.mp3'},
+{title: '刘艺雯-听闻远方有你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘艺雯-听闻远方有你.mp3'},
+{title: '刘亦菲 杨洋-三生三世十里桃花',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/刘亦菲 杨洋-三生三世十里桃花.mp3'},
+{title: '柳真-ChaChA',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/柳真-ChaCha.mp3'},
+{title: '六哲-错错错',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/六哲-错错错.mp3'},
+{title: '卢冠廷-一生所爱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/卢冠廷-一生所爱.mp3'},
+{title: '陆虎-雪落下的声音',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陆虎-雪落下的声音.mp3'},
+{title: '陆思恒 陆可儿-千禧恋曲2020',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陆思恒 陆可儿-千禧恋曲2020.mp3'},
+{title: '罗大佑 陈淑桦-滚滚红尘',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/罗大佑 陈淑桦-滚滚红尘.mp3'},
+{title: '罗大佑-光阴的故事',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/罗大佑-光阴的故事.mp3'},
+{title: '罗大佑-你的样子',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/罗大佑-你的样子.mp3'},
+{title: '罗大佑-童年',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/罗大佑-童年.mp3'},
+{title: '罗文 甄妮-铁血丹心',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/罗文 甄妮-铁血丹心.mp3'},
+{title: '罗志祥-狐狸精',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/罗志祥-狐狸精.mp3'},
+{title: '罗志祥-恋爱达人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/罗志祥-恋爱达人.mp3'},
+{title: '洛天依-小鸡哔哔',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/洛天依-小鸡哔哔.mp3'},
+{title: '吕方-老情歌',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/吕方-老情歌.mp3'},
+{title: '马頔-南山南',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/马頔-南山南.mp3'},
+{title: '马天宇-该死的温柔',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/马天宇-该死的温柔.mp3'},
+{title: '马旭东-入戏太深',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/马旭东-入戏太深.mp3'},
+{title: '马郁-下辈子如果我还记得你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/马郁-下辈子如果我还记得你.mp3'},
+{title: '马郁-一天死去一点',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/马郁-一天死去一点.mp3'},
+{title: '满文军-懂你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/满文军-懂你.mp3'},
+{title: '满文军-望乡',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/满文军-望乡.mp3'},
+{title: '毛阿敏-渴望',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/毛阿敏-渴望.mp3'},
+{title: '毛阿敏-同一首歌',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/毛阿敏-同一首歌.mp3'},
+{title: '毛阿敏-相思',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/毛阿敏-相思.mp3'},
+{title: '毛不易-消愁',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/毛不易-消愁.mp3'},
+{title: '毛宁-蓝蓝的夜蓝蓝的梦',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/毛宁-蓝蓝的夜蓝蓝的梦.mp3'},
+{title: '毛宁-涛声依旧',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/毛宁-涛声依旧.mp3'},
+{title: '梅艳芳-女人花',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/梅艳芳-女人花.mp3'},
+{title: '萌萌哒天团-帝都',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/萌萌哒天团-帝都.mp3'},
+{title: '孟庭苇-冬季到台北来看雨',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孟庭苇-冬季到台北来看雨.mp3'},
+{title: '孟庭苇-风中有朵雨做的云',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孟庭苇-风中有朵雨做的云.mp3'},
+{title: '孟庭苇-没有情人的情人节',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孟庭苇-没有情人的情人节.mp3'},
+{title: '孟庭苇-你究竟有几个好妹妹',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孟庭苇-你究竟有几个好妹妹.mp3'},
+{title: '孟庭苇-你看你看月亮的脸',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孟庭苇-你看你看月亮的脸.mp3'},
+{title: '孟庭苇-情人节快乐',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孟庭苇-情人节快乐.mp3'},
+{title: '孟庭苇-谁的眼泪在飞',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孟庭苇-谁的眼泪在飞.mp3'},
+{title: '孟庭苇-羞答答的玫瑰静悄悄地开',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孟庭苇-羞答答的玫瑰静悄悄地开.mp3'},
+{title: '孟杨-错位时空',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孟杨-错位时空.mp3'},
+{title: '梦然-没有你陪伴真的好孤单',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/梦然-没有你陪伴真的好孤单.mp3'},
+{title: '梦然-少年',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/梦然-少年.mp3'},
+{title: '梦然-是你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/梦然-是你.mp3'},
+{title: '梦小月-你永远不知道',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/梦小月-你永远不知道.mp3'},
+{title: '摩登兄弟刘宇宁-就在江湖之上',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/摩登兄弟刘宇宁-就在江湖之上.mp3'},
+{title: '莫文蔚 张洪量-广岛之恋',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/莫文蔚 张洪量-广岛之恋.mp3'},
+{title: '莫文蔚-电台情歌',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/莫文蔚-电台情歌.mp3'},
+{title: '莫文蔚-寂寞的恋人啊',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/莫文蔚-寂寞的恋人啊.mp3'},
+{title: '莫文蔚-盛夏的果实',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/莫文蔚-盛夏的果实.mp3'},
+{title: '莫文蔚-他不爱我',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/莫文蔚-他不爱我.mp3'},
+{title: '莫文蔚-阴天',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/莫文蔚-阴天.mp3'},
+{title: '莫文蔚-这世界那么多人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/莫文蔚-这世界那么多人.mp3'},
+{title: '木杰-人间这一遭',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/木杰-人间这一遭.mp3'},
+{title: '慕容晓晓-爱情买卖',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/慕容晓晓-爱情买卖.mp3'},
+{title: '那英 刘德华-东方之珠',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英 刘德华-东方之珠.mp3'},
+{title: '那英 王菲-相约一九九八',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英 王菲-相约一九九八.mp3'},
+{title: '那英-爱上你等于爱上寂寞',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-爱上你等于爱上寂寞.mp3'},
+{title: '那英-爱要有你才完美',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-爱要有你才完美.mp3'},
+{title: '那英-白天不懂夜的黑',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-白天不懂夜的黑.mp3'},
+{title: '那英-不管有多苦',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-不管有多苦.mp3'},
+{title: '那英-出卖',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-出卖.mp3'},
+{title: '那英-春暖花开',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-春暖花开.mp3'},
+{title: '那英-放爱一条生路',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-放爱一条生路.mp3'},
+{title: '那英-好大一棵树',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-好大一棵树.mp3'},
+{title: '那英-花一开满就相爱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-花一开满就相爱.mp3'},
+{title: '那英-酒干倘卖无',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-酒干倘卖无.mp3'},
+{title: '那英-两个人一个人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-两个人一个人.mp3'},
+{title: '那英-梦一场',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-梦一场.mp3'},
+{title: '那英-默',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-默.mp3'},
+{title: '那英-那又怎样',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-那又怎样.mp3'},
+{title: '那英-你的微笑',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-你的微笑.mp3'},
+{title: '那英-偏心',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-偏心.mp3'},
+{title: '那英-千万次的问',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-千万次的问.mp3'},
+{title: '那英-三生三世十里桃花',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-三生三世十里桃花.mp3'},
+{title: '那英-山不转水转',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-山不转水转.mp3'},
+{title: '那英-我不是天使',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-我不是天使.mp3'},
+{title: '那英-雾里看花',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-雾里看花.mp3'},
+{title: '那英-相爱恨早',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-相爱恨早.mp3'},
+{title: '那英-相见不如怀念',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-相见不如怀念.mp3'},
+{title: '那英-心酸的浪漫',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-心酸的浪漫.mp3'},
+{title: '那英-醒时做梦',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-醒时做梦.mp3'},
+{title: '那英-一笑而过',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-一笑而过.mp3'},
+{title: '那英-一眼千年',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-一眼千年.mp3'},
+{title: '那英-有个爱你的人不容易',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-有个爱你的人不容易.mp3'},
+{title: '那英-愿赌服输',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-愿赌服输.mp3'},
+{title: '那英-征服',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-征服.mp3'},
+{title: '那英-只因为你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/那英-只因为你.mp3'},
+{title: '宁小泽 梦小月-你永远不知道',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/宁小泽 梦小月-你永远不知道.mp3'},
+{title: '欧得洋-孤单北半球',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/欧得洋-孤单北半球.mp3'},
+{title: '潘安邦-外婆的澎湖湾',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/潘安邦-外婆的澎湖湾.mp3'},
+{title: '潘美辰-我曾用心爱着你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/潘美辰-我曾用心爱着你.mp3'},
+{title: '潘美辰-我想有个家',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/潘美辰-我想有个家.mp3'},
+{title: '潘玮柏 苏芮-我想更懂你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/潘玮柏 苏芮-我想更懂你.mp3'},
+{title: '潘玮柏-WUHA',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/潘玮柏-WUHA.mp3'},
+{title: '潘玮柏-不得不爱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/潘玮柏-不得不爱.mp3'},
+{title: '潘玮柏-反转地球',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/潘玮柏-反转地球.mp3'},
+{title: '潘玮柏-快乐崇拜',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/潘玮柏-快乐崇拜.mp3'},
+{title: '潘玮柏-我的麦克风',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/潘玮柏-我的麦克风.mp3'},
+{title: '潘越云-天天天蓝',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/潘越云-天天天蓝.mp3'},
+{title: '潘越云-我是不是你最疼爱的人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/潘越云-我是不是你最疼爱的人.mp3'},
+{title: '庞龙-两只蝴蝶',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/庞龙-两只蝴蝶.mp3'},
+{title: '庞龙-你是我的玫瑰花',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/庞龙-你是我的玫瑰花.mp3'},
+{title: '裴勇俊-MyMemory',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/裴勇俊-MyMemory.mp3'},
+{title: '彭佳慧-好久不见',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/彭佳慧-好久不见.mp3'},
+{title: '彭佳慧-相见恨晚',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/彭佳慧-相见恨晚.mp3'},
+{title: '彭羚-囚鸟',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/彭羚-囚鸟.mp3'},
+{title: '彭筝-太想念',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/彭筝-太想念.mp3'},
+{title: '平生不晚-难却',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/平生不晚-难却.mp3'},
+{title: '朴惠京-RAIN',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/朴惠京-RAIN.mp3'},
+{title: '朴树-白桦林',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/朴树-白桦林.mp3'},
+{title: '朴树-那些花儿',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/朴树-那些花儿.mp3'},
+{title: '朴树-平凡之路',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/朴树-平凡之路.mp3'},
+{title: '朴树-生如夏花',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/朴树-生如夏花.mp3'},
+{title: '七叔（叶泽浩）-半生雪',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/七叔（叶泽浩）-半生雪.mp3'},
+{title: '七叔（叶泽浩）-踏山河',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/七叔（叶泽浩）-踏山河.mp3'},
+{title: '戚薇 杨宗纬-为了遇见你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/戚薇 杨宗纬-为了遇见你.mp3'},
+{title: '齐晨-咱们结婚吧',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/齐晨-咱们结婚吧.mp3'},
+{title: '齐秦-不让我的眼泪陪我过夜',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/齐秦-不让我的眼泪陪我过夜.mp3'},
+{title: '齐秦-大约在冬季',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/齐秦-大约在冬季.mp3'},
+{title: '齐秦-狼',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/齐秦-狼.mp3'},
+{title: '齐秦-往事随风',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/齐秦-往事随风.mp3'},
+{title: '齐秦-无情的雨无情的你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/齐秦-无情的雨无情的你.mp3'},
+{title: '齐秦-夜夜夜夜',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/齐秦-夜夜夜夜.mp3'},
+{title: '齐豫-橄榄树',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/齐豫-橄榄树.mp3'},
+{title: '祁隆 乐凡-等你等了那么久',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/祁隆 乐凡-等你等了那么久.mp3'},
+{title: '奇然 沈谧仁-琵琶行',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/奇然 沈谧仁-琵琶行.mp3'},
+{title: '千百惠-走过咖啡屋',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/千百惠-走过咖啡屋.mp3'},
+{title: '浅影阿 汐音社-探故知',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/浅影阿 汐音社-探故知.mp3'},
+{title: '邱永传-十一年',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/邱永传-十一年.mp3'},
+{title: '裘海正-爱你十分泪七分',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/裘海正-爱你十分泪七分.mp3'},
+{title: '裘海正-爱我的人和我爱的人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/裘海正-爱我的人和我爱的人.mp3'},
+{title: '裘海正-九千九百九十九滴眼泪',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/裘海正-九千九百九十九滴眼泪.mp3'},
+{title: '瞿颖-加速度',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/瞿颖-加速度.mp3'},
+{title: '曲婉婷-我的歌声里',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/曲婉婷-我的歌声里.mp3'},
+{title: '群星-夜空中最闪亮的星',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/群星-夜空中最闪亮的星.mp3'},
+{title: '饶天亮-做你的爱人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/饶天亮-做你的爱人.mp3'},
+{title: '任妙音-风筝',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/任妙音-风筝.mp3'},
+{title: '任然-无人之岛',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/任然-无人之岛.mp3'},
+{title: '任贤齐 阿牛 光良-浪花一朵朵',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/任贤齐 阿牛 光良-浪花一朵朵.mp3'},
+{title: '任贤齐-沧海一声笑',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/任贤齐-沧海一声笑.mp3'},
+{title: '任贤齐-春天花会开',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/任贤齐-春天花会开.mp3'},
+{title: '任贤齐-对面的女孩看过来',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/任贤齐-对面的女孩看过来.mp3'},
+{title: '任贤齐-飞鸟',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/任贤齐-飞鸟.mp3'},
+{title: '任贤齐-风云决',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/任贤齐-风云决.mp3'},
+{title: '任贤齐-还有我',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/任贤齐-还有我.mp3'},
+{title: '任贤齐-很受伤',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/任贤齐-很受伤.mp3'},
+{title: '任贤齐-花太香',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/任贤齐-花太香.mp3'},
+{title: '任贤齐-橘子香水',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/任贤齐-橘子香水.mp3'},
+{title: '任贤齐-哭个痛快',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/任贤齐-哭个痛快.mp3'},
+{title: '任贤齐-流着泪的你的脸',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/任贤齐-流着泪的你的脸.mp3'},
+{title: '任贤齐-任逍遥',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/任贤齐-任逍遥.mp3'},
+{title: '任贤齐-伤心太平洋',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/任贤齐-伤心太平洋.mp3'},
+{title: '任贤齐-少年游',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/任贤齐-少年游.mp3'},
+{title: '任贤齐-死不了',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/任贤齐-死不了.mp3'},
+{title: '任贤齐-天使也一样',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/任贤齐-天使也一样.mp3'},
+{title: '任贤齐-天涯',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/任贤齐-天涯.mp3'},
+{title: '任贤齐-我是一只鱼',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/任贤齐-我是一只鱼.mp3'},
+{title: '任贤齐-小雪',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/任贤齐-小雪.mp3'},
+{title: '任贤齐-心太软',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/任贤齐-心太软.mp3'},
+{title: '任贤齐-兄弟',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/任贤齐-兄弟.mp3'},
+{title: '任贤齐-依靠',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/任贤齐-依靠.mp3'},
+{title: '任贤齐-只爱你一个人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/任贤齐-只爱你一个人.mp3'},
+{title: '容祖儿-挥着翅膀的女孩',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/容祖儿-挥着翅膀的女孩.mp3'},
+{title: '容祖儿-我的骄傲',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/容祖儿-我的骄傲.mp3'},
+{title: '容祖儿-小小',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/容祖儿-小小.mp3'},
+{title: '萨顶顶 周深-左手指月',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/萨顶顶 周深-左手指月.mp3'},
+{title: '萨顶顶-咚巴啦',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/萨顶顶-咚巴啦.mp3'},
+{title: '萨顶顶-万物生(梵文版)',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/萨顶顶-万物生(梵文版).mp3'},
+{title: '萨顶顶-万物生',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/萨顶顶-万物生.mp3'},
+{title: '萨顶顶-自己美',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/萨顶顶-自己美.mp3'},
+{title: '萨顶顶-自由行走的花',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/萨顶顶-自由行走的花.mp3'},
+{title: '萨顶顶-左手指月',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/萨顶顶-左手指月.mp3'},
+{title: '三楠-晚风作酒',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/三楠-晚风作酒.mp3'},
+{title: '沙宝亮-暗香',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/沙宝亮-暗香.mp3'},
+{title: '沙宝亮-斑马斑马',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/沙宝亮-斑马斑马.mp3'},
+{title: '少女时代-Gee',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/少女时代-Gee.mp3'},
+{title: '少女时代-MrTaxi',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/少女时代-MrTaxi.mp3'},
+{title: '少女时代-TheBoys',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/少女时代-TheBoys.mp3'},
+{title: '深海鱼子酱-千千万万',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/深海鱼子酱-千千万万.mp3'},
+{title: '石头 李玉刚-雨花石',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/石头 李玉刚-雨花石.mp3'},
+{title: '石头-坚强的石头',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/石头-坚强的石头.mp3'},
+{title: '淑熙-啦啦啦',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/淑熙-啦啦啦.mp3'},
+{title: '水木年华-一生有你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/水木年华-一生有你.mp3'},
+{title: '水木年华-在他乡',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/水木年华-在他乡.mp3'},
+{title: '顺子-回家(Live)',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/顺子-回家(Live).mp3'},
+{title: '司南-冬眠',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/司南-冬眠.mp3'},
+{title: '斯琴高丽-犯错',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/斯琴高丽-犯错.mp3'},
+{title: '苏慧伦-鸭子',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/苏慧伦-鸭子.mp3'},
+{title: '苏芮-跟着感觉走',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/苏芮-跟着感觉走.mp3'},
+{title: '苏芮-牵手',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/苏芮-牵手.mp3'},
+{title: '苏星婕-听悲伤的情歌',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/苏星婕-听悲伤的情歌.mp3'},
+{title: '苏永康-爱一个人好难',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/苏永康-爱一个人好难.mp3'},
+{title: '苏永康-男人不该让女人流泪',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/苏永康-男人不该让女人流泪.mp3'},
+{title: '苏运莹-野子',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/苏运莹-野子.mp3'},
+{title: '孙国庆-代价',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孙国庆-代价.mp3'},
+{title: '孙国庆-上上签',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孙国庆-上上签.mp3'},
+{title: '孙浩-中华民谣',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孙浩-中华民谣.mp3'},
+{title: '孙楠 韩红-美丽的神话',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孙楠 韩红-美丽的神话.mp3'},
+{title: '孙楠 那英-只要有你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孙楠 那英-只要有你.mp3'},
+{title: '孙楠-IBelieve',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孙楠-IBelieve.mp3'},
+{title: '孙楠-你快回来',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孙楠-你快回来.mp3'},
+{title: '孙楠-缘分的天空',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孙楠-缘分的天空.mp3'},
+{title: '孙楠-拯救',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孙楠-拯救.mp3'},
+{title: '孙燕姿-风筝',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孙燕姿-风筝.mp3'},
+{title: '孙燕姿-坏天气',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孙燕姿-坏天气.mp3'},
+{title: '孙燕姿-开始懂了',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孙燕姿-开始懂了.mp3'},
+{title: '孙燕姿-绿光',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孙燕姿-绿光.mp3'},
+{title: '孙燕姿-神奇',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孙燕姿-神奇.mp3'},
+{title: '孙燕姿-天黑黑',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孙燕姿-天黑黑.mp3'},
+{title: '孙燕姿-我要的幸福',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孙燕姿-我要的幸福.mp3'},
+{title: '孙燕姿-遇见',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孙燕姿-遇见.mp3'},
+{title: '孙燕姿-原来你什么都不要',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孙燕姿-原来你什么都不要.mp3'},
+{title: '孙悦-快乐指南',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孙悦-快乐指南.mp3'},
+{title: '孙悦-心情不错',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孙悦-心情不错.mp3'},
+{title: '孙悦-幸福快车',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孙悦-幸福快车.mp3'},
+{title: '孙悦-祝你平安',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/孙悦-祝你平安.mp3'},
+{title: '索朗扎西-姑娘我爱你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/索朗扎西-姑娘我爱你.mp3'},
+{title: '邰正宵 孙悦-好人好梦',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/邰正宵 孙悦-好人好梦.mp3'},
+{title: '邰正宵-九百九十九朵玫瑰',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/邰正宵-九百九十九朵玫瑰.mp3'},
+{title: '邰正宵-千纸鹤',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/邰正宵-千纸鹤.mp3'},
+{title: '邰正宵-心要让你听见',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/邰正宵-心要让你听见.mp3'},
+{title: '邰正宵-一千零一夜',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/邰正宵-一千零一夜.mp3'},
+{title: '邰正宵-找一个字代替',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/邰正宵-找一个字代替.mp3'},
+{title: '谭晶-赤伶',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/谭晶-赤伶.mp3'},
+{title: '谭咏麟-爱的根源',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/谭咏麟-爱的根源.mp3'},
+{title: '谭咏麟-爱在深秋',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/谭咏麟-爱在深秋.mp3'},
+{title: '谭咏麟-讲不出再见',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/谭咏麟-讲不出再见.mp3'},
+{title: '谭咏麟-朋友',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/谭咏麟-朋友.mp3'},
+{title: '谭咏麟-水中花',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/谭咏麟-水中花.mp3'},
+{title: '谭咏麟-一生中最爱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/谭咏麟-一生中最爱.mp3'},
+{title: '谭咏麟-再见亦是泪',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/谭咏麟-再见亦是泪.mp3'},
+{title: '汤潮-狼爱上羊',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/汤潮-狼爱上羊.mp3'},
+{title: '汤潮-美了美了',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/汤潮-美了美了.mp3'},
+{title: '唐伯虎Annie 伯爵Johnny-弱水三千',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/唐伯虎Annie 伯爵Johnny-弱水三千.mp3'},
+{title: '唐伯虎Annie-落',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/唐伯虎Annie-落.mp3'},
+{title: '唐伯虎Annie-青丝',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/唐伯虎Annie-青丝.mp3'},
+{title: '唐汉霄-烂泥',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/唐汉霄-烂泥.mp3'},
+{title: '唐磊-丁香花',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/唐磊-丁香花.mp3'},
+{title: '逃跑计划-夜空中最亮的星',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/逃跑计划-夜空中最亮的星.mp3'},
+{title: '桃籽-此去半生',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/桃籽-此去半生.mp3'},
+{title: '陶晶莹-太委屈',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陶晶莹-太委屈.mp3'},
+{title: '陶喆-melody',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陶喆-melody.mp3'},
+{title: '陶喆-爱很简单',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陶喆-爱很简单.mp3'},
+{title: '陶喆-爱我还是他',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陶喆-爱我还是他.mp3'},
+{title: '陶喆-小镇姑娘',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/陶喆-小镇姑娘.mp3'},
+{title: '腾格尔-天堂',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/腾格尔-天堂.mp3'},
+{title: '田馥甄-寂寞寂寞就好',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/田馥甄-寂寞寂寞就好.mp3'},
+{title: '田馥甄-小幸运',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/田馥甄-小幸运.mp3'},
+{title: '田震-风雨彩虹铿锵玫瑰',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/田震-风雨彩虹铿锵玫瑰.mp3'},
+{title: '田震-干杯朋友',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/田震-干杯朋友.mp3'},
+{title: '铁达尼号主题曲-MyHeartWillGoOn',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/铁达尼号主题曲-MyHeartWillGoOn.mp3'},
+{title: '童安格-梦开始的地方',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/童安格-梦开始的地方.mp3'},
+{title: '童安格-明天你是否依然爱我',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/童安格-明天你是否依然爱我.mp3'},
+{title: '童安格-耶利亚女郎',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/童安格-耶利亚女郎.mp3'},
+{title: '屠洪刚-霸王别姬',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/屠洪刚-霸王别姬.mp3'},
+{title: '屠洪刚-江山无限',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/屠洪刚-江山无限.mp3'},
+{title: '屠洪刚-精忠报国',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/屠洪刚-精忠报国.mp3'},
+{title: '屠洪刚-我心为谁动',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/屠洪刚-我心为谁动.mp3'},
+{title: '屠洪刚-英雄谁属',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/屠洪刚-英雄谁属.mp3'},
+{title: '屠洪刚-中国功夫',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/屠洪刚-中国功夫.mp3'},
+{title: '娃娃-漂洋过海来看你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/娃娃-漂洋过海来看你.mp3'},
+{title: '婉婷-拱手让人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/婉婷-拱手让人.mp3'},
+{title: '汪峰-北京北京',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/汪峰-北京北京.mp3'},
+{title: '汪峰-春天里',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/汪峰-春天里.mp3'},
+{title: '汪峰-存在',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/汪峰-存在.mp3'},
+{title: '汪峰-飞得更高',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/汪峰-飞得更高.mp3'},
+{title: '汪峰-怒放的生命',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/汪峰-怒放的生命.mp3'},
+{title: '汪峰-无处安放',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/汪峰-无处安放.mp3'},
+{title: '汪峰-也许我可以无视死亡',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/汪峰-也许我可以无视死亡.mp3'},
+{title: '汪峰-一起摇摆',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/汪峰-一起摇摆.mp3'},
+{title: '汪明荃-万水千山总是情',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/汪明荃-万水千山总是情.mp3'},
+{title: '汪苏泷 By2-有点甜',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/汪苏泷 By2-有点甜.mp3'},
+{title: '汪苏泷-不分手的恋爱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/汪苏泷-不分手的恋爱.mp3'},
+{title: '汪正正-超越梦想',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/汪正正-超越梦想.mp3'},
+{title: '汪正正-重头再来',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/汪正正-重头再来.mp3'},
+{title: '王冰洋-飞舞',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王冰洋-飞舞.mp3'},
+{title: '王贰浪-像鱼',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王贰浪-像鱼.mp3'},
+{title: '王菲 陈奕迅 -因为爱情',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王菲 陈奕迅 -因为爱情.mp3'},
+{title: '王菲 那英-生命之河',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王菲 那英-生命之河.mp3'},
+{title: '王菲 那英-岁月',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王菲 那英-岁月.mp3'},
+{title: '王菲-传奇',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王菲-传奇.mp3'},
+{title: '王菲-红豆',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王菲-红豆.mp3'},
+{title: '王菲-容易受伤的女人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王菲-容易受伤的女人.mp3'},
+{title: '王菲-如愿',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王菲-如愿.mp3'},
+{title: '王菲-世界赠予我的',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王菲-世界赠予我的.mp3'},
+{title: '王菲-笑忘书',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王菲-笑忘书.mp3'},
+{title: '王赫野-大风吹',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王赫野-大风吹.mp3'},
+{title: '王杰 王韵婵-祈祷',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王杰 王韵婵-祈祷.mp3'},
+{title: '王杰-爱得太多',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王杰-爱得太多.mp3'},
+{title: '王杰-安妮',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王杰-安妮.mp3'},
+{title: '王杰-冰冷长街',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王杰-冰冷长街.mp3'},
+{title: '王杰-不浪漫罪名',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王杰-不浪漫罪名.mp3'},
+{title: '王杰-惦记这一些',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王杰-惦记这一些.mp3'},
+{title: '王杰-封锁我一生',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王杰-封锁我一生.mp3'},
+{title: '王杰-红尘有你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王杰-红尘有你.mp3'},
+{title: '王杰-回家',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王杰-回家.mp3'},
+{title: '王杰-几分伤心几分痴',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王杰-几分伤心几分痴.mp3'},
+{title: '王杰-可能',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王杰-可能.mp3'},
+{title: '王杰-你是我胸口永远的痛',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王杰-你是我胸口永远的痛.mp3'},
+{title: '王杰-伤心1999',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王杰-伤心1999.mp3'},
+{title: '王杰-谁明浪子心',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王杰-谁明浪子心.mp3'},
+{title: '王杰-她的背影',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王杰-她的背影.mp3'},
+{title: '王杰-忘记你不如忘记自己',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王杰-忘记你不如忘记自己.mp3'},
+{title: '王杰-忘了你忘了我',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王杰-忘了你忘了我.mp3'},
+{title: '王杰-为了爱梦一生',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王杰-为了爱梦一生.mp3'},
+{title: '王杰-我是真的爱上你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王杰-我是真的爱上你.mp3'},
+{title: '王杰-心痛',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王杰-心痛.mp3'},
+{title: '王杰-一场游戏一场梦',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王杰-一场游戏一场梦.mp3'},
+{title: '王杰-一无所有',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王杰-一无所有.mp3'},
+{title: '王杰-英雄泪',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王杰-英雄泪.mp3'},
+{title: '王靖雯-沦陷',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王靖雯-沦陷.mp3'},
+{title: '王靖雯-善变',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王靖雯-善变.mp3'},
+{title: '王力宏 selina-你是我心内的一首歌',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王力宏 selina-你是我心内的一首歌.mp3'},
+{title: '王力宏 卢巧音-好心分手',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王力宏 卢巧音-好心分手.mp3'},
+{title: '王力宏 谭维维-缘分一道桥',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王力宏 谭维维-缘分一道桥.mp3'},
+{title: '王力宏-爱的就是你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王力宏-爱的就是你.mp3'},
+{title: '王力宏-大城小爱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王力宏-大城小爱.mp3'},
+{title: '王力宏-改变自己',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王力宏-改变自己.mp3'},
+{title: '王力宏-花田错',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王力宏-花田错.mp3'},
+{title: '王力宏-龙的传人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王力宏-龙的传人.mp3'},
+{title: '王力宏-天地龙鳞',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王力宏-天地龙鳞.mp3'},
+{title: '王力宏-唯一',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王力宏-唯一.mp3'},
+{title: '王麟 完玛三智-唐古拉',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王麟 完玛三智-唐古拉.mp3'},
+{title: '王麟-QQ爱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王麟-QQ爱.mp3'},
+{title: '王麟-伤不起',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王麟-伤不起.mp3'},
+{title: '王强 -不想让你哭',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王强 -不想让你哭.mp3'},
+{title: '王强-你把爱情给了谁',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王强-你把爱情给了谁.mp3'},
+{title: '王强-秋天不回来',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王强-秋天不回来.mp3'},
+{title: '王蓉-哎呀',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王蓉-哎呀.mp3'},
+{title: '王蓉-爸爸妈妈',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王蓉-爸爸妈妈.mp3'},
+{title: '王蓉-我不是黄蓉',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王蓉-我不是黄蓉.mp3'},
+{title: '王唯旖-无情画',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王唯旖-无情画.mp3'},
+{title: '王心凌-honey',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王心凌-honey.mp3'},
+{title: '王心凌-爱你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王心凌-爱你.mp3'},
+{title: '王心凌-不哭',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王心凌-不哭.mp3'},
+{title: '王心凌-彩虹的微笑',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王心凌-彩虹的微笑.mp3'},
+{title: '王心凌-第一次爱的人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王心凌-第一次爱的人.mp3'},
+{title: '王心凌-心心相印',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王心凌-心心相印.mp3'},
+{title: '王馨平-别问我是谁',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王馨平-别问我是谁.mp3'},
+{title: '王娅-爱情错觉',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王娅-爱情错觉.mp3'},
+{title: '王宇宙Leto 乔浚丞-若月亮没来',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王宇宙Leto 乔浚丞-若月亮没来.mp3'},
+{title: '王铮亮-时间都去哪儿了',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/王铮亮-时间都去哪儿了.mp3'},
+{title: '旺仔小乔-年轮',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/旺仔小乔-年轮.mp3'},
+{title: '旺仔小乔-樱花树下的约定',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/旺仔小乔-樱花树下的约定.mp3'},
+{title: '魏爱梓欣-不渡',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/魏爱梓欣-不渡.mp3'},
+{title: '魏爱梓欣-成魔（你啊妖摇入骨情欲滔天）',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/魏爱梓欣-成魔（你啊妖摇入骨情欲滔天）.mp3'},
+{title: '魏爱梓欣-给阿嬷的情书',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/魏爱梓欣-给阿嬷的情书.mp3'},
+{title: '魏爱梓欣-醒来折花',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/魏爱梓欣-醒来折花.mp3'},
+{title: '魏新雨-恋人心',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/魏新雨-恋人心.mp3'},
+{title: '魏新雨-余情未了',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/魏新雨-余情未了.mp3'},
+{title: '魏玉慧-相思遥',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/魏玉慧-相思遥.mp3'},
+{title: '温奕心-一路生花',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/温奕心-一路生花.mp3'},
+{title: '闻人听書-虞兮叹',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/闻人听書-虞兮叹.mp3'},
+{title: '闻人听書-鸳鸯戏',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/闻人听書-鸳鸯戏.mp3'},
+{title: '窝窝-月亮照山川',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/窝窝-月亮照山川.mp3'},
+{title: '乌达木-梦中的额吉',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/乌达木-梦中的额吉.mp3'},
+{title: '乌兰托娅-火红的萨日朗',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/乌兰托娅-火红的萨日朗.mp3'},
+{title: '乌兰托娅-套马杆',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/乌兰托娅-套马杆.mp3'},
+{title: '巫启贤-红尘来去一场梦',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/巫启贤-红尘来去一场梦.mp3'},
+{title: '巫启贤-太傻',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/巫启贤-太傻.mp3'},
+{title: '吴克群-为你写诗',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/吴克群-为你写诗.mp3'},
+{title: '吴奇隆-烟火',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/吴奇隆-烟火.mp3'},
+{title: '吴奇隆-祝你一路顺风',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/吴奇隆-祝你一路顺风.mp3'},
+{title: '吴亦凡-大碗宽面',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/吴亦凡-大碗宽面.mp3'},
+{title: '五月天-你不是真正的快乐',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/五月天-你不是真正的快乐.mp3'},
+{title: '五月天-突然好想你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/五月天-突然好想你.mp3'},
+{title: '伍佰 China Blue-我会好好的',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/伍佰 China Blue-我会好好的.mp3'},
+{title: '伍佰-孤星泪',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/伍佰-孤星泪.mp3'},
+{title: '伍佰-浪人情歌',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/伍佰-浪人情歌.mp3'},
+{title: '伍佰-挪威的森林',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/伍佰-挪威的森林.mp3'},
+{title: '伍佰-如果这都不算爱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/伍佰-如果这都不算爱.mp3'},
+{title: '伍佰-世界第一等',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/伍佰-世界第一等.mp3'},
+{title: '伍佰-痛哭的人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/伍佰-痛哭的人.mp3'},
+{title: '伍佰-突然的自我',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/伍佰-突然的自我.mp3'},
+{title: '伍佰-与你到永久',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/伍佰-与你到永久.mp3'},
+{title: '伍佰-再度重相逢',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/伍佰-再度重相逢.mp3'},
+{title: '伍思凯-特别的爱给特别的你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/伍思凯-特别的爱给特别的你.mp3'},
+{title: '希莉娜依 胡兵-归去来',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/希莉娜依 胡兵-归去来.mp3'},
+{title: '希林娜依高-红尘莫欺我年少',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/希林娜依高-红尘莫欺我年少.mp3'},
+{title: '希林娜依高-那年星辰',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/希林娜依高-那年星辰.mp3'},
+{title: '希林娜依高-微光星海',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/希林娜依高-微光星海.mp3'},
+{title: '希林娜依高-瑕面舞会',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/希林娜依高-瑕面舞会.mp3'},
+{title: '希亚-心醉',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/希亚-心醉.mp3'},
+{title: '夏婉安-听不完的情歌',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/夏婉安-听不完的情歌.mp3'},
+{title: '弦子 王唯乐-不甘',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/弦子 王唯乐-不甘.mp3'},
+{title: '弦子 姚晓棠-会开花的云',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/弦子 姚晓棠-会开花的云.mp3'},
+{title: '弦子-第三者的第三者',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/弦子-第三者的第三者.mp3'},
+{title: '弦子-舍不得',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/弦子-舍不得.mp3'},
+{title: '弦子-天空之外',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/弦子-天空之外.mp3'},
+{title: '弦子-天真',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/弦子-天真.mp3'},
+{title: '弦子-沿海地带',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/弦子-沿海地带.mp3'},
+{title: '弦子-醉清风',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/弦子-醉清风.mp3'},
+{title: '香香-猪之歌',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/香香-猪之歌.mp3'},
+{title: '萧煌奇-偷走',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/萧煌奇-偷走.mp3'},
+{title: '萧敬腾-王妃',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/萧敬腾-王妃.mp3'},
+{title: '萧全 孙语赛-不仅仅是喜欢',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/萧全 孙语赛-不仅仅是喜欢.mp3'},
+{title: '萧全-海草舞',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/萧全-海草舞.mp3'},
+{title: '萧全-社会摇',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/萧全-社会摇.mp3'},
+{title: '萧萧-倔强的坚强',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/萧萧-倔强的坚强.mp3'},
+{title: '萧潇-爱要坦荡荡',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/萧潇-爱要坦荡荡.mp3'},
+{title: '萧亚轩 韩庚-最佳听众',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/萧亚轩 韩庚-最佳听众.mp3'},
+{title: '萧亚轩-Cappuccino',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/萧亚轩-Cappuccino.mp3'},
+{title: '萧亚轩-HoneyHoneyHoney',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/萧亚轩-HoneyHoneyHoney.mp3'},
+{title: '萧亚轩-窗外的天气',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/萧亚轩-窗外的天气.mp3'},
+{title: '萧亚轩-类似爱情',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/萧亚轩-类似爱情.mp3'},
+{title: '萧亚轩-蔷薇',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/萧亚轩-蔷薇.mp3'},
+{title: '萧亚轩-突然想起你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/萧亚轩-突然想起你.mp3'},
+{title: '萧亚轩-我爱你那么多',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/萧亚轩-我爱你那么多.mp3'},
+{title: '萧亚轩-一个人的精彩',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/萧亚轩-一个人的精彩.mp3'},
+{title: '萧亚轩-最熟悉的陌生人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/萧亚轩-最熟悉的陌生人.mp3'},
+{title: '小虎队-爱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/小虎队-爱.mp3'},
+{title: '小虎队-青苹果乐园',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/小虎队-青苹果乐园.mp3'},
+{title: '小虎队-十七岁的雨季',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/小虎队-十七岁的雨季.mp3'},
+{title: '小潘潘 小峰峰-学猫叫',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/小潘潘 小峰峰-学猫叫.mp3'},
+{title: '小沈阳-爱是你我',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/小沈阳-爱是你我.mp3'},
+{title: '小沈阳-都要好好的',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/小沈阳-都要好好的.mp3'},
+{title: '小鱼干-没出息',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/小鱼干-没出息.mp3'},
+{title: '谢东-清官谣',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/谢东-清官谣.mp3'},
+{title: '谢东-笑脸',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/谢东-笑脸.mp3'},
+{title: '谢东-中华民谣',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/谢东-中华民谣.mp3'},
+{title: '谢军-那一夜',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/谢军-那一夜.mp3'},
+{title: '谢军-心在跳情在烧',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/谢军-心在跳情在烧.mp3'},
+{title: '谢霆锋-谢谢你的爱1999',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/谢霆锋-谢谢你的爱1999.mp3'},
+{title: '谢霆锋-因为爱所以爱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/谢霆锋-因为爱所以爱.mp3'},
+{title: '谢雨欣-步步高',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/谢雨欣-步步高.mp3'},
+{title: '谢雨欣-第三天',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/谢雨欣-第三天.mp3'},
+{title: '谢雨欣-天仙子',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/谢雨欣-天仙子.mp3'},
+{title: '辛晓琪-味道',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/辛晓琪-味道.mp3'},
+{title: '信乐团-海阔天空',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/信乐团-海阔天空.mp3'},
+{title: '信乐团-假如',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/信乐团-假如.mp3'},
+{title: '信乐团-离歌',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/信乐团-离歌.mp3'},
+{title: '信乐团-死了都要爱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/信乐团-死了都要爱.mp3'},
+{title: '熊天平-火柴天堂',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/熊天平-火柴天堂.mp3'},
+{title: '徐怀钰-叮咚',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/徐怀钰-叮咚.mp3'},
+{title: '徐怀钰-分飞',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/徐怀钰-分飞.mp3'},
+{title: '徐怀钰-踏浪',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/徐怀钰-踏浪.mp3'},
+{title: '徐佳莹-突然好想你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/徐佳莹-突然好想你.mp3'},
+{title: '徐良 李玉刚-花魁',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/徐良 李玉刚-花魁.mp3'},
+{title: '徐良-那时雨',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/徐良-那时雨.mp3'},
+{title: '徐千雅-彩云之南',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/徐千雅-彩云之南.mp3'},
+{title: '徐千雅-我在景德镇等你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/徐千雅-我在景德镇等你.mp3'},
+{title: '徐千雅-坐上火车去拉萨',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/徐千雅-坐上火车去拉萨.mp3'},
+{title: '徐小凤-明月千里寄相思',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/徐小凤-明月千里寄相思.mp3'},
+{title: '徐小凤-顺流逆流',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/徐小凤-顺流逆流.mp3'},
+{title: '徐誉滕-等一分钟 -',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/徐誉滕-等一分钟 -.mp3'},
+{title: '徐誉滕-天使的翅膀',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/徐誉滕-天使的翅膀.mp3'},
+{title: '许慧欣-七月七日晴',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/许慧欣-七月七日晴.mp3'},
+{title: '许佳慧-预谋',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/许佳慧-预谋.mp3'},
+{title: '许美静-城里的月光',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/许美静-城里的月光.mp3'},
+{title: '许美静-荡漾',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/许美静-荡漾.mp3'},
+{title: '许美静-都是夜归人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/许美静-都是夜归人.mp3'},
+{title: '许美静-快乐无罪',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/许美静-快乐无罪.mp3'},
+{title: '许美静-蔓延',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/许美静-蔓延.mp3'},
+{title: '许美静-迷乱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/许美静-迷乱.mp3'},
+{title: '许美静-迫在眉梢',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/许美静-迫在眉梢.mp3'},
+{title: '许美静-铁窗',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/许美静-铁窗.mp3'},
+{title: '许美静-阳光总在风雨后',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/许美静-阳光总在风雨后.mp3'},
+{title: '许美静-遗憾',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/许美静-遗憾.mp3'},
+{title: '许茹芸-独角戏',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/许茹芸-独角戏.mp3'},
+{title: '许茹芸-泪海',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/许茹芸-泪海.mp3'},
+{title: '许茹芸-日光机场',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/许茹芸-日光机场.mp3'},
+{title: '许茹芸-如果云知道',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/许茹芸-如果云知道.mp3'},
+{title: '许茹芸-我依然爱你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/许茹芸-我依然爱你.mp3'},
+{title: '许茹芸-一直是晴天',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/许茹芸-一直是晴天.mp3'},
+{title: '许韶洋-花香',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/许韶洋-花香.mp3'},
+{title: '许韶洋-幸福的瞬间',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/许韶洋-幸福的瞬间.mp3'},
+{title: '许嵩 何曼婷-素颜',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/许嵩 何曼婷-素颜.mp3'},
+{title: '许嵩-半城烟沙',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/许嵩-半城烟沙.mp3'},
+{title: '许嵩-断桥残雪',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/许嵩-断桥残雪.mp3'},
+{title: '许嵩-有何不可',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/许嵩-有何不可.mp3'},
+{title: '许巍-曾经的你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/许巍-曾经的你.mp3'},
+{title: '许巍-蓝莲花',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/许巍-蓝莲花.mp3'},
+{title: '许志安-为什么你背着我爱别人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/许志安-为什么你背着我爱别人.mp3'},
+{title: '薛之谦-暧昧',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/薛之谦-暧昧.mp3'},
+{title: '薛之谦-丑八怪',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/薛之谦-丑八怪.mp3'},
+{title: '薛之谦-刚刚好',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/薛之谦-刚刚好.mp3'},
+{title: '薛之谦-你还要我怎样',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/薛之谦-你还要我怎样.mp3'},
+{title: '薛之谦-演员',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/薛之谦-演员.mp3'},
+{title: '薛之谦-租购',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/薛之谦-租购.mp3'},
+{title: '严艺丹-等你的季节',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/严艺丹-等你的季节.mp3'},
+{title: '严艺丹-三寸天堂',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/严艺丹-三寸天堂.mp3'},
+{title: '严正花-都走吧',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/严正花-都走吧.mp3'},
+{title: '央金兰泽-遇上你是我的缘',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/央金兰泽-遇上你是我的缘.mp3'},
+{title: '杨不乖-怪我打扰了',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/杨不乖-怪我打扰了.mp3'},
+{title: '杨臣刚-老鼠爱大米',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/杨臣刚-老鼠爱大米.mp3'},
+{title: '杨丞琳-暧昧',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/杨丞琳-暧昧.mp3'},
+{title: '杨丞琳-水墨如烟',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/杨丞琳-水墨如烟.mp3'},
+{title: '杨丞琳-一千零一个愿望',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/杨丞琳-一千零一个愿望.mp3'},
+{title: '杨坤 陈琳-两个人的世界',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/杨坤 陈琳-两个人的世界.mp3'},
+{title: '杨坤-那一天',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/杨坤-那一天.mp3'},
+{title: '杨坤-无所谓',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/杨坤-无所谓.mp3'},
+{title: '杨幂-爱的供养',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/杨幂-爱的供养.mp3'},
+{title: '杨培安-爱上你是一个错',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/杨培安-爱上你是一个错.mp3'},
+{title: '杨培安-我相信',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/杨培安-我相信.mp3'},
+{title: '杨千桦-小城大事',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/杨千桦-小城大事.mp3'},
+{title: '杨小曼-我爱你胜过你爱我',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/杨小曼-我爱你胜过你爱我.mp3'},
+{title: '杨钰莹 毛宁-心雨',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/杨钰莹 毛宁-心雨.mp3'},
+{title: '杨钰莹-茶山情歌',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/杨钰莹-茶山情歌.mp3'},
+{title: '杨钰莹-轻轻的告诉你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/杨钰莹-轻轻的告诉你.mp3'},
+{title: '杨钰莹-我不想说',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/杨钰莹-我不想说.mp3'},
+{title: '杨钰莹-月亮船',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/杨钰莹-月亮船.mp3'},
+{title: '杨宗纬 张碧晨-凉凉',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/杨宗纬 张碧晨-凉凉.mp3'},
+{title: '杨宗纬-洋葱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/杨宗纬-洋葱.mp3'},
+{title: '杨宗纬-一次就好',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/杨宗纬-一次就好.mp3'},
+{title: '洋澜一-阿楚姑娘',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/洋澜一-阿楚姑娘.mp3'},
+{title: '洋澜一-后海酒吧',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/洋澜一-后海酒吧.mp3'},
+{title: '洋澜一-后来的你在哪',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/洋澜一-后来的你在哪.mp3'},
+{title: '洋澜一-化风行万里',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/洋澜一-化风行万里.mp3'},
+{title: '洋澜一-见一面少一面',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/洋澜一-见一面少一面.mp3'},
+{title: '洋澜一-逆流成河',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/洋澜一-逆流成河.mp3'},
+{title: '洋澜一-谁',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/洋澜一-谁.mp3'},
+{title: '洋澜一-乌兰巴托的夜',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/洋澜一-乌兰巴托的夜.mp3'},
+{title: '姚六一-雾里',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/姚六一-雾里.mp3'},
+{title: '姚晓棠-会开花的云',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/姚晓棠-会开花的云.mp3'},
+{title: '要不要买菜-下山',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/要不要买菜-下山.mp3'},
+{title: '叶蓓-想把我唱给你听',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/叶蓓-想把我唱给你听.mp3'},
+{title: '叶丽仪-上海滩',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/叶丽仪-上海滩.mp3'},
+{title: '叶启田-爱拼才会赢',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/叶启田-爱拼才会赢.mp3'},
+{title: '叶倩文 林子祥-选择',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/叶倩文 林子祥-选择.mp3'},
+{title: '叶倩文-潇洒走一回',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/叶倩文-潇洒走一回.mp3'},
+{title: '叶倩文-真心真意过一生',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/叶倩文-真心真意过一生.mp3'},
+{title: '叶倩文-祝福',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/叶倩文-祝福.mp3'},
+{title: '叶振棠-大侠霍元甲',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/叶振棠-大侠霍元甲.mp3'},
+{title: '叶振棠-大丈夫',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/叶振棠-大丈夫.mp3'},
+{title: '叶振棠-人生长跑',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/叶振棠-人生长跑.mp3'},
+{title: '叶振棠-万里长城永不倒',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/叶振棠-万里长城永不倒.mp3'},
+{title: '叶振棠-忘尽心中情',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/叶振棠-忘尽心中情.mp3'},
+{title: '叶振棠-戏剧人生',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/叶振棠-戏剧人生.mp3'},
+{title: '一只白羊 承桓-家门口的狗尾巴花',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/一只白羊 承桓-家门口的狗尾巴花.mp3'},
+{title: '一只白羊-赐我',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/一只白羊-赐我.mp3'},
+{title: '伊格赛听 叶里-谪仙',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/伊格赛听 叶里-谪仙.mp3'},
+{title: '伊扬-纸飞机',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/伊扬-纸飞机.mp3'},
+{title: '音阙诗听-红昭愿',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/音阙诗听-红昭愿.mp3'},
+{title: '银临 Aki阿杰-牵丝戏',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/银临 Aki阿杰-牵丝戏.mp3'},
+{title: '尹昔眠-三拜红尘凉',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/尹昔眠-三拜红尘凉.mp3'},
+{title: '游鸿明-爱我的人和我爱的人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/游鸿明-爱我的人和我爱的人.mp3'},
+{title: '游鸿明-下沙',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/游鸿明-下沙.mp3'},
+{title: '于果-侧脸',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/于果-侧脸.mp3'},
+{title: '于文文-体面',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/于文文-体面.mp3'},
+{title: '俞灏明 简美妍-陷入爱里面',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/俞灏明 简美妍-陷入爱里面.mp3'},
+{title: '俞静-红豆红',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/俞静-红豆红.mp3'},
+{title: '宇桐非-感动天感动地',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/宇桐非-感动天感动地.mp3'},
+{title: '羽·泉-奔跑',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/羽·泉-奔跑.mp3'},
+{title: '羽·泉-彩虹',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/羽·泉-彩虹.mp3'},
+{title: '羽·泉-感觉不到你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/羽·泉-感觉不到你.mp3'},
+{title: '羽·泉-冷酷到底',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/羽·泉-冷酷到底.mp3'},
+{title: '羽·泉-深呼吸',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/羽·泉-深呼吸.mp3'},
+{title: '羽·泉-心似狂潮',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/羽·泉-心似狂潮.mp3'},
+{title: '羽·泉-最美',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/羽·泉-最美.mp3'},
+{title: '庾澄庆-春泥',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/庾澄庆-春泥.mp3'},
+{title: '庾澄庆-情非得已',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/庾澄庆-情非得已.mp3'},
+{title: '庾澄庆-让我一次爱个够',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/庾澄庆-让我一次爱个够.mp3'},
+{title: '庾澄庆-热情的沙漠',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/庾澄庆-热情的沙漠.mp3'},
+{title: '郁可唯-时间煮雨',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/郁可唯-时间煮雨.mp3'},
+{title: '郁可唯-水中花(Live)',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/郁可唯-水中花(Live).mp3'},
+{title: '郁可唯-思慕',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/郁可唯-思慕.mp3'},
+{title: '袁成杰 戚薇-想我了吗',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/袁成杰 戚薇-想我了吗.mp3'},
+{title: '袁小葳 阿辰（阎辰）-化作烟火为你坠落',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/袁小葳 阿辰（阎辰）-化作烟火为你坠落.mp3'},
+{title: '袁娅维-阿楚姑娘',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/袁娅维-阿楚姑娘.mp3'},
+{title: '袁娅维-说散就散',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/袁娅维-说散就散.mp3'},
+{title: '云汐-故事还长',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/云汐-故事还长.mp3'},
+{title: '展展与罗罗-沙漠骆驼',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/展展与罗罗-沙漠骆驼.mp3'},
+{title: '张柏芝-星语心愿',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张柏芝-星语心愿.mp3'},
+{title: '张碧晨 张杰-只要平凡',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张碧晨 张杰-只要平凡.mp3'},
+{title: '张碧晨-光的方向',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张碧晨-光的方向.mp3'},
+{title: '张碧晨-开往早晨的午夜',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张碧晨-开往早晨的午夜.mp3'},
+{title: '张碧晨-笼',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张碧晨-笼.mp3'},
+{title: '张碧晨-年轮',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张碧晨-年轮.mp3'},
+{title: '张栋梁-北极星的眼泪',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张栋梁-北极星的眼泪.mp3'},
+{title: '张栋梁-当你孤单你会想起谁',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张栋梁-当你孤单你会想起谁.mp3'},
+{title: '张镐哲-好男人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张镐哲-好男人.mp3'},
+{title: '张国荣-沉默是金',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张国荣-沉默是金.mp3'},
+{title: '张国荣-倩女幽魂',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张国荣-倩女幽魂.mp3'},
+{title: '张含韵-闪亮亮',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张含韵-闪亮亮.mp3'},
+{title: '张含韵-酸酸甜甜就是我',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张含韵-酸酸甜甜就是我.mp3'},
+{title: '张含韵-想唱就唱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张含韵-想唱就唱.mp3'},
+{title: '张含韵-一百万个可能',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张含韵-一百万个可能.mp3'},
+{title: '张行-迟到',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张行-迟到.mp3'},
+{title: '张行-站台',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张行-站台.mp3'},
+{title: '张洪量-你知道我在等你吗',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张洪量-你知道我在等你吗.mp3'},
+{title: '张惠妹-BadBoy',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张惠妹-BadBoy.mp3'},
+{title: '张惠妹-火',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张惠妹-火.mp3'},
+{title: '张惠妹-剪爱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张惠妹-剪爱.mp3'},
+{title: '张惠妹-姐妹',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张惠妹-姐妹.mp3'},
+{title: '张惠妹-可以抱你吗',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张惠妹-可以抱你吗.mp3'},
+{title: '张惠妹-哭不出来',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张惠妹-哭不出来.mp3'},
+{title: '张惠妹-听海',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张惠妹-听海.mp3'},
+{title: '张惠妹-一想到你呀',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张惠妹-一想到你呀.mp3'},
+{title: '张惠妹-原来你什么都不想要',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张惠妹-原来你什么都不想要.mp3'},
+{title: '张惠妹-站在高岗上',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张惠妹-站在高岗上.mp3'},
+{title: '张杰 张碧晨-只要平凡',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张杰 张碧晨-只要平凡.mp3'},
+{title: '张杰-逆战',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张杰-逆战.mp3'},
+{title: '张杰-天下',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张杰-天下.mp3'},
+{title: '张杰-星星',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张杰-星星.mp3'},
+{title: '张杰-雪龙吟',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张杰-雪龙吟.mp3'},
+{title: '张杰-这,就是爱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张杰-这,就是爱.mp3'},
+{title: '张敬轩-断点',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张敬轩-断点.mp3'},
+{title: '张靓颖 张杰-爱的供养',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张靓颖 张杰-爱的供养.mp3'},
+{title: '张靓颖-暗恋',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张靓颖-暗恋.mp3'},
+{title: '张靓颖-不惜时光',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张靓颖-不惜时光.mp3'},
+{title: '张靓颖-化身孤岛的鲸',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张靓颖-化身孤岛的鲸.mp3'},
+{title: '张靓颖-画心',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张靓颖-画心.mp3'},
+{title: '张靓颖-九万字',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张靓颖-九万字.mp3'},
+{title: '张靓颖-口头禅',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张靓颖-口头禅.mp3'},
+{title: '张靓颖-如果爱下去',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张靓颖-如果爱下去.mp3'},
+{title: '张靓颖-如果这就是爱情',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张靓颖-如果这就是爱情.mp3'},
+{title: '张靓颖-天下无双',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张靓颖-天下无双.mp3'},
+{title: '张靓颖-我的梦',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张靓颖-我的梦.mp3'},
+{title: '张靓颖-我们说好的',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张靓颖-我们说好的.mp3'},
+{title: '张靓颖-想你零点零一分',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张靓颖-想你零点零一分.mp3'},
+{title: '张靓颖-野心家',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张靓颖-野心家.mp3'},
+{title: '张靓颖-一路之下',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张靓颖-一路之下.mp3'},
+{title: '张靓颖-与爱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张靓颖-与爱.mp3'},
+{title: '张靓颖-终于等到你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张靓颖-终于等到你.mp3'},
+{title: '张明敏-龙的传人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张明敏-龙的传人.mp3'},
+{title: '张明敏-我的中国心',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张明敏-我的中国心.mp3'},
+{title: '张娜拉-SweetDream韩文',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张娜拉-SweetDream韩文.mp3'},
+{title: '张娜拉-泪流满面',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张娜拉-泪流满面.mp3'},
+{title: '张韶涵 王赫野-篇章',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张韶涵 王赫野-篇章.mp3'},
+{title: '张韶涵 王晰-黎明前的黑暗 (Live)',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张韶涵 王晰-黎明前的黑暗 (Live).mp3'},
+{title: '张韶涵 周深-一路生花',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张韶涵 周深-一路生花.mp3'},
+{title: '张韶涵-冲破',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张韶涵-冲破.mp3'},
+{title: '张韶涵-梦里花',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张韶涵-梦里花.mp3'},
+{title: '张韶涵-呐喊',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张韶涵-呐喊.mp3'},
+{title: '张韶涵-欧若拉',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张韶涵-欧若拉.mp3'},
+{title: '张韶涵-潘朵拉',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张韶涵-潘朵拉.mp3'},
+{title: '张韶涵-破茧',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张韶涵-破茧.mp3'},
+{title: '张韶涵-亲爱的那不是爱情',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张韶涵-亲爱的那不是爱情.mp3'},
+{title: '张韶涵-无名的人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张韶涵-无名的人.mp3'},
+{title: '张韶涵-遗失的美好',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张韶涵-遗失的美好.mp3'},
+{title: '张韶涵-隐形的翅膀',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张韶涵-隐形的翅膀.mp3'},
+{title: '张韶涵-寓言',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张韶涵-寓言.mp3'},
+{title: '张卫健-孤独不苦',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张卫健-孤独不苦.mp3'},
+{title: '张卫健-你爱我像谁',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张卫健-你爱我像谁.mp3'},
+{title: '张卫健-疼爱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张卫健-疼爱.mp3'},
+{title: '张卫健-虚虚实实',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张卫健-虚虚实实.mp3'},
+{title: '张卫健-一辈子一场梦',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张卫健-一辈子一场梦.mp3'},
+{title: '张卫健-真英雄',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张卫健-真英雄.mp3'},
+{title: '张卫健-真真假假',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张卫健-真真假假.mp3'},
+{title: '张信哲 范文芳-别让情两难',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张信哲 范文芳-别让情两难.mp3'},
+{title: '张信哲 刘嘉玲-有一点动心',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张信哲 刘嘉玲-有一点动心.mp3'},
+{title: '张信哲 薛之谦-你不是一个人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张信哲 薛之谦-你不是一个人.mp3'},
+{title: '张信哲-爱不留',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张信哲-爱不留.mp3'},
+{title: '张信哲-爱就一个字',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张信哲-爱就一个字.mp3'},
+{title: '张信哲-爱如潮水',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张信哲-爱如潮水.mp3'},
+{title: '张信哲-别怕我伤心',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张信哲-别怕我伤心.mp3'},
+{title: '张信哲-不要对他说',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张信哲-不要对他说.mp3'},
+{title: '张信哲-从开始到现在',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张信哲-从开始到现在.mp3'},
+{title: '张信哲-过火',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张信哲-过火.mp3'},
+{title: '张信哲-宽容',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张信哲-宽容.mp3'},
+{title: '张信哲-某某某',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张信哲-某某某.mp3'},
+{title: '张信哲-难以抗拒你容颜',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张信哲-难以抗拒你容颜.mp3'},
+{title: '张信哲-太想爱你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张信哲-太想爱你.mp3'},
+{title: '张信哲-忘情忘爱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张信哲-忘情忘爱.mp3'},
+{title: '张信哲-我是真的爱你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张信哲-我是真的爱你.mp3'},
+{title: '张信哲-信仰',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张信哲-信仰.mp3'},
+{title: '张信哲-用情',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张信哲-用情.mp3'},
+{title: '张信哲-直觉',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张信哲-直觉.mp3'},
+{title: '张学友 汤宝如-相思风雨中',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友 汤宝如-相思风雨中.mp3'},
+{title: '张学友-当我想起你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-当我想起你.mp3'},
+{title: '张学友-等你等到我心痛',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-等你等到我心痛.mp3'},
+{title: '张学友-饿狼传说',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-饿狼传说.mp3'},
+{title: '张学友-烦恼歌',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-烦恼歌.mp3'},
+{title: '张学友-分手总要在雨天',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-分手总要在雨天.mp3'},
+{title: '张学友高慧君-你最珍贵',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友高慧君-你最珍贵.mp3'},
+{title: '张学友-回头太难',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-回头太难.mp3'},
+{title: '张学友-李香兰',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-李香兰.mp3'},
+{title: '张学友-慢慢',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-慢慢.mp3'},
+{title: '张学友-你好毒',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-你好毒.mp3'},
+{title: '张学友-情书',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-情书.mp3'},
+{title: '张学友-秋意浓',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-秋意浓.mp3'},
+{title: '张学友-如果这都不算爱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-如果这都不算爱.mp3'},
+{title: '张学友-深海',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-深海.mp3'},
+{title: '张学友-偷心',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-偷心.mp3'},
+{title: '张学友-头发乱了',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-头发乱了.mp3'},
+{title: '张学友-忘记你我做不到',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-忘记你我做不到.mp3'},
+{title: '张学友-忘情冷雨夜',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-忘情冷雨夜.mp3'},
+{title: '张学友-吻别',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-吻别.mp3'},
+{title: '张学友-我等到花儿也谢了',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-我等到花儿也谢了.mp3'},
+{title: '张学友-夕阳醉了',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-夕阳醉了.mp3'},
+{title: '张学友-想和你去吹吹风',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-想和你去吹吹风.mp3'},
+{title: '张学友-小城大事',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-小城大事.mp3'},
+{title: '张学友-心如刀割',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-心如刀割.mp3'},
+{title: '张学友-心碎了无痕',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-心碎了无痕.mp3'},
+{title: '张学友-遥远的她',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-遥远的她.mp3'},
+{title: '张学友-一路上有你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-一路上有你.mp3'},
+{title: '张学友-一千个伤心的理由',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-一千个伤心的理由.mp3'},
+{title: '张学友-只想一生跟你走',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-只想一生跟你走.mp3'},
+{title: '张学友-只愿一生爱一人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-只愿一生爱一人.mp3'},
+{title: '张学友-祝福',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张学友-祝福.mp3'},
+{title: '张宇-大女人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张宇-大女人.mp3'},
+{title: '张宇-给你们',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张宇-给你们.mp3'},
+{title: '张宇-千金难买',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张宇-千金难买.mp3'},
+{title: '张宇-一言难尽',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张宇-一言难尽.mp3'},
+{title: '张宇-用心良苦',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张宇-用心良苦.mp3'},
+{title: '张宇-雨一直下',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张宇-雨一直下.mp3'},
+{title: '张宇-月亮惹的祸',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张宇-月亮惹的祸.mp3'},
+{title: '张雨生-大海',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张雨生-大海.mp3'},
+{title: '张雨生-我的未来不是梦',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张雨生-我的未来不是梦.mp3'},
+{title: '张雨生-一天到晚游泳的鱼',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张雨生-一天到晚游泳的鱼.mp3'},
+{title: '张远-嘉宾',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张远-嘉宾.mp3'},
+{title: '张云雷-探清水河',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张云雷-探清水河.mp3'},
+{title: '张芸京-春泥',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张芸京-春泥.mp3'},
+{title: '张芸京-偏爱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张芸京-偏爱.mp3'},
+{title: '张震岳-爱的初体验',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张震岳-爱的初体验.mp3'},
+{title: '张震岳-再见',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张震岳-再见.mp3'},
+{title: '张紫豪-可不可以',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/张紫豪-可不可以.mp3'},
+{title: '赵传-爱要怎么说出口',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/赵传-爱要怎么说出口.mp3'},
+{title: '赵传-我很丑可是我很温柔',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/赵传-我很丑可是我很温柔.mp3'},
+{title: '赵传-我是一只小小鸟',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/赵传-我是一只小小鸟.mp3'},
+{title: '赵方婧-闭月',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/赵方婧-闭月.mp3'},
+{title: '赵方婧-尽头',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/赵方婧-尽头.mp3'},
+{title: '赵方婧-芒种',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/赵方婧-芒种.mp3'},
+{title: '赵方婧-青灯',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/赵方婧-青灯.mp3'},
+{title: '赵方婧-瑞鹤仙',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/赵方婧-瑞鹤仙.mp3'},
+{title: '赵方婧-小暑',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/赵方婧-小暑.mp3'},
+{title: '赵方婧-直觉',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/赵方婧-直觉.mp3'},
+{title: '赵雷-成都',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/赵雷-成都.mp3'},
+{title: '赵露思-时光话',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/赵露思-时光话.mp3'},
+{title: '赵薇-爱情大魔咒',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/赵薇-爱情大魔咒.mp3'},
+{title: '赵薇-好想好想',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/赵薇-好想好想.mp3'},
+{title: '赵薇-情深深雨濛濛',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/赵薇-情深深雨濛濛.mp3'},
+{title: '赵英俊-大王叫我来巡山',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/赵英俊-大王叫我来巡山.mp3'},
+{title: '赵咏华-最浪漫的事',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/赵咏华-最浪漫的事.mp3'},
+{title: '甄妮-鲁冰花',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/甄妮-鲁冰花.mp3'},
+{title: '甄妮-我曾用心爱着你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/甄妮-我曾用心爱着你.mp3'},
+{title: '郑钧-灰姑娘',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/郑钧-灰姑娘.mp3'},
+{title: '郑钧-回到拉萨',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/郑钧-回到拉萨.mp3'},
+{title: '郑秀文-独家试唱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/郑秀文-独家试唱.mp3'},
+{title: '郑秀文-眉飞色舞',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/郑秀文-眉飞色舞.mp3'},
+{title: '郑秀文-值得',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/郑秀文-值得.mp3'},
+{title: '郑伊健-虫儿飞',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/郑伊健-虫儿飞.mp3'},
+{title: '郑伊健-友情岁月',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/郑伊健-友情岁月.mp3'},
+{title: '郑源-包容',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/郑源-包容.mp3'},
+{title: '郑源-寒江雪',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/郑源-寒江雪.mp3'},
+{title: '郑源-怎么会狠心伤害我',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/郑源-怎么会狠心伤害我.mp3'},
+{title: '郑智化-水手',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/郑智化-水手.mp3'},
+{title: '郑智化-星星点灯',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/郑智化-星星点灯.mp3'},
+{title: '指尖笑-不问别离',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/指尖笑-不问别离.mp3'},
+{title: '中岛美嘉-雪華',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/中岛美嘉-雪華.mp3'},
+{title: '钟镇涛-只要你过得比我好',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/钟镇涛-只要你过得比我好.mp3'},
+{title: '周笔畅-笔记',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周笔畅-笔记.mp3'},
+{title: '周笔畅-最美的期待',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周笔畅-最美的期待.mp3'},
+{title: '周冰倩-真的好想你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周冰倩-真的好想你.mp3'},
+{title: '周传雄-出卖',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周传雄-出卖.mp3'},
+{title: '周传雄-冬天的秘密',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周传雄-冬天的秘密.mp3'},
+{title: '周传雄-关不上的窗',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周传雄-关不上的窗.mp3'},
+{title: '周传雄-花香',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周传雄-花香.mp3'},
+{title: '周传雄-黄昏',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周传雄-黄昏.mp3'},
+{title: '周传雄-记事本',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周传雄-记事本.mp3'},
+{title: '周传雄-寂寞沙洲冷',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周传雄-寂寞沙洲冷.mp3'},
+{title: '周传雄-蓝色土耳其',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周传雄-蓝色土耳其.mp3'},
+{title: '周传雄-末班车',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周传雄-末班车.mp3'},
+{title: '周传雄-暖风',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周传雄-暖风.mp3'},
+{title: '周传雄-忘记',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周传雄-忘记.mp3'},
+{title: '周传雄-我的心太乱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周传雄-我的心太乱.mp3'},
+{title: '周传雄-有没有一首歌会让你想起我',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周传雄-有没有一首歌会让你想起我.mp3'},
+{title: '周华健 齐豫-神话情话',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周华健 齐豫-神话情话.mp3'},
+{title: '周华健 齐豫-天下有情人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周华健 齐豫-天下有情人.mp3'},
+{title: '周华健-刀剑如梦',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周华健-刀剑如梦.mp3'},
+{title: '周华健-风雨无阻',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周华健-风雨无阻.mp3'},
+{title: '周华健-覆水难收',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周华健-覆水难收.mp3'},
+{title: '周华健-花心',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周华健-花心.mp3'},
+{title: '周华健-江湖笑',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周华健-江湖笑.mp3'},
+{title: '周华健-明天我要嫁给你了',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周华健-明天我要嫁给你了.mp3'},
+{title: '周华健-难念的经',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周华健-难念的经.mp3'},
+{title: '周华健-朋友',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周华健-朋友.mp3'},
+{title: '周华健-让我欢喜让我忧',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周华健-让我欢喜让我忧.mp3'},
+{title: '周蕙-不想让你知道',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周蕙-不想让你知道.mp3'},
+{title: '周蕙-风铃',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周蕙-风铃.mp3'},
+{title: '周蕙-好想好好爱你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周蕙-好想好好爱你.mp3'},
+{title: '周蕙-没有你',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周蕙-没有你.mp3'},
+{title: '周蕙-我看',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周蕙-我看.mp3'},
+{title: '周蕙-相遇太早',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周蕙-相遇太早.mp3'},
+{title: '周蕙-约定',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周蕙-约定.mp3'},
+{title: '周杰伦 费玉清-千里之外',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周杰伦 费玉清-千里之外.mp3'},
+{title: '周杰伦 潘儿-夜的第七章',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周杰伦 潘儿-夜的第七章.mp3'},
+{title: '周杰伦 温岚-屋顶',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周杰伦 温岚-屋顶.mp3'},
+{title: '周杰伦-爱在西元前',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周杰伦-爱在西元前.mp3'},
+{title: '周杰伦-安静',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周杰伦-安静.mp3'},
+{title: '周杰伦-稻香',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周杰伦-稻香.mp3'},
+{title: '周杰伦-东风破',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周杰伦-东风破.mp3'},
+{title: '周杰伦-断了的弦',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周杰伦-断了的弦.mp3'},
+{title: '周杰伦-发如雪',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周杰伦-发如雪.mp3'},
+{title: '周杰伦-告白气球',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周杰伦-告白气球.mp3'},
+{title: '周杰伦-红尘客栈',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周杰伦-红尘客栈.mp3'},
+{title: '周杰伦-回到过去',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周杰伦-回到过去.mp3'},
+{title: '周杰伦-简单爱',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周杰伦-简单爱.mp3'},
+{title: '周杰伦-借口',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周杰伦-借口.mp3'},
+{title: '周杰伦-菊花台',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周杰伦-菊花台.mp3'},
+{title: '周杰伦-兰亭序',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周杰伦-兰亭序.mp3'},
+{title: '周杰伦-龙卷风',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周杰伦-龙卷风.mp3'},
+{title: '周杰伦-七里香',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周杰伦-七里香.mp3'},
+{title: '周杰伦-青花瓷',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周杰伦-青花瓷.mp3'},
+{title: '周杰伦-晴天',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周杰伦-晴天.mp3'},
+{title: '周杰伦-三年二班',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周杰伦-三年二班.mp3'},
+{title: '周杰伦-甜甜的',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周杰伦-甜甜的.mp3'},
+{title: '周杰伦-夜曲',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周杰伦-夜曲.mp3'},
+{title: '周杰伦-以父之名',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周杰伦-以父之名.mp3'},
+{title: '周杰伦-最长的电影',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周杰伦-最长的电影.mp3'},
+{title: '周林枫-阿嬷',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周林枫-阿嬷.mp3'},
+{title: '周深-LetItGo',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周深-LetItGo.mp3'},
+{title: '周深-触不可及',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周深-触不可及.mp3'},
+{title: '周深-大鱼',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周深-大鱼.mp3'},
+{title: '周深-胆小鬼',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周深-胆小鬼.mp3'},
+{title: '周深-和光同尘',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周深-和光同尘.mp3'},
+{title: '周深-花西子',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周深-花西子.mp3'},
+{title: '周深-化身孤岛的鲸',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周深-化身孤岛的鲸.mp3'},
+{title: '周深-欢颜',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周深-欢颜.mp3'},
+{title: '周深-可梦',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周深-可梦.mp3'},
+{title: '周深-年轮',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周深-年轮.mp3'},
+{title: '周深-起风了',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周深-起风了.mp3'},
+{title: '周深-若梦',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周深-若梦.mp3'},
+{title: '周深-身骑白马',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周深-身骑白马.mp3'},
+{title: '周深-斯卡布罗集市',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周深-斯卡布罗集市.mp3'},
+{title: '周深-天堂岛之歌',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周深-天堂岛之歌.mp3'},
+{title: '周深-小幸运',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周深-小幸运.mp3'},
+{title: '周深-雪落下的声音',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周深-雪落下的声音.mp3'},
+{title: '周迅-飘摇',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周迅-飘摇.mp3'},
+{title: '周艳泓-要嫁就嫁灰太狼',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周艳泓-要嫁就嫁灰太狼.mp3'},
+{title: '周治平-那一场风花雪月的故事',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/周治平-那一场风花雪月的故事.mp3'},
+{title: '庄心妍 祁隆-一万个舍不得',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/庄心妍 祁隆-一万个舍不得.mp3'},
+{title: '庄心妍-爱囚',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/庄心妍-爱囚.mp3'},
+{title: '庄心妍-以后的以后',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/庄心妍-以后的以后.mp3'},
+{title: '庄心妍-再见只是陌生人',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/庄心妍-再见只是陌生人.mp3'},
+{title: '庄心妍-走着走着就散了',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/庄心妍-走着走着就散了.mp3'},
+{title: '宗次郎-故乡的原风景',artist: '',src: 'https://cloud.hhhnn.com/d/189Family133/音乐视听/精选/宗次郎-故乡的原风景.mp3'}
+    ];
+
+    // ============================================================
+    // 2. 播放器核心逻辑
+    // ============================================================
+    var MusicPlayer = {
+        // DOM 元素缓存
+        elements: {},
+        // 当前状态
+        currentIndex: 0,
+        isPlaying: false,
+        mode: 'list', // 'list' | 'loop' | 'random' | 'single'
+        audio: null,
+        isDragging: false,
+
+        // 初始化
+        init: function() {
+            // 缓存DOM元素
+            this.elements = {
+                playBtn: document.getElementById('playBtn'),
+                prevBtn: document.getElementById('prevBtn'),
+                nextBtn: document.getElementById('nextBtn'),
+                modeBtn: document.getElementById('modeBtn'),
+                progressBar: document.getElementById('progressBar'),
+                progressFill: document.getElementById('progressFill'),
+                currentTime: document.getElementById('currentTime'),
+                totalTime: document.getElementById('totalTime'),
+                songTitle: document.getElementById('songTitle'),
+                songArtist: document.getElementById('songArtist')
+            };
+
+            // 创建音频对象
+            this.audio = new Audio();
+            this.audio.preload = 'metadata';
+
+            // 加载第一首歌
+            this.loadSong(this.currentIndex);
+
+            // 绑定事件
+            this.bindEvents();
+
+            // 更新UI
+            this.updateModeButton();
+            this.updatePlayButton();
+            this.updateSongInfo();
+
+            console.log('🎵 星空音乐播放器初始化完成');
+            console.log('📀 共加载 ' + musicList.length + ' 首歌曲');
+        },
+
+        // 加载歌曲
+        loadSong: function(index) {
+            if (index < 0 || index >= musicList.length) {
+                console.warn('歌曲索引超出范围，重置为0');
+                index = 0;
+            }
+            this.currentIndex = index;
+            var song = musicList[index];
+            if (!song) return;
+
+            // 如果音频源改变，重新加载
+            if (this.audio.src !== song.src) {
+                this.audio.src = song.src;
+                this.audio.load();
+            }
+
+            // 更新歌曲信息
+            this.updateSongInfo();
+
+            // 重置进度
+            this.updateProgress(0);
+            this.elements.currentTime.textContent = '0:00';
+            
+            // 如果正在播放，自动播放
+            if (this.isPlaying) {
+                this.audio.play().catch(function(e) {
+                    console.warn('自动播放失败:', e);
+                    MusicPlayer.isPlaying = false;
+                    MusicPlayer.updatePlayButton();
+                });
+            }
+
+            console.log('🎶 加载歌曲: ' + song.title + ' - ' + song.artist);
+        },
+
+        // 播放/暂停切换
+        togglePlay: function() {
+            if (this.audio.paused) {
+                this.play();
+            } else {
+                this.pause();
+            }
+        },
+
+        play: function() {
+            this.audio.play().then(function() {
+                MusicPlayer.isPlaying = true;
+                MusicPlayer.updatePlayButton();
+            }).catch(function(e) {
+                console.warn('播放失败:', e);
+                // 可能是用户未交互，尝试静默处理
+                MusicPlayer.isPlaying = false;
+                MusicPlayer.updatePlayButton();
+            });
+        },
+
+        pause: function() {
+            this.audio.pause();
+            this.isPlaying = false;
+            this.updatePlayButton();
+        },
+
+        // 上一首
+        prev: function() {
+            var index;
+            if (this.mode === 'random') {
+                index = this.getRandomIndex();
+            } else {
+                index = this.currentIndex - 1;
+                if (index < 0) index = musicList.length - 1;
+            }
+            this.loadSong(index);
+            if (!this.isPlaying) {
+                this.play();
+            }
+        },
+
+        // 下一首
+        next: function() {
+            var index;
+            if (this.mode === 'random') {
+                index = this.getRandomIndex();
+            } else {
+                index = this.currentIndex + 1;
+                if (index >= musicList.length) index = 0;
+            }
+            this.loadSong(index);
+            if (!this.isPlaying) {
+                this.play();
+            }
+        },
+
+        // 获取随机索引（不与当前相同）
+        getRandomIndex: function() {
+            if (musicList.length <= 1) return 0;
+            var index;
+            do {
+                index = Math.floor(Math.random() * musicList.length);
+            } while (index === this.currentIndex);
+            return index;
+        },
+
+        // 模式切换
+        toggleMode: function() {
+            var modes = ['list', 'loop', 'random', 'single'];
+            var currentIdx = modes.indexOf(this.mode);
+            var nextIdx = (currentIdx + 1) % modes.length;
+            this.mode = modes[nextIdx];
+            this.updateModeButton();
+            console.log('🔄 播放模式切换为:', this.getModeText());
+        },
+
+        getModeText: function() {
+            var map = {
+                'list': '列表循环',
+                'loop': '全部循环',
+                'random': '随机播放',
+                'single': '单曲循环'
+            };
+            return map[this.mode] || '列表循环';
+        },
+
+        // 更新模式按钮
+        updateModeButton: function() {
+            var btn = this.elements.modeBtn;
+            var modeSymbols = {
+                'list': '🔁',
+                'loop': '🔁',
+                'random': '🎲',
+                'single': '🔂'
+            };
+            btn.textContent = modeSymbols[this.mode] || '🔁';
+            btn.title = '播放模式: ' + this.getModeText();
+        },
+
+        // 更新播放按钮
+        updatePlayButton: function() {
+            var btn = this.elements.playBtn;
+            btn.textContent = this.isPlaying ? '⏸' : '▶';
+            btn.title = this.isPlaying ? '暂停' : '播放';
+        },
+
+        // 更新歌曲信息
+        updateSongInfo: function() {
+            var song = musicList[this.currentIndex];
+            if (!song) return;
+            var titleEl = this.elements.songTitle;
+            var artistEl = this.elements.songArtist;
+            titleEl.innerHTML = '✨ ' + song.title + ' <span id="songArtist">· ' + song.artist + '</span>';
+        },
+
+        // 更新进度
+        updateProgress: function(value) {
+            var fill = this.elements.progressFill;
+            if (fill) {
+                var percent = Math.min(100, Math.max(0, value * 100));
+                fill.style.width = percent + '%';
+            }
+        },
+
+        // 格式化时间
+        formatTime: function(seconds) {
+            if (isNaN(seconds) || !isFinite(seconds)) return '0:00';
+            seconds = Math.floor(seconds);
+            var mins = Math.floor(seconds / 60);
+            var secs = seconds % 60;
+            return mins + ':' + (secs < 10 ? '0' : '') + secs;
+        },
+
+        // 绑定事件
+        bindEvents: function() {
+            var self = this;
+
+            // 播放/暂停
+            this.elements.playBtn.addEventListener('click', function() {
+                self.togglePlay();
+            });
+
+            // 上一首
+            this.elements.prevBtn.addEventListener('click', function() {
+                self.prev();
+            });
+
+            // 下一首
+            this.elements.nextBtn.addEventListener('click', function() {
+                self.next();
+            });
+
+            // 模式切换
+            this.elements.modeBtn.addEventListener('click', function() {
+                self.toggleMode();
+            });
+
+            // 音频事件：时间更新
+            this.audio.addEventListener('timeupdate', function() {
+                if (self.isDragging) return;
+                var current = this.currentTime;
+                var duration = this.duration || 1;
+                self.updateProgress(current / duration);
+                self.elements.currentTime.textContent = self.formatTime(current);
+                if (duration && duration > 0) {
+                    self.elements.totalTime.textContent = self.formatTime(duration);
+                }
+            });
+
+            // 音频加载完成
+            this.audio.addEventListener('loadedmetadata', function() {
+                var duration = this.duration || 0;
+                self.elements.totalTime.textContent = self.formatTime(duration);
+            });
+
+            // 音频播放结束
+            this.audio.addEventListener('ended', function() {
+                self.handleSongEnd();
+            });
+
+            // 进度条点击/拖动
+            var progressBar = this.elements.progressBar;
+            var progressFill = this.elements.progressFill;
+
+            // 点击跳转
+            progressBar.addEventListener('click', function(e) {
+                var rect = this.getBoundingClientRect();
+                var percent = (e.clientX - rect.left) / rect.width;
+                percent = Math.min(1, Math.max(0, percent));
+                if (self.audio.duration) {
+                    self.audio.currentTime = percent * self.audio.duration;
+                    self.updateProgress(percent);
+                    self.elements.currentTime.textContent = self.formatTime(self.audio.currentTime);
+                }
+            });
+
+            // 拖动开始
+            progressBar.addEventListener('mousedown', function(e) {
+                self.isDragging = true;
+                var rect = this.getBoundingClientRect();
+                var percent = (e.clientX - rect.left) / rect.width;
+                percent = Math.min(1, Math.max(0, percent));
+                if (self.audio.duration) {
+                    self.audio.currentTime = percent * self.audio.duration;
+                    self.updateProgress(percent);
+                    self.elements.currentTime.textContent = self.formatTime(self.audio.currentTime);
+                }
+            });
+
+            // 拖动中（全局监听）
+            document.addEventListener('mousemove', function(e) {
+                if (!self.isDragging) return;
+                var rect = progressBar.getBoundingClientRect();
+                var percent = (e.clientX - rect.left) / rect.width;
+                percent = Math.min(1, Math.max(0, percent));
+                if (self.audio.duration) {
+                    self.audio.currentTime = percent * self.audio.duration;
+                    self.updateProgress(percent);
+                    self.elements.currentTime.textContent = self.formatTime(self.audio.currentTime);
+                }
+            });
+
+            // 拖动结束
+            document.addEventListener('mouseup', function() {
+                if (self.isDragging) {
+                    self.isDragging = false;
+                }
+            });
+
+            // 键盘快捷键（空格切换播放）
+            document.addEventListener('keydown', function(e) {
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    self.togglePlay();
+                }
+            });
+
+            // 处理页面可见性变化（暂停时节省资源）
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden && self.isPlaying) {
+                    // 页面隐藏时自动暂停（可选）
+                    // self.pause();
+                }
+            });
+
+            console.log('✅ 播放器事件绑定完成');
+        },
+
+        // 处理歌曲结束
+        handleSongEnd: function() {
+            var self = this;
+            console.log('⏹️ 歌曲播放结束, 当前模式:', this.mode);
+
+            if (this.mode === 'single') {
+                // 单曲循环：重新播放
+                this.audio.currentTime = 0;
+                this.play();
+                return;
+            }
+
+            if (this.mode === 'random') {
+                // 随机播放
+                var nextIndex = this.getRandomIndex();
+                this.loadSong(nextIndex);
+                this.play();
+                return;
+            }
+
+            if (this.mode === 'loop' || this.mode === 'list') {
+                // 列表循环 / 全部循环
+                var nextIndex = (this.currentIndex + 1) % musicList.length;
+                this.loadSong(nextIndex);
+                this.play();
+                return;
+            }
+
+            // 默认：切换到下一首
+            var defaultNext = (this.currentIndex + 1) % musicList.length;
+            this.loadSong(defaultNext);
+            this.play();
+        }
+    };
+
+    // ============================================================
+    // 3. 导出/暴露接口
+    // ============================================================
+
+    // 暴露音乐列表和播放器实例到全局
+    window.musicList = musicList;
+    window.MusicPlayer = MusicPlayer;
+
+    // 提供一个便捷的初始化函数
+    window.createMusicPlayer = function() {
+        if (!MusicPlayer.elements.playBtn) {
+            MusicPlayer.init();
+        } else {
+            console.log('⚠️ 播放器已初始化，无需重复创建');
+        }
+        return MusicPlayer;
+    };
+
+    // ============================================================
+    // 4. 自动初始化（在DOM加载完成后）
+    // ============================================================
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        // DOM已就绪，稍后初始化（等待其他脚本）
+        setTimeout(function() {
+            if (!window.MusicPlayer || !window.MusicPlayer.elements.playBtn) {
+                window.createMusicPlayer();
+            }
+        }, 100);
+    } else {
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                if (!window.MusicPlayer || !window.MusicPlayer.elements.playBtn) {
+                    window.createMusicPlayer();
+                }
+            }, 100);
+        });
+    }
+
+    console.log('📦 music.js 加载完成');
+    console.log('🎯 使用方法: MusicPlayer.play() / .pause() / .next() / .prev() / .toggleMode()');
+    console.log('📋 音乐列表: window.musicList 可自由修改');
+
+})();

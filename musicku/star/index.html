@@ -1,0 +1,310 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>星空音乐播放器 · 动态特效</title>
+  <!-- 保持原有样式不变，仅增加播放器自定义样式 -->
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* 播放器容器 - 悬浮在星空之上，半透明磨砂质感 */
+    .music-player {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 600px;
+      background: rgba(10, 10, 30, 0.65);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 60px;
+      padding: 12px 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      z-index: 999;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      transition: all 0.3s ease;
+      font-family: 'Segoe UI', 'PingFang SC', Roboto, 'Helvetica Neue', sans-serif;
+    }
+    .music-player:hover {
+      background: rgba(20, 20, 50, 0.75);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8);
+    }
+    /* 控制按钮组 */
+    .player-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex: 2 1 auto;
+    }
+    .player-controls button {
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      border-radius: 40px;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f0f4ff;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .player-controls button:hover {
+      background: rgba(255, 215, 100, 0.25);
+      color: #ffdd77;
+      transform: scale(1.05);
+      border-color: rgba(255, 215, 100, 0.4);
+    }
+    .player-controls button:active {
+      transform: scale(0.92);
+    }
+    .player-controls .play-btn {
+      width: 52px;
+      height: 52px;
+      font-size: 26px;
+      background: rgba(255, 200, 80, 0.2);
+      border-color: rgba(255, 200, 80, 0.3);
+    }
+    .player-controls .play-btn:hover {
+      background: rgba(255, 200, 80, 0.35);
+    }
+    /* 模式切换按钮特殊样式 */
+    .mode-btn {
+      background: rgba(100, 180, 255, 0.15);
+      border-color: rgba(100, 180, 255, 0.2);
+      font-size: 18px;
+      letter-spacing: 2px;
+      width: 52px;
+      font-weight: 500;
+    }
+    .mode-btn:hover {
+      background: rgba(100, 180, 255, 0.3);
+      color: #aad0ff;
+    }
+    /* 进度条区域 (时间+进度条) */
+    .player-progress {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 3 1 200px;
+      min-width: 140px;
+    }
+    .player-progress .time {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 13px;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.3px;
+      min-width: 36px;
+    }
+    .progress-bar {
+      flex: 1;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      position: relative;
+      cursor: pointer;
+      transition: height 0.2s;
+    }
+    .progress-bar:hover {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.25);
+    }
+    .progress-bar .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #f9d976, #f39c6d);
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(243, 156, 109, 0.4);
+      transition: width 0.05s linear;
+      position: relative;
+    }
+    /* 歌曲信息 */
+    .song-info {
+      color: #eef3ff;
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 140px;
+      flex: 1 0 auto;
+      padding: 0 6px;
+      text-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+    }
+    .song-info span {
+      opacity: 0.7;
+      font-weight: 300;
+      margin-left: 6px;
+      font-size: 13px;
+    }
+    /* 响应式调整 */
+    @media (max-width: 640px) {
+      .music-player {
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: 32px;
+        padding: 16px 18px;
+        bottom: 20px;
+        gap: 10px;
+        width: 94%;
+      }
+      .player-controls {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .player-progress {
+        flex: 1 1 auto;
+        width: 100%;
+      }
+      .song-info {
+        max-width: 100%;
+        text-align: center;
+        font-size: 14px;
+        white-space: normal;
+        word-break: break-word;
+      }
+      .player-controls button {
+        width: 38px;
+        height: 38px;
+        font-size: 18px;
+      }
+      .player-controls .play-btn {
+        width: 46px;
+        height: 46px;
+        font-size: 22px;
+      }
+      .mode-btn {
+        width: 46px;
+        font-size: 16px;
+      }
+    }
+    @media (max-width: 420px) {
+      .player-controls button {
+        width: 34px;
+        height: 34px;
+        font-size: 15px;
+      }
+      .player-controls .play-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+      }
+      .mode-btn {
+        width: 40px;
+        font-size: 14px;
+      }
+      .song-info {
+        font-size: 13px;
+      }
+    }
+    /* 隐藏默认audio，但保留以支持功能 */
+    audio {
+      display: none;
+    }
+    /* 原有css/style.css 中的 .wall 层叠保持不变，这里无覆盖 */
+    /* 保留站长素材底部信息，但调整位置避免被播放器遮挡 — 增加间距 */
+    .footer-info {
+      position: relative;
+      z-index: 10;
+      padding-bottom: 120px;
+    }
+    @media (max-width: 640px) {
+      .footer-info {
+        padding-bottom: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 星空背景层 (完全保持原有结构) -->
+  <div id="background" class="wall"></div>
+  <div id="midground" class="wall"></div>
+  <div id="foreground" class="wall"></div>
+  <div id="top" class="wall"></div>
+
+  <!-- ===== 自定义音乐播放器 ===== -->
+  <div class="music-player" id="musicPlayer">
+    <!-- 歌曲信息 -->
+    <div class="song-info" id="songTitle">✨ 星空序曲 <span id="songArtist">· 佚名</span></div>
+
+    <!-- 控制按钮组 -->
+    <div class="player-controls">
+      <button id="prevBtn" aria-label="上一首" title="上一首">⏮</button>
+      <button id="playBtn" class="play-btn" aria-label="播放/暂停" title="播放/暂停">▶</button>
+      <button id="nextBtn" aria-label="下一首" title="下一首">⏭</button>
+      <button id="modeBtn" class="mode-btn" aria-label="播放模式" title="循环模式">🔁</button>
+    </div>
+
+    <!-- 进度条 + 时间 -->
+    <div class="player-progress">
+      <span class="time" id="currentTime">0:00</span>
+      <div class="progress-bar" id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <span class="time" id="totalTime">0:00</span>
+    </div>
+  </div>
+
+  <!-- 保留原有底部信息，微调类名便于样式 -->
+  <div class="footer-info" style="text-align:center;margin:50px 0 30px; font:normal 14px/24px 'MicroSoft YaHei','PingFang SC',sans-serif; color: rgba(255,255,255,0.5); position:relative; z-index:10; text-shadow: 0 2px 12px rgba(0,0,0,0.8);">
+    <p>听松阁</p>
+    <p>归来卧松云，微凉送晚风。枕上听松语，槛外看潮生!</p>
+  </div>
+
+  <!-- 引入 music.js (音乐文件列表及播放逻辑) -->
+  <script src="music.js"></script>
+  <script>
+    (function() {
+      // 等待 music.js 加载完毕 (music.js 中定义了 window.musicList, 且默认导出播放器实例)
+      // 但为了防止加载顺序，此处使用 DOMContentLoaded 或直接等待全局变量
+      function initPlayer() {
+        // 检查 music.js 是否已经暴露了 MusicPlayer 实例
+        if (typeof window.MusicPlayer !== 'undefined') {
+          // 如果已经存在实例，直接使用
+          return;
+        }
+        // 否则等待（但通常 script 顺序加载，这里做二次保障）
+        if (typeof window.musicList === 'undefined') {
+          console.warn('music.js 未正确加载，请检查路径');
+          return;
+        }
+        // 如果 music.js 没有自动实例化，我们手动创建（但建议在 music.js 中完成）
+        // 为了兼容，如果 music.js 没有自动执行，我们在这里执行
+        if (typeof window.createMusicPlayer === 'function') {
+          window.createMusicPlayer();
+        } else {
+          // 简单回退：直接使用默认逻辑 (但依赖于music.js的列表)
+          console.error('未找到音乐播放器初始化函数');
+        }
+      }
+
+      // 等待DOM和脚本都准备就绪
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        initPlayer();
+      } else {
+        document.addEventListener('DOMContentLoaded', initPlayer);
+      }
+
+      // 额外：如果 music.js 加载失败，给出提示
+      window.addEventListener('error', function(e) {
+        if (e.target.tagName === 'SCRIPT' && e.target.src && e.target.src.includes('music.js')) {
+          console.error('music.js 加载失败，请检查文件路径');
+        }
+      }, true);
+    })();
+  </script>
+</body>
+</html>
