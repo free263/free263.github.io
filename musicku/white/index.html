@@ -1,0 +1,99 @@
+﻿﻿<!DOCTYPE html>
+<html lang="en" >
+<head>
+<meta charset="UTF-8">
+<title>MP3音乐播放器工具代码 - 站长素材</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+<div class="player">
+
+    <div class="player__header">
+
+      <div class="player__img player__img--absolute slider">
+
+        <button class="player__button player__button--absolute--nw playlist">
+
+          <img src="svg/playlist.svg" alt="playlist-icon">
+
+        </button>
+
+        <button class="player__button player__button--absolute--center play">
+
+          <img src="svg/play.svg" alt="play-icon">
+          <img src="svg/pause.svg" alt="pause-icon">
+
+        </button>
+
+        <!-- 模式切换按钮 - 放在右上角 -->
+        <button class="player__button player__button--absolute--ne mode-toggle" id="modeToggle" title="切换播放模式">
+
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+            <!-- 顺序播放图标 -->
+            <path class="mode-icon-order" d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/>
+            <path class="mode-icon-order" d="M16 4l4 2-4 2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path class="mode-icon-order" d="M16 16l4 2-4 2" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- 随机播放图标 -->
+            <path class="mode-icon-random" d="M21 8l-4-4v8zM3 16l4 4V8z" stroke-linecap="round" stroke-linejoin="round" style="display:none;"/>
+            <path class="mode-icon-random" d="M17 8l4-4-4-4" stroke-linecap="round" stroke-linejoin="round" style="display:none;"/>
+            <path class="mode-icon-random" d="M7 16l-4 4 4 4" stroke-linecap="round" stroke-linejoin="round" style="display:none;"/>
+          </svg>
+
+        </button>
+
+        <div class="slider__content">
+
+          <!-- 封面图片将由 JavaScript 动态生成 -->
+
+        </div>
+
+      </div>
+
+      <div class="player__controls">
+
+        <button class="player__button back">
+
+          <img class="img" src="svg/back.svg" alt="back-icon">
+
+        </button>
+        
+        <p class="player__context slider__context">
+
+          <strong class="slider__name"></strong>
+          <span class="player__title slider__title"></span>
+
+        </p>
+
+        <button class="player__button next">
+
+          <img class="img" src="svg/next.svg" alt="next-icon">
+
+        </button>
+
+        <div class="progres">
+
+          <div class="progres__filled"></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <ul class="player__playlist list" id="playlist">
+
+      <!-- 歌单将由 JavaScript 动态生成 -->
+
+    </ul>
+
+  </div>
+
+  <!-- 引入音乐数据 -->
+  <script src="./js/music.js"></script>
+  <script src="./js/script.js"></script>
+
+</body>
+</html>

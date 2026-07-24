@@ -1,0 +1,320 @@
+/* ===== 原有样式保持不变 ===== */
+body {
+    margin: 0;
+    padding: 0;
+    background: #355260;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* ===== 背景层（带黑色遮罩） ===== */
+#bgLayer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    transition: opacity 0.8s ease;
+}
+
+/* 背景图片 */
+#bgLayer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("https://api.rryyz.com/api-pic/bg-guidao.php") no-repeat center center;
+    background-size: cover;
+    z-index: 0;
+}
+
+/* 黑色遮罩 透明度50% */
+#bgLayer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+/* ===== 模式切换按钮容器 ===== */
+.mode-switch {
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, top 0.3s ease;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 6px 10px;
+    border-radius: 20px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* 鼠标悬停在小球上时显示模式切换按钮 */
+.circle:hover .mode-switch {
+    opacity: 1;
+    visibility: visible;
+    top: -70px;
+}
+
+/* 模式切换按钮样式 */
+.mode-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    padding: 0;
+}
+
+.mode-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.mode-btn.active {
+    background: rgba(88, 160, 195, 0.6);
+    color: #fff;
+    box-shadow: 0 0 15px rgba(88, 160, 195, 0.4);
+}
+
+/* ===== 以下为原有样式（保持完全不变） ===== */
+.circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.imgs {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border-radius: 50px;
+    background: url("../img/happy.jpg") no-repeat;
+    background-size: 100%;
+}
+
+.circle .share {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    line-height: 80px;
+    text-align: center;
+    color: #fff;
+    border-radius: 50%;
+    z-index: 1;
+    box-shadow: 0 0 0 2px #112833;
+}
+
+.circle ul {
+    position: absolute;
+    top: -58px;
+    left: -58px;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    transition: .7s;
+    z-index: -1;
+    transform: scale(.3) rotate(-180deg);
+    opacity: 0;
+}
+
+.circle:hover ul {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+}
+
+.circle ul li {
+    position: absolute;
+    list-style: none;
+}
+
+.circle ul li:nth-child(1) { top: 6px; left: 50%; transform: translate(-50%); }
+.circle ul li:nth-child(2) { bottom: 6px; left: 50%; transform: translateX(-50%); }
+.circle ul li:nth-child(3) { left: 6px; top: 50%; transform: translateY(-50%); }
+.circle ul li:nth-child(4) { right: 6px; top: 50%; transform: translateY(-50%); }
+
+#yl {
+    display: block;
+    position: absolute;
+    background-color: rgba(0,0,0,0.3);
+    width: 22px;
+    height: 65px;
+    bottom: 50px;
+    left: 15px;
+    transform: rotate(180deg);
+    transition: .5s;
+    text-align: center;
+    opacity: 0;
+}
+
+.circle ul li:nth-child(1):hover #yl { opacity: 1; }
+
+#yi {
+    display: block;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    background-color: rgba(255,255,255,0.3);
+    width: 4px;
+    height: 40px;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+#yn {
+    display: block;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    background-color: #58a0c3;
+    width: 4px;
+    height: 42px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0px;
+    transition: .3s;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.bol {
+    display: block;
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 40px;
+    background-color: #58a0c3;
+    border-radius: 50%;
+    z-index: -1;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.ytext {
+    display: block;
+    position: absolute;
+    height: 15px;
+    width: 100%;
+    bottom: 0;
+    font-size: 11px;
+    transform: rotate(180deg);
+}
+
+button {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: rgba(0,0,0,0);
+}
+
+#star { position: relative; top: 18%; }
+
+.icon {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+}
+
+.share:hover .icon-star {
+    background: url("../img/actions.png") no-repeat center;
+    background-size: 99% 99%;
+    opacity: 1;
+}
+.icon-star { opacity: 0; }
+
+.icon-yin { background: url("../img/音量.png") no-repeat center; background-size: 99% 99%; }
+.icon-lef { background: url("../img/ups.png") no-repeat center; background-size: 100% 100%; }
+.icon-rig { background: url("../img/dows.png") no-repeat center; background-size: 100% 100%; }
+.icon-lis { background: url("../img/ml.png") no-repeat center; background-size: 100% 100%; }
+
+.icon > .icon {
+    position: relative;
+    left: -40px;
+    border-right: 40px solid transparent;
+    filter: drop-shadow(40px 0 0 #9976ff);
+    margin-right: 2px;
+}
+.icon > .icon:hover { filter: drop-shadow(40px 0 0 #f091ff); }
+
+.circle ul li:nth-child(2):hover #musicLists { width: 50px; }
+
+#musicLists {
+    position: absolute;
+    height: 58px;
+    width: 0px;
+    background-color: #6c78ad;
+    right: 45px;
+    top: -5px;
+    border-radius: 5px;
+    color: #b08cff;
+    overflow: hidden;
+    font-size: 10px;
+    transition: .5s;
+}
+
+#ls {
+    top: 4px;
+    left: 2px;
+    position: absolute;
+    background-color: #4d5881;
+    border-radius: 3px;
+    height: 50px;
+    width: 45px;
+    z-index: 5;
+}
+
+#ls div {
+    position: relative;
+    box-sizing: border-box;
+    top: 5px;
+    margin-bottom: 3px;
+    padding-left: 3px;
+    font-size: 8px;
+    width: 45px;
+    height: 8px;
+    line-height: 8px;
+    overflow: hidden;
+    list-style: none;
+    text-align: left;
+}
