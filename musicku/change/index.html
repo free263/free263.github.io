@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HTML5带背景音乐播放器代码</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+
+<link rel="stylesheet" href="css/animate.css">
+<link rel="stylesheet" href="fonts/fontCss.css">
+<link rel="stylesheet" type="text/css" href="css/music.css">
+<style>
+	body,html{
+		margin:0;
+		padding: 0;
+		background: #000;
+		height: 100%;
+	}
+	/* 模式切换按钮 - 与下一首按钮大小一致，纯图标无文字 */
+	.mode-toggle-btn {
+		position: fixed;
+		z-index: 9999;
+		width: 44px;
+		height: 44px;
+		border-radius: 50%;
+		background: rgba(255,255,255,0.2);
+		backdrop-filter: blur(8px);
+		-webkit-backdrop-filter: blur(8px);
+		border: 1.5px solid rgba(255,255,255,0.4);
+		box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+		cursor: pointer;
+		transition: all 0.25s ease;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 22px;
+		color: #fff;
+		text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+		user-select: none;
+		-webkit-tap-highlight-color: transparent;
+		left: auto;
+		right: 20px;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+	.mode-toggle-btn:hover {
+		transform: scale(1.1) translateY(-50%);
+		background: rgba(255,255,255,0.3);
+		border-color: rgba(255,255,255,0.7);
+	}
+	.mode-toggle-btn:active {
+		transform: scale(0.92) translateY(-50%);
+	}
+	.mode-toggle-btn .mode-icon {
+		line-height: 1;
+		pointer-events: none;
+	}
+	/* 播放器整体宽度加大20% */
+	.music-box {
+		width: 70% !important;
+		max-width: 720px !important;
+		min-width: 320px !important;
+	}
+	/* 音乐信息容器 */
+	.music-info {
+		width: 100% !important;
+		max-width: 100% !important;
+		overflow: visible !important;
+		flex: 1 !important;
+		min-width: 0 !important;
+	}
+	/* 音乐名称 - 向右移动20px，完整显示 */
+	.music-name {
+		padding-right: 100px !important;
+		padding-left: 40px !important;  /* 向右移动20px */
+		box-sizing: border-box;
+		width: 100% !important;
+		max-width: 100% !important;
+		white-space: nowrap !important;
+		overflow: visible !important;
+		text-overflow: clip !important;
+		display: block !important;
+		font-size: 14px !important;
+		line-height: 1.4 !important;
+	}
+	/* 歌手名称也向右移动20px */
+	.music-singer {
+		padding-right: 100px !important;
+		padding-left: 40px !important;  /* 向右移动20px */
+		box-sizing: border-box;
+		width: 100% !important;
+		white-space: nowrap !important;
+		overflow: visible !important;
+		text-overflow: clip !important;
+		font-size: 12px !important;
+	}
+	/* 播放器内部布局 */
+	.music-play-div {
+		display: flex !important;
+		align-items: center !important;
+		width: 100% !important;
+		overflow: visible !important;
+	}
+	/* 进度条和时间也做适配 */
+	.music-time, .music-progress {
+		width: 100% !important;
+	}
+	.music-time {
+		padding-right: 10px !important;
+		box-sizing: border-box;
+	}
+	.music-player, .music-content {
+		width: 100% !important;
+		max-width: 100% !important;
+		overflow: visible !important;
+	}
+	/* 适配小屏 */
+	@media (max-width: 600px) {
+		.music-box {
+			width: 85% !important;
+			min-width: 280px !important;
+		}
+		.music-name {
+			padding-right: 80px !important;
+			padding-left: 16px !important;
+			font-size: 13px !important;
+		}
+		.music-singer {
+			padding-right: 80px !important;
+			padding-left: 16px !important;
+			font-size: 11px !important;
+		}
+		.mode-toggle-btn {
+			width: 40px;
+			height: 40px;
+			font-size: 20px;
+		}
+	}
+	@media (max-width: 420px) {
+		.music-box {
+			width: 92% !important;
+			min-width: 240px !important;
+		}
+		.music-name {
+			padding-right: 70px !important;
+			padding-left: 12px !important;
+			font-size: 12px !important;
+		}
+		.music-singer {
+			padding-right: 70px !important;
+			padding-left: 12px !important;
+			font-size: 10px !important;
+		}
+		.mode-toggle-btn {
+			width: 36px;
+			height: 36px;
+			font-size: 18px;
+		}
+	}
+	/* 底部文字保持不变 */
+	.footer-text {
+		text-align:center;
+		margin:-150px 0;
+		font:normal 14px/24px 'MicroSoft YaHei';
+		color:#ffffff;
+	}
+</style>
+</head>
+<body>
+
+<div class="music-bg" style="height: 100%;filter: blur(100px);transition:all 0.3s" id="music-bg">
+	<div class="music-mask"></div>
+</div>
+
+<!-- 模式切换按钮 -->
+<div class="mode-toggle-btn" id="modeToggleBtn" role="button" aria-label="切换播放模式">
+	<span class="mode-icon" id="modeIcon">🔁</span>
+</div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/music.js"></script>
+<script type="text/javascript">
+window.onload = function(){
+	var currentMode = 'order';
+	var modeIcon = document.getElementById('modeIcon');
+	var modeBtn = document.getElementById('modeToggleBtn');
+	var btnPos = { left: 'auto', top: 'auto', right: 'auto', bottom: 'auto' };
+
+	function positionModeBtn() {
+		var nextBtn = document.querySelector('.music-next') || document.querySelector('.next-btn') || document.querySelector('[class*="next"]');
+		if (nextBtn) {
+			var rect = nextBtn.getBoundingClientRect();
+			var btnSize = rect.height || 44;
+			if (btnSize < 30) btnSize = 44;
+			var gap = 14;
+			if (window.innerWidth <= 420) {
+				btnSize = Math.min(btnSize, 36);
+				gap = 8;
+			} else if (window.innerWidth <= 600) {
+				btnSize = Math.min(btnSize, 40);
+				gap = 10;
+			}
+			modeBtn.style.width = btnSize + 'px';
+			modeBtn.style.height = btnSize + 'px';
+			modeBtn.style.fontSize = Math.round(btnSize * 0.5) + 'px';
+			
+			var topPos = rect.top + (rect.height - btnSize) / 2;
+			var leftPos = rect.right + gap;
+			if (leftPos + btnSize > window.innerWidth - 10) {
+				leftPos = rect.left - btnSize - gap;
+			}
+			if (leftPos < 10) leftPos = 10;
+			if (topPos < 10) topPos = 10;
+			if (topPos + btnSize > window.innerHeight - 10) {
+				topPos = window.innerHeight - btnSize - 10;
+			}
+
+			modeBtn.style.position = 'fixed';
+			modeBtn.style.left = leftPos + 'px';
+			modeBtn.style.top = topPos + 'px';
+			modeBtn.style.right = 'auto';
+			modeBtn.style.bottom = 'auto';
+			modeBtn.style.transform = 'none';
+			
+			btnPos.left = leftPos + 'px';
+			btnPos.top = topPos + 'px';
+			btnPos.right = 'auto';
+			btnPos.bottom = 'auto';
+		} else {
+			modeBtn.style.right = '20px';
+			modeBtn.style.bottom = '50%';
+			modeBtn.style.transform = 'translateY(50%)';
+			modeBtn.style.left = 'auto';
+			modeBtn.style.top = 'auto';
+			btnPos.right = '20px';
+			btnPos.bottom = '50%';
+			btnPos.left = 'auto';
+			btnPos.top = 'auto';
+		}
+	}
+
+	function togglePlayMode() {
+		if (currentMode === 'order') {
+			currentMode = 'random';
+			modeIcon.textContent = '🔀';
+		} else {
+			currentMode = 'order';
+			modeIcon.textContent = '🔁';
+		}
+		if (window.MC) {
+			if (MC.player) MC.player._playMode = currentMode;
+			MC._playMode = currentMode;
+		}
+		restoreBtnPosition();
+	}
+
+	function restoreBtnPosition() {
+		if (btnPos.left !== 'auto' && btnPos.left !== undefined) {
+			modeBtn.style.position = 'fixed';
+			modeBtn.style.left = btnPos.left;
+			modeBtn.style.top = btnPos.top;
+			modeBtn.style.right = 'auto';
+			modeBtn.style.bottom = 'auto';
+			modeBtn.style.transform = 'none';
+		} else if (btnPos.right !== 'auto' && btnPos.right !== undefined) {
+			modeBtn.style.right = btnPos.right;
+			modeBtn.style.bottom = btnPos.bottom;
+			modeBtn.style.left = 'auto';
+			modeBtn.style.top = 'auto';
+			modeBtn.style.transform = 'translateY(50%)';
+		}
+	}
+
+	modeBtn.addEventListener('click', function(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		togglePlayMode();
+		setTimeout(restoreBtnPosition, 10);
+	});
+
+	modeBtn.addEventListener('mousedown', function(e) {
+		e.preventDefault();
+	});
+
+	MC.music({
+		hasAjax:false,
+		left:'50%',
+		bottom:'50%',
+		musicChanged:function(ret){
+			var data = ret.data;
+			var index = ret.index;
+			if (data && data[index]) {
+				var imageUrl = data[index].img_url;
+				var music_bg = document.getElementById('music-bg');
+				if (imageUrl) {
+					music_bg.style.background = 'url('+imageUrl+') no-repeat';
+					music_bg.style.backgroundSize = 'cover';
+					music_bg.style.backgroundPosition = 'center 30%';
+				}
+			}
+			setTimeout(positionModeBtn, 150);
+		},
+		getMusicInfo:function(data){},
+		musicPlayByWebAudio:function(ret){},
+	});
+
+	setTimeout(function() {
+		positionModeBtn();
+		if (window.MC) {
+			if (MC.player) {
+				MC.player._playMode = 'order';
+				if (typeof MC.player.next === 'function' && !MC.player._nextPatched) {
+					var originalNext = MC.player.next;
+					MC.player._nextPatched = true;
+					MC.player.next = function() {
+						var mode = MC.player._playMode || MC._playMode || 'order';
+						if (mode === 'random') {
+							var list = MC.player.playList || [];
+							if (list.length > 0) {
+								var randomIndex = Math.floor(Math.random() * list.length);
+								if (MC.player.currentIndex !== undefined && list.length > 1) {
+									var tryCount = 0;
+									while (randomIndex === MC.player.currentIndex && tryCount < 20) {
+										randomIndex = Math.floor(Math.random() * list.length);
+										tryCount++;
+									}
+								}
+								if (typeof MC.player.playByIndex === 'function') {
+									MC.player.playByIndex(randomIndex);
+								} else if (typeof MC.player.jumpTo === 'function') {
+									MC.player.jumpTo(randomIndex);
+								} else {
+									MC.player.currentIndex = randomIndex;
+									if (typeof MC.player.play === 'function') {
+										MC.player.play();
+									}
+								}
+								return;
+							}
+						}
+						originalNext.call(MC.player);
+					};
+				}
+			}
+			MC._playMode = 'order';
+		}
+	}, 300);
+
+	window.addEventListener('resize', function() {
+		setTimeout(positionModeBtn, 150);
+	});
+
+	var lastPosKey = '';
+	setInterval(function() {
+		var nextBtn = document.querySelector('.music-next') || document.querySelector('.next-btn') || document.querySelector('[class*="next"]');
+		if (nextBtn) {
+			var rect = nextBtn.getBoundingClientRect();
+			var key = Math.round(rect.left) + '-' + Math.round(rect.top) + '-' + Math.round(rect.width);
+			if (key !== lastPosKey) {
+				lastPosKey = key;
+				positionModeBtn();
+			}
+		}
+	}, 2000);
+
+	document.addEventListener('scroll', function() {
+		setTimeout(restoreBtnPosition, 50);
+	}, { passive: true });
+};
+</script>
+
+<div class="footer-text">
+<p>适用浏览器：360、FireFox、Chrome、Opera、傲游、搜狗、世界之窗. 不支持Safari、IE8及以下浏览器。</p>
+<p>来源：<a href="https://www.free163.com/" target="_blank">听松阁</a></p>
+</div>
+</body>
+</html>
