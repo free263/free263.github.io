@@ -1,0 +1,285 @@
+(function($){
+	jQuery.fn.extend({
+		"initAudio" : function(){
+			var myAudio = $("audio",this)[0];
+			var $sourceList = $("source",this);
+			var currentSrcIndex = 0;
+			var currentSr = "";
+			
+			// ===== 播放模式 =====
+			// 0: 列表循环, 1: 随机播放, 2: 单曲循环
+			var playMode = 0;
+			var modeIcons = ['&#x21bb;', '&#x21c4;', '&#x21ba;'];
+			var modeNames = ['列表循环', '随机播放', '单曲循环'];
+			var modeTipTimer = null;
+
+			/*添加播放器UI组件*/
+			this.append(
+				'<div class="music_info clearfix">\
+					<div class="cd_holder"><span class="stick"></span><div class="cd"></div></div>\
+					<div class="meta_data">\
+						<span class="title"></span>\
+						<div class="rating">\
+							<div class="starbar">\
+								<ul class="current-rating" data-score="85">\
+									<li class="star5"></li>\
+									<li class="star4"></li>\
+									<li class="star3"></li>\
+									<li class="star2"></li>\
+									<li class="star1"></li>\
+								</ul>\
+							</div>\
+						</div>\
+						<!-- ===== 模式切换按钮放在评分器下方 ===== -->\
+						<div class="mode_switch">\
+							<span class="mode_label">模式</span>\
+							<a class="btn_mode" title="列表循环">&#x21bb;</a>\
+							<span class="mode_name">列表循环</span>\
+						</div>\
+						<div class="volume_control">\
+							<a class="decrease">a</a>\
+							<span class="base_bar">\
+								<span class="progress_bar"></span>\
+								<a class="slider"></a>\
+							</span>\
+							<a class="increase">b</a>\
+						</div>\
+					</div>\
+				</div>\
+				<ul class="music_list"></ul>\
+				<div class="controls">\
+					<div class="play_controls">\
+						<a class="btn_previous">e</a>\
+						<a class="btn_play">c</a>\
+						<a class="btn_next">d</a>\
+					</div>\
+					<div class="time_line">\
+						<span class="passed_time">0:00</span>\
+						<span class="base_bar">\
+							<span class="progress_bar"></span>\
+						</span>\
+						<span class="total_time">0:00</span>\
+					</div>\
+				</div>'
+			);
+			/*为播放列表添加歌曲信息*/
+			for (var i = 0; i < $sourceList.length; i++) {
+				$(".music_list").append("<li>" + $sourceList[i].title + "</li>");
+			};
+			
+			// ===== 显示模式提示 =====
+			function showModeTip(text) {
+				var $tip = $('#modeTip');
+				if ($tip.length === 0) {
+					$tip = $('<div class="mode_tip" id="modeTip">' + text + '</div>');
+					$('body').append($tip);
+				}
+				$tip.text(text).addClass('show');
+				clearTimeout(modeTipTimer);
+				modeTipTimer = setTimeout(function() {
+					$tip.removeClass('show');
+				}, 1200);
+			}
+
+			// ===== 切换播放模式 =====
+			function switchMode() {
+				playMode = (playMode + 1) % 3;
+				var $btn = $(".btn_mode");
+				var $name = $(".mode_name");
+				$btn.html(modeIcons[playMode]);
+				$btn.attr('title', modeNames[playMode]);
+				$name.text(modeNames[playMode]);
+				$btn.addClass('active');
+				showModeTip(modeNames[playMode]);
+				
+				if (playMode === 2) {
+					myAudio.loop = true;
+				} else {
+					myAudio.loop = false;
+				}
+			}
+
+			// ===== 获取下一首索引 =====
+			function getNextIndex() {
+				var total = $sourceList.length;
+				if (playMode === 1) {
+					var nextIdx;
+					do {
+						nextIdx = Math.floor(Math.random() * total);
+					} while (nextIdx === currentSrcIndex && total > 1);
+					return nextIdx;
+				} else {
+					return (currentSrcIndex + 1) % total;
+				}
+			}
+
+			// ===== 获取上一首索引 =====
+			function getPrevIndex() {
+				var total = $sourceList.length;
+				if (playMode === 1) {
+					var prevIdx;
+					do {
+						prevIdx = Math.floor(Math.random() * total);
+					} while (prevIdx === currentSrcIndex && total > 1);
+					return prevIdx;
+				} else {
+					return (currentSrcIndex - 1 + total) % total;
+				}
+			}
+
+			/*调控音量方法*/
+			HTMLAudioElement.prototype.changeVolumeTo = function(volume){
+				this.volume = volume;
+				$(".volume_control .progress_bar").css("width",volume*100 + "%");
+				$(".volume_control .slider").css("left",volume*100 - 7 + "px");
+			}
+			/*为播放器添加事件监听*/
+			/*播放、暂停、上一首、下一首功能实现*/
+			$(".btn_play").click(function(){
+				if (myAudio.paused) {
+					myAudio.play();
+				} else {
+					myAudio.pause();
+				}
+			});
+			
+			var self = this;
+			$(".btn_next").click(function(){
+				var nextIdx = getNextIndex.call(self);
+				currentSrcIndex = nextIdx;
+				currentSrc = $("source", self).eq(currentSrcIndex).prop("src");
+				myAudio.src = currentSrc;
+				myAudio.play();
+			});
+			
+			$(".btn_previous").click(function(){
+				var prevIdx = getPrevIndex.call(self);
+				currentSrcIndex = prevIdx;
+				currentSrc = $("source", self).eq(currentSrcIndex).prop("src");
+				myAudio.src = currentSrc;
+				myAudio.play();
+			});
+			
+			/*音量调控功能实现*/
+			$(".volume_control .decrease").click(function() {
+				var volume = myAudio.volume - 0.1;
+				volume < 0 && (volume = 0);
+				myAudio.changeVolumeTo(volume);
+			});
+			$(".volume_control .increase").click(function() {
+				var volume = myAudio.volume + 0.1;
+				volume > 1 && (volume = 1);
+				myAudio.changeVolumeTo(volume);
+			});
+			$(".volume_control .base_bar").mousedown(function(ev){
+				var posX = ev.clientX;
+				var targetLeft = $(this).offset().left;
+				var volume = (posX - targetLeft)/100;
+				volume > 1 && (volume = 1);
+				volume < 0 && (volume = 0);
+				myAudio.changeVolumeTo(volume);
+			});
+			$(".volume_control .slider").mousedown(starDrag = function(ev) {
+				ev.preventDefault();
+				var origLeft = $(this).position().left;
+				var origX = ev.clientX;
+				var target = this;
+				var progress_bar = $(".volume_control .progress_bar")[0];
+				$(document).mousemove(doDrag = function(ev){
+					ev.preventDefault();
+					var moveX = ev.clientX - origX;
+					var curLeft = origLeft + moveX;
+					(curLeft < -7) && (curLeft = -7);
+					(curLeft > 93) && (curLeft = 93);
+					target.style.left = curLeft + "px";
+					progress_bar.style.width = curLeft + 7 + "%";
+					myAudio.changeVolumeTo((curLeft + 7)/100);
+				});
+				$(document).mouseup(stopDrag = function(){
+					$(document).unbind("mousemove",doDrag);
+					$(document).unbind("mouseup",stopDrag);
+				});
+			});
+			/*音频进度条调控功能实现*/
+			$(".time_line .base_bar").mousedown(function(ev){
+				var posX = ev.clientX;
+				var targetLeft = $(this).offset().left;
+				var percentage = (posX - targetLeft)/140 * 100;
+				myAudio.currentTime = myAudio.duration * percentage / 100;
+			});
+			$(".music_info .cd").click(function(){
+				$(".music_list").slideToggle(600);
+			});
+			$(".music_list").click(function(ev){
+				var index = $(ev.target).index();
+				currentSrcIndex = index;
+				currentSrc = $("source", self).eq(currentSrcIndex).prop("src");
+				myAudio.src = currentSrc;
+				myAudio.play();
+			});
+			
+			// ===== 模式切换按钮点击事件 =====
+			$(".btn_mode").click(function() {
+				switchMode();
+			});
+
+			/*audio元素事件绑定*/
+			$(myAudio).bind("loadedmetadata",function(){
+				var totalTime = formatTime(myAudio.duration);
+				var title = $("source", self).eq(currentSrcIndex).attr("title");
+				$(".time_line .total_time").text(totalTime);
+				$(".meta_data .title").text(title);
+			});
+			$(myAudio).bind("timeupdate",function(){
+				var duration = this.duration;
+				var curTime = this.currentTime;
+				var percentage = curTime/duration * 100;
+				$(".time_line .progress_bar").css("width",percentage + "%");
+
+				var passedTime = formatTime(curTime);
+				$(".time_line .passed_time").text(passedTime);						
+			});
+			$(myAudio).bind("play",function(){
+				$(".btn_play").text("h");
+				$(".music_list li").eq(currentSrcIndex).addClass("active")
+				.siblings().removeClass("active");
+				$(".music_info .cd").addClass("rotate");
+				$(".cd_holder .stick").addClass("play");
+			});
+			$(myAudio).bind("pause",function(){
+				$(".btn_play").text("c");
+				$(".music_info .cd").removeClass("rotate");
+				$(".cd_holder .stick").removeClass("play");
+			});
+			$(myAudio).bind("ended",function(){
+				if (playMode === 2) {
+					return;
+				}
+				var nextIdx = getNextIndex.call(self);
+				currentSrcIndex = nextIdx;
+				currentSrc = $("source", self).eq(currentSrcIndex).prop("src");
+				myAudio.src = currentSrc;
+				myAudio.play();
+			});
+			$(myAudio).bind("progress",function(){
+				if (myAudio.buffered.length == 1) {
+				  if (myAudio.buffered.start(0) == 0) {
+				    var buffered = myAudio.buffered.end(0);
+				    var percentage = buffered/myAudio.duration * 100;
+				    $(".time_line .base_bar").css("background-size",percentage + "% 100%");
+				  }
+				}
+				
+			});
+			$(myAudio).trigger("loadedmetadata");
+			
+			/*歌曲播放时间的格式化，将秒数格式化为"分:秒"的形式*/
+			function formatTime(time) {
+				var minutes = parseInt(time/60);
+				var seconds = parseInt(time%60);
+				seconds<10 && (seconds = "0" + seconds);
+				return minutes + ":" + seconds;
+			};
+		}
+	});
+})(jQuery)
