@@ -53,17 +53,19 @@ background-color: 000;
 			}
 			/* ===== fish 容器 ===== */
         .fish {
-            position: absolute;
-            width: 1350px;
-            height: 500px;
-            z-index: 2;
-            left: 20px;
-            top: 50px;
-            background-color: transparent;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+			position: absolute;
+			width: 800px;
+			height: 300px;
+			z-index: 1;
+			/* 修改这部分实现居中 */
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			background-color: transparent;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			}
 
         /* ===== 毛玻璃音乐播放器 ===== */
         .glass-player {
