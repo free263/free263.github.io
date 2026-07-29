@@ -1,0 +1,1038 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>大海波浪涛涛桌面-听松阁</title>
+		<style type="text/css">
+			/*样式初始化*/
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			/*去除横向滚动条*/
+			body {
+				overflow: hidden; 
+  			margin: 0; 
+				overflow-x: hidden;
+				overflow-y: hidden;
+				background-color: 000;
+				font-size:13px;
+				color: #ffffff;
+			}
+			img.shadow {
+             border: 5px solid #ddd;
+}
+			/*将div铺满整个窗口*/
+			.box {
+				height: 100vh;
+				min-height: 520px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+background-color: 000;
+			}
+			/*设置大ul的大小及定位*/
+			.content {
+				position: relative;
+				width: 100%;
+				height: 100%;
+background-color: 000;
+			}
+			/*设置大li样式*/
+			.content li {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+			}
+			/*将第一张图片后的图片隐藏*/
+			#li1~li{display: none;}
+			/*设置大li背景图片*/
+			#li1 {background-image: url(./img/bg01.jpg);}
+			#li2 {background-image: url(./img/bg02.jpg);}
+			#li3 {background-image: url(./img/bg03.jpg);}
+			#li4 {background-image: url(./img/bg04.jpg);}
+			#li5 {background-image: url(./img/bg05.jpg);}
+			#li6 {background-image: url(./img/bg06.jpg);}
+			#li7 {background-image: url(./img/bg07.jpg);}
+			#li8 {background-image: url(./img/bg08.jpg);}
+			#li9 {background-image: url(./img/bg09.jpg);}
+			/*点击a标签,切换大图片*/
+			#li1:target,
+			#li2:target,
+			#li3:target,
+			#li4:target,
+			#li5:target,
+			#li6:target,
+			#li7:target,
+			#li8:target,
+			#li9:target{
+				display: block;
+			}
+			/* ===== fish 容器 ===== */
+        .fish {
+            position: absolute;
+            width: 1350px;
+            height: 500px;
+            z-index: 2;
+            left: 20px;
+            top: 50px;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ===== 毛玻璃音乐播放器 ===== */
+        .glass-player {
+            width: 420px;
+            max-width: 90%;
+            padding: 24px 28px 28px 28px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(18px) saturate(180%);
+            -webkit-backdrop-filter: blur(18px) saturate(180%);
+            border-radius: 36px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+            color: #fff;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .player-track {
+            text-align: center;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .track-name {
+            font-size: 20px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #f0f0f0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .track-name.placeholder {
+            color: rgba(255, 255, 255, 0.45);
+            font-weight: 400;
+            font-size: 16px;
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            margin-top: 4px;
+        }
+        .ctrl-btn {
+            background: rgba(255, 255, 255, 0.06);
+            border: none;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-radius: 40px;
+            padding: 10px 14px;
+            min-width: 48px;
+            font-size: 20px;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            line-height: 1;
+        }
+        .ctrl-btn:hover {
+            background: rgba(255, 255, 255, 0.18);
+            transform: scale(1.02);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        .ctrl-btn:active {
+            transform: scale(0.96);
+        }
+        .ctrl-btn svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+            display: block;
+        }
+        .ctrl-btn.play-btn {
+            min-width: 60px;
+            padding: 12px 18px;
+            background: rgba(255, 215, 100, 0.15);
+            border-color: rgba(255, 215, 100, 0.2);
+        }
+        .ctrl-btn.play-btn:hover {
+            background: rgba(255, 215, 100, 0.3);
+        }
+
+        .player-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 18px;
+            gap: 12px;
+            font-size: 13px;
+        }
+        .mode-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 40px;
+            padding: 6px 16px;
+            color: #ddd;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.2s;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            white-space: nowrap;
+            letter-spacing: 0.3px;
+        }
+        .mode-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        .mode-btn.active-mode {
+            background: rgba(255, 215, 100, 0.2);
+            border-color: rgba(255, 215, 100, 0.4);
+            color: #ffe08a;
+        }
+        .progress-wrap {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 60px;
+        }
+        .progress-bar {
+            flex: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+            position: relative;
+            cursor: pointer;
+            transition: height 0.1s;
+        }
+        .progress-bar:hover {
+            height: 6px;
+        }
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #f9d976, #f39c12);
+            border-radius: 4px;
+            transition: width 0.05s linear;
+        }
+        .time-label {
+            font-variant-numeric: tabular-nums;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 12px;
+            min-width: 36px;
+        }
+
+        /* ===== 歌曲列表 ===== */
+        .playlist-toggle {
+            margin-top: 12px;
+            text-align: center;
+        }
+        .playlist-toggle button {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #aaa;
+            padding: 4px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: 0.2s;
+        }
+        .playlist-toggle button:hover {
+            background: rgba(255,255,255,0.12);
+            color: #fff;
+        }
+        .playlist-dropdown {
+            display: none;
+            max-height: 150px;
+            overflow-y: auto;
+            margin-top: 8px;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            border-radius: 12px;
+            padding: 6px 0;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+        .playlist-dropdown.open {
+            display: block;
+        }
+        .playlist-dropdown::-webkit-scrollbar {
+            width: 4px;
+        }
+        .playlist-dropdown::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+        }
+        .playlist-item {
+            padding: 6px 18px;
+            font-size: 13px;
+            color: #ccc;
+            cursor: pointer;
+            transition: 0.15s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .playlist-item:hover {
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+        }
+        .playlist-item.active {
+            color: #f9d976;
+            background: rgba(255,215,100,0.08);
+        }
+        .playlist-item .index {
+            color: #666;
+            margin-right: 8px;
+        }
+		</style>
+<noscript></head></noscript>
+<body Scroll=no>
+<!-- 代码 开始 -->
+<div class="fish" id="playerContainer" style="z-index:99;">
+    <!-- 由 JavaScript 动态注入播放器 -->
+</div>
+
+
+
+<!-- 动态图 -->
+<div class="fish1" style="position:absolute; width:280px; height:175px; z-index:95; left: 519px; top: 140px;backgroud-color:000;">
+<img src="./img/haiou.gif" width="50" height="35" border="0" alt="">
+</div>
+<div class="fish2" style="position:absolute; width:280px; height:175px; z-index:95; left: 679px; top: 150px;backgroud-color:000;">
+<img src="./img/haiou.gif" width="80" height="55" border="0" alt="">
+</div>
+<div class="fish3" style="position:absolute; width:280px; height:175px; z-index:95; left: 779px; top: 80px;backgroud-color:000;">
+<img src="./img/haiou.gif" width="100" height="75" border="0" alt="">
+</div>
+
+<div class="fish4" style="position:absolute; width:280px; height:175px; z-index:95; left: 250px; bottom: 150px;backgroud-color:000;">
+<img src="./img/ship.gif" width="213" height="100" border="0" alt="">
+</div>
+<div class="fish5" style="position:absolute; width:280px; height:175px; z-index:96; left: 950px; bottom: 175px;backgroud-color:000;">
+<img src="./img/ship2.gif" width="200" height="80" border="0" alt="">
+</div>
+
+<!-- 底部和按钮 -->
+<div  style="position:absolute; width:100%; height:39; z-index:4; left:0px; bottom: -3px;">
+ <table style="border-collapse:collapse;width:100%; height:39;">
+ 	<tr>
+ 	 <td align="left"><img src="./images/bottom-left.jpg" width="109" height="39" border="0"></td>
+	 <td align="center" width="100%" height="39" border="0" background="./images/bottom-center.jpg"></td>
+   <td align="right"><img src="./images/bottom-right.jpg" width="273" height="39" border="0"></td>
+  </tr>
+ </table>
+</div>
+
+<div class="fish" style="position:absolute; width:50; height:50; z-index:7; left: 0px; bottom: -3px;backgroud-color:000;">
+<table>
+	<tr>
+		<td><a href="../../../../../index/" target="_blank"><img src="./computer/space.gif" width="40" height="50" border="0" alt=""></a></td>
+		<td width="20">&nbsp;</td>
+		<td><a href="../../../../../index/index.html#18611bdd9a95775754883689b147e772" target="_blank"><img src="./computer/space.gif" width="40" height="50" border="0" alt=""></a></td>
+		<td width="1050">&nbsp;</td>
+		<td><a href="http://wx.qq.com/?lightbox[iframe]=true&lightbox[width]=800&lightbox[height]=540" target="_blank"><img src="./computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		<td width="10">&nbsp;</td>
+		<td><a href="http://www.360.cn/" target="_blank"><img src="./computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		<td width="7">&nbsp;</td>
+		<td><a href="../../../../../musicindex/" target="_blank"><img src="./computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		<td width="6">&nbsp;</td>
+		<td><a href="../../../../../musicindex/" target="_blank"><img src="./computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		<td width="4">&nbsp;</td>
+		<td><a href="../../../../../musicindex/" target="_blank"><img src="./computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+		
+			
+	</tr>
+</table>
+</div>
+
+
+
+
+<script src="js/three.min.js"></script>
+
+<div id="container" style="position: absolute; z-index: 1;"></div>
+
+<script id="vertex-shader" type="no-js">
+  void main()	{
+    gl_Position = vec4( position, 1.0 );
+  }
+</script>
+
+
+<script id="fragment-shader" type="no-js">
+  uniform float iGlobalTime;
+  uniform vec2 iResolution;
+
+  const int NUM_STEPS = 8;
+  const float PI	 	= 3.1415;
+  const float EPSILON	= 1e-3;
+  float EPSILON_NRM	= 0.1 / iResolution.x;
+
+  // sea variables
+  const int ITER_GEOMETRY = 3;
+  const int ITER_FRAGMENT = 5;
+  const float SEA_HEIGHT = 0.6;
+  const float SEA_CHOPPY = 1.0;
+  const float SEA_SPEED = 1.0;
+  const float SEA_FREQ = 0.16;
+  const vec3 SEA_BASE = vec3(0.1,0.19,0.22);
+  const vec3 SEA_WATER_COLOR = vec3(0.8,0.9,0.6);
+  float SEA_TIME = iGlobalTime * SEA_SPEED;
+  mat2 octave_m = mat2(1.6,1.2,-1.2,1.6);
+
+  mat3 fromEuler(vec3 ang) {
+    vec2 a1 = vec2(sin(ang.x),cos(ang.x));
+    vec2 a2 = vec2(sin(ang.y),cos(ang.y));
+    vec2 a3 = vec2(sin(ang.z),cos(ang.z));
+    mat3 m;
+    m[0] = vec3(
+    	a1.y*a3.y+a1.x*a2.x*a3.x,
+    	a1.y*a2.x*a3.x+a3.y*a1.x,
+    	-a2.y*a3.x
+    );
+    m[1] = vec3(-a2.y*a1.x,a1.y*a2.y,a2.x);
+    m[2] = vec3(
+    	a3.y*a1.x*a2.x+a1.y*a3.x,
+      a1.x*a3.x-a1.y*a3.y*a2.x,
+      a2.y*a3.y
+    );
+    return m;
+  }
+
+  float hash( vec2 p ) {
+    float h = dot(p,vec2(127.1,311.7));	
+    return fract(sin(h)*43758.5453123);
+  }
+
+  float noise( in vec2 p ) {
+    vec2 i = floor(p);
+    vec2 f = fract(p);	
+    vec2 u = f * f * (3.0 - 2.0 * f);
+    return -1.0 + 2.0 * mix(
+    	mix(
+      	hash(i + vec2(0.0,0.0)
+      ), 
+    	hash(i + vec2(1.0,0.0)), u.x),
+    	mix(hash(i + vec2(0.0,1.0) ), 
+    	hash(i + vec2(1.0,1.0) ), u.x), 
+      u.y
+    );
+  }
+
+  float diffuse(vec3 n,vec3 l,float p) {
+    return pow(dot(n,l) * 0.4 + 0.6,p);
+  }
+
+  float specular(vec3 n,vec3 l,vec3 e,float s) {    
+    float nrm = (s + 8.0) / (3.1415 * 8.0);
+    return pow(max(dot(reflect(e,n),l),0.0),s) * nrm;
+  }
+
+  vec3 getSkyColor(vec3 e) {
+    e.y = max(e.y, 0.0);
+    vec3 ret;
+    ret.x = pow(1.0 - e.y, 2.0);
+    ret.y = 1.0 - e.y;
+    ret.z = 0.6+(1.0 - e.y) * 0.4;
+    return ret;
+  }
+
+
+  float sea_octave(vec2 uv, float choppy) {
+    uv += noise(uv);         
+    vec2 wv = 1.0 - abs(sin(uv));
+    vec2 swv = abs(cos(uv));    
+    wv = mix(wv, swv, wv);
+    return pow(1.0 - pow(wv.x * wv.y, 0.65), choppy);
+  }
+
+  float map(vec3 p) {
+    float freq = SEA_FREQ;
+    float amp = SEA_HEIGHT;
+    float choppy = SEA_CHOPPY;
+    vec2 uv = p.xz; 
+    uv.x *= 0.75;
+
+    float d, h = 0.0;    
+    for(int i = 0; i < ITER_GEOMETRY; i++) {        
+      d = sea_octave((uv + SEA_TIME) * freq, choppy);
+      d += sea_octave((uv - SEA_TIME) * freq, choppy);
+      h += d * amp;        
+      uv *= octave_m;
+      freq *= 1.9; 
+      amp *= 0.22;
+      choppy = mix(choppy, 1.0, 0.2);
+    }
+    return p.y - h;
+  }
+
+  float map_detailed(vec3 p) {
+      float freq = SEA_FREQ;
+      float amp = SEA_HEIGHT;
+      float choppy = SEA_CHOPPY;
+      vec2 uv = p.xz;
+      uv.x *= 0.75;
+
+      float d, h = 0.0;    
+      for(int i = 0; i < ITER_FRAGMENT; i++) {        
+        d = sea_octave((uv+SEA_TIME) * freq, choppy);
+        d += sea_octave((uv-SEA_TIME) * freq, choppy);
+        h += d * amp;        
+        uv *= octave_m;
+        freq *= 1.9; 
+        amp *= 0.22;
+        choppy = mix(choppy,1.0,0.2);
+      }
+      return p.y - h;
+  }
+
+  vec3 getSeaColor(
+  	vec3 p,
+    vec3 n, 
+    vec3 l, 
+    vec3 eye, 
+    vec3 dist
+  ) {  
+    float fresnel = 1.0 - max(dot(n,-eye),0.0);
+    fresnel = pow(fresnel,3.0) * 0.65;
+
+    vec3 reflected = getSkyColor(reflect(eye,n));    
+    vec3 refracted = SEA_BASE + diffuse(n,l,80.0) * SEA_WATER_COLOR * 0.12; 
+
+    vec3 color = mix(refracted,reflected,fresnel);
+
+    float atten = max(1.0 - dot(dist,dist) * 0.001, 0.0);
+    color += SEA_WATER_COLOR * (p.y - SEA_HEIGHT) * 0.18 * atten;
+
+    color += vec3(specular(n,l,eye,60.0));
+
+    return color;
+  }
+
+  // tracing
+  vec3 getNormal(vec3 p, float eps) {
+    vec3 n;
+    n.y = map_detailed(p);    
+    n.x = map_detailed(vec3(p.x+eps,p.y,p.z)) - n.y;
+    n.z = map_detailed(vec3(p.x,p.y,p.z+eps)) - n.y;
+    n.y = eps;
+    return normalize(n);
+  }
+
+  float heightMapTracing(vec3 ori, vec3 dir, out vec3 p) {  
+    float tm = 0.0;
+    float tx = 1000.0;    
+    float hx = map(ori + dir * tx);
+
+    if(hx > 0.0) {
+      return tx;   
+    }
+
+    float hm = map(ori + dir * tm);    
+    float tmid = 0.0;
+    for(int i = 0; i < NUM_STEPS; i++) {
+      tmid = mix(tm,tx, hm/(hm-hx));                   
+      p = ori + dir * tmid;                   
+      float hmid = map(p);
+      if(hmid < 0.0) {
+        tx = tmid;
+        hx = hmid;
+      } else {
+        tm = tmid;
+        hm = hmid;
+       }
+    }
+    return tmid;
+  }
+
+  void main() {
+    vec2 uv = gl_FragCoord.xy / iResolution.xy;
+    uv = uv * 2.0 - 1.0;
+    uv.x *= iResolution.x / iResolution.y;    
+    float time = iGlobalTime * 0.3;
+
+    // ray
+    vec3 ang = vec3(
+      sin(time*3.0)*0.1,sin(time)*0.2+0.3,time
+    );    
+    vec3 ori = vec3(0.0,3.5,time*5.0);
+    vec3 dir = normalize(
+      vec3(uv.xy,-2.0)
+    );
+    dir.z += length(uv) * 0.15;
+    dir = normalize(dir);
+
+    // tracing
+    vec3 p;
+    heightMapTracing(ori,dir,p);
+    vec3 dist = p - ori;
+    vec3 n = getNormal(
+      p,
+      dot(dist,dist) * EPSILON_NRM
+    );
+    vec3 light = normalize(vec3(0.0,1.0,0.8)); 
+
+    // color
+    vec3 color = mix(
+      getSkyColor(dir),
+      getSeaColor(p,n,light,dir,dist),
+      pow(smoothstep(0.0,-0.05,dir.y),0.3)
+    );
+
+    // post
+    gl_FragColor = vec4(pow(color,vec3(0.75)), 1.0);
+  }
+</script>
+
+<script>
+var container, 
+    renderer, 
+    scene, 
+    camera, 
+    mesh, 
+    start = Date.now(),
+    fov = 30;
+
+var clock = new THREE.Clock();
+
+var timeUniform = {
+	iGlobalTime: {
+		type: 'f',
+		value: 0.1
+	},
+	iResolution: {
+		type: 'v2',
+		value: new THREE.Vector2()
+	}
+};
+
+timeUniform.iResolution.value.x = window.innerWidth;
+timeUniform.iResolution.value.y = window.innerHeight;
+
+window.addEventListener('load', function() {
+  container = document.getElementById('container');
+  scene = new THREE.Scene();
+  
+  camera = new THREE.PerspectiveCamera( 
+    fov, 
+    window.innerWidth / window.innerHeight, 
+    1, 
+    10000
+  );
+  camera.position.x = 20;    
+  camera.position.y = 10;    
+  camera.position.z = 20;
+  camera.lookAt(scene.position);
+  scene.add(camera);
+  
+  var axis = new THREE.AxisHelper(10);
+  scene.add (axis);
+  
+  material = new THREE.ShaderMaterial({
+    uniforms: timeUniform,
+    vertexShader: document.getElementById('vertex-shader').textContent,
+    fragmentShader: document.getElementById('fragment-shader').textContent
+  });
+  
+  var water = new THREE.Mesh(
+    new THREE.PlaneBufferGeometry(window.innerWidth, window.innerHeight, 40), material
+  );
+  scene.add(water);
+  
+  var geometry = new THREE.SphereGeometry( 10, 32, 32 );
+  var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
+  var sphere = new THREE.Mesh( geometry, material );
+  scene.add( sphere );
+
+  renderer = new THREE.WebGLRenderer();
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  
+  container.appendChild( renderer.domElement );
+
+  render();
+});
+
+window.addEventListener('resize',function() {
+	camera.aspect = window.innerWidth / window.innerHeight;
+	camera.updateProjectionMatrix();
+	renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+function render() {
+  timeUniform.iGlobalTime.value += clock.getDelta();
+  renderer.render(scene, camera);
+  requestAnimationFrame(render);
+}</script>
+
+<!-- 引用 music.js (必须在播放器脚本之前) -->
+<script src="music.js"></script>
+
+
+<!-- ===== 音乐播放器脚本 ===== -->
+<script>
+    (function() {
+        // 从全局获取 MUSIC_DATA (由 music.js 定义)
+        // 注意：music.js 中定义的是 const MUSIC_DATA，在严格模式下不会自动挂载到 window
+        // 我们需要通过其他方式获取，或者修改 music.js 为 var 或 window.MUSIC_DATA
+        
+        let MUSIC_DATA = window.MUSIC_DATA || [];
+        
+        // 如果 window.MUSIC_DATA 为空，尝试通过 eval 或直接访问
+        // 由于 music.js 使用 const 定义，在全局作用域中无法通过 window 访问
+        // 我们需要手动获取
+        if (!MUSIC_DATA || MUSIC_DATA.length === 0) {
+            // 尝试通过 Function 构造函数获取
+            try {
+                // 重新执行 music.js 的内容，但使用 var 而不是 const
+                // 这里我们使用另一种方法：通过 script 标签加载后，再获取
+                // 但最简单的方式是修改 music.js 为 var
+                console.warn('尝试从 window 获取 MUSIC_DATA 失败，请确保 music.js 使用 var 或 window.MUSIC_DATA 定义');
+                
+                // 显示错误信息在播放器上
+                const container = document.getElementById('playerContainer');
+                if (container) {
+                    container.innerHTML = `
+                        <div class="glass-player" style="text-align:center;padding:30px;">
+                            <div style="color:#ff6b6b;font-size:16px;">⚠️ 音乐数据加载失败</div>
+                            <div style="color:#aaa;font-size:13px;margin-top:8px;">
+                                请检查 music.js 文件是否存在，并确保使用 <code style="background:rgba(255,255,255,0.1);padding:2px 8px;border-radius:4px;">var MUSIC_DATA</code> 或 <code style="background:rgba(255,255,255,0.1);padding:2px 8px;border-radius:4px;">window.MUSIC_DATA</code> 定义
+                            </div>
+                        </div>
+                    `;
+                }
+                return;
+            } catch (e) {
+                console.error('获取 MUSIC_DATA 失败:', e);
+                return;
+            }
+        }
+
+        // ----- 播放器核心 -----
+        const container = document.getElementById('playerContainer');
+        if (!container) return;
+
+        let currentIndex = 0;
+        let isPlaying = false;
+        let playMode = 'list';
+        let audio = new Audio();
+        let progressInterval = null;
+        let isDragging = false;
+        let isPlaylistOpen = false;
+
+        const playlist = MUSIC_DATA;
+        console.log(`✅ 成功加载 ${playlist.length} 首歌曲`);
+
+        // 渲染播放器UI
+        function renderPlayer() {
+            const hasMusic = playlist && playlist.length > 0;
+            container.innerHTML = `
+                <div class="glass-player" id="glassPlayer">
+                    <div class="player-track">
+                        <div class="track-name ${hasMusic ? '' : 'placeholder'}" id="trackName">
+                            ${hasMusic ? '🎵 准备播放' : '⚠️ 未加载音乐数据'}
+                        </div>
+                    </div>
+                    <div class="player-controls">
+                        <button class="ctrl-btn" id="prevBtn" title="上一首">
+                            <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+                        </button>
+                        <button class="ctrl-btn play-btn" id="playBtn" title="播放/暂停">
+                            <svg viewBox="0 0 24 24" id="playIcon"><path d="M8 5v14l11-7z"/></svg>
+                        </button>
+                        <button class="ctrl-btn" id="nextBtn" title="下一首">
+                            <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+                        </button>
+                    </div>
+                    <div class="player-footer">
+                        <button class="mode-btn" id="modeBtn">🔁 列表循环</button>
+                        <div class="progress-wrap">
+                            <span class="time-label" id="currentTime">0:00</span>
+                            <div class="progress-bar" id="progressBar">
+                                <div class="progress-fill" id="progressFill" style="width:0%;"></div>
+                            </div>
+                            <span class="time-label" id="durationTime">0:00</span>
+                        </div>
+                    </div>
+                    ${hasMusic ? `
+                    <div class="playlist-toggle">
+                        <button id="playlistToggleBtn">📋 歌单 (${playlist.length} 首)</button>
+                        <div class="playlist-dropdown" id="playlistDropdown"></div>
+                    </div>
+                    ` : ''}
+                </div>
+            `;
+            bindEvents();
+            if (playlist && playlist.length) {
+                loadTrack(0);
+                renderPlaylist();
+            }
+        }
+
+        // 渲染歌单列表
+        function renderPlaylist() {
+            const dropdown = document.getElementById('playlistDropdown');
+            if (!dropdown) return;
+            dropdown.innerHTML = playlist.map((track, idx) => `
+                <div class="playlist-item ${idx === currentIndex ? 'active' : ''}" data-index="${idx}">
+                    <span class="index">${String(idx + 1).padStart(2, '0')}</span>
+                    ${track.name || '未知歌曲'}
+                </div>
+            `).join('');
+            dropdown.querySelectorAll('.playlist-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const idx = parseInt(this.dataset.index, 10);
+                    if (!isNaN(idx) && idx !== currentIndex) {
+                        loadTrack(idx);
+                        if (isPlaying) {
+                            audio.play().catch(() => {});
+                        }
+                        renderPlaylist();
+                        document.getElementById('playlistDropdown').classList.remove('open');
+                        isPlaylistOpen = false;
+                    }
+                });
+            });
+        }
+
+        // 加载指定索引
+        function loadTrack(index) {
+            if (!playlist || !playlist.length) return;
+            if (index < 0) index = playlist.length - 1;
+            if (index >= playlist.length) index = 0;
+            currentIndex = index;
+            const track = playlist[currentIndex];
+            if (!track) return;
+            audio.src = track.url;
+            audio.load();
+            const nameEl = document.getElementById('trackName');
+            nameEl.textContent = track.name || '未知歌曲';
+            nameEl.classList.remove('placeholder');
+            updateProgress(0);
+            document.getElementById('currentTime').textContent = '0:00';
+            document.getElementById('durationTime').textContent = '0:00';
+            renderPlaylist();
+            if (isPlaying) {
+                audio.play().catch(() => {});
+            }
+            updatePlayIcon();
+        }
+
+        // 播放/暂停切换
+        function togglePlay() {
+            if (!playlist || !playlist.length) return;
+            if (audio.paused) {
+                audio.play().then(() => {
+                    isPlaying = true;
+                    updatePlayIcon();
+                    startProgressUpdate();
+                }).catch(() => {});
+            } else {
+                audio.pause();
+                isPlaying = false;
+                updatePlayIcon();
+                stopProgressUpdate();
+            }
+        }
+
+        function updatePlayIcon() {
+            const icon = document.getElementById('playIcon');
+            if (!icon) return;
+            if (isPlaying) {
+                icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+            } else {
+                icon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+            }
+        }
+
+        function startProgressUpdate() {
+            if (progressInterval) clearInterval(progressInterval);
+            progressInterval = setInterval(() => {
+                if (!isDragging && audio.duration) {
+                    const pct = (audio.currentTime / audio.duration) * 100;
+                    updateProgress(pct);
+                    document.getElementById('currentTime').textContent = formatTime(audio.currentTime);
+                }
+            }, 200);
+        }
+        function stopProgressUpdate() {
+            if (progressInterval) {
+                clearInterval(progressInterval);
+                progressInterval = null;
+            }
+        }
+        function updateProgress(pct) {
+            const fill = document.getElementById('progressFill');
+            if (fill) fill.style.width = Math.min(100, Math.max(0, pct)) + '%';
+        }
+        function formatTime(seconds) {
+            if (isNaN(seconds) || !isFinite(seconds)) return '0:00';
+            const m = Math.floor(seconds / 60);
+            const s = Math.floor(seconds % 60);
+            return m + ':' + (s < 10 ? '0' : '') + s;
+        }
+
+        function switchMode() {
+            const modes = ['list', 'random', 'single'];
+            const labels = ['🔁 列表循环', '🔀 随机播放', '🔂 单曲循环'];
+            let idx = modes.indexOf(playMode);
+            idx = (idx + 1) % modes.length;
+            playMode = modes[idx];
+            const btn = document.getElementById('modeBtn');
+            if (btn) {
+                btn.textContent = labels[idx];
+                btn.classList.toggle('active-mode', playMode !== 'list');
+            }
+        }
+
+        function nextTrack() {
+            if (!playlist || !playlist.length) return;
+            let idx = currentIndex;
+            if (playMode === 'random') {
+                let newIdx;
+                do {
+                    newIdx = Math.floor(Math.random() * playlist.length);
+                } while (newIdx === currentIndex && playlist.length > 1);
+                idx = newIdx;
+            } else {
+                idx = (idx + 1) % playlist.length;
+            }
+            loadTrack(idx);
+            if (isPlaying) {
+                audio.play().catch(() => {});
+            }
+        }
+
+        function prevTrack() {
+            if (!playlist || !playlist.length) return;
+            let idx = currentIndex;
+            if (playMode === 'random') {
+                let newIdx;
+                do {
+                    newIdx = Math.floor(Math.random() * playlist.length);
+                } while (newIdx === currentIndex && playlist.length > 1);
+                idx = newIdx;
+            } else {
+                idx = (idx - 1 + playlist.length) % playlist.length;
+            }
+            loadTrack(idx);
+            if (isPlaying) {
+                audio.play().catch(() => {});
+            }
+        }
+
+        function bindEvents() {
+            const playBtn = document.getElementById('playBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const modeBtn = document.getElementById('modeBtn');
+            const progressBar = document.getElementById('progressBar');
+            const toggleBtn = document.getElementById('playlistToggleBtn');
+
+            if (playBtn) playBtn.addEventListener('click', togglePlay);
+            if (prevBtn) prevBtn.addEventListener('click', prevTrack);
+            if (nextBtn) nextBtn.addEventListener('click', nextTrack);
+            if (modeBtn) modeBtn.addEventListener('click', switchMode);
+
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const dropdown = document.getElementById('playlistDropdown');
+                    if (dropdown) {
+                        isPlaylistOpen = !isPlaylistOpen;
+                        dropdown.classList.toggle('open', isPlaylistOpen);
+                    }
+                });
+                document.addEventListener('click', function(e) {
+                    const dropdown = document.getElementById('playlistDropdown');
+                    if (dropdown && isPlaylistOpen && !dropdown.contains(e.target) && e.target !== toggleBtn) {
+                        dropdown.classList.remove('open');
+                        isPlaylistOpen = false;
+                    }
+                });
+            }
+
+            if (progressBar) {
+                const handleMouse = (e) => {
+                    if (!audio.duration) return;
+                    const rect = progressBar.getBoundingClientRect();
+                    let pct = (e.clientX - rect.left) / rect.width;
+                    pct = Math.min(1, Math.max(0, pct));
+                    const newTime = pct * audio.duration;
+                    audio.currentTime = newTime;
+                    updateProgress(pct * 100);
+                    document.getElementById('currentTime').textContent = formatTime(newTime);
+                };
+                progressBar.addEventListener('mousedown', (e) => {
+                    isDragging = true;
+                    handleMouse(e);
+                    const onMove = (ev) => {
+                        ev.preventDefault();
+                        handleMouse(ev);
+                    };
+                    const onUp = () => {
+                        isDragging = false;
+                        document.removeEventListener('mousemove', onMove);
+                        document.removeEventListener('mouseup', onUp);
+                    };
+                    document.addEventListener('mousemove', onMove);
+                    document.addEventListener('mouseup', onUp);
+                });
+            }
+
+            audio.addEventListener('ended', () => {
+                if (playMode === 'single') {
+                    audio.currentTime = 0;
+                    audio.play().catch(() => {});
+                } else {
+                    nextTrack();
+                }
+            });
+
+            audio.addEventListener('loadedmetadata', () => {
+                const dur = audio.duration;
+                document.getElementById('durationTime').textContent = formatTime(dur);
+                if (isPlaying) startProgressUpdate();
+            });
+
+            audio.addEventListener('play', () => {
+                isPlaying = true;
+                updatePlayIcon();
+                startProgressUpdate();
+            });
+            audio.addEventListener('pause', () => {
+                isPlaying = false;
+                updatePlayIcon();
+                stopProgressUpdate();
+            });
+            audio.addEventListener('timeupdate', () => {
+                if (!isDragging && audio.duration) {
+                    const pct = (audio.currentTime / audio.duration) * 100;
+                    updateProgress(pct);
+                    document.getElementById('currentTime').textContent = formatTime(audio.currentTime);
+                }
+            });
+        }
+
+        renderPlayer();
+        window.__player = { audio, playlist, loadTrack, togglePlay, nextTrack, prevTrack };
+    })();
+</script>
+</body>
+</html>

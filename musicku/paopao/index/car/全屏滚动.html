@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全屏滚动</title>
+</head>
+<style>
+    *{
+		margin: 0;
+		padding: 0;
+	}
+	main{
+		scroll-snap-type: y mandatory;
+		-moz-scroll-snap-type: y mandatory;
+		overflow: scroll;
+		height: 100vh;
+	}
+    section{
+		width: 100vw;
+		height: 100vh;
+		line-height: 100vh;
+		scroll-snap-align: start;
+		-moz-scroll-snap-align: start;
+		text-align: center;
+		font-size: 30px;
+		color: #fff;
+	}
+	section:first-child{
+		background-image: url(img/1.jpg);
+		background-position: 50% 50%;
+		background-size: 100% 100%;
+	}
+	section:nth-child(2){
+		background-image: url(img/2.jpg);
+		background-position: 50% 50%;
+		background-size: 100% 100%;
+	}
+	section:nth-last-child(2){
+		background-image: url(img/3.jpg);
+		background-position: 50% 50%;
+		background-size: 100% 100%;
+	}
+	section:last-child{
+		background-image: url(img/4.jpg);
+		background-position: 50% 50%;
+		background-size: 100% 100%;
+	}
+</style>
+<body>
+    <main>
+        <section>第一部分</section>
+        <section>第二部分</section>
+        <section>第三部分</section>
+        <section>第四部分</section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,85 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 3vmin;
+}
+
+body {
+    background: #000;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+    color: #fff;
+    padding: 1rem;
+}
+
+.text-box {
+    width: 100%;
+    min-height: 90vh;
+    position: relative;
+    background-image: linear-gradient(to right bottom, rgba(167, 89, 111, 0.8),
+    rgba(56, 78, 90, 0.8)),
+      url(./screen-0.jpg);
+    background-size: cover;
+    background-position: top;
+    clip-path: polygon(0 20%, 100% 0, 100% 80%, 0 100%);
+}
+
+.primary {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-transform: uppercase;
+    backface-visibility: hidden;
+}
+
+.main {
+    display: block;
+    text-align: center;
+    font-size: 2rem;
+    animation: moveFromLeft 2s ease-in-out;
+} 
+
+.sub {
+    display: block;
+    text-align: center;
+    font-size: 0.8rem;
+    animation: moveFromRight 2s ease-in-out;
+}
+
+@keyframes moveFromLeft{
+    0% {
+        opacity: 0;
+        transform: translateX(-6.25rem);
+    }
+
+    80% {
+        transform: translateX(0.625rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+@keyframes moveFromRight{
+    0% {
+        opacity: 0;
+        transform: translateX(6.25rem);
+    }
+
+    80% {
+        transform: translateX(-0.625rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
