@@ -1,0 +1,610 @@
+﻿<!DOCTYPE html>
+<html lang="zh" >
+<head>
+<meta charset="UTF-8">
+<title>纯CSS3卡通水母 · 听松阁</title>
+<style>
+/* ===== 原 zzsc.css 全部样式（水母居中） ===== */
+body {
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(cyan, #0041c2, #180029);
+}
+@keyframes swim {
+  20% {
+    transform: translateY(3em);
+  }
+  45% {
+    transform: translateY(-3em);
+  }
+  100% {
+    transform: translateY(3em);
+  }
+}
+@keyframes squash {
+  20% {
+    transform: scaleY(0.9);
+  }
+  40% {
+    transform: scaleY(1.1);
+  }
+  60% {
+    transform: scaleY(0.9);
+  }
+}
+@keyframes wave {
+  30% {
+    transform: scaleX(var(--scaleX)) scaleY(var(--scaleY)) rotate(calc(var(--rotate) * -1deg));
+  }
+}
+.datouwang {
+  font-size: 4vmin;
+  position: relative;
+  filter: drop-shadow(0 0 1em cyan);
+  height: 14em;
+  animation: swim 10s ease-in-out infinite;
+  transform-origin: 50% 0;
+  transform: translateY(3em);
+}
+.datouwang .arms {
+  transform-origin: 50% 0;
+  animation: squash 10s ease-in-out infinite;
+}
+.datouwang .arms .arm {
+  position: absolute;
+  width: 2em;
+  height: 6em;
+  top: 3em;
+  border-radius: 50%;
+  border-left: 1em solid #ccffff;
+  border-bottom: 0.3em solid transparent;
+  transform-origin: 50% 0;
+  opacity: 0.4;
+  transform: scaleX(var(--scaleX)) scaleY(var(--scaleY)) rotate(calc(var(--rotate) * 1deg));
+  animation: wave 10s ease-in-out infinite;
+}
+.datouwang .arms .arm:before {
+  content: '';
+  position: absolute;
+  width: 1.6em;
+  height: 3em;
+  top: 5.1em;
+  left: -1.5em;
+  border-radius: 50%;
+  border-right: 0.6em solid #ccffff;
+  border-top: 0.3em solid transparent;
+  border-bottom: 0.3em solid transparent;
+  transform: rotate(-10.4deg);
+}
+.datouwang .arms .arm:after {
+  content: '';
+  position: absolute;
+  width: 1em;
+  height: 2em;
+  top: 7.5em;
+  left: -0.05em;
+  border-radius: 50%;
+  border-top: 0.4em solid transparent;
+  border-left: 0.4em solid #ccffff;
+  transform: rotate(10deg);
+}
+.datouwang .arms .arm:nth-child(1) { left: 2.2em; }
+.datouwang .arms .arm:nth-child(2) { left: 3em; }
+.datouwang .arms .arm:nth-child(3) { left: 3.6em; }
+.datouwang .arms .arm:nth-child(4) { left: 2.3em; }
+.datouwang .arms .arm:nth-child(5) { left: 3.8em; }
+.datouwang .arms .arm:nth-child(6) { left: 4.5em; }
+.datouwang .arms .arm:nth-child(7) { left: 3em; }
+.datouwang .arms .arm:nth-child(8) { left: 4.5em; }
+.datouwang .tentacles {
+  animation: squash 10s ease-in-out infinite;
+}
+.datouwang .tentacles .tentacle {
+  position: absolute;
+  top: 4em;
+  width: 10em;
+  height: 8em;
+  border: 1px solid rgba(0, 255, 255, 0.6);
+  border-bottom: none;
+  border-top: none;
+  border-bottom-left-radius: 10% 50%;
+  border-bottom-right-radius: 10% 50%;
+  border-top-left-radius: 20% 50%;
+  border-top-right-radius: 20% 50%;
+}
+.datouwang .tentacles .tentacle:nth-child(2) { transform: scaleX(0.8); }
+.datouwang .tentacles .tentacle:nth-child(3) { transform: scaleX(0.6); }
+.datouwang .tentacles .tentacle:nth-child(4) { transform: scaleX(0.4); }
+.datouwang .tentacles .tentacle:nth-child(5) { transform: scaleX(0.2); }
+.datouwang .guts {
+  width: 4em;
+  height: 4em;
+  background: white;
+  position: absolute;
+  left: 3em;
+  top: 1em;
+  border-radius: 50%;
+  box-shadow: -1.5em 0.7em 0 -0.8em white, -1.7em -0.5em 0 -1.4em white, 1.8em -0.1em 0 -1.3em white, 1em 1em 0 -0.6em white, -0.4em 1.8em 0 -1.3em white, 1.4em -1em 0 -1.5em white, -1.3em 1.8em 0 -1.5em white;
+  filter: drop-shadow(0 0 0.5em rgba(255, 255, 255, 0.5));
+}
+.datouwang .body {
+  background: cyan;
+  width: 10em;
+  height: 5em;
+  border-top-left-radius: 50% 100%;
+  border-top-right-radius: 50% 100%;
+  position: relative;
+  opacity: 0.65;
+  box-shadow: inset 0 0.2em 0 cyan, inset 0 0.4em 0 hsla(0, 0%, 100%, 0.6);
+  transform-origin: 50% 50%;
+  animation: squash 10s ease-in-out infinite;
+}
+.datouwang .body .base {
+  position: absolute;
+  width: 3em;
+  height: 1.5em;
+  background: cyan;
+  bottom: -1.5em;
+  border-bottom-left-radius: 50% 100%;
+  border-bottom-right-radius: 50% 100%;
+  box-shadow: 3.5em 0 0 cyan, 7em 0 0 cyan;
+}
+.datouwang .body .base:after {
+  content: '';
+  position: absolute;
+  width: 3em;
+  height: 1em;
+  left: 1.75em;
+  top: -0.25em;
+  background: radial-gradient(circle at 50% 120%, rgba(0, 255, 255, 0) 0, rgba(0, 255, 255, 0) 25%, cyan 10%, cyan 100%);
+}
+.datouwang .body .base:before {
+  content: '';
+  position: absolute;
+  width: 3em;
+  height: 1em;
+  left: 5.25em;
+  top: -0.25em;
+  background: radial-gradient(circle at 50% 120%, rgba(0, 255, 255, 0) 0, rgba(0, 255, 255, 0) 25%, cyan 10%, cyan 100%);
+}
+@keyframes eyes {
+  40% { transform: translateY(-0.2em); }
+  60% { transform: translateY(0.2em); }
+}
+.datouwang .eyes .eye {
+  width: 2em;
+  height: 2em;
+  background: white;
+  position: absolute;
+  left: 2.85em;
+  top: 3em;
+  border-radius: 50%;
+  overflow: hidden;
+  transform: translateZ(0);
+}
+.datouwang .eyes .eye:before {
+  content: '';
+  position: absolute;
+  width: 70%;
+  height: 70%;
+  background: darkblue;
+  border-radius: 50%;
+  left: 15%;
+  top: 15%;
+  animation: eyes 10s ease-in-out infinite;
+}
+.datouwang .eyes .eye:after {
+  content: '';
+  position: absolute;
+  width: 25%;
+  height: 25%;
+  background: #fff;
+  border-radius: 50%;
+  left: 25%;
+  top: 25%;
+  box-shadow: 0.4em 0.4em 0 -0.12em white, 0.5em 0.05em 0 -0.15em white;
+  animation: eyes 10s ease-in-out infinite;
+  z-index: 1;
+}
+.datouwang .eyes .eye.right { left: 5.15em; }
+.datouwang .eyes .eyelid {
+  width: 100%;
+  height: 100%;
+  background: cyan;
+  z-index: 2;
+  position: relative;
+  transform: translateY(-3em);
+  animation: blink 6s ease-in-out infinite;
+}
+@keyframes blink {
+  97% { transform: translateY(-3em); }
+  100% { transform: translateY(0em); }
+}
+
+/* ===== 播放器 - 最上层居中 ===== */
+.player-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 999;
+}
+.player-wrapper .player-glass {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+  width: 340px;
+  padding: 22px 26px 26px;
+  background: rgba(10, 8, 30, 0.45);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border-radius: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.03) inset;
+  color: #f0ecff;
+  text-align: center;
+  user-select: none;
+}
+.player-glass .song-title {
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin: 4px 0 14px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #f5f0ff;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+}
+.player-glass .controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin: 4px 0 6px;
+}
+.player-glass .controls button {
+  background: rgba(255, 255, 255, 0.06);
+  border: none;
+  border-radius: 40px;
+  width: 44px;
+  height: 44px;
+  font-size: 20px;
+  color: #f0ecff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.2s;
+  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.player-glass .controls button:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: scale(1.03);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.player-glass .controls button:active { transform: scale(0.94); }
+.player-glass .controls .btn-play {
+  width: 56px;
+  height: 56px;
+  font-size: 26px;
+  background: rgba(180, 150, 255, 0.15);
+  border-color: rgba(200, 160, 255, 0.25);
+}
+.player-glass .controls .btn-play:hover {
+  background: rgba(180, 150, 255, 0.28);
+}
+.player-glass .mode-label {
+  font-size: 13px;
+  margin-top: 12px;
+  opacity: 0.85;
+  letter-spacing: 1px;
+  background: rgba(0,0,0,0.25);
+  padding: 5px 14px;
+  border-radius: 40px;
+  display: inline-block;
+  backdrop-filter: blur(2px);
+  border: 1px solid rgba(255,255,255,0.04);
+  cursor: pointer;
+  transition: 0.2s;
+}
+.player-glass .mode-label:hover {
+  background: rgba(255,255,255,0.08);
+}
+.player-glass .mode-label span { margin: 0 6px; }
+
+/* 歌单按钮 + 浮层 */
+.playlist-toggle {
+  position: fixed;
+  bottom: 40px;
+  right: 30px;
+  pointer-events: auto;
+  z-index: 1000;
+  background: rgba(10, 8, 30, 0.5);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #f0ecff;
+  border-radius: 40px;
+  padding: 6px 18px 6px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: 0.2s;
+}
+.playlist-toggle:hover {
+  background: rgba(40, 35, 80, 0.7);
+  border-color: rgba(255,255,255,0.2);
+}
+.playlist-panel {
+  position: fixed;
+  bottom: 90px;
+  right: 30px;
+  pointer-events: auto;
+  z-index: 1001;
+  width: 260px;
+  max-height: 320px;
+  overflow-y: auto;
+  background: rgba(8, 6, 28, 0.78);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  border-radius: 28px;
+  padding: 12px 8px;
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+  display: none;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.15) transparent;
+}
+.playlist-panel.show { display: block; }
+.playlist-panel::-webkit-scrollbar { width: 4px; }
+.playlist-panel::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.2);
+  border-radius: 12px;
+}
+.playlist-item {
+  padding: 8px 14px;
+  border-radius: 30px;
+  font-size: 14px;
+  color: #d6d0f0;
+  cursor: pointer;
+  transition: 0.15s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 2px 0;
+  border: 1px solid transparent;
+}
+.playlist-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+.playlist-item.active {
+  background: rgba(160, 130, 255, 0.20);
+  color: #fff;
+  border-color: rgba(180, 150, 255, 0.2);
+  font-weight: 500;
+}
+@media (max-width: 550px) {
+  .player-glass { width: 280px; padding: 18px; }
+  .playlist-toggle { bottom: 30px; right: 16px; }
+  .playlist-panel { bottom: 80px; right: 16px; width: 220px; }
+}
+</style>
+</head>
+<body>
+
+<!-- 水母 (原样，已居中) -->
+<div class="datouwang">
+  <div class="arms">
+    <div class="arm" style="--scaleX:1;--scaleY:1;--rotate:3;"></div>
+    <div class="arm" style="--scaleX:1;--scaleY:1.1;--rotate:2;"></div>
+    <div class="arm" style="--scaleX:1;--scaleY:1.2;--rotate:1;"></div>
+    <div class="arm" style="--scaleX:-1;--scaleY:1.15;--rotate:0;"></div>
+    <div class="arm" style="--scaleX:-1;--scaleY:1.1;--rotate:0;"></div>
+    <div class="arm" style="--scaleX:-1;--scaleY:1;--rotate:-1;"></div>
+    <div class="arm" style="--scaleX:-1;--scaleY:1.15;--rotate:-2;"></div>
+    <div class="arm" style="--scaleX:.5;--scaleY:1.15;--rotate:-3;"></div>
+  </div>
+  <div class="tentacles">
+    <div class="tentacle"></div>
+    <div class="tentacle"></div>
+    <div class="tentacle"></div>
+    <div class="tentacle"></div>
+    <div class="tentacle"></div>
+  </div>
+  <div class="guts"></div>
+  <div class="body">
+    <div class="base"></div>
+  </div>
+  <div class="eyes">
+    <div class="eye left"><div class="eyelid"></div></div>
+    <div class="eye right"><div class="eyelid"></div></div>
+  </div>
+</div>
+
+<!-- ===== 播放器包装层 (最上层) ===== -->
+<div class="player-wrapper">
+  <div class="player-glass" id="playerGlass">
+    <div class="song-title" id="songTitle">🎵 未选择歌曲</div>
+    <div class="controls">
+      <button id="prevBtn" title="上一首">⏮</button>
+      <button class="btn-play" id="playBtn" title="播放/暂停">▶</button>
+      <button id="nextBtn" title="下一首">⏭</button>
+    </div>
+    <div class="mode-label" id="modeLabel">
+      <span>🔁</span> 顺序播放
+    </div>
+  </div>
+  <div class="playlist-toggle" id="playlistToggle">
+    <span>📋</span> 歌单
+  </div>
+  <div class="playlist-panel" id="playlistPanel"></div>
+</div>
+
+<!-- 引入 music.js -->
+<script src="music.js"></script>
+
+<script>
+(function() {
+  'use strict';
+
+  if (typeof MUSIC_DATA === 'undefined') {
+    console.warn('MUSIC_DATA 未加载，请确认 music.js 已引入');
+    return;
+  }
+  const list = MUSIC_DATA;
+  let currentIndex = 0;
+  let isPlaying = false;
+  let mode = 0; // 0:顺序 1:单曲循环 2:随机
+  const audio = new Audio();
+  const playBtn = document.getElementById('playBtn');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const songTitle = document.getElementById('songTitle');
+  const modeLabel = document.getElementById('modeLabel');
+  const playlistPanel = document.getElementById('playlistPanel');
+  const playlistToggle = document.getElementById('playlistToggle');
+
+  function loadSong(index) {
+    if (!list.length) return;
+    const item = list[index];
+    if (!item) return;
+    audio.src = item.url;
+    songTitle.textContent = '🎵 ' + item.name;
+    document.querySelectorAll('.playlist-item').forEach((el, i) => {
+      el.classList.toggle('active', i === index);
+    });
+    if (isPlaying) {
+      audio.play().catch(() => { isPlaying = false; updatePlayButton(); });
+    }
+  }
+
+  function updatePlayButton() {
+    playBtn.textContent = isPlaying ? '⏸' : '▶';
+  }
+
+  function togglePlay() {
+    if (!list.length) return;
+    if (audio.src === '' || audio.paused) {
+      if (audio.src === '') loadSong(currentIndex);
+      audio.play().then(() => { isPlaying = true; updatePlayButton(); }).catch(() => { isPlaying = false; updatePlayButton(); });
+    } else {
+      audio.pause();
+      isPlaying = false;
+      updatePlayButton();
+    }
+  }
+
+  function prevSong() {
+    if (!list.length) return;
+    if (mode === 2) {
+      currentIndex = Math.floor(Math.random() * list.length);
+    } else {
+      currentIndex = (currentIndex - 1 + list.length) % list.length;
+    }
+    loadSong(currentIndex);
+    if (isPlaying) audio.play().catch(() => {});
+    else audio.play().then(() => { isPlaying = true; updatePlayButton(); }).catch(() => {});
+  }
+
+  function nextSong() {
+    if (!list.length) return;
+    if (mode === 2) {
+      currentIndex = Math.floor(Math.random() * list.length);
+    } else {
+      currentIndex = (currentIndex + 1) % list.length;
+    }
+    loadSong(currentIndex);
+    if (isPlaying) audio.play().catch(() => {});
+    else audio.play().then(() => { isPlaying = true; updatePlayButton(); }).catch(() => {});
+  }
+
+  function toggleMode() {
+    mode = (mode + 1) % 3;
+    const labels = ['顺序播放', '单曲循环', '随机播放'];
+    const icons = ['🔁', '🔂', '🎲'];
+    modeLabel.innerHTML = `<span>${icons[mode]}</span> ${labels[mode]}`;
+  }
+
+  audio.addEventListener('ended', function() {
+    if (mode === 1) {
+      audio.currentTime = 0;
+      audio.play().catch(() => {});
+    } else {
+      nextSong();
+    }
+  });
+
+  function renderPlaylist() {
+    if (!list.length) return;
+    playlistPanel.innerHTML = '';
+    list.forEach((item, idx) => {
+      const div = document.createElement('div');
+      div.className = 'playlist-item' + (idx === currentIndex ? ' active' : '');
+      div.textContent = item.name;
+      div.dataset.index = idx;
+      div.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const i = parseInt(this.dataset.index);
+        if (i === currentIndex && audio.src) {
+          if (audio.paused) {
+            audio.play().then(() => { isPlaying = true; updatePlayButton(); });
+          } else {
+            audio.pause();
+            isPlaying = false;
+            updatePlayButton();
+          }
+        } else {
+          currentIndex = i;
+          loadSong(currentIndex);
+          audio.play().then(() => { isPlaying = true; updatePlayButton(); }).catch(() => {});
+        }
+        playlistPanel.classList.remove('show');
+      });
+      playlistPanel.appendChild(div);
+    });
+  }
+
+  if (list.length) {
+    currentIndex = 0;
+    loadSong(0);
+    isPlaying = false;
+    updatePlayButton();
+  }
+
+  playBtn.addEventListener('click', togglePlay);
+  prevBtn.addEventListener('click', prevSong);
+  nextBtn.addEventListener('click', nextSong);
+  modeLabel.addEventListener('click', toggleMode);
+  playlistToggle.addEventListener('click', function(e) {
+    e.stopPropagation();
+    playlistPanel.classList.toggle('show');
+    renderPlaylist();
+  });
+  document.addEventListener('click', function(e) {
+    if (!playlistPanel.contains(e.target) && e.target !== playlistToggle) {
+      playlistPanel.classList.remove('show');
+    }
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.code === 'Space') { e.preventDefault(); togglePlay(); }
+  });
+  console.log('🎵 播放器已启动，歌单数量:', list.length);
+})();
+</script>
+
+</body>
+</html>

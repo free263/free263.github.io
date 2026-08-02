@@ -1,0 +1,538 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>海底鱼群游动背景动画特效 · 音乐播放器</title>
+    <link rel="stylesheet" type="text/css" href="css/dmaku.css" />
+    <noscript></noscript>
+    <style>
+        /* 全局重置与基础 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            overflow: hidden; 
+            background: #0a1a2a; 
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, sans-serif;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* 鱼群容器 - 占满视口，播放器在此容器内居中 */
+        .fish-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            background-color: transparent;
+            /* 保证内部元素定位参考此容器 */
+        }
+
+        /* 播放器主容器 - 毛玻璃半透明，水平居中，底部留白 */
+        .player-wrapper {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+            padding: 16px 22px;
+            min-width: 280px;
+            max-width: 420px;
+            width: 90%;
+            color: #fff;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .player-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            gap: 8px;
+        }
+
+        .song-title {
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 180px;
+            flex: 1;
+        }
+        .song-title i {
+            font-style: normal;
+            opacity: 0.7;
+            font-size: 13px;
+        }
+
+        .mode-indicator {
+            font-size: 13px;
+            background: rgba(255,255,255,0.06);
+            padding: 2px 10px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.06);
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .mode-indicator:hover { background: rgba(255,255,255,0.12); }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .ctrl-btn {
+            background: rgba(255, 255, 255, 0.06);
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            flex-shrink: 0;
+        }
+        .ctrl-btn:hover {
+            background: rgba(255, 255, 255, 0.18);
+            transform: scale(1.05);
+        }
+        .ctrl-btn:active { transform: scale(0.92); }
+        .ctrl-btn.play-btn {
+            background: rgba(255, 255, 255, 0.15);
+            font-size: 22px;
+            width: 40px;
+            height: 40px;
+        }
+        .ctrl-btn.play-btn:hover { background: rgba(255, 255, 255, 0.25); }
+
+        /* 音乐列表 - 毛玻璃半透明，位于播放器上方，居中 */
+        .music-list {
+            position: absolute;
+            bottom: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9;
+            background: rgba(10, 20, 35, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 12px 8px 12px 14px;
+            max-height: 280px;
+            width: 300px;
+            max-width: 88vw;
+            overflow-y: auto;
+            color: #e8f0ff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: opacity 0.3s ease, transform 0.25s ease, visibility 0.25s;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-50%) translateY(10px);
+            pointer-events: none;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.2) transparent;
+        }
+        .music-list.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+        .music-list::-webkit-scrollbar { width: 4px; }
+        .music-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+
+        .list-item {
+            padding: 6px 10px;
+            border-radius: 8px;
+            margin-bottom: 2px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: 0.15s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            border-left: 2px solid transparent;
+        }
+        .list-item:hover { background: rgba(255,255,255,0.08); }
+        .list-item.active-item {
+            background: rgba(255,255,255,0.12);
+            border-left-color: #6fc3ff;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        /* 底部原有元素保持，但调整层级和位置，不影响播放器 */
+        .bottom-fish {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 6;
+            pointer-events: none;
+        }
+        .bottom-fish img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .bottom-links {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 7;
+            pointer-events: none;
+        }
+        .bottom-links table {
+            width: 100%;
+            pointer-events: auto;
+        }
+        .bottom-links td {
+            padding: 0;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 600px) {
+            .player-wrapper {
+                bottom: 60px;
+                padding: 12px 14px;
+                min-width: auto;
+                width: 92%;
+                max-width: 360px;
+            }
+            .song-title {
+                font-size: 13px;
+                max-width: 120px;
+            }
+            .ctrl-btn {
+                width: 30px;
+                height: 30px;
+                font-size: 15px;
+            }
+            .ctrl-btn.play-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 18px;
+            }
+            .music-list {
+                width: 260px;
+                max-height: 200px;
+                bottom: 130px;
+            }
+            .mode-indicator {
+                font-size: 11px;
+                padding: 1px 8px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .player-wrapper {
+                padding: 10px 10px;
+                bottom: 50px;
+            }
+            .song-title {
+                font-size: 12px;
+                max-width: 90px;
+            }
+            .ctrl-btn {
+                width: 26px;
+                height: 26px;
+                font-size: 13px;
+            }
+            .ctrl-btn.play-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 16px;
+            }
+            .music-list {
+                width: 220px;
+                max-height: 160px;
+                bottom: 110px;
+                padding: 8px 6px 8px 10px;
+            }
+            .list-item {
+                font-size: 11px;
+                padding: 4px 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- 鱼群容器（原 .fish 改为自适应容器） -->
+<div class="fish-container" id="fishContainer">
+    <!-- 播放器 - 水平居中 -->
+    <div class="player-wrapper" id="playerWrapper">
+        <div class="player-header">
+            <span class="song-title" id="songTitle">🎵 未选择</span>
+            <span class="mode-indicator" id="modeIndicator" title="点击切换模式">🔁 循环</span>
+        </div>
+        <div class="player-controls">
+            <button class="ctrl-btn" id="prevBtn" title="上一首">⏮</button>
+            <button class="ctrl-btn play-btn" id="playBtn" title="播放/暂停">▶</button>
+            <button class="ctrl-btn" id="nextBtn" title="下一首">⏭</button>
+            <button class="ctrl-btn" id="listToggleBtn" title="显示/隐藏列表" style="margin-left:auto; font-size:16px;">📋</button>
+        </div>
+    </div>
+
+    <!-- 音乐列表 - 居中 -->
+    <div class="music-list" id="musicList"></div>
+
+    <!-- 底部图片和链接（原样保留，自适应宽度） -->
+    <div class="bottom-fish">
+        <img src="./images/bottom.jpg" alt="">
+    </div>
+
+    <div class="bottom-links">
+        <table>
+            <tr>
+                <td><a href="http://my.2345.ltd" target="_blank"><img src="./computer/space.gif" width="40" height="50" border="0" alt=""></a></td>
+                <td width="20">&nbsp;</td>
+                <td><a href="http://cloud.2345.ltd" target="_blank"><img src="./computer/space.gif" width="40" height="50" border="0" alt=""></a></td>
+                <td width="1050">&nbsp;</td>
+                <td><a href="http://wx.qq.com/" target="_blank"><img src="./computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+                <td width="10">&nbsp;</td>
+                <td><a href="http://www.360.cn" target="_blank"><img src="./computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+                <td width="7">&nbsp;</td>
+                <td><a href="http://odj.cc" target="_blank"><img src="./computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+                <td width="6">&nbsp;</td>
+                <td><a href="http://odj.cc" target="_blank"><img src="./computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+                <td width="4">&nbsp;</td>
+                <td><a href="http://odj.cc" target="_blank"><img src="./computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- 原有鱼群动画容器 -->
+<div id="dmaku" class="dmaku"></div>
+
+<script src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/dmaku.js"></script>
+
+<!-- 音乐数据 -->
+<script src="music.js"></script>
+
+<script>
+    (function() {
+        if (typeof MUSIC_DATA === 'undefined') {
+            console.warn('MUSIC_DATA 未定义，请检查 music.js 文件');
+            return;
+        }
+
+        const songTitleEl = document.getElementById('songTitle');
+        const playBtn = document.getElementById('playBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const modeIndicator = document.getElementById('modeIndicator');
+        const listToggleBtn = document.getElementById('listToggleBtn');
+        const musicListEl = document.getElementById('musicList');
+
+        let currentIndex = 0;
+        let isPlaying = false;
+        let mode = 'loop';
+        let audio = new Audio();
+        let isListVisible = false;
+
+        function renderList() {
+            musicListEl.innerHTML = '';
+            MUSIC_DATA.forEach((item, idx) => {
+                const div = document.createElement('div');
+                div.className = 'list-item' + (idx === currentIndex ? ' active-item' : '');
+                div.textContent = `${idx+1}. ${item.name}`;
+                div.dataset.index = idx;
+                div.addEventListener('click', () => {
+                    if (currentIndex !== idx) {
+                        currentIndex = idx;
+                        loadSong(currentIndex);
+                        if (isPlaying) {
+                            audio.play().catch(e => console.warn(e));
+                        }
+                        updateUI();
+                        renderList();
+                    } else {
+                        togglePlay();
+                    }
+                });
+                musicListEl.appendChild(div);
+            });
+        }
+
+        function loadSong(index) {
+            const song = MUSIC_DATA[index];
+            if (!song) return;
+            audio.src = song.url;
+            audio.load();
+            songTitleEl.textContent = `🎵 ${song.name}`;
+            const items = musicListEl.querySelectorAll('.list-item');
+            items.forEach((el, i) => {
+                el.classList.toggle('active-item', i === index);
+            });
+        }
+
+        function togglePlay() {
+            if (audio.src === '') {
+                loadSong(currentIndex);
+            }
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+                playBtn.textContent = '▶';
+            } else {
+                audio.play().catch(e => {
+                    console.warn('播放失败:', e);
+                    if (audio.src) {
+                        audio.load();
+                        setTimeout(() => audio.play().catch(er => console.warn(er)), 300);
+                    }
+                });
+                isPlaying = true;
+                playBtn.textContent = '⏸';
+            }
+        }
+
+        function prevSong() {
+            if (MUSIC_DATA.length === 0) return;
+            if (mode === 'random') {
+                currentIndex = Math.floor(Math.random() * MUSIC_DATA.length);
+            } else {
+                currentIndex = (currentIndex - 1 + MUSIC_DATA.length) % MUSIC_DATA.length;
+            }
+            loadSong(currentIndex);
+            if (isPlaying) {
+                audio.play().catch(e => console.warn(e));
+            }
+            updateUI();
+            renderList();
+        }
+
+        function nextSong() {
+            if (MUSIC_DATA.length === 0) return;
+            if (mode === 'random') {
+                currentIndex = Math.floor(Math.random() * MUSIC_DATA.length);
+            } else {
+                currentIndex = (currentIndex + 1) % MUSIC_DATA.length;
+            }
+            loadSong(currentIndex);
+            if (isPlaying) {
+                audio.play().catch(e => console.warn(e));
+            }
+            updateUI();
+            renderList();
+        }
+
+        function toggleMode() {
+            if (mode === 'loop') {
+                mode = 'random';
+                modeIndicator.textContent = '🎲 随机';
+            } else if (mode === 'random') {
+                mode = 'single';
+                modeIndicator.textContent = '🔂 单曲';
+            } else {
+                mode = 'loop';
+                modeIndicator.textContent = '🔁 循环';
+            }
+        }
+
+        function updateUI() {
+            playBtn.textContent = isPlaying ? '⏸' : '▶';
+            const song = MUSIC_DATA[currentIndex];
+            if (song) {
+                songTitleEl.textContent = `🎵 ${song.name}`;
+            }
+            const modeMap = {
+                'loop': '🔁 循环',
+                'random': '🎲 随机',
+                'single': '🔂 单曲'
+            };
+            modeIndicator.textContent = modeMap[mode] || '🔁 循环';
+        }
+
+        audio.addEventListener('ended', function() {
+            if (mode === 'single') {
+                audio.currentTime = 0;
+                audio.play().catch(e => console.warn(e));
+                return;
+            }
+            nextSong();
+        });
+
+        audio.addEventListener('error', function(e) {
+            console.warn('音频错误，尝试下一首', e);
+            if (MUSIC_DATA.length > 1) {
+                nextSong();
+            }
+        });
+
+        playBtn.addEventListener('click', togglePlay);
+        prevBtn.addEventListener('click', prevSong);
+        nextBtn.addEventListener('click', nextSong);
+        modeIndicator.addEventListener('click', toggleMode);
+
+        listToggleBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            isListVisible = !isListVisible;
+            musicListEl.classList.toggle('active', isListVisible);
+        });
+
+        document.addEventListener('click', function(e) {
+            const wrapper = document.getElementById('playerWrapper');
+            if (isListVisible && !wrapper.contains(e.target) && !musicListEl.contains(e.target)) {
+                isListVisible = false;
+                musicListEl.classList.remove('active');
+            }
+        });
+
+        if (MUSIC_DATA.length > 0) {
+            currentIndex = 0;
+            loadSong(currentIndex);
+            isPlaying = false;
+            playBtn.textContent = '▶';
+            updateUI();
+            renderList();
+        } else {
+            songTitleEl.textContent = '🎵 无歌曲';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            if (e.code === 'Space') {
+                e.preventDefault();
+                togglePlay();
+            } else if (e.code === 'ArrowRight') {
+                e.preventDefault();
+                nextSong();
+            } else if (e.code === 'ArrowLeft') {
+                e.preventDefault();
+                prevSong();
+            }
+        });
+
+        console.log('🎵 音乐播放器已启动，共 ' + MUSIC_DATA.length + ' 首歌曲');
+    })();
+</script>
+
+</body>
+</html>
