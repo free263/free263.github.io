@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>草长莺飞 · 听松阁 · 音乐</title>
+    <style>
+        /* === 保持原有样式不变 (仅微调位置) === */
+        *, *:before, *:after {
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+        }
+        html, body {
+            margin: 0;
+            height: 100%;
+            background-color: #000;
+            overflow: hidden;
+        }
+        canvas {
+            position: relative;
+            z-index: 2;
+        }
+        .night-feeling {
+            background: rgba(130, 156, 120, 0.56);
+            width: 100%;
+            height: calc(100% - 20px);
+            position: relative;
+            overflow: hidden;
+        }
+        .character {
+            position: absolute;
+            display: inline-block;
+        }
+        .character img {
+            height: 100%;
+            width: auto;
+            max-width: 100%;
+            display: block;
+        }
+        .character.sith {
+            bottom: 0;
+            right: 0;
+            z-index: 3;
+            transform: translateX(100%);
+            transition: all .5s linear;
+        }
+        .character.sith .front, .character.sith .back {
+            width: 100%;
+            backface-visibility: hidden;
+        }
+        .character.sith .back {
+            position: absolute;
+            height: 100%;
+            display: block;
+            transform: rotateY(180deg);
+        }
+        .character.sith .back img {
+            transform: scaleX(-1);
+        }
+        .character.yoda {
+            opacity: 0;
+            transform: translateX(-100%) translateY(-100%);
+            transition: all .5s linear;
+        }
+        .scene {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .scene1 .sith { transform: translateX(-60%); }
+        .scene2 .yoda {
+            opacity: .5;
+            transform: translateX(100%) translateY(0);
+            top: auto;
+            bottom: 0;
+            left: 5%;
+        }
+        .scene3 .sith {
+            transform-style: preserve-3d;
+            animation: miffed-sith 2s 1 forwards;
+        }
+        .scene3 .sith .back { top: 0; }
+        .scene4 .yoda { opacity: 0; }
+
+        @keyframes miffed-sith {
+            0% { transform: translateX(-60%) translateY(0); }
+            25% { transform: translateX(-60%) translateY(-10%); }
+            50% { transform: translateX(-60%) translateY(-10%) rotateY(0); }
+            75% { transform: translateX(-60%) translateY(0) rotateY(180deg); }
+            100% { transform: translateX(100%) rotateY(180deg); }
+        }
+
+        /* === 新增音乐播放器样式 (毛玻璃 · 居中) === */
+        .music-player-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 99;
+            width: 340px;
+            max-width: 92vw;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            border-radius: 28px;
+            padding: 18px 20px 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.06);
+            color: #f0f0e8;
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, 'Helvetica Neue', sans-serif;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+        .music-player-wrapper .song-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-align: center;
+            padding: 4px 0 10px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #f5f3ed;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+            border-bottom: 1px solid rgba(255,255,240,0.15);
+        }
+        .music-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding-top: 12px;
+            flex-wrap: wrap;
+        }
+        .music-controls button {
+            background: rgba(220, 220, 220, 0.08);
+            border: none;
+            border-radius: 40px;
+            color: #f0ede5;
+            font-size: 1.2rem;
+            width: 44px;
+            height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.15s;
+            backdrop-filter: blur(4px);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            font-weight: 400;
+            padding: 0;
+        }
+        .music-controls button:hover {
+            background: rgba(255, 255, 255, 0.18);
+            transform: scale(1.03);
+            color: #fff;
+        }
+        .music-controls button:active {
+            transform: scale(0.94);
+        }
+        .music-controls .play-btn {
+            width: 58px;
+            height: 58px;
+            font-size: 1.8rem;
+            background: rgba(255, 215, 140, 0.15);
+            border: 1px solid rgba(255, 215, 140, 0.25);
+        }
+        .music-controls .play-btn:hover {
+            background: rgba(255, 215, 140, 0.25);
+        }
+        .music-controls .mode-btn {
+            font-size: 0.9rem;
+            width: 44px;
+            height: 44px;
+            background: rgba(200, 200, 200, 0.05);
+            letter-spacing: 0.3px;
+        }
+        /* 列表按钮与列表容器 */
+        .list-toggle-area {
+            display: flex;
+            justify-content: flex-end;
+            padding-top: 8px;
+        }
+        .list-toggle-btn {
+            background: transparent;
+            border: none;
+            color: #cccbc4;
+            font-size: 0.8rem;
+            padding: 4px 12px;
+            border-radius: 30px;
+            background: rgba(255,255,255,0.04);
+            backdrop-filter: blur(4px);
+            cursor: pointer;
+            transition: 0.15s;
+        }
+        .list-toggle-btn:hover {
+            background: rgba(255,255,255,0.12);
+            color: #fff;
+        }
+        .playlist-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease, opacity 0.25s ease;
+            opacity: 0;
+            margin-top: 6px;
+            border-radius: 18px;
+            background: rgba(10, 10, 10, 0.35);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+        .playlist-container.open {
+            max-height: 220px;
+            opacity: 1;
+            overflow-y: auto;
+            padding: 6px 4px 8px;
+        }
+        .playlist-container::-webkit-scrollbar {
+            width: 4px;
+            background: transparent;
+        }
+        .playlist-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 200, 0.2);
+            border-radius: 10px;
+        }
+        .playlist-item {
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.12s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #dddcd4;
+            margin: 2px 0;
+        }
+        .playlist-item:hover {
+            background: rgba(255, 255, 240, 0.08);
+            color: #fff;
+        }
+        .playlist-item.active {
+            background: rgba(255, 215, 140, 0.18);
+            color: #ffecce;
+            font-weight: 500;
+        }
+
+        /* 保留原有的 .fish 占位, 但内容由js插入 */
+        .fish {
+            position: absolute;
+            z-index: 99;
+        }
+        /* 底部图片和按钮保持原样 */
+        .fish img { border: 0; display: block; }
+        .fish table { border-collapse: collapse; }
+        .fish td { vertical-align: middle; }
+
+        /* 小屏适配 */
+        @media (max-width: 500px) {
+            .music-player-wrapper { width: 280px; padding: 14px 14px 16px; }
+            .music-controls button { width: 38px; height: 38px; font-size: 1rem; }
+            .music-controls .play-btn { width: 50px; height: 50px; font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body Scroll=no>
+
+<!-- 原有底部和按钮 (保持不变) -->
+<div class="fish" style="position:absolute; width:1365px; height:39px; z-index:97; left:0; bottom:-3px; background:transparent;">
+    <img src="./images/bottom.jpg" width="1366" height="39" border="0" alt="">
+</div>
+<div class="fish" style="position:absolute; width:50px; height:50px; z-index:98; left:0; bottom:-3px; background:transparent;">
+    <table>
+        <tr>
+            <td><a href="http://www.2345.ltd/?lightbox[iframe]=true&lightbox[width]=1200&lightbox[height]=540" class="lightbox"><img src="./computer/space.gif" width="40" height="50" border="0" alt=""></a></td>
+            <td width="20">&nbsp;</td>
+            <td><a href="http://cloud.2345.ltd/?lightbox[iframe]=true&lightbox[width]=1200&lightbox[height]=540" class="lightbox"><img src="./computer/space.gif" width="40" height="50" border="0" alt=""></a></td>
+            <td width="1050">&nbsp;</td>
+            <td><a href="http://wx.qq.com/?lightbox[iframe]=true&lightbox[width]=800&lightbox[height]=540" class="lightbox"><img src="./computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+            <td width="10">&nbsp;</td>
+            <td><a href="http://www.360.cn/?lightbox[iframe]=true&lightbox[width]=1200&lightbox[height]=540" class="lightbox"><img src="./computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+            <td width="7">&nbsp;</td>
+            <td><a href="http://mp3.2345.ltd/lx/?lightbox[iframe]=true&lightbox[width]=1200&lightbox[height]=540" class="lightbox"><img src="./computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+            <td width="6">&nbsp;</td>
+            <td><a href="http://mp3.2345.ltd/dys/?lightbox[iframe]=true&lightbox[width]=1200&lightbox[height]=540" class="lightbox"><img src="./computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+            <td width="4">&nbsp;</td>
+            <td><a href="http://mp3.2345.ltd/qyy/?lightbox[iframe]=true&lightbox[width]=1200&lightbox[height]=540" class="lightbox"><img src="./computer/space.gif" width="15" height="50" border="0" alt=""></a></td>
+        </tr>
+    </table>
+</div>
+
+<!-- 主场景 -->
+<section class="night-feeling">
+    <div class="scene">
+        <div class="character yoda"></div>
+        <div class="character sith">
+            <div class="front"></div>
+            <div class="back"></div>
+        </div>
+    </div>
+    <canvas id="grass"></canvas>
+
+    <!-- 音乐播放器 浮层 (毛玻璃居中) -->
+    <div class="music-player-wrapper" id="musicPlayerWrapper">
+        <div class="song-title" id="currentSongTitle">🎵 选择一首歌</div>
+        <div class="music-controls">
+            <button class="mode-btn" id="modeBtn" title="循环模式">🔁</button>
+            <button id="prevBtn" title="上一首">⏮</button>
+            <button class="play-btn" id="playBtn" title="播放/暂停">▶</button>
+            <button id="nextBtn" title="下一首">⏭</button>
+            <button class="mode-btn" id="listToggleBtn" title="播放列表">📋</button>
+        </div>
+        <div class="list-toggle-area">
+            <button class="list-toggle-btn" id="listToggleBtn2">📋 歌单</button>
+        </div>
+        <div class="playlist-container" id="playlistContainer"></div>
+    </div>
+</section>
+
+<script src="js/jquery-1.11.1.min.js"></script>
+<!-- 引入 music.js (必须) -->
+<script src="music.js"></script>
+<script>
+    (function($, root, undefined, w) {
+        'use strict';
+        var count = 1;
+        $(document).on('ready', function() {
+            $(window).on('keyup', function(e) {
+                if (e.which === 32 && count < 6) {
+                    $('.scene').addClass('scene' + count);
+                    count++;
+                }
+                if (count === 6) {
+                    $('.scene').removeClass().addClass('scene');
+                    count = 1;
+                }
+            })
+        });
+    })(jQuery, this);
+
+    // ====== 音乐播放器核心 (基于 music.js) ======
+    (function() {
+        // 确保 MUSIC_DATA 存在
+        if (typeof MUSIC_DATA === 'undefined') {
+            console.warn('MUSIC_DATA 未定义, 请检查 music.js');
+            return;
+        }
+
+        const list = MUSIC_DATA;
+        let currentIndex = 0;
+        let isPlaying = false;
+        let mode = 0; // 0: 列表循环, 1: 单曲循环, 2: 随机
+        const modeSymbols = ['🔁', '🔂', '🎲'];
+        const modeNames = ['列表循环', '单曲循环', '随机'];
+
+        const audio = new Audio();
+        const playBtn = document.getElementById('playBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const modeBtn = document.getElementById('modeBtn');
+        const listToggleBtn = document.getElementById('listToggleBtn');
+        const listToggleBtn2 = document.getElementById('listToggleBtn2');
+        const playlistContainer = document.getElementById('playlistContainer');
+        const songTitleEl = document.getElementById('currentSongTitle');
+
+        // 渲染歌单
+        function renderPlaylist() {
+            let html = '';
+            list.forEach((item, idx) => {
+                const active = idx === currentIndex ? 'active' : '';
+                html += `<div class="playlist-item ${active}" data-index="${idx}">${item.name}</div>`;
+            });
+            playlistContainer.innerHTML = html;
+            // 绑定点击事件
+            document.querySelectorAll('.playlist-item').forEach(el => {
+                el.addEventListener('click', function() {
+                    const idx = parseInt(this.dataset.index, 10);
+                    if (!isNaN(idx) && idx >= 0 && idx < list.length) {
+                        currentIndex = idx;
+                        playSong(currentIndex);
+                        closePlaylist();
+                    }
+                });
+            });
+        }
+
+        // 播放指定索引
+        function playSong(index) {
+            if (!list[index]) return;
+            const item = list[index];
+            audio.src = item.url;
+            audio.play().then(() => {
+                isPlaying = true;
+                updateUI();
+                songTitleEl.textContent = '🎵 ' + item.name;
+                // 高亮列表
+                document.querySelectorAll('.playlist-item').forEach(el => {
+                    el.classList.toggle('active', parseInt(el.dataset.index, 10) === index);
+                });
+            }).catch(err => {
+                console.warn('播放失败:', err);
+                isPlaying = false;
+                updateUI();
+                songTitleEl.textContent = '⚠️ 无法播放: ' + item.name;
+            });
+        }
+
+        // 切换播放/暂停
+        function togglePlay() {
+            if (!list.length) return;
+            if (!audio.src) {
+                playSong(currentIndex);
+                return;
+            }
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+            } else {
+                audio.play().then(() => {
+                    isPlaying = true;
+                }).catch(e => {
+                    console.warn('播放恢复失败', e);
+                    isPlaying = false;
+                });
+            }
+            updateUI();
+        }
+
+        // 下一首
+        function nextSong() {
+            if (!list.length) return;
+            let next = currentIndex;
+            if (mode === 2) { // 随机
+                next = Math.floor(Math.random() * list.length);
+                while (list.length > 1 && next === currentIndex) {
+                    next = Math.floor(Math.random() * list.length);
+                }
+            } else {
+                next = (currentIndex + 1) % list.length;
+            }
+            currentIndex = next;
+            playSong(currentIndex);
+        }
+
+        // 上一首
+        function prevSong() {
+            if (!list.length) return;
+            let prev = currentIndex;
+            if (mode === 2) {
+                prev = Math.floor(Math.random() * list.length);
+                while (list.length > 1 && prev === currentIndex) {
+                    prev = Math.floor(Math.random() * list.length);
+                }
+            } else {
+                prev = (currentIndex - 1 + list.length) % list.length;
+            }
+            currentIndex = prev;
+            playSong(currentIndex);
+        }
+
+        // 切换模式
+        function cycleMode() {
+            mode = (mode + 1) % 3;
+            modeBtn.textContent = modeSymbols[mode];
+            modeBtn.title = modeNames[mode];
+        }
+
+        // 更新按钮状态
+        function updateUI() {
+            playBtn.textContent = isPlaying ? '⏸' : '▶';
+            if (audio.src && !audio.paused) {
+                isPlaying = true;
+            } else if (audio.src && audio.paused) {
+                isPlaying = false;
+            }
+            playBtn.textContent = isPlaying ? '⏸' : '▶';
+            // 更新歌单激活状态
+            document.querySelectorAll('.playlist-item').forEach(el => {
+                const idx = parseInt(el.dataset.index, 10);
+                el.classList.toggle('active', idx === currentIndex);
+            });
+            // 标题
+            if (list[currentIndex] && audio.src) {
+                songTitleEl.textContent = '🎵 ' + list[currentIndex].name;
+            }
+        }
+
+        // 打开/关闭歌单
+        function togglePlaylist() {
+            playlistContainer.classList.toggle('open');
+        }
+        function closePlaylist() {
+            playlistContainer.classList.remove('open');
+        }
+
+        // 事件绑定
+        playBtn.addEventListener('click', togglePlay);
+        prevBtn.addEventListener('click', prevSong);
+        nextBtn.addEventListener('click', nextSong);
+        modeBtn.addEventListener('click', cycleMode);
+        listToggleBtn.addEventListener('click', togglePlaylist);
+        listToggleBtn2.addEventListener('click', togglePlaylist);
+
+        // 音频结束自动下一首
+        audio.addEventListener('ended', function() {
+            if (mode === 1) { // 单曲循环
+                audio.currentTime = 0;
+                audio.play().catch(e => {});
+                return;
+            }
+            nextSong();
+        });
+
+        // 初始化：默认播放第一首
+        if (list.length) {
+            currentIndex = 0;
+            playSong(0);
+        } else {
+            songTitleEl.textContent = '🎵 暂无歌曲';
+        }
+
+        renderPlaylist();
+        modeBtn.textContent = modeSymbols[mode];
+        modeBtn.title = modeNames[mode];
+
+        // 点击外部关闭歌单 (简单处理)
+        document.addEventListener('click', function(e) {
+            const wrapper = document.getElementById('musicPlayerWrapper');
+            if (wrapper && !wrapper.contains(e.target) && playlistContainer.classList.contains('open')) {
+                closePlaylist();
+            }
+        });
+
+        // 更新UI循环 (防止状态漂移)
+        setInterval(() => {
+            if (audio.src) {
+                const playing = !audio.paused;
+                if (playing !== isPlaying) {
+                    isPlaying = playing;
+                    updateUI();
+                }
+            }
+        }, 500);
+    })();
+
+    // ====== 原有 Canvas 草 (保持不变) ======
+    (function() {
+        Grass = function() { return this; };
+        Grass.prototype = {
+            alto_hierba: 0, maxAngle: 0, angle: 0, coords: null, color: null, offset_control_point: 3,
+            initialize: function(canvasWidth, canvasHeight, minHeight, maxHeight, angleMax, initialMaxAngle) {
+                var sx = Math.floor(Math.random() * canvasWidth);
+                var sy = canvasHeight;
+                var offset_control_x = 1.5;
+                this.alto_hierba = minHeight + Math.random() * maxHeight;
+                this.maxAngle = 10 + Math.random() * angleMax;
+                this.angle = Math.random() * initialMaxAngle * (Math.random() < 0.5 ? 1 : -1) * Math.PI / 180;
+                var csx = sx - offset_control_x;
+                var csy = 0;
+                if (Math.random() < 0.1) { csy = sy - this.alto_hierba; } else { csy = sy - this.alto_hierba / 2; }
+                var psx = csx;
+                var psy = csy - offset_control_x;
+                this.offset_control_point = 3;
+                var dx = sx + this.offset_control_point;
+                var dy = sy;
+                this.coords = [sx, sy, csx, csy, psx, psy, dx, dy];
+                this.color = [16 + Math.floor(Math.random() * 32), 100 + Math.floor(Math.random() * 155), 16 + Math.floor(Math.random() * 32)];
+            },
+            paint: function(ctx, time, ambient) {
+                ctx.save();
+                var inc_punta_hierba = Math.sin(time * 0.0005);
+                var ang = this.angle + Math.PI / 2 + inc_punta_hierba * Math.PI / 180 * (this.maxAngle * Math.cos(time * 0.0002));
+                var px = this.coords[0] + this.offset_control_point + this.alto_hierba * Math.cos(ang);
+                var py = this.coords[1] - this.alto_hierba * Math.sin(ang);
+                var c = this.coords;
+                ctx.beginPath();
+                ctx.moveTo(c[0], c[1]);
+                ctx.bezierCurveTo(c[0], c[1], c[2], c[3], px, py);
+                ctx.bezierCurveTo(px, py, c[4], c[5], c[6], c[7]);
+                ctx.closePath();
+                ctx.fillStyle = 'rgb(' + Math.floor(this.color[0] * ambient) + ',' + Math.floor(this.color[1] * ambient) + ',' + Math.floor(this.color[2] * ambient) + ')';
+                ctx.fill();
+                ctx.restore();
+            }
+        };
+
+        Garden = function() { return this; };
+        Garden.prototype = {
+            grass: null, ambient: 1, stars: null, firefly_radius: 10, num_fireflyes: 40, num_stars: 512, width: 0, height: 0,
+            initialize: function(width, height, size) {
+                this.width = width; this.height = height; this.grass = [];
+                for (var i = 0; i < size; i++) {
+                    var g = new Grass();
+                    g.initialize(width, height, 50, height / 10, 20, 40);
+                    this.grass.push(g);
+                }
+                this.stars = [];
+                for (i = 0; i < this.num_stars; i++) {
+                    this.stars.push(Math.floor(Math.random() * (width - 10) + 5));
+                    this.stars.push(Math.floor(Math.random() * (height - 10) + 5));
+                }
+            },
+            paint: function(ctx, time) {
+                ctx.save();
+                if (this.ambient < 0.3) {
+                    ctx.globalAlpha = 1 - ((this.ambient - 0.05) / 0.25);
+                    intensity = 1 - (this.ambient / 2 - 0.05) / 0.25;
+                    var c = Math.floor(192 * intensity);
+                    var strc = 'rgb(' + c + ',' + c + ',' + c + ')';
+                    ctx.strokeStyle = strc;
+                    for (var j = this.num_fireflyes * 2; j < this.stars.length; j += 2) {
+                        var inc = 1;
+                        if (j % 3 === 0) inc = 1.5;
+                        else if (j % 11 === 0) inc = 2.5;
+                        this.stars[j] = (this.stars[j] + 0.1 * inc) % canvas.width;
+                        ctx.strokeRect(this.stars[j], this.stars[j + 1], 1, 1);
+                    }
+                }
+                ctx.globalAlpha = 1;
+                ctx.fillStyle = '#ffff00';
+                for (var i = 0; i < this.num_fireflyes * 2; i += 2) {
+                    var angle = Math.PI * 2 * Math.sin(time * 3E-4) + i * Math.PI / 50;
+                    var radius = this.firefly_radius * Math.cos(time * 3E-4);
+                    ctx.fillRect(
+                        this.width / 2 + 0.5 * this.stars[i] + 150 * Math.cos(time * 3E-4) * Math.sin(time * 0.00001 * i) + radius * Math.cos(angle),
+                        this.height / 2 + 0.5 * this.stars[i + 1] + 20 * Math.sin(time * 3E-4) * 5 * Math.cos(time * 0.00001 * i) + radius * Math.sin(angle),
+                        3, 3);
+                }
+                for (i = 0; i < this.grass.length; i++) {
+                    this.grass[i].paint(ctx, time, this.ambient);
+                }
+                ctx.restore();
+            }
+        };
+
+        var canvas = document.getElementById('grass');
+        var ctx = canvas.getContext('2d');
+        var container = document.querySelector('.night-feeling');
+        canvas.width = container.offsetWidth;
+        canvas.height = container.offsetHeight;
+
+        var garden = new Garden();
+        garden.initialize(canvas.width, canvas.height, 500);
+        var time = new Date().getTime();
+
+        function _doit() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            var ntime = new Date().getTime();
+            var elapsed = ntime - time;
+            garden.paint(ctx, elapsed);
+        }
+        setInterval(_doit, 30);
+    })();
+</script>
+</body>
+</html>

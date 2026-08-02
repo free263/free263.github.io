@@ -1,0 +1,666 @@
+﻿<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>同心矩形动画 + 音乐播放器</title>
+  <style>
+    /* 原有样式保持不变 */
+    html {
+      background: #100010;
+    }
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      align-content: center;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      padding: 1em;
+      flex: 1;
+      flex-flow: wrap;
+      overflow: hidden;
+      position: relative;
+    }
+    .container {
+      width: 100%;
+      max-width: 500px;
+      position: relative;
+    }
+    .flower {
+      position: relative;
+      background: rgba(54, 84, 99, 0.4);
+      width: 100%;
+      padding-top: 100%;
+      border-radius: 10%;
+      --delta-angle: 180deg;
+    }
+    .flower__leaf {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 50%;
+      left: 50%;
+      opacity: 0.5;
+      border-radius: inherit;
+    }
+    .flower__leaf:nth-child(1) {
+      --scale: 0.8504300948;
+      --rotation: calc(1 * var(--delta-angle));
+      transform: translate(-50%, -50%) rotate(var(--rotation)) scale(var(--scale));
+      background: #374c72;
+      animation: rotate 8s alternate infinite ease-in-out;
+    }
+    .flower__leaf:nth-child(2) {
+      --scale: 0.7232313461;
+      --rotation: calc(2 * var(--delta-angle));
+      transform: translate(-50%, -50%) rotate(var(--rotation)) scale(var(--scale));
+      background: #373c81;
+      animation: rotate 8s alternate infinite ease-in-out;
+    }
+    .flower__leaf:nth-child(3) {
+      --scale: 0.6150577022;
+      --rotation: calc(3 * var(--delta-angle));
+      transform: translate(-50%, -50%) rotate(var(--rotation)) scale(var(--scale));
+      background: #4c3790;
+      animation: rotate 8s alternate infinite ease-in-out;
+    }
+    .flower__leaf:nth-child(4) {
+      --scale: 0.52306358;
+      --rotation: calc(4 * var(--delta-angle));
+      transform: translate(-50%, -50%) rotate(var(--rotation)) scale(var(--scale));
+      background: #6f36a1;
+      animation: rotate 8s alternate infinite ease-in-out;
+    }
+    .flower__leaf:nth-child(5) {
+      --scale: 0.4448290099;
+      --rotation: calc(5 * var(--delta-angle));
+      transform: translate(-50%, -50%) rotate(var(--rotation)) scale(var(--scale));
+      background: #9d34b2;
+      animation: rotate 8s alternate infinite ease-in-out;
+    }
+    .flower__leaf:nth-child(6) {
+      --scale: 0.378295977;
+      --rotation: calc(6 * var(--delta-angle));
+      transform: translate(-50%, -50%) rotate(var(--rotation)) scale(var(--scale));
+      background: #c431b0;
+      animation: rotate 8s alternate infinite ease-in-out;
+    }
+    .flower__leaf:nth-child(7) {
+      --scale: 0.3217142836;
+      --rotation: calc(7 * var(--delta-angle));
+      transform: translate(-50%, -50%) rotate(var(--rotation)) scale(var(--scale));
+      background: #d3318d;
+      animation: rotate 8s alternate infinite ease-in-out;
+    }
+    .flower__leaf:nth-child(8) {
+      --scale: 0.2735955087;
+      --rotation: calc(8 * var(--delta-angle));
+      transform: translate(-50%, -50%) rotate(var(--rotation)) scale(var(--scale));
+      background: #dc3863;
+      animation: rotate 8s alternate infinite ease-in-out;
+    }
+    .flower__leaf:nth-child(9) {
+      --scale: 0.2326738544;
+      --rotation: calc(9 * var(--delta-angle));
+      transform: translate(-50%, -50%) rotate(var(--rotation)) scale(var(--scale));
+      background: #e4453f;
+      animation: rotate 8s alternate infinite ease-in-out;
+    }
+    .flower__leaf:nth-child(10) {
+      --scale: 0.197872848;
+      --rotation: calc(10 * var(--delta-angle));
+      transform: translate(-50%, -50%) rotate(var(--rotation)) scale(var(--scale));
+      background: #eb7e47;
+      animation: rotate 8s alternate infinite ease-in-out;
+    }
+    .flower__leaf:nth-child(11) {
+      --scale: 0.1682770249;
+      --rotation: calc(11 * var(--delta-angle));
+      transform: translate(-50%, -50%) rotate(var(--rotation)) scale(var(--scale));
+      background: #f1b650;
+      animation: rotate 8s alternate infinite ease-in-out;
+    }
+    .flower__leaf:nth-child(12) {
+      --scale: 0.1431078462;
+      --rotation: calc(12 * var(--delta-angle));
+      transform: translate(-50%, -50%) rotate(var(--rotation)) scale(var(--scale));
+      background: #f6ec5a;
+      animation: rotate 8s alternate infinite ease-in-out;
+    }
+    .flower__leaf:nth-child(13) {
+      --scale: 0.1217032192;
+      --rotation: calc(13 * var(--delta-angle));
+      transform: translate(-50%, -50%) rotate(var(--rotation)) scale(var(--scale));
+      background: #d8fb65;
+      animation: rotate 8s alternate infinite ease-in-out;
+    }
+    .flower__leaf:nth-child(14) {
+      --scale: 0.1035000803;
+      --rotation: calc(14 * var(--delta-angle));
+      transform: translate(-50%, -50%) rotate(var(--rotation)) scale(var(--scale));
+      background: #b3ff70;
+      animation: rotate 8s alternate infinite ease-in-out;
+    }
+    .flower__leaf:nth-child(15) {
+      --scale: 0.0880195831;
+      --rotation: calc(15 * var(--delta-angle));
+      transform: translate(-50%, -50%) rotate(var(--rotation)) scale(var(--scale));
+      background: #95ff80;
+      animation: rotate 8s alternate infinite ease-in-out;
+    }
+    .flower__leaf:nth-child(16) {
+      --scale: 0.0748545024;
+      --rotation: calc(16 * var(--delta-angle));
+      transform: translate(-50%, -50%) rotate(var(--rotation)) scale(var(--scale));
+      background: #8fff9e;
+      animation: rotate 8s alternate infinite ease-in-out;
+    }
+    .flower__leaf:nth-child(17) {
+      --scale: 0.0636585215;
+      --rotation: calc(17 * var(--delta-angle));
+      transform: translate(-50%, -50%) rotate(var(--rotation)) scale(var(--scale));
+      background: #9effc8;
+      animation: rotate 8s alternate infinite ease-in-out;
+    }
+    .flower__leaf:nth-child(18) {
+      --scale: 0.0541371225;
+      --rotation: calc(18 * var(--delta-angle));
+      transform: translate(-50%, -50%) rotate(var(--rotation)) scale(var(--scale));
+      background: #adffe9;
+      animation: rotate 8s alternate infinite ease-in-out;
+    }
+    @keyframes rotate {
+      from {
+        transform: translate(-50%, -50%) rotate(var(--rotation)) scale(var(--scale));
+      }
+      to {
+        transform: translate(-50%, -50%) rotate(90deg) scale(var(--scale));
+      }
+    }
+
+    /* ----- 音乐播放器样式 (毛玻璃居中) ----- */
+    .player-wrapper {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 340px;
+      z-index: 20;
+      pointer-events: none; /* 让点击穿透，但内部控件可点 */
+    }
+    .player-card {
+      background: rgba(20, 20, 30, 0.45);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 28px;
+      padding: 18px 18px 20px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #f0f0f0;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      pointer-events: auto; /* 控件可交互 */
+      transition: all 0.2s;
+      text-align: center;
+    }
+    .player-card .song-name {
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      margin-bottom: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 0 4px;
+      color: #fff;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+    .player-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .player-controls button {
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      border-radius: 40px;
+      width: 40px;
+      height: 40px;
+      font-size: 20px;
+      color: #f0f0f0;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+    .player-controls button:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: scale(1.02);
+    }
+    .player-controls button:active {
+      transform: scale(0.94);
+    }
+    .player-controls .play-btn {
+      width: 52px;
+      height: 52px;
+      font-size: 26px;
+      background: rgba(255, 215, 100, 0.2);
+      border: 1px solid rgba(255, 215, 100, 0.2);
+    }
+    .player-controls .play-btn:hover {
+      background: rgba(255, 215, 100, 0.35);
+    }
+    .mode-area {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: #ccc;
+      margin-top: 2px;
+    }
+    .mode-area span {
+      background: rgba(255,255,255,0.06);
+      padding: 2px 14px;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      letter-spacing: 0.5px;
+      border: 1px solid rgba(255,255,255,0.05);
+      cursor: pointer;
+      transition: 0.2s;
+      user-select: none;
+    }
+    .mode-area span:hover {
+      background: rgba(255,255,255,0.15);
+    }
+    .mode-area .mode-label {
+      background: transparent;
+      border: none;
+      padding: 0 6px;
+      cursor: default;
+    }
+    .mode-area .mode-label:hover {
+      background: transparent;
+    }
+
+    /* 列表按钮与列表容器 */
+    .list-toggle {
+      margin-top: 10px;
+    }
+    .list-toggle button {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 30px;
+      padding: 4px 18px;
+      color: #ddd;
+      font-size: 0.75rem;
+      cursor: pointer;
+      backdrop-filter: blur(2px);
+      transition: 0.2s;
+    }
+    .list-toggle button:hover {
+      background: rgba(255,255,255,0.15);
+    }
+    .music-list-container {
+      margin-top: 12px;
+      max-height: 160px;
+      overflow-y: auto;
+      border-radius: 16px;
+      background: rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      padding: 6px 4px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.2) transparent;
+      display: none; /* 默认隐藏 */
+    }
+    .music-list-container.show {
+      display: block;
+    }
+    .music-list-container::-webkit-scrollbar {
+      width: 4px;
+    }
+    .music-list-container::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .music-list-container::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.2);
+      border-radius: 10px;
+    }
+    .music-list-item {
+      padding: 6px 12px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      color: #ddd;
+      cursor: pointer;
+      transition: 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .music-list-item:hover {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
+    .music-list-item.active {
+      background: rgba(255, 215, 100, 0.2);
+      color: #ffd764;
+      font-weight: 500;
+    }
+    .music-list-item .index-badge {
+      opacity: 0.5;
+      font-size: 0.65rem;
+      margin-right: 4px;
+      min-width: 24px;
+      text-align: right;
+    }
+    .music-list-item .item-name {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    /* 小屏适配 */
+    @media (max-width: 480px) {
+      .player-card {
+        padding: 14px 12px 16px;
+      }
+      .player-controls {
+        gap: 8px;
+      }
+      .player-controls button {
+        width: 34px;
+        height: 34px;
+        font-size: 16px;
+      }
+      .player-controls .play-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 动画容器 (保持不变) -->
+  <div class="container"> 
+    <div class="flower">
+      <div class="flower__leaf"></div>
+      <div class="flower__leaf"></div>
+      <div class="flower__leaf"></div>
+      <div class="flower__leaf"></div>
+      <div class="flower__leaf"></div>
+      <div class="flower__leaf"></div>
+      <div class="flower__leaf"></div>
+      <div class="flower__leaf"></div>
+      <div class="flower__leaf"></div>
+      <div class="flower__leaf"></div>
+      <div class="flower__leaf"></div>
+      <div class="flower__leaf"></div>
+      <div class="flower__leaf"></div>
+      <div class="flower__leaf"></div>
+      <div class="flower__leaf"></div>
+      <div class="flower__leaf"></div>
+      <div class="flower__leaf"></div>
+      <div class="flower__leaf"></div>
+    </div>
+
+    <!-- 音乐播放器 (毛玻璃居中) -->
+    <div class="player-wrapper">
+      <div class="player-card">
+        <div class="song-name" id="songNameDisplay">🎵 点击播放</div>
+
+        <div class="player-controls">
+          <button id="prevBtn" title="上一首">⏮</button>
+          <button class="play-btn" id="playBtn" title="播放/暂停">▶</button>
+          <button id="nextBtn" title="下一首">⏭</button>
+        </div>
+
+        <div class="mode-area">
+          <span class="mode-label" id="modeLabel">🔁 顺序</span>
+          <span id="modeToggleBtn" title="切换模式">🔄</span>
+        </div>
+
+        <div class="list-toggle">
+          <button id="toggleListBtn">📋 歌单</button>
+        </div>
+
+        <!-- 音乐列表 -->
+        <div class="music-list-container" id="musicListContainer"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 引入 music.js -->
+  <script src="music.js"></script>
+  <script>
+    (function() {
+      // ----- 核心变量 -----
+      const audio = new Audio();
+      let currentIndex = 0;
+      let isPlaying = false;
+      let playMode = 'order'; // 'order' | 'shuffle' | 'loop'
+      const listContainer = document.getElementById('musicListContainer');
+      const songNameDisplay = document.getElementById('songNameDisplay');
+      const playBtn = document.getElementById('playBtn');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const modeToggleBtn = document.getElementById('modeToggleBtn');
+      const modeLabel = document.getElementById('modeLabel');
+      const toggleListBtn = document.getElementById('toggleListBtn');
+
+      // 数据来自 music.js 中的 MUSIC_DATA
+      const musicData = typeof MUSIC_DATA !== 'undefined' ? MUSIC_DATA : [];
+
+      // ----- 辅助函数 -----
+      function formatSongName(item) {
+        return item.name || '未知歌曲';
+      }
+
+      function loadSong(index) {
+        if (!musicData.length) return;
+        const safeIndex = (index + musicData.length) % musicData.length;
+        currentIndex = safeIndex;
+        const item = musicData[safeIndex];
+        audio.src = item.url;
+        audio.load();
+        songNameDisplay.textContent = '🎵 ' + formatSongName(item);
+        // 高亮列表项
+        updateListActive();
+        // 如果正在播放，自动继续
+        if (isPlaying) {
+          audio.play().catch(() => {});
+        }
+      }
+
+      function playPause() {
+        if (!musicData.length) return;
+        if (audio.paused) {
+          audio.play().catch(() => {});
+          isPlaying = true;
+          playBtn.textContent = '⏸';
+        } else {
+          audio.pause();
+          isPlaying = false;
+          playBtn.textContent = '▶';
+        }
+      }
+
+      function prevSong() {
+        if (!musicData.length) return;
+        let newIndex = currentIndex - 1;
+        if (newIndex < 0) newIndex = musicData.length - 1;
+        loadSong(newIndex);
+        if (!isPlaying) {
+          isPlaying = true;
+          playBtn.textContent = '⏸';
+          audio.play().catch(() => {});
+        } else {
+          audio.play().catch(() => {});
+        }
+      }
+
+      function nextSong() {
+        if (!musicData.length) return;
+        let newIndex;
+        if (playMode === 'shuffle') {
+          newIndex = Math.floor(Math.random() * musicData.length);
+          // 避免连续相同 (如果列表 > 1)
+          if (musicData.length > 1 && newIndex === currentIndex) {
+            newIndex = (currentIndex + 1) % musicData.length;
+          }
+        } else {
+          newIndex = (currentIndex + 1) % musicData.length;
+        }
+        loadSong(newIndex);
+        if (!isPlaying) {
+          isPlaying = true;
+          playBtn.textContent = '⏸';
+          audio.play().catch(() => {});
+        } else {
+          audio.play().catch(() => {});
+        }
+      }
+
+      function toggleMode() {
+        if (playMode === 'order') {
+          playMode = 'shuffle';
+          modeLabel.textContent = '🎲 随机';
+        } else if (playMode === 'shuffle') {
+          playMode = 'loop';
+          modeLabel.textContent = '🔂 单曲循环';
+        } else {
+          playMode = 'order';
+          modeLabel.textContent = '🔁 顺序';
+        }
+        // 更新audio循环属性
+        audio.loop = (playMode === 'loop');
+      }
+
+      // 渲染列表
+      function renderList() {
+        if (!listContainer) return;
+        listContainer.innerHTML = '';
+        if (!musicData.length) {
+          listContainer.innerHTML = '<div style="padding:10px;color:#aaa;font-size:0.8rem;">暂无歌曲</div>';
+          return;
+        }
+        musicData.forEach((item, idx) => {
+          const div = document.createElement('div');
+          div.className = 'music-list-item';
+          if (idx === currentIndex) div.classList.add('active');
+          div.innerHTML = `
+            <span class="index-badge">${idx+1}</span>
+            <span class="item-name">${formatSongName(item)}</span>
+          `;
+          div.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (idx === currentIndex && isPlaying) {
+              // 相同歌曲，切换播放暂停
+              playPause();
+              return;
+            }
+            loadSong(idx);
+            if (!isPlaying) {
+              isPlaying = true;
+              playBtn.textContent = '⏸';
+            }
+            audio.play().catch(() => {});
+            // 列表更新高亮在 loadSong 中完成
+          });
+          listContainer.appendChild(div);
+        });
+      }
+
+      function updateListActive() {
+        const items = listContainer.querySelectorAll('.music-list-item');
+        items.forEach((el, idx) => {
+          el.classList.toggle('active', idx === currentIndex);
+        });
+        // 滚动到可视区域
+        const activeItem = listContainer.querySelector('.music-list-item.active');
+        if (activeItem) {
+          activeItem.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        }
+      }
+
+      // 切换列表显示
+      function toggleList() {
+        listContainer.classList.toggle('show');
+        if (listContainer.classList.contains('show')) {
+          // 刷新列表高亮
+          updateListActive();
+        }
+      }
+
+      // ----- 事件绑定 -----
+      playBtn.addEventListener('click', playPause);
+
+      prevBtn.addEventListener('click', prevSong);
+
+      nextBtn.addEventListener('click', nextSong);
+
+      modeToggleBtn.addEventListener('click', toggleMode);
+
+      toggleListBtn.addEventListener('click', toggleList);
+
+      // 音频自动结束下一首
+      audio.addEventListener('ended', function() {
+        if (playMode === 'loop') {
+          // 单曲循环由 audio.loop 处理
+          return;
+        }
+        nextSong();
+      });
+
+      // 加载第一首歌
+      function initPlayer() {
+        if (musicData.length) {
+          loadSong(0);
+          // 默认暂停，显示名称
+          isPlaying = false;
+          playBtn.textContent = '▶';
+          audio.pause();
+        } else {
+          songNameDisplay.textContent = '🎵 无音乐';
+        }
+        renderList();
+        // 默认模式文字
+        modeLabel.textContent = '🔁 顺序';
+        audio.loop = false;
+        // 点击外部关闭列表（可选）
+        document.addEventListener('click', function(e) {
+          const wrapper = document.querySelector('.player-wrapper');
+          if (wrapper && !wrapper.contains(e.target)) {
+            if (listContainer.classList.contains('show')) {
+              listContainer.classList.remove('show');
+            }
+          }
+        });
+      }
+
+      initPlayer();
+
+      // 暴露一些变量给调试 (非必须)
+      window.__player = { audio, currentIndex, musicData, playPause, nextSong, prevSong, loadSong };
+
+    })();
+  </script>
+
+</body>
+</html>

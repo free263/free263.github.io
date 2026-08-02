@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jquery+css3幻灯片插件Bootslider + 音乐播放器</title>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+        <meta charset="UTF-8">
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link href="css/animate.css" rel="stylesheet" type="text/css" />
+        <link href="css/bootslider.css" rel="stylesheet" type="text/css" />
+        <link href="css/bs-theme-metro.css" rel="stylesheet" type="text/css" />
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+        <style>
+            /* 原样式保持不变 */
+            body, p, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
+                font-family: 'Open Sans', sans-serif;
+                font-weight: 400;
+            }
+            a:hover{
+                text-decoration: none;
+            }
+            .logo{
+                position:absolute;
+                width:100%;
+                text-align:center;
+                bottom:30px;
+            }
+            @media screen and (max-width:767px){
+                .logo{
+                    bottom:10px;
+                }
+            }
+            .heading-center{
+                position:absolute;
+                width:100%;
+                top: 40%;
+                margin-top:-36px;
+            }
+
+            /* ===== 音乐播放器 - 毛玻璃半透明，最上层居中 ===== */
+            .music-player-wrapper {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;  /* 让点击穿透，但内部按钮可点击 */
+                z-index: 1000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .music-player {
+                pointer-events: auto;
+                background: rgba(255, 255, 255, 0.15);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                border-radius: 40px;
+                padding: 18px 28px;
+                min-width: 340px;
+                max-width: 92%;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+                border: 1px solid rgba(255, 255, 255, 0.25);
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+                gap: 12px 16px;
+                color: #fff;
+                font-weight: 300;
+                letter-spacing: 0.3px;
+                transition: all 0.2s;
+            }
+            .music-player .track-name {
+                font-size: 18px;
+                font-weight: 400;
+                min-width: 100px;
+                text-align: center;
+                flex: 1 1 auto;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 200px;
+                color: #fff;
+                text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+            }
+            .music-player .controls {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .music-player .controls button {
+                background: rgba(255,255,255,0.2);
+                border: none;
+                border-radius: 40px;
+                color: #fff;
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: 0.2s;
+                backdrop-filter: blur(4px);
+                box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+                border: 1px solid rgba(255,255,255,0.15);
+            }
+            .music-player .controls button:hover {
+                background: rgba(255,255,255,0.35);
+                transform: scale(1.05);
+            }
+            .music-player .controls button:active {
+                transform: scale(0.94);
+            }
+            .music-player .controls .mode-btn {
+                font-size: 14px;
+                width: 44px;
+                letter-spacing: 0.5px;
+            }
+            .music-player .controls .play-btn {
+                width: 48px;
+                height: 48px;
+                font-size: 22px;
+                background: rgba(255, 255, 255, 0.25);
+            }
+            /* 音乐列表 - 也是毛玻璃效果，位于播放器下方 */
+            .music-list-container {
+                position: absolute;
+                bottom: 100px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 999;
+                pointer-events: none;
+                width: 90%;
+                max-width: 500px;
+                display: flex;
+                justify-content: center;
+            }
+            .music-list {
+                pointer-events: auto;
+                background: rgba(0, 0, 0, 0.2);
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+                border-radius: 20px;
+                padding: 12px 14px;
+                max-height: 180px;
+                overflow-y: auto;
+                width: 100%;
+                border: 1px solid rgba(255,255,255,0.1);
+                box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+                color: #fff;
+                display: none; /* 默认隐藏，点击列表按钮或双击播放器可切换 */
+            }
+            .music-list.active {
+                display: block;
+            }
+            .music-list .list-item {
+                padding: 6px 12px;
+                border-radius: 30px;
+                cursor: pointer;
+                transition: 0.15s;
+                font-size: 14px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                color: rgba(255,255,255,0.85);
+            }
+            .music-list .list-item:hover {
+                background: rgba(255,255,255,0.15);
+                color: #fff;
+            }
+            .music-list .list-item.active-track {
+                background: rgba(255,255,255,0.25);
+                color: #fff;
+                font-weight: 500;
+            }
+            .music-list::-webkit-scrollbar {
+                width: 4px;
+                background: transparent;
+            }
+            .music-list::-webkit-scrollbar-thumb {
+                background: rgba(255,255,255,0.3);
+                border-radius: 10px;
+            }
+            /* 小屏适配 */
+            @media screen and (max-width: 600px) {
+                .music-player {
+                    padding: 14px 18px;
+                    min-width: unset;
+                    width: 92%;
+                    border-radius: 30px;
+                    gap: 8px 12px;
+                }
+                .music-player .track-name {
+                    font-size: 16px;
+                    max-width: 120px;
+                }
+                .music-player .controls button {
+                    width: 34px;
+                    height: 34px;
+                    font-size: 15px;
+                }
+                .music-player .controls .play-btn {
+                    width: 42px;
+                    height: 42px;
+                    font-size: 20px;
+                }
+                .music-list-container {
+                    bottom: 80px;
+                    max-width: 94%;
+                }
+                .music-list {
+                    max-height: 130px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="bootslider" id="bootslider">
+            <!-- Loader -->
+            <div class="bs-loader">
+                <img src="img/loader.gif" width="31" height="31" alt="Loading.." id="loader"/>
+            </div>
+
+            <!-- Container -->
+            <div class="bs-container">
+
+                <!-- Slide 1 -->
+                <div class="bs-slide active" data-animate-in="tada" data-animate-out="bounceOutDown">
+                    <div class="bs-foreground">
+                        <div class="text-center heading-center">
+                            <h1 class="heading" data-animate-in="foolishIn" data-animate-out="bounceOutDown" data-delay="800">simply stunning<span class="text-alizarin">.</span></h1>
+                        </div>
+                        <div class="text-center logo" data-animate-in="fadeInUp">
+                            <i class="fa fa-3x fa-twitter text-white hidden-xs"></i>
+                            <h4><span class="text-alizarin">boot</span><span class="text-white">slider</span></h4>
+                        </div>
+                    </div>
+                    <div class="bs-background"><img src="img/slide-1.jpg" alt="" /></div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="bs-slide" data-animate-in="bounceInDown" data-animate-out="flipOutX">
+                    <div class="bs-foreground">
+                        <div class="text-center heading-center">
+                            <h1 class="heading" data-animate-in="twisterInDown" data-animate-out="bounceOutDown" data-delay="800">it's showtime<span class="text-alizarin">.</span></h1>
+                        </div>
+                        <div class="text-center logo" data-animate-in="fadeInUp">
+                            <i class="fa fa-3x fa-twitter text-white hidden-xs"></i>
+                            <h4><span class="text-alizarin">boot</span><span class="text-white">slider</span></h4>
+                        </div>
+                    </div>
+                    <div class="bs-background"><img src="img/slide-2.jpg" alt="" /></div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="bs-slide" data-animate-in="flipInX" data-animate-out="rotateRight">
+                    <div class="bs-foreground">
+                        <div class="text-center heading-center">
+                            <h1 class="heading" data-animate-in="swap" data-animate-out="bounceOutDown" data-delay="800">pure eye candy<span class="text-alizarin">.</span></h1>
+                        </div>
+                        <div class="text-center logo" data-animate-in="fadeInUp">
+                            <i class="fa fa-3x fa-twitter text-white hidden-xs"></i>
+                            <h4><span class="text-alizarin">boot</span><span class="text-white">slider</span></h4>
+                        </div>
+                    </div>
+                    <div class="bs-background"><img src="img/slide-3.jpg" alt="" /></div>
+                </div>
+
+                <!-- Slide 4 -->
+                <div class="bs-slide" data-animate-in="rotateIn" data-animate-out="holeOut">
+                    <div class="bs-foreground">
+                        <div class="text-center heading-center">
+                            <h1 class="heading" data-animate-in="fadeInDown" data-animate-out="bounceOutDown" data-delay="800">bootslider<span class="text-alizarin">.</span></h1>
+                            <h3 class="text-white hidden-xs" data-animate-in="fadeInUp" data-animate-out="bounceOutDown" data-delay="800">your favorite</h3>
+                        </div>
+                        <div class="text-center logo" data-animate-in="fadeIn">
+                            <i class="fa fa-3x fa-twitter text-white hidden-xs"></i>
+                            <h4><span class="text-alizarin">boot</span><span class="text-white">slider</span></h4>
+                        </div>
+                    </div>
+                    <div class="bs-background"><img src="img/slide-6.jpg" alt="" /></div>
+                </div>
+
+                <!-- Slide 5 -->
+                <div class="bs-slide" data-animate-in="openUpRightReturn" data-animate-out="slideDown">
+                    <div class="bs-foreground">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-6 col-xs-offset-3 col-xs-6 text-center">
+                                    <br/><br/><br/>
+                                    <div class="bs-video" data-animate-in="twisterInUp" data-delay="800" data-animate-out="fadeOut">
+                                        <iframe src="//player.vimeo.com/video/6857186" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center logo" data-animate-in="fadeInUp">
+                            <i class="fa fa-3x fa-twitter text-white hidden-xs"></i>
+                            <h4><span class="text-alizarin">boot</span><span class="text-white">slider</span></h4>
+                        </div>
+                    </div>
+                    <div class="bs-background"><img src="img/slide-4.jpg" alt="" /></div>
+                </div>
+
+                <!-- Slide 6 -->
+                <div class="bs-slide" data-animate-in="openDownLeftReturn" data-animate-out="slideUp">
+                    <div class="bs-foreground">
+                        <div class="bs-video-fullscreen" data-animate-in="fadeIn" data-delay="800" data-animate-out="fadeOut">
+                            <iframe src="//player.vimeo.com/video/52283333" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="bs-background"><img src="img/slide-5.jpg" alt="" /></div>
+                </div>
+
+            </div>
+
+            <!-- Progress -->
+            <div class="bs-progress progress"><div class="progress-bar alizarin"></div></div>
+            <!-- Thumbnails -->
+            <div class="bs-thumbnails text-center text-alizarin"><ul class=""></ul></div>
+            <!-- Pagination -->
+            <div class="bs-pagination text-center text-alizarin"><ul class="list-inline"></ul></div>
+            <!-- Controls -->
+            <div class="text-center">
+                <div class="bs-controls">
+                    <a href="javascript:void(0);" class="bs-prev alizarin">&lt;</a>
+                    <a href="javascript:void(0);" class="bs-next alizarin">&gt;</a>
+                </div>
+            </div>
+
+            <!-- ===== 音乐播放器 - 最上层居中 ===== -->
+            <div class="music-player-wrapper">
+                <div class="music-player" id="musicPlayer">
+                    <span class="track-name" id="trackName">🎵 未播放</span>
+                    <div class="controls">
+                        <button class="mode-btn" id="modeBtn" title="切换模式">🔁</button>
+                        <button id="prevBtn" title="上一首">⏮</button>
+                        <button class="play-btn" id="playBtn" title="播放/暂停">▶</button>
+                        <button id="nextBtn" title="下一首">⏭</button>
+                        <button id="listToggleBtn" title="显示/隐藏列表">📋</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 音乐列表 -->
+            <div class="music-list-container">
+                <div class="music-list" id="musicList"></div>
+            </div>
+
+        </div> <!-- /bootslider -->
+
+        <br/><br/><br/>
+
+        <script src="js/jquery-1.10.1.min.js" type="text/javascript"></script>
+        <script src="js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="js/touchSwipe.js" type="text/javascript"></script>
+        <script src="js/mousewheel.js" type="text/javascript"></script>
+        <script src="js/fitvids.js" type="text/javascript"></script>
+        <script src="js/bootslider.js" type="text/javascript"></script>
+        <!-- 引入音乐数据 (UTF-8编码) -->
+        <script src="music.js" type="text/javascript" charset="UTF-8"></script>
+
+        <script>
+            (function() {
+                // 初始化幻灯片
+                var slider = new bootslider('#bootslider', {
+                    animationIn: "fadeInUp",
+                    animationOut: "flipOutX",
+                    timeout: 5000,
+                    autoplay: true,
+                    preload: true,
+                    pauseOnHover: false,
+                    thumbnails: true,
+                    pagination: true,
+                    mousewheel: false,
+                    keyboard: true,
+                    touchscreen: true
+                });
+                slider.init();
+
+                // ========== 音乐播放器逻辑 ==========
+                var musicData = window.MUSIC_DATA || [];
+                var currentIndex = 0;
+                var isPlaying = false;
+                var mode = 'loop'; // 'loop', 'single', 'random'
+                var audio = new Audio();
+                var trackNameEl = document.getElementById('trackName');
+                var playBtn = document.getElementById('playBtn');
+                var prevBtn = document.getElementById('prevBtn');
+                var nextBtn = document.getElementById('nextBtn');
+                var modeBtn = document.getElementById('modeBtn');
+                var listToggleBtn = document.getElementById('listToggleBtn');
+                var musicListEl = document.getElementById('musicList');
+
+                // 初始化列表
+                function renderList() {
+                    if (!musicListEl) return;
+                    musicListEl.innerHTML = '';
+                    musicData.forEach(function(item, idx) {
+                        var div = document.createElement('div');
+                        div.className = 'list-item' + (idx === currentIndex ? ' active-track' : '');
+                        div.textContent = (idx + 1) + '. ' + item.name;
+                        div.dataset.index = idx;
+                        div.addEventListener('click', function(e) {
+                            var index = parseInt(this.dataset.index);
+                            if (!isNaN(index) && index >= 0 && index < musicData.length) {
+                                currentIndex = index;
+                                playTrack(currentIndex);
+                                updateListActive();
+                            }
+                        });
+                        musicListEl.appendChild(div);
+                    });
+                }
+
+                function updateListActive() {
+                    var items = musicListEl.querySelectorAll('.list-item');
+                    items.forEach(function(item, idx) {
+                        if (idx === currentIndex) {
+                            item.classList.add('active-track');
+                        } else {
+                            item.classList.remove('active-track');
+                        }
+                    });
+                }
+
+                function playTrack(index) {
+                    if (!musicData.length) return;
+                    var track = musicData[index];
+                    if (!track) return;
+                    audio.src = track.url;
+                    audio.load();
+                    audio.play().then(function() {
+                        isPlaying = true;
+                        updatePlayButton();
+                        trackNameEl.textContent = '🎵 ' + track.name;
+                    }).catch(function(e) {
+                        // 自动播放被阻止或加载失败
+                        isPlaying = false;
+                        updatePlayButton();
+                        trackNameEl.textContent = '⏸ ' + track.name;
+                    });
+                    updateListActive();
+                }
+
+                function updatePlayButton() {
+                    if (isPlaying) {
+                        playBtn.textContent = '⏸';
+                        playBtn.title = '暂停';
+                    } else {
+                        playBtn.textContent = '▶';
+                        playBtn.title = '播放';
+                    }
+                }
+
+                function togglePlay() {
+                    if (!musicData.length) return;
+                    if (audio.paused || !isPlaying) {
+                        // 如果当前没有src或已结束，重新加载当前曲目
+                        if (!audio.src || audio.ended) {
+                            playTrack(currentIndex);
+                        } else {
+                            audio.play().then(function() {
+                                isPlaying = true;
+                                updatePlayButton();
+                            }).catch(function() {});
+                        }
+                    } else {
+                        audio.pause();
+                        isPlaying = false;
+                        updatePlayButton();
+                    }
+                }
+
+                function nextTrack() {
+                    if (!musicData.length) return;
+                    if (mode === 'random') {
+                        var newIdx = Math.floor(Math.random() * musicData.length);
+                        while (musicData.length > 1 && newIdx === currentIndex) {
+                            newIdx = Math.floor(Math.random() * musicData.length);
+                        }
+                        currentIndex = newIdx;
+                    } else {
+                        currentIndex = (currentIndex + 1) % musicData.length;
+                    }
+                    playTrack(currentIndex);
+                }
+
+                function prevTrack() {
+                    if (!musicData.length) return;
+                    if (mode === 'random') {
+                        var newIdx = Math.floor(Math.random() * musicData.length);
+                        while (musicData.length > 1 && newIdx === currentIndex) {
+                            newIdx = Math.floor(Math.random() * musicData.length);
+                        }
+                        currentIndex = newIdx;
+                    } else {
+                        currentIndex = (currentIndex - 1 + musicData.length) % musicData.length;
+                    }
+                    playTrack(currentIndex);
+                }
+
+                function toggleMode() {
+                    if (mode === 'loop') {
+                        mode = 'single';
+                        modeBtn.textContent = '🔂';
+                        modeBtn.title = '单曲循环';
+                    } else if (mode === 'single') {
+                        mode = 'random';
+                        modeBtn.textContent = '🎲';
+                        modeBtn.title = '随机播放';
+                    } else {
+                        mode = 'loop';
+                        modeBtn.textContent = '🔁';
+                        modeBtn.title = '列表循环';
+                    }
+                }
+
+                // 监听歌曲结束
+                audio.addEventListener('ended', function() {
+                    if (mode === 'single') {
+                        // 单曲循环: 重新播放
+                        audio.currentTime = 0;
+                        audio.play().catch(function() {});
+                    } else {
+                        nextTrack();
+                    }
+                });
+
+                // 加载第一首
+                if (musicData.length) {
+                    currentIndex = 0;
+                    trackNameEl.textContent = '🎵 ' + musicData[0].name;
+                    audio.src = musicData[0].url;
+                    audio.load();
+                    // 默认不自动播放，等待用户点击
+                } else {
+                    trackNameEl.textContent = '🎵 无音乐';
+                }
+
+                // 渲染列表
+                renderList();
+
+                // 事件绑定
+                playBtn.addEventListener('click', togglePlay);
+                prevBtn.addEventListener('click', prevTrack);
+                nextBtn.addEventListener('click', nextTrack);
+                modeBtn.addEventListener('click', toggleMode);
+                listToggleBtn.addEventListener('click', function() {
+                    musicListEl.classList.toggle('active');
+                });
+
+                // 键盘快捷键
+                document.addEventListener('keydown', function(e) {
+                    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+                    if (e.code === 'Space') {
+                        e.preventDefault();
+                        togglePlay();
+                    } else if (e.code === 'ArrowRight') {
+                        e.preventDefault();
+                        nextTrack();
+                    } else if (e.code === 'ArrowLeft') {
+                        e.preventDefault();
+                        prevTrack();
+                    }
+                });
+
+                // 点击外部关闭列表
+                document.addEventListener('click', function(e) {
+                    var list = document.getElementById('musicList');
+                    var toggleBtn = document.getElementById('listToggleBtn');
+                    if (list && list.classList.contains('active')) {
+                        var target = e.target;
+                        if (!list.contains(target) && target !== toggleBtn && !toggleBtn.contains(target)) {
+                            list.classList.remove('active');
+                        }
+                    }
+                });
+
+                // 暴露变量以便调试
+                window.__player = {
+                    audio: audio,
+                    playTrack: playTrack,
+                    next: nextTrack,
+                    prev: prevTrack,
+                    togglePlay: togglePlay,
+                    mode: mode
+                };
+
+                if (musicData.length) {
+                    trackNameEl.textContent = '🎵 ' + musicData[0].name;
+                }
+            })();
+        </script>
+        <div style="text-align:center;clear:both">
+            <p>来源：<a href="http://free163.com/" target="_blank">听松阁</a></p>
+        </div>
+    </body>
+</html>

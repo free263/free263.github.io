@@ -1,0 +1,65 @@
+/*
+    Theme: Metro UI
+
+    Plugin: Bootslider
+    Plugin Website: http://themes.grozav.com/bootslider
+
+    Author: Alex GROZAV
+    Author Website: http://grozav.com
+*/
+.bootslider .bs-container .bs-slide .bs-foreground .heading {
+  font-weight: 300; }
+.bootslider .bs-progress {
+  border-radius: 0;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0; }
+.bootslider .bs-thumbnails {
+  z-index: 0;
+  position: relative; }
+  .bootslider .bs-thumbnails ul .bs-thumbnail {
+    background: #e74c3c;
+    margin: 0 0 20px 0; }
+    .bootslider .bs-thumbnails ul .bs-thumbnail img {
+      filter: alpha(opacity=60);
+      -moz-opacity: 0.6;
+      -khtml-opacity: 0.6;
+      opacity: 0.6; }
+  .bootslider .bs-thumbnails ul .active img {
+    filter: alpha(opacity=100);
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    opacity: 1; }
+.bootslider .bs-pagination {
+  margin: 0 0 20px 0; }
+  .bootslider .bs-pagination ul li {
+    margin: 0 5px;
+    padding: 0 !important;
+    width: 20px;
+    height: 20px; }
+    .bootslider .bs-pagination ul li a {
+      text-indent: -10000px;
+      width: 20px;
+      height: 20px;
+      display: block;
+      border: 1px solid #e74c3c; }
+  .bootslider .bs-pagination .active {
+    padding: 0 !important; }
+    .bootslider .bs-pagination .active a {
+      background: #e74c3c; }
+.bootslider .bs-controls {
+  width: 140px;
+  margin: 0px auto; }
+  .bootslider .bs-controls .bs-next {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    display: block;
+    color: #fff;
+    float: right; }
+  .bootslider .bs-controls .bs-prev {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    display: block;
+    color: #fff;
+    float: left; }
