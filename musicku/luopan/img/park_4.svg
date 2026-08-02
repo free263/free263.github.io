@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY ns_extend "http://ns.adobe.com/Extensibility/1.0/">
+	<!ENTITY ns_ai "http://ns.adobe.com/AdobeIllustrator/10.0/">
+	<!ENTITY ns_graphs "http://ns.adobe.com/Graphs/1.0/">
+	<!ENTITY ns_vars "http://ns.adobe.com/Variables/1.0/">
+	<!ENTITY ns_imrep "http://ns.adobe.com/ImageReplacement/1.0/">
+	<!ENTITY ns_sfw "http://ns.adobe.com/SaveForWeb/1.0/">
+	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
+	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
+]>
+<svg version="1.1" id="Layer_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="450px" height="450px"
+	 viewBox="0 0 450 450" enable-background="new 0 0 450 450" xml:space="preserve">
+<metadata>
+	<sfw  xmlns="&ns_sfw;">
+		<slices></slices>
+		<sliceSourceBounds  width="317.7" height="316.4" x="-133.9" y="-133.2" bottomLeftOrigin="true"></sliceSourceBounds>
+	</sfw>
+</metadata>
+<g opacity="0.22">
+	<polygon fill="#EFEFEF" points="222.2,383.2 225,369.5 227.8,383.2 	"/>
+	<polygon fill="#EFEFEF" points="240.2,383.2 240.9,376.1 243,382.9 	"/>
+	<polygon fill="#EFEFEF" points="272.8,376.5 271.9,369.5 275.4,375.7 	"/>
+	<polygon fill="#EFEFEF" points="303.2,363.3 300.9,356.5 305.7,361.9 	"/>
+	<polygon fill="#EFEFEF" points="330.3,344 326.6,337.9 332.4,342.1 	"/>
+	<polygon fill="#EFEFEF" points="352.7,319.5 347.9,314.3 354.4,317.2 	"/>
+	<polygon fill="#EFEFEF" points="369.6,290.9 363.8,286.8 370.7,288.3 	"/>
+	<polygon fill="#EFEFEF" points="380.1,259.4 373.6,256.6 380.7,256.7 	"/>
+	<polygon fill="#EFEFEF" points="383.9,226.4 376.9,225 383.9,223.6 	"/>
+	<polygon fill="#EFEFEF" points="380.7,193.3 373.6,193.4 380.1,190.6 	"/>
+	<polygon fill="#EFEFEF" points="370.7,161.7 363.8,163.2 369.6,159.1 	"/>
+	<polygon fill="#EFEFEF" points="354.4,132.8 347.9,135.7 352.7,130.5 	"/>
+	<polygon fill="#EFEFEF" points="332.4,107.9 326.6,112.1 330.3,106 	"/>
+	<polygon fill="#EFEFEF" points="305.7,88.1 300.9,93.5 303.2,86.7 	"/>
+	<polygon fill="#EFEFEF" points="275.4,74.3 271.9,80.5 272.8,73.5 	"/>
+	<polygon fill="#EFEFEF" points="243,67.1 240.9,73.9 240.2,66.9 	"/>
+	<polygon fill="#EFEFEF" points="209.8,66.9 209.1,73.9 207,67.1 	"/>
+	<polygon fill="#EFEFEF" points="177.2,73.5 178.1,80.5 174.6,74.3 	"/>
+	<polygon fill="#EFEFEF" points="146.8,86.7 149.1,93.5 144.4,88.1 	"/>
+	<polygon fill="#EFEFEF" points="119.7,106 123.4,112.1 117.7,107.9 	"/>
+	<polygon fill="#EFEFEF" points="97.3,130.5 102.1,135.7 95.6,132.8 	"/>
+	<polygon fill="#EFEFEF" points="80.4,159.1 86.2,163.2 79.3,161.7 	"/>
+	<polygon fill="#EFEFEF" points="69.9,190.6 76.4,193.4 69.3,193.3 	"/>
+	<polygon fill="#EFEFEF" points="66.1,223.6 73.1,225 66.1,226.4 	"/>
+	<polygon fill="#EFEFEF" points="69.3,256.7 76.4,256.6 69.9,259.4 	"/>
+	<polygon fill="#EFEFEF" points="79.3,288.3 86.2,286.8 80.4,290.9 	"/>
+	<polygon fill="#EFEFEF" points="95.6,317.3 102.1,314.3 97.3,319.5 	"/>
+	<polygon fill="#EFEFEF" points="117.7,342.1 123.4,337.9 119.7,344 	"/>
+	<polygon fill="#EFEFEF" points="144.4,361.9 149.1,356.5 146.8,363.3 	"/>
+	<polygon fill="#EFEFEF" points="174.6,375.7 178.1,369.5 177.2,376.5 	"/>
+	<polygon fill="#EFEFEF" points="207,382.9 209.1,376.1 209.8,383.2 	"/>
+	<polygon fill="#EFEFEF" points="255.2,380.3 255,366.3 260.6,379.2 	"/>
+	<polygon fill="#EFEFEF" points="286.8,370.7 281.3,351.5 291.9,368.4 	"/>
+	<polygon fill="#EFEFEF" points="315.8,354.6 309.9,341.9 320.2,351.4 	"/>
+	<polygon fill="#EFEFEF" points="340.7,332.9 332.4,321.7 344.4,328.8 	"/>
+	<polygon fill="#EFEFEF" points="360.6,306.5 350.1,297.2 363.4,301.7 	"/>
+	<polygon fill="#EFEFEF" points="374.6,276.5 362.4,269.6 376.3,271.3 	"/>
+	<polygon fill="#EFEFEF" points="382.1,244.3 368.7,240.1 382.6,238.8 	"/>
+	<polygon fill="#EFEFEF" points="382.6,211.2 368.7,209.9 382.1,205.7 	"/>
+	<polygon fill="#EFEFEF" points="376.3,178.7 362.4,180.4 374.6,173.5 	"/>
+	<polygon fill="#EFEFEF" points="363.4,148.3 350.1,152.8 360.6,143.5 	"/>
+	<polygon fill="#EFEFEF" points="344.4,121.2 332.4,128.3 340.7,117.1 	"/>
+	<polygon fill="#EFEFEF" points="320.2,98.6 309.9,108.1 315.8,95.4 	"/>
+	<polygon fill="#EFEFEF" points="291.9,81.6 283.8,93 286.8,79.3 	"/>
+	<polygon fill="#EFEFEF" points="260.6,70.8 255,83.7 255.2,69.7 	"/>
+	<polygon fill="#EFEFEF" points="227.8,66.8 225,80.5 222.2,66.8 	"/>
+	<polygon fill="#EFEFEF" points="194.8,69.7 195,83.7 189.4,70.8 	"/>
+	<polygon fill="#EFEFEF" points="163.3,79.7 170.6,102.8 158.3,81.9 	"/>
+	<polygon fill="#EFEFEF" points="134.2,95.4 140.1,108.1 129.8,98.6 	"/>
+	<polygon fill="#EFEFEF" points="109.3,117.1 117.6,128.3 105.6,121.2 	"/>
+	<polygon fill="#EFEFEF" points="89.4,143.5 99.9,152.8 86.6,148.3 	"/>
+	<polygon fill="#EFEFEF" points="75.4,173.5 87.6,180.4 73.7,178.7 	"/>
+	<polygon fill="#EFEFEF" points="67.9,205.7 81.3,209.9 67.4,211.2 	"/>
+	<polygon fill="#EFEFEF" points="67.4,238.8 81.3,240.1 67.9,244.3 	"/>
+	<polygon fill="#EFEFEF" points="73.7,271.3 87.6,269.6 75.4,276.5 	"/>
+	<polygon fill="#EFEFEF" points="86.6,301.7 99.9,297.2 89.4,306.5 	"/>
+	<polygon fill="#EFEFEF" points="105.6,328.8 117.6,321.7 109.3,332.9 	"/>
+	<polygon fill="#EFEFEF" points="129.8,351.4 140.1,341.9 134.2,354.6 	"/>
+	<polygon fill="#EFEFEF" points="158.1,368.4 166.2,357 163.2,370.7 	"/>
+	<polygon fill="#EFEFEF" points="189.4,379.2 195,366.3 194.8,380.3 	"/>
+</g>
+</svg>

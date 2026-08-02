@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+<meta charset="UTF-8">
+<title>星星</title>
+
+<link rel="stylesheet" href="css/style.css">
+<style>
+    
+    /* ===== 音乐播放器 - 毛玻璃半透明 居中 ===== */
+    .music-player {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(380px, 92vw);
+      padding: 24px 20px 20px;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-radius: 32px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #f0f4ff;
+      text-align: center;
+      z-index: 10;
+      user-select: none;
+      transition: all 0.2s;
+    }
+    .player-song {
+      font-size: 1.4rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 0 6px;
+      margin-bottom: 16px;
+      color: #fff;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+    }
+    .player-song small {
+      font-size: 0.9rem;
+      opacity: 0.7;
+      font-weight: 300;
+    }
+    .player-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 8px 0 14px;
+      flex-wrap: wrap;
+    }
+    .player-controls button {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #f0f4ff;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      font-size: 1.4rem;
+      cursor: pointer;
+      transition: 0.2s;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+    .player-controls button:hover {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: rgba(255, 255, 255, 0.4);
+      transform: scale(1.05);
+    }
+    .player-controls button:active {
+      transform: scale(0.94);
+    }
+    .player-controls .btn-play {
+      width: 58px;
+      height: 58px;
+      font-size: 1.9rem;
+      background: rgba(255, 215, 100, 0.12);
+      border-color: rgba(255, 215, 100, 0.25);
+    }
+    .player-controls .btn-play:hover {
+      background: rgba(255, 215, 100, 0.3);
+    }
+    .player-extra {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 6px;
+      font-size: 0.85rem;
+      opacity: 0.8;
+    }
+    .player-extra span {
+      cursor: pointer;
+      padding: 6px 14px;
+      border-radius: 40px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: 0.2s;
+      backdrop-filter: blur(4px);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+    .player-extra span:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.2);
+    }
+    .player-extra .mode-icon {
+      font-size: 1.1rem;
+    }
+
+    /* 歌曲列表 - 毛玻璃下拉 */
+    .music-list-wrapper {
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.3s;
+      opacity: 0;
+      border-radius: 24px;
+      background: rgba(10, 14, 30, 0.6);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+      z-index: 20;
+    }
+    .music-list-wrapper.open {
+      max-height: 340px;
+      opacity: 1;
+      padding: 12px 8px 8px;
+      overflow-y: auto;
+    }
+    .music-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 4px 2px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .music-list::-webkit-scrollbar {
+      width: 3px;
+    }
+    .music-list::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.3);
+      border-radius: 20px;
+    }
+    .music-list-item {
+      padding: 10px 16px;
+      border-radius: 40px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid transparent;
+      transition: 0.15s;
+      cursor: pointer;
+      font-size: 0.95rem;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #dce3f0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .music-list-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+    .music-list-item.active {
+      background: rgba(255, 215, 100, 0.12);
+      border-color: rgba(255, 215, 100, 0.2);
+      color: #fff;
+    }
+    .music-list-item .index {
+      opacity: 0.5;
+      font-size: 0.75rem;
+      min-width: 24px;
+    }
+    .music-list-item .song-name {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .music-list-item .playing-indicator {
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 480px) {
+      .music-player {
+        padding: 18px 14px 16px;
+        width: 94vw;
+      }
+      .player-song {
+        font-size: 1.1rem;
+      }
+      .player-controls button {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+      }
+      .player-controls .btn-play {
+        width: 50px;
+        height: 50px;
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+<div id="stars-canvas"></div>
+
+  <!-- ===== 音乐播放器 ===== -->
+  <div class="music-player" id="musicPlayer">
+    <div class="player-song">🎵 <span id="currentSongName">加载中...</span></div>
+    <div class="player-controls">
+      <button id="prevBtn" title="上一首">⏮</button>
+      <button id="playBtn" class="btn-play" title="播放/暂停">▶</button>
+      <button id="nextBtn" title="下一首">⏭</button>
+    </div>
+    <div class="player-extra">
+      <span id="modeToggle" title="切换播放模式">🔄 <span id="modeLabel">顺序</span></span>
+      <span id="listToggle" title="显示/隐藏歌单">📋 歌单</span>
+    </div>
+    <div class="music-list-wrapper" id="listWrapper">
+      <div class="music-list" id="musicList"></div>
+    </div>
+  </div>
+</div>
+
+<script src='js/jquery.min.js'></script>
+<script src='js/TweenMax.min.js'></script>
+<script  src="js/index.js"></script>
+
+<!-- 音乐数据 -->
+<script src='music.js'></script>
+
+<script>
+  (function(){
+    // ---------- 音乐播放器核心 ----------
+    const MUSIC = typeof MUSIC_DATA !== 'undefined' ? MUSIC_DATA : [];
+    if (!MUSIC.length) {
+      console.warn('music.js 未加载或数据为空');
+      document.getElementById('currentSongName').textContent = '无音乐数据';
+    }
+
+    const audio = new Audio();
+    const playBtn = document.getElementById('playBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const songNameSpan = document.getElementById('currentSongName');
+    const modeToggle = document.getElementById('modeToggle');
+    const modeLabel = document.getElementById('modeLabel');
+    const listToggle = document.getElementById('listToggle');
+    const listWrapper = document.getElementById('listWrapper');
+    const musicListEl = document.getElementById('musicList');
+
+    let currentIndex = 0;
+    let isPlaying = false;
+    let mode = 0; // 0:顺序 1:单曲 2:随机
+    const modeNames = ['顺序', '单曲', '随机'];
+    const modeIcons = ['🔁', '🔂', '🎲'];
+
+    function loadSong(index) {
+      if (!MUSIC.length) return;
+      const safeIndex = (index + MUSIC.length) % MUSIC.length;
+      currentIndex = safeIndex;
+      const song = MUSIC[safeIndex];
+      audio.src = song.url;
+      audio.load();
+      songNameSpan.textContent = song.name || '未知歌曲';
+      updateListActive();
+      if (isPlaying) {
+        audio.play().catch(() => {});
+      }
+    }
+
+    function togglePlay() {
+      if (!MUSIC.length) return;
+      if (audio.paused) {
+        audio.play().then(() => {
+          isPlaying = true;
+          updatePlayButton();
+        }).catch(() => {
+          isPlaying = false;
+          updatePlayButton();
+        });
+      } else {
+        audio.pause();
+        isPlaying = false;
+        updatePlayButton();
+      }
+    }
+
+    function updatePlayButton() {
+      playBtn.textContent = isPlaying ? '⏸' : '▶';
+    }
+
+    function nextSong() {
+      if (!MUSIC.length) return;
+      let nextIdx;
+      if (mode === 2) {
+        let rand = Math.floor(Math.random() * MUSIC.length);
+        while (rand === currentIndex && MUSIC.length > 1) {
+          rand = Math.floor(Math.random() * MUSIC.length);
+        }
+        nextIdx = rand;
+      } else {
+        nextIdx = (currentIndex + 1) % MUSIC.length;
+      }
+      loadSong(nextIdx);
+      if (isPlaying) {
+        audio.play().catch(() => {});
+      }
+    }
+
+    function prevSong() {
+      if (!MUSIC.length) return;
+      const prevIdx = (currentIndex - 1 + MUSIC.length) % MUSIC.length;
+      loadSong(prevIdx);
+      if (isPlaying) {
+        audio.play().catch(() => {});
+      }
+    }
+
+    function cycleMode() {
+      mode = (mode + 1) % 3;
+      modeLabel.textContent = modeNames[mode];
+      let iconSpan = modeToggle.querySelector('.mode-icon');
+      if (!iconSpan) {
+        iconSpan = document.createElement('span');
+        iconSpan.className = 'mode-icon';
+        modeToggle.prepend(iconSpan);
+      }
+      iconSpan.textContent = modeIcons[mode];
+    }
+
+    function renderList() {
+      if (!MUSIC.length) {
+        musicListEl.innerHTML = '<div class="music-list-item" style="justify-content:center;opacity:0.5;">暂无歌曲</div>';
+        return;
+      }
+      let html = '';
+      MUSIC.forEach((item, idx) => {
+        const activeClass = (idx === currentIndex) ? 'active' : '';
+        const playingMark = (idx === currentIndex && isPlaying) ? ' 🔊' : '';
+        html += `
+          <div class="music-list-item ${activeClass}" data-index="${idx}">
+            <span class="index">${idx+1}</span>
+            <span class="song-name">${item.name || '未命名'}</span>
+            <span class="playing-indicator">${playingMark}</span>
+          </div>
+        `;
+      });
+      musicListEl.innerHTML = html;
+      musicListEl.querySelectorAll('.music-list-item').forEach(el => {
+        el.addEventListener('click', function() {
+          const idx = parseInt(this.dataset.index, 10);
+          if (!isNaN(idx) && idx !== currentIndex) {
+            loadSong(idx);
+            if (!isPlaying) {
+              audio.play().then(() => {
+                isPlaying = true;
+                updatePlayButton();
+              }).catch(() => {});
+            }
+          } else if (idx === currentIndex) {
+            togglePlay();
+          }
+        });
+      });
+    }
+
+    function updateListActive() {
+      const items = musicListEl.querySelectorAll('.music-list-item');
+      items.forEach((el, idx) => {
+        el.classList.toggle('active', idx === currentIndex);
+        const indicator = el.querySelector('.playing-indicator');
+        if (indicator) {
+          indicator.textContent = (idx === currentIndex && isPlaying) ? ' 🔊' : '';
+        }
+      });
+    }
+
+    function toggleList() {
+      listWrapper.classList.toggle('open');
+    }
+
+    function bindAudioEvents() {
+      audio.addEventListener('ended', function() {
+        if (mode === 1) {
+          audio.currentTime = 0;
+          audio.play().catch(() => {});
+        } else {
+          nextSong();
+        }
+      });
+      audio.addEventListener('play', function() {
+        isPlaying = true;
+        updatePlayButton();
+        updateListActive();
+      });
+      audio.addEventListener('pause', function() {
+        isPlaying = false;
+        updatePlayButton();
+        updateListActive();
+      });
+      audio.addEventListener('error', function(e) {
+        console.warn('音频加载错误:', e);
+        if (MUSIC.length > 1) nextSong();
+      });
+    }
+
+    function init() {
+      if (!MUSIC.length) {
+        songNameSpan.textContent = '无音乐数据';
+        return;
+      }
+      loadSong(0);
+      renderList();
+      bindAudioEvents();
+      updatePlayButton();
+
+      playBtn.addEventListener('click', togglePlay);
+      prevBtn.addEventListener('click', prevSong);
+      nextBtn.addEventListener('click', nextSong);
+      modeToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        cycleMode();
+      });
+      listToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        toggleList();
+      });
+      document.addEventListener('click', function(e) {
+        const wrapper = document.getElementById('listWrapper');
+        const toggleBtn = document.getElementById('listToggle');
+        if (wrapper && wrapper.classList.contains('open')) {
+          if (!wrapper.contains(e.target) && e.target !== toggleBtn && !toggleBtn.contains(e.target)) {
+            wrapper.classList.remove('open');
+          }
+        }
+      });
+      document.querySelector('.music-player')?.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>
+</body>
+</html>

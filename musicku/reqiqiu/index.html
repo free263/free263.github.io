@@ -1,0 +1,441 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jQuery网页动态场景插件jqfloat - 音乐播放器</title>
+<link rel="stylesheet" href="style.css" />
+<script src="js/jquery-1.7.1.min.js"></script>
+<script src="js/jqfloat.min.js"></script>
+<!-- 音乐数据 -->
+<script src="music.js"></script>
+<style>
+/* 保持原有样式不变，追加播放器样式 */
+#music-player {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.5); /* 纯黑背景，透明度50% */
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  border-radius: 48px;
+  /* 高度增加50%：原padding 16px 28px 14px 28px → 放大1.5倍 */
+  padding: 24px 42px 21px 42px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px; /* 行间距也相应增加 */
+  font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+  min-width: 360px;
+  user-select: none;
+  transition: all 0.2s;
+}
+/* 第一行：歌曲名 */
+#music-player .song-row {
+  width: 100%;
+  text-align: center;
+  padding: 3px 0;
+}
+#music-player .song-name {
+  font-size: 24px; /* 原16px * 1.5 */
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 480px;
+  display: inline-block;
+  color: #fff;
+}
+/* 第二行：按钮组 */
+#music-player .controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px; /* 原8px * 1.5 */
+  flex-wrap: nowrap;
+  width: 100%;
+}
+#music-player .controls-row button {
+  background: rgba(255, 255, 255, 0.12);
+  border: none;
+  border-radius: 45px; /* 原30px * 1.5 */
+  width: 57px;  /* 原38px * 1.5 */
+  height: 57px; /* 原38px * 1.5 */
+  font-size: 27px; /* 原18px * 1.5 */
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+#music-player .controls-row button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+#music-player .controls-row button:active {
+  transform: scale(0.95);
+}
+#music-player .controls-row .mode-btn {
+  font-size: 27px;
+  width: 57px;
+}
+/* 歌单按钮加宽，文字不换行，同样放大1.5倍 */
+#music-player .controls-row .toggle-list-btn {
+  font-size: 22px; /* 原15px * 1.5 */
+  width: auto;
+  padding: 0 27px; /* 原18px * 1.5 */
+  white-space: nowrap;
+  background: rgba(255, 255, 255, 0.08);
+  letter-spacing: 0.5px;
+  height: 57px;
+  border-radius: 45px;
+}
+#music-list-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-top: 120px; /* 避开播放器，适当增加 */
+  z-index: 9998;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 20px;
+  padding: 16px 10px;
+  max-height: 320px;
+  overflow-y: auto;
+  width: 400px; /* 适当加宽 */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  display: none;
+  color: #fff;
+  font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+}
+#music-list-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#music-list-panel ul li {
+  padding: 10px 18px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.15s;
+  font-size: 16px; /* 稍大 */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: rgba(255,255,255,0.85);
+}
+#music-list-panel ul li:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+#music-list-panel ul li.active {
+  background: rgba(255, 255, 255, 0.25);
+  font-weight: 600;
+  color: #fff;
+}
+#music-list-panel::-webkit-scrollbar {
+  width: 4px;
+}
+#music-list-panel::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+/* 响应式自适应：放大后在小屏适当调整 */
+@media (max-width: 700px) {
+  #music-player {
+    min-width: unset;
+    width: 92%;
+    padding: 18px 20px 16px 20px;
+    border-radius: 36px;
+  }
+  #music-player .song-name {
+    max-width: 280px;
+    font-size: 20px;
+  }
+  #music-player .controls-row {
+    gap: 8px;
+  }
+  #music-player .controls-row button {
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+    border-radius: 36px;
+  }
+  #music-player .controls-row .mode-btn {
+    width: 44px;
+    font-size: 20px;
+  }
+  #music-player .controls-row .toggle-list-btn {
+    height: 44px;
+    padding: 0 16px;
+    font-size: 16px;
+    border-radius: 36px;
+  }
+  #music-list-panel {
+    width: 85%;
+    max-height: 260px;
+    margin-top: 100px;
+  }
+}
+</style>
+</head>
+<body>
+
+<section id="wrapper">
+	<div id="sky">
+		<div id="cloud1" class="cloud"></div>
+		<div id="cloud2" class="cloud"></div>
+		<div id="cloud3" class="cloud"></div>
+		<div id="cloud4" class="cloud"></div>
+		<div id="sun"></div>
+	</div>
+	<div id="ground">
+		<div id="snail"></div>
+		<div id="message">不要碰我! !</div>
+		<div id="fly1" class="butterfly"></div>
+		<div id="fly2" class="butterfly"></div>
+	</div>
+	<div id="balloon"></div>
+	<div id="iefix"></div>
+</section>
+
+<!-- ===== 音乐播放器 ===== -->
+<div id="music-player">
+  <!-- 第一行：歌曲名 -->
+  <div class="song-row">
+    <span class="song-name" id="currentSongName">🎵 点击播放</span>
+  </div>
+  <!-- 第二行：所有按钮 -->
+  <div class="controls-row">
+    <button id="prevBtn" title="上一首">⏮</button>
+    <button id="playBtn" title="播放/暂停">▶</button>
+    <button id="nextBtn" title="下一首">⏭</button>
+    <button id="modeBtn" class="mode-btn" title="循环模式">🔁</button>
+    <button id="toggleListBtn" class="toggle-list-btn" title="显示歌单">📋 歌单</button>
+  </div>
+</div>
+
+<!-- ===== 音乐列表 ===== -->
+<div id="music-list-panel">
+  <ul id="songListUl"></ul>
+</div>
+
+<audio id="audioPlayer" preload="metadata"></audio>
+
+<script>
+$(document).ready(function() {
+  // 原有的jqFloat初始化 (保持不变)
+  $('.cloud').each(function() {
+    $(this).jqFloat({
+      width: Math.floor(Math.random() * 10) * 10,
+      height: 10,
+      speed: Math.floor(Math.random() * 10) * 100 + 500
+    });
+  });
+  $('#sun').jqFloat({
+    width: 10,
+    height: 50,
+    speed: 1800
+  });
+  $('.butterfly').jqFloat({
+    width: 400,
+    height: 100,
+    speed: 1500
+  });
+  $('#snail, #message').jqFloat('stop', {
+    width: 5,
+    height: 0,
+    speed: 30
+  });
+  $('#snail, #message').hover(function() {
+    $(this).jqFloat('play');
+  }, function() {
+    $(this).jqFloat('stop');
+  });
+
+  var clicked = false;
+  $('#balloon').jqFloat('stop', {
+    width: 5,
+    height: 30,
+    speed: 1500,
+    minHeight: 300
+  });
+  $('#balloon').on('click', function() {
+    clicked = !clicked;
+    if (clicked) $(this).jqFloat('play');
+    else $(this).jqFloat('stop');
+  });
+
+  // ---------- 音乐播放器逻辑 ----------
+  var musicData = window.MUSIC_DATA || [];
+  var currentIndex = 0;
+  var isPlaying = false;
+  var mode = 'list'; // 'list', 'loop', 'random'
+  var audio = document.getElementById('audioPlayer');
+  var $playBtn = $('#playBtn');
+  var $songName = $('#currentSongName');
+  var $modeBtn = $('#modeBtn');
+  var $songListUl = $('#songListUl');
+  var $listPanel = $('#music-list-panel');
+
+  // 渲染列表
+  function renderList() {
+    $songListUl.empty();
+    musicData.forEach((item, idx) => {
+      var $li = $('<li>').text(item.name).data('index', idx);
+      if (idx === currentIndex) $li.addClass('active');
+      $li.on('click', function() {
+        var i = $(this).data('index');
+        playIndex(i);
+        $listPanel.hide();
+      });
+      $songListUl.append($li);
+    });
+  }
+
+  // 播放指定索引
+  function playIndex(idx) {
+    if (!musicData.length) return;
+    if (idx < 0) idx = musicData.length - 1;
+    if (idx >= musicData.length) idx = 0;
+    currentIndex = idx;
+    var song = musicData[currentIndex];
+    audio.src = song.url;
+    audio.load();
+    audio.play().then(() => {
+      isPlaying = true;
+      $playBtn.text('⏸');
+      $songName.text('🎵 ' + song.name);
+      updateActiveList();
+    }).catch(() => {
+      isPlaying = false;
+      $playBtn.text('▶');
+      $songName.text('⏸ ' + song.name);
+    });
+  }
+
+  // 更新列表高亮
+  function updateActiveList() {
+    $songListUl.find('li').removeClass('active');
+    $songListUl.find('li').each(function() {
+      if ($(this).data('index') === currentIndex) {
+        $(this).addClass('active');
+      }
+    });
+  }
+
+  // 切换播放/暂停
+  function togglePlay() {
+    if (!musicData.length) return;
+    if (audio.paused) {
+      if (!audio.src) {
+        playIndex(currentIndex);
+        return;
+      }
+      audio.play().then(() => {
+        isPlaying = true;
+        $playBtn.text('⏸');
+        $songName.text('🎵 ' + musicData[currentIndex].name);
+      }).catch(() => {});
+    } else {
+      audio.pause();
+      isPlaying = false;
+      $playBtn.text('▶');
+      $songName.text('⏸ ' + musicData[currentIndex].name);
+    }
+  }
+
+  // 下一首
+  function nextSong() {
+    if (!musicData.length) return;
+    if (mode === 'random') {
+      var newIdx = Math.floor(Math.random() * musicData.length);
+      while (musicData.length > 1 && newIdx === currentIndex) {
+        newIdx = Math.floor(Math.random() * musicData.length);
+      }
+      playIndex(newIdx);
+    } else {
+      playIndex(currentIndex + 1);
+    }
+  }
+
+  // 上一首
+  function prevSong() {
+    if (!musicData.length) return;
+    if (mode === 'random') {
+      var newIdx = Math.floor(Math.random() * musicData.length);
+      while (musicData.length > 1 && newIdx === currentIndex) {
+        newIdx = Math.floor(Math.random() * musicData.length);
+      }
+      playIndex(newIdx);
+    } else {
+      playIndex(currentIndex - 1);
+    }
+  }
+
+  // 切换模式 (只改变图标)
+  function cycleMode() {
+    if (mode === 'list') { mode = 'loop'; $modeBtn.text('🔂'); }
+    else if (mode === 'loop') { mode = 'random'; $modeBtn.text('🎲'); }
+    else { mode = 'list'; $modeBtn.text('🔁'); }
+  }
+
+  // 音频结束自动下一首
+  audio.addEventListener('ended', function() {
+    if (mode === 'loop') {
+      playIndex(currentIndex);
+    } else {
+      nextSong();
+    }
+  });
+
+  // 错误处理（加载失败自动下一首）
+  audio.addEventListener('error', function() {
+    if (musicData.length) nextSong();
+  });
+
+  // 绑定UI事件
+  $playBtn.on('click', togglePlay);
+  $('#nextBtn').on('click', nextSong);
+  $('#prevBtn').on('click', prevSong);
+  $modeBtn.on('click', cycleMode);
+  $('#toggleListBtn').on('click', function() {
+    $listPanel.slideToggle(200);
+  });
+
+  // 点击外部关闭列表
+  $(document).on('click', function(e) {
+    if (!$(e.target).closest('#music-player, #music-list-panel').length) {
+      $listPanel.hide();
+    }
+  });
+
+  // 初始化歌单
+  if (musicData.length) {
+    renderList();
+    audio.src = musicData[0].url;
+    currentIndex = 0;
+    $songName.text('🎵 ' + musicData[0].name);
+    updateActiveList();
+  } else {
+    $songName.text('🎵 无音乐');
+  }
+
+});
+</script>
+</body>
+</html>
