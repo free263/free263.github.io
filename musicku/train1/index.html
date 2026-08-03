@@ -412,9 +412,7 @@ div {
         }
         currentIndex = next;
         loadSong(currentIndex);
-        if (isPlaying) {
-            audio.play().catch(e => console.warn(e));
-        }
+        audio.play().catch(e => console.warn(e));
     }
 
     // 上一首
@@ -430,9 +428,7 @@ div {
         }
         currentIndex = prev;
         loadSong(currentIndex);
-        if (isPlaying) {
-            audio.play().catch(e => console.warn(e));
-        }
+        audio.play().catch(e => console.warn(e));
     }
 
     // 模式切换

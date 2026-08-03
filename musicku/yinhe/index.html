@@ -51,7 +51,7 @@
             font-size: 20px;
             font-weight: 500;
             letter-spacing: 0.5px;
-            margin-bottom: 18px;
+            margin-bottom: 14px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -60,12 +60,81 @@
             opacity: 0.95;
         }
 
+        /* ===== 进度条样式 ===== */
+        .music-player .progress-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding: 0 2px;
+        }
+
+        .music-player .progress-track {
+            flex: 1;
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(255, 255, 255, 0.15);
+            cursor: pointer;
+            position: relative;
+            transition: height 0.2s ease;
+        }
+
+        .music-player .progress-track:hover {
+            height: 6px;
+        }
+
+        .music-player .progress-fill {
+            height: 100%;
+            width: 0%;
+            border-radius: 2px;
+            background: linear-gradient(90deg, rgba(60, 180, 240, 0.6), rgba(60, 180, 240, 0.95));
+            position: relative;
+            transition: width 0.1s linear;
+        }
+
+        .music-player .progress-fill::after {
+            content: '';
+            position: absolute;
+            right: -6px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(60, 180, 240, 0.9);
+            box-shadow: 0 0 16px rgba(60, 180, 240, 0.4);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .music-player .progress-track:hover .progress-fill::after {
+            opacity: 1;
+        }
+
+        .music-player .time-current,
+        .music-player .time-total {
+            font-size: 12px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.5);
+            min-width: 38px;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 0.3px;
+        }
+
+        .music-player .time-current {
+            text-align: right;
+        }
+
+        .music-player .time-total {
+            text-align: left;
+        }
+
         .music-player .controls {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 16px;
-            margin-top: 4px;
+            margin-top: 0px;
         }
 
         .music-player .controls button {
@@ -145,6 +214,11 @@
                 height: 52px;
                 font-size: 24px;
             }
+            .music-player .time-current,
+            .music-player .time-total {
+                font-size: 10px;
+                min-width: 30px;
+            }
         }
     </style>
 
@@ -163,6 +237,16 @@
     <!-- ===== 毛玻璃音乐播放器 ===== -->
     <div class="music-player" id="musicPlayer">
         <div class="song-title" id="songTitle">🎵 加载中...</div>
+
+        <!-- 进度条区域 -->
+        <div class="progress-container">
+            <span class="time-current" id="timeCurrent">0:00</span>
+            <div class="progress-track" id="progressTrack">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <span class="time-total" id="timeTotal">0:00</span>
+        </div>
+
         <div class="controls">
             <button class="mode-btn" id="modeBtn" title="切换播放模式">🔁</button>
             <button id="prevBtn" title="上一首">⏮</button>
@@ -179,7 +263,6 @@
         (function musicPlayer() {
             'use strict';
 
-            // 等待DOM和music.js都加载完成
             function init() {
                 const playlist = window.MUSIC_DATA || [];
 
@@ -200,6 +283,102 @@
                 const nextBtn = document.getElementById('nextBtn');
                 const modeBtn = document.getElementById('modeBtn');
 
+                // 进度条元素
+                const progressFill = document.getElementById('progressFill');
+                const progressTrack = document.getElementById('progressTrack');
+                const timeCurrent = document.getElementById('timeCurrent');
+                const timeTotal = document.getElementById('timeTotal');
+
+                let isDragging = false; // 是否正在拖动进度条
+
+                // 格式化时间 (秒 -> mm:ss)
+                function formatTime(seconds) {
+                    if (isNaN(seconds) || !isFinite(seconds)) return '0:00';
+                    const mins = Math.floor(seconds / 60);
+                    const secs = Math.floor(seconds % 60);
+                    return mins + ':' + (secs < 10 ? '0' : '') + secs;
+                }
+
+                // 更新进度条
+                function updateProgress() {
+                    if (!isDragging) {
+                        const duration = audio.duration || 0;
+                        const current = audio.currentTime || 0;
+                        const percent = duration > 0 ? (current / duration) * 100 : 0;
+                        progressFill.style.width = Math.min(percent, 100) + '%';
+                        timeCurrent.textContent = formatTime(current);
+                        timeTotal.textContent = formatTime(duration);
+                    }
+                }
+
+                // 点击/拖动进度条跳转
+                function handleProgressClick(e) {
+                    const rect = progressTrack.getBoundingClientRect();
+                    const x = (e.clientX - rect.left) / rect.width;
+                    const clamped = Math.max(0, Math.min(1, x));
+                    const duration = audio.duration || 0;
+                    if (duration > 0) {
+                        audio.currentTime = clamped * duration;
+                        // 立即更新进度显示
+                        progressFill.style.width = (clamped * 100) + '%';
+                        timeCurrent.textContent = formatTime(audio.currentTime);
+                    }
+                }
+
+                // 进度条鼠标事件
+                progressTrack.addEventListener('mousedown', function(e) {
+                    isDragging = true;
+                    handleProgressClick(e);
+                });
+
+                window.addEventListener('mousemove', function(e) {
+                    if (isDragging) {
+                        handleProgressClick(e);
+                    }
+                });
+
+                window.addEventListener('mouseup', function() {
+                    if (isDragging) {
+                        isDragging = false;
+                        // 确保拖动结束后同步播放位置
+                        if (audio.src) {
+                            audio.currentTime = audio.currentTime; // 触发 timeupdate
+                        }
+                    }
+                });
+
+                // 触摸事件支持
+                progressTrack.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    isDragging = true;
+                    const touch = e.touches[0];
+                    handleProgressClick({ clientX: touch.clientX });
+                }, { passive: false });
+
+                progressTrack.addEventListener('touchmove', function(e) {
+                    e.preventDefault();
+                    if (isDragging) {
+                        const touch = e.touches[0];
+                        handleProgressClick({ clientX: touch.clientX });
+                    }
+                }, { passive: false });
+
+                progressTrack.addEventListener('touchend', function(e) {
+                    isDragging = false;
+                });
+
+                // 音频时间更新事件
+                audio.addEventListener('timeupdate', updateProgress);
+
+                // 音频加载完成后更新总时长
+                audio.addEventListener('loadedmetadata', function() {
+                    timeTotal.textContent = formatTime(audio.duration);
+                    updateProgress();
+                });
+
+                // 当歌曲切换时重置进度
+                audio.addEventListener('play', updateProgress);
+
                 function playCurrentSong() {
                     const song = playlist[currentIndex];
                     if (!song || !song.url) {
@@ -212,6 +391,10 @@
                         audio.load();
                     }
                     songTitleEl.textContent = song.name || '未知歌曲';
+                    // 重置进度显示
+                    progressFill.style.width = '0%';
+                    timeCurrent.textContent = '0:00';
+                    timeTotal.textContent = '0:00';
 
                     audio.play().then(() => {
                         isPlaying = true;
@@ -317,6 +500,9 @@
                     modeBtn.textContent = '🔁';
                     playBtn.textContent = '▶';
                     isPlaying = false;
+                    progressFill.style.width = '0%';
+                    timeCurrent.textContent = '0:00';
+                    timeTotal.textContent = '0:00';
                 }
 
                 playBtn.addEventListener('click', togglePlay);
@@ -341,14 +527,14 @@
                 });
 
                 initPlayer();
+
+                // 暴露音乐控制到全局
                 window.__music = { togglePlay, nextSong, prevSong, toggleMode, playlist, currentIndex, audio };
             }
 
-            // 如果DOM已加载，直接初始化，否则等待
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', init);
             } else {
-                // 给music.js一点加载时间
                 setTimeout(init, 100);
             }
         })();
