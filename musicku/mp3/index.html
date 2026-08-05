@@ -1,9 +1,86 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>jQuery磁带MP3音乐播放器特效</title>
 <link rel="stylesheet" href="css/style.css">
+<style>
+/* ===== 追加进度条样式，保持原有风格 ===== */
+.song-info {
+    text-align: center;
+    margin: 12px auto 8px;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: #f0f0f0;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    width: 100%;
+    max-width: 320px;
+    position: relative;
+    top: -20px;
+}
+.song-title {
+    display: block;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 8px;
+    margin-bottom: 4px;
+    max-width: 11em;
+    width: 11em;
+    margin-left: auto;
+    margin-right: auto;
+}
+.song-artist {
+    display: none;
+}
+.progress-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 2px auto 4px;
+    width: 100%;
+    max-width: 320px;
+    padding: 0 6px;
+}
+.progress-bar-bg {
+    flex: 1;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    transition: height 0.15s;
+}
+.progress-bar-bg:hover {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.35);
+}
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #f9d976, #f39f86);
+    border-radius: 10px;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 8px rgba(243, 159, 134, 0.4);
+}
+.time-label {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+    min-width: 32px;
+    text-align: center;
+    font-family: 'Segoe UI', monospace;
+}
+.controls-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 4px;
+}
+</style>
 </head>
 <body>
 
@@ -42,17 +119,23 @@
         </div>
       </div>
       
-      <!-- ===== 新增：当前播放歌曲名称显示 ===== -->
       <div class="song-info" id="songInfo">
-        <span class="song-title" id="currentSongTitle">🎵 光辉岁月</span>
-        <span class="song-artist" id="currentSongArtist">Beyond</span>
+        <span class="song-title" id="currentSongTitle">🎵 加载中...</span>
+        <span class="song-artist" id="currentSongArtist">未知歌手</span>
+        <div class="progress-wrapper">
+          <span class="time-label" id="currentTimeLabel">0:00</span>
+          <div class="progress-bar-bg" id="progressBarBg">
+            <div class="progress-fill" id="progressFill" style="width:0%;"></div>
+          </div>
+          <span class="time-label" id="totalTimeLabel">0:00</span>
+        </div>
       </div>
       
       <div class="controls-container">
         <button class="btn play" id="playBtn" onclick="handlePlay()"></button>
         <button class="btn" id="prevBtn" onclick="handlePrev()"></button>
         <button class="btn" id="nextBtn" onclick="handleNext()"></button>
-        <button class="btn" id="modeBtn" onclick="handleMode()"></button>
+        <button class="btn" id="modeBtn" onclick="handleMode()">顺序</button>
       </div>
     </div>
   </section>
@@ -62,6 +145,113 @@
   <script src='js/jquery.min.js'></script>
   <script src="js/music.js"></script>
   <script src="js/script.js"></script>
+  <script>
+  (function() {
+    'use strict';
+
+    // 等待 MusicPlayer 初始化完成
+    function waitForPlayer(callback) {
+      if (window.MusicPlayer && window.MusicPlayer.audio) {
+        callback();
+        return;
+      }
+      setTimeout(function() { waitForPlayer(callback); }, 100);
+    }
+
+    waitForPlayer(function() {
+      var player = window.MusicPlayer;
+      var audio = player.audio;
+
+      // DOM 引用
+      var progressFill = document.getElementById('progressFill');
+      var currentTimeLabel = document.getElementById('currentTimeLabel');
+      var totalTimeLabel = document.getElementById('totalTimeLabel');
+      var progressBarBg = document.getElementById('progressBarBg');
+      var songTitleEl = document.getElementById('currentSongTitle');
+
+      var isDragging = false;
+
+      // 格式化时间
+      function formatTime(sec) {
+        if (!sec || isNaN(sec)) return '0:00';
+        var m = Math.floor(sec / 60);
+        var s = Math.floor(sec % 60);
+        return m + ':' + (s < 10 ? '0' : '') + s;
+      }
+
+      // 更新进度条
+      function updateProgress() {
+        if (isDragging) return;
+        if (audio.duration && !isNaN(audio.duration) && audio.duration > 0) {
+          var pct = (audio.currentTime / audio.duration) * 100;
+          progressFill.style.width = Math.min(pct, 100) + '%';
+          currentTimeLabel.textContent = formatTime(audio.currentTime);
+          totalTimeLabel.textContent = formatTime(audio.duration);
+        } else {
+          totalTimeLabel.textContent = '0:00';
+        }
+      }
+
+      // 使用 timeupdate 事件实时更新
+      audio.addEventListener('timeupdate', updateProgress);
+
+      // 加载元数据时更新总时长
+      audio.addEventListener('loadedmetadata', function() {
+        totalTimeLabel.textContent = formatTime(audio.duration);
+        updateProgress();
+      });
+
+      // 进度条点击跳转
+      progressBarBg.addEventListener('click', function(e) {
+        if (!audio.duration || isNaN(audio.duration)) return;
+        var rect = this.getBoundingClientRect();
+        var pct = (e.clientX - rect.left) / rect.width;
+        audio.currentTime = pct * audio.duration;
+        updateProgress();
+      });
+
+      // 监听歌曲切换 - 通过 MutationObserver 或自定义事件
+      // 在 loadSong 完成后更新
+      var origLoadSong = player.loadSong;
+      player.loadSong = function(index) {
+        origLoadSong.call(player, index);
+        // 重置进度
+        progressFill.style.width = '0%';
+        currentTimeLabel.textContent = '0:00';
+        totalTimeLabel.textContent = '0:00';
+        // 更新歌曲标题
+        var song = player.getCurrentSong();
+        if (song && songTitleEl) {
+          songTitleEl.textContent = '🎵 ' + song.title;
+        }
+        // 延迟后更新总时长
+        setTimeout(function() {
+          if (audio.duration) {
+            totalTimeLabel.textContent = formatTime(audio.duration);
+          }
+        }, 200);
+      };
+
+      // 处理播放状态变化
+      audio.addEventListener('play', function() {
+        // 确保总时长显示正确
+        if (audio.duration) {
+          totalTimeLabel.textContent = formatTime(audio.duration);
+        }
+      });
+
+      // 重新绑定 handlePlay 以更新进度
+      var origHandlePlay = window.handlePlay;
+      window.handlePlay = function() {
+        origHandlePlay();
+        // 延迟更新进度
+        setTimeout(updateProgress, 100);
+      };
+
+      console.log('✅ 进度条控制已集成');
+    });
+  })();
+  </script>
 
 </body>
 </html>

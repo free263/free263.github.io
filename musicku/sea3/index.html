@@ -41,7 +41,7 @@
     font-size: 1.3rem;
     font-weight: 600;
     letter-spacing: 0.3px;
-    margin-bottom: 0.75rem;
+    margin-bottom: 4px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -54,6 +54,42 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
+
+/* ----- 进度条样式 ----- */
+.progress-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 10px;
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.7);
+}
+.progress-bar-bg {
+    flex: 1;
+    height: 4px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 20px;
+    cursor: pointer;
+    position: relative;
+    transition: height 0.1s;
+}
+.progress-bar-bg:hover {
+    height: 6px;
+    background: rgba(255,255,255,0.3);
+}
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #f9d976, #f39f86);
+    border-radius: 20px;
+    transition: width 0.05s linear;
+    box-shadow: 0 0 8px rgba(243, 159, 134, 0.4);
+}
+.time-current, .time-duration {
+    min-width: 32px;
+    font-variant-numeric: tabular-nums;
+}
+
 .controls {
     display: flex;
     align-items: center;
@@ -208,6 +244,7 @@
     .controls button.play-btn { width: 3.2rem; height: 3.2rem; font-size: 1.6rem; }
     .player-card .song-name { font-size: 1.0rem; }
     .music-list li { font-size: 0.8rem; padding: 0.4rem 0.6rem; }
+    .progress-wrapper { font-size: 0.6rem; gap: 0.3rem; }
 }
 </style>
 </head>
@@ -226,6 +263,16 @@
 <div class="player-wrapper">
     <div class="player-card" id="playerCard">
         <div class="song-name" id="songNameDisplay"><i>🎵 加载中...</i></div>
+
+        <!-- 进度条 -->
+        <div class="progress-wrapper">
+            <span class="time-current" id="timeCurrent">0:00</span>
+            <div class="progress-bar-bg" id="progressBarBg">
+                <div class="progress-fill" id="progressFill" style="width:0%;"></div>
+            </div>
+            <span class="time-duration" id="timeDuration">0:00</span>
+        </div>
+
         <div class="controls">
             <button class="mode-btn" id="modeBtn" title="循环模式">🔁</button>
             <button id="prevBtn" title="上一首">⏮</button>
@@ -257,6 +304,7 @@
     let mode = 'loop';       // 'loop', 'repeat-one', 'shuffle'
     let audio = new Audio();
     let isUserInteracted = false;
+    let progressRAF = null;
 
     // DOM
     const songNameDisplay = document.getElementById('songNameDisplay');
@@ -267,6 +315,49 @@
     const listToggleBtn = document.getElementById('listToggleBtn');
     const musicListContainer = document.getElementById('musicListContainer');
     const musicListUl = document.getElementById('musicList');
+
+    // 进度条元素
+    const progressFill = document.getElementById('progressFill');
+    const timeCurrent = document.getElementById('timeCurrent');
+    const timeDuration = document.getElementById('timeDuration');
+    const progressBarBg = document.getElementById('progressBarBg');
+
+    // ---------- 进度条辅助函数 ----------
+    function formatTime(seconds) {
+        if (isNaN(seconds) || !isFinite(seconds)) return '0:00';
+        const m = Math.floor(seconds / 60);
+        const s = Math.floor(seconds % 60);
+        return m + ':' + (s < 10 ? '0' : '') + s;
+    }
+
+    function updateProgress() {
+        if (!audio.duration || isNaN(audio.duration)) {
+            progressFill.style.width = '0%';
+            timeCurrent.textContent = '0:00';
+            timeDuration.textContent = '0:00';
+            return;
+        }
+        const pct = (audio.currentTime / audio.duration) * 100;
+        progressFill.style.width = Math.min(pct, 100) + '%';
+        timeCurrent.textContent = formatTime(audio.currentTime);
+        timeDuration.textContent = formatTime(audio.duration);
+    }
+
+    function startProgressLoop() {
+        if (progressRAF) cancelAnimationFrame(progressRAF);
+        function tick() {
+            updateProgress();
+            progressRAF = requestAnimationFrame(tick);
+        }
+        tick();
+    }
+
+    function stopProgressLoop() {
+        if (progressRAF) {
+            cancelAnimationFrame(progressRAF);
+            progressRAF = null;
+        }
+    }
 
     // ---------- 辅助 ----------
     function formatName(name) {
@@ -281,12 +372,20 @@
         audio.src = song.url;
         audio.load();
         songNameDisplay.innerHTML = `<i>🎵 ${formatName(song.name)}</i>`;
+        // 重置进度显示
+        progressFill.style.width = '0%';
+        timeCurrent.textContent = '0:00';
+        if (audio.duration) timeDuration.textContent = formatTime(audio.duration);
+        else timeDuration.textContent = '0:00';
         const items = musicListUl.querySelectorAll('li');
         items.forEach((li, i) => {
             li.classList.toggle('active', i === index);
         });
         if (isPlaying) {
             audio.play().catch(e => {});
+            startProgressLoop();
+        } else {
+            stopProgressLoop();
         }
         updatePlayButton();
     }
@@ -297,14 +396,17 @@
             audio.play().then(() => {
                 isPlaying = true;
                 updatePlayButton();
+                startProgressLoop();
             }).catch(() => {
                 isPlaying = false;
                 updatePlayButton();
+                stopProgressLoop();
             });
         } else {
             audio.pause();
             isPlaying = false;
             updatePlayButton();
+            stopProgressLoop();
         }
     }
 
@@ -326,6 +428,7 @@
         loadSong(currentIndex);
         if (isPlaying) {
             audio.play().catch(() => {});
+            startProgressLoop();
         }
     }
 
@@ -335,6 +438,7 @@
         loadSong(currentIndex);
         if (isPlaying) {
             audio.play().catch(() => {});
+            startProgressLoop();
         }
     }
 
@@ -368,10 +472,12 @@
                     loadSong(currentIndex);
                     if (isPlaying) {
                         audio.play().catch(() => {});
+                        startProgressLoop();
                     } else {
                         isPlaying = true;
                         audio.play().catch(() => {});
                         updatePlayButton();
+                        startProgressLoop();
                     }
                 } else if (index === currentIndex) {
                     playPause();
@@ -394,14 +500,17 @@
                     audio.play().then(() => {
                         isPlaying = true;
                         updatePlayButton();
+                        startProgressLoop();
                     }).catch(() => {
                         isPlaying = false;
                         updatePlayButton();
+                        stopProgressLoop();
                     });
                 } else {
                     audio.pause();
                     isPlaying = false;
                     updatePlayButton();
+                    stopProgressLoop();
                 }
                 return;
             }
@@ -429,13 +538,28 @@
             listToggleBtn.textContent = isOpen ? '✕' : '📋';
         });
 
+        // 进度条点击跳转
+        progressBarBg.addEventListener('click', function(e) {
+            if (!audio.duration || isNaN(audio.duration)) return;
+            const rect = this.getBoundingClientRect();
+            const pct = (e.clientX - rect.left) / rect.width;
+            audio.currentTime = pct * audio.duration;
+            updateProgress();
+        });
+
         audio.addEventListener('ended', function() {
             if (mode === 'repeat-one') {
                 audio.currentTime = 0;
                 audio.play().catch(() => {});
+                startProgressLoop();
             } else {
                 nextSong();
             }
+        });
+
+        audio.addEventListener('loadedmetadata', function() {
+            timeDuration.textContent = formatTime(audio.duration);
+            updateProgress();
         });
 
         document.addEventListener('click', function(e) {
@@ -475,9 +599,13 @@
         audio.pause();
         isPlaying = false;
         updatePlayButton();
+        stopProgressLoop();
         mode = 'loop';
         modeBtn.textContent = '🔁';
         modeBtn.classList.remove('active');
+        timeDuration.textContent = '0:00';
+        timeCurrent.textContent = '0:00';
+        progressFill.style.width = '0%';
         initEvents();
     }
 

@@ -576,9 +576,7 @@ background-color: 000;
                 idx = (idx + 1) % playlist.length;
             }
             loadTrack(idx);
-            if (isPlaying) {
-                audio.play().catch(() => {});
-            }
+            audio.play().catch(() => {});
         }
 
         function prevTrack() {
@@ -594,9 +592,7 @@ background-color: 000;
                 idx = (idx - 1 + playlist.length) % playlist.length;
             }
             loadTrack(idx);
-            if (isPlaying) {
-                audio.play().catch(() => {});
-            }
+            audio.play().catch(() => {});
         }
 
         function bindEvents() {

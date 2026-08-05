@@ -1,17 +1,12 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="zh-CN" xml:lang="zh-CN">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>CSS3实现天气场景动画特效 + 音乐播放器</title>
-
-<!-- 引入原CSS (chinaz.css) 和 音乐数据 -->
+<title>CSS3天气动画 · 音乐播放器 (进度条)</title>
 <link href="css/chinaz.css" rel="stylesheet" type="text/css" />
 
 <style>
-/* 保持原样式，额外增加播放器样式 (毛玻璃居中) */
-/* 原样式已在 chinaz.css 中，这里补充播放器相关 */
-
-/* 播放器容器 - 绝对定位居中，覆盖在动画之上 */
+/* 保持原样式，额外增加播放器样式 + 进度条 */
 .player-wrapper {
   position: absolute;
   top: 50%;
@@ -20,7 +15,7 @@
   width: 90%;
   max-width: 340px;
   z-index: 20;
-  pointer-events: none; /* 让点击穿透，但内部控件可点 */
+  pointer-events: none;
 }
 .player-card {
   background: rgba(20, 20, 30, 0.45);
@@ -32,7 +27,7 @@
   border: 1px solid rgba(255, 255, 255, 0.15);
   color: #f0f0f0;
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  pointer-events: auto; /* 控件可交互 */
+  pointer-events: auto;
   transition: all 0.2s;
   text-align: center;
 }
@@ -40,7 +35,7 @@
   font-size: 1rem;
   font-weight: 500;
   letter-spacing: 0.3px;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -48,6 +43,54 @@
   color: #fff;
   text-shadow: 0 1px 4px rgba(0,0,0,0.3);
 }
+
+/* ===== 进度条 (音乐名称下方) ===== */
+.player-progress {
+  width: 100%;
+  margin: 0 0 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.player-progress .time-label {
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-variant-numeric: tabular-nums;
+  min-width: 2.2rem;
+  text-align: center;
+  font-weight: 300;
+  letter-spacing: 0.2px;
+}
+.player-progress .time-label:first-child {
+  text-align: right;
+}
+.player-progress .time-label:last-child {
+  text-align: left;
+}
+.progress-track {
+  flex: 1;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  transition: height 0.2s;
+  min-width: 40px;
+}
+.progress-track:hover {
+  height: 5px;
+  background: rgba(255, 255, 255, 0.2);
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #f9d976, #f39c12);
+  border-radius: 4px;
+  pointer-events: none;
+  transition: width 0.05s linear;
+  box-shadow: 0 0 10px rgba(243, 156, 18, 0.3);
+}
+
 .player-controls {
   display: flex;
   align-items: center;
@@ -151,7 +194,7 @@
   padding: 6px 4px;
   scrollbar-width: thin;
   scrollbar-color: rgba(255,255,255,0.2) transparent;
-  display: none; /* 默认隐藏 */
+  display: none;
 }
 .music-list-container.show {
   display: block;
@@ -201,24 +244,13 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* 小屏适配 */
+
 @media (max-width: 480px) {
-  .player-card {
-    padding: 14px 12px 16px;
-  }
-  .player-controls {
-    gap: 8px;
-  }
-  .player-controls button {
-    width: 34px;
-    height: 34px;
-    font-size: 16px;
-  }
-  .player-controls .play-btn {
-    width: 44px;
-    height: 44px;
-    font-size: 22px;
-  }
+  .player-card { padding: 14px 12px 16px; }
+  .player-controls { gap: 8px; }
+  .player-controls button { width: 34px; height: 34px; font-size: 16px; }
+  .player-controls .play-btn { width: 44px; height: 44px; font-size: 22px; }
+  .player-progress .time-label { font-size: 0.55rem; min-width: 1.8rem; }
 }
 </style>
 </head>
@@ -249,6 +281,15 @@
   <div class="player-card">
     <div class="song-name" id="songNameDisplay">🎵 点击播放</div>
 
+    <!-- 进度条 -->
+    <div class="player-progress">
+      <span class="time-label" id="timeCurrent">0:00</span>
+      <div class="progress-track" id="progressTrack">
+        <div class="progress-fill" id="progressFill" style="width:0%;"></div>
+      </div>
+      <span class="time-label" id="timeDuration">0:00</span>
+    </div>
+
     <div class="player-controls">
       <button id="prevBtn" title="上一首">⏮</button>
       <button class="play-btn" id="playBtn" title="播放/暂停">▶</button>
@@ -264,7 +305,6 @@
       <button id="toggleListBtn">📋 歌单</button>
     </div>
 
-    <!-- 音乐列表 -->
     <div class="music-list-container" id="musicListContainer"></div>
   </div>
 </div>
@@ -287,10 +327,45 @@
   const modeLabel = document.getElementById('modeLabel');
   const toggleListBtn = document.getElementById('toggleListBtn');
 
-  // 数据来自 music.js 中的 MUSIC_DATA
+  // 进度条 DOM
+  const progressFill = document.getElementById('progressFill');
+  const progressTrack = document.getElementById('progressTrack');
+  const timeCurrent = document.getElementById('timeCurrent');
+  const timeDuration = document.getElementById('timeDuration');
+
   const musicData = typeof MUSIC_DATA !== 'undefined' ? MUSIC_DATA : [];
 
   // ----- 辅助函数 -----
+  function formatTime(seconds) {
+    if (isNaN(seconds) || seconds === Infinity || seconds < 0) return '0:00';
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return mins + ':' + (secs < 10 ? '0' : '') + secs;
+  }
+
+  function updateProgress() {
+    if (!audio.duration || isNaN(audio.duration) || audio.duration === Infinity) {
+      progressFill.style.width = '0%';
+      timeCurrent.textContent = '0:00';
+      timeDuration.textContent = '0:00';
+      return;
+    }
+    const percent = (audio.currentTime / audio.duration) * 100;
+    progressFill.style.width = Math.min(percent, 100) + '%';
+    timeCurrent.textContent = formatTime(audio.currentTime);
+    timeDuration.textContent = formatTime(audio.duration);
+  }
+
+  // 进度条点击跳转
+  progressTrack.addEventListener('click', function(e) {
+    if (!audio.duration || isNaN(audio.duration)) return;
+    const rect = this.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const ratio = Math.min(1, Math.max(0, clickX / rect.width));
+    audio.currentTime = ratio * audio.duration;
+    updateProgress();
+  });
+
   function formatSongName(item) {
     return item.name || '未知歌曲';
   }
@@ -303,9 +378,16 @@
     audio.src = item.url;
     audio.load();
     songNameDisplay.textContent = '🎵 ' + formatSongName(item);
-    // 高亮列表项
+    // 重置进度
+    progressFill.style.width = '0%';
+    timeCurrent.textContent = '0:00';
+    timeDuration.textContent = '0:00';
+    // 加载元数据后更新时长
+    audio.addEventListener('loadedmetadata', function() {
+      timeDuration.textContent = formatTime(audio.duration);
+      updateProgress();
+    }, { once: true });
     updateListActive();
-    // 如果正在播放，自动继续
     if (isPlaying) {
       audio.play().catch(() => {});
     }
@@ -373,7 +455,6 @@
     audio.loop = (playMode === 'loop');
   }
 
-  // 渲染列表
   function renderList() {
     if (!listContainer) return;
     listContainer.innerHTML = '';
@@ -431,6 +512,8 @@
   modeToggleBtn.addEventListener('click', toggleMode);
   toggleListBtn.addEventListener('click', toggleList);
 
+  audio.addEventListener('timeupdate', updateProgress);
+
   audio.addEventListener('ended', function() {
     if (playMode === 'loop') return;
     nextSong();
@@ -449,6 +532,7 @@
     renderList();
     modeLabel.textContent = '🔁 顺序';
     audio.loop = false;
+    updateProgress();
     // 点击外部关闭列表
     document.addEventListener('click', function(e) {
       const wrapper = document.querySelector('.player-wrapper');

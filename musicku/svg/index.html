@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>白色磨玻璃音乐播放器</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Acme&display=swap">
+  <title>白色磨玻璃音乐播放器 · 紧凑版</title>
   <style>
     /* ===== 全局重置 & 背景 ===== */
     * {
@@ -23,24 +22,21 @@
       align-items: center;
       font-family: 'Acme', sans-serif;
       letter-spacing: 1px;
-      /* 背景图片：自适应、居中、不重复 */
       background-image: url('https://api.rryyz.com/api-pic/bg-guidao.php');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
       background-attachment: fixed;
-      /* 背景轻微压暗，突出白色磨玻璃 */
       background-color: rgba(0,0,0,0.25);
       background-blend-mode: overlay;
     }
 
-    /* ===== 播放器卡片：白色主题 + 磨玻璃 (透明度25%) ===== */
+    /* ===== 播放器卡片：白色磨玻璃，高度缩小为一半 (原35rem → 17.5rem) ===== */
     .player {
       width: 60rem;
       max-width: 92vw;
-      height: 35rem;
+      height: 17.5rem;          /* 原 35rem，缩小为一半 */
       max-height: 90vh;
-      /* 白色磨玻璃核心：半透明白色底 + 模糊 */
       background: rgba(255, 255, 255, 0.25);
       backdrop-filter: blur(18px) saturate(200%);
       -webkit-backdrop-filter: blur(18px) saturate(200%);
@@ -49,15 +45,16 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-around;
-      padding: 1.5rem 0;
+      justify-content: center;  /* 垂直居中 */
+      padding: 1rem 0;
       transition: all 0.2s ease;
       color: #1a1a2e;
+      gap: 0.6rem;             /* 紧凑间距 */
     }
 
-    /* ===== 歌曲标题 ===== */
+    /* ===== 歌曲标题 (缩小) ===== */
     .song-heading .title {
-      font-size: 2.2rem;
+      font-size: 1.8rem;
       font-weight: 600;
       color: #1a1a2e;
       text-shadow: 0 2px 8px rgba(255,255,255,0.3);
@@ -65,25 +62,24 @@
     }
     .song-heading .album-name {
       text-align: center;
-      font-size: 1.5rem;
-      margin-top: 0.8rem;
+      font-size: 1.2rem;
+      margin-top: 0.2rem;
       font-weight: 500;
       color: #3a3a5a;
       text-shadow: 0 1px 6px rgba(255,255,255,0.2);
     }
 
-    /* ===== 控制按钮组 ===== */
+    /* ===== 控制按钮组 (尺寸缩小) ===== */
     .music-controls {
       display: flex;
       width: 92%;
       justify-content: space-evenly;
       align-items: center;
     }
-    /* 重复按钮 */
     .music-controls .repeat {
       cursor: pointer;
-      width: 3.2rem;
-      height: 3.2rem;
+      width: 2.6rem;
+      height: 2.6rem;
       position: relative;
       display: flex;
       align-items: center;
@@ -100,16 +96,15 @@
       fill: #4a4a6a;
       transition: fill 0.25s;
     }
-    /* 循环模式指示器 */
     .music-controls .repeat .mode-indicator {
       position: absolute;
-      bottom: -1.2rem;
-      font-size: 0.9rem;
+      bottom: -1.0rem;
+      font-size: 0.7rem;
       font-weight: 600;
       color: #4a4a6a;
       background: rgba(255,255,255,0.6);
       backdrop-filter: blur(4px);
-      padding: 0.1rem 0.5rem;
+      padding: 0.05rem 0.4rem;
       border-radius: 1rem;
       white-space: nowrap;
       transition: all 0.25s;
@@ -120,16 +115,15 @@
       color: #e74c5e;
       background: rgba(255,255,255,0.8);
     }
-    /* 上一首 / 下一首 */
     .music-controls .previous, .music-controls .next {
       cursor: pointer;
-      width: 6rem;
-      height: 6rem;
+      width: 4.8rem;
+      height: 4.8rem;
       background: rgba(255, 255, 255, 0.35);
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
-      padding: 1rem;
+      padding: 0.8rem;
       border-radius: 50%;
       display: flex;
       justify-content: center;
@@ -141,18 +135,17 @@
       background: rgba(255, 255, 255, 0.5);
     }
     .music-controls .previous svg, .music-controls .next svg {
-      width: 2.2rem;
-      height: 2.2rem;
+      width: 1.8rem;
+      height: 1.8rem;
     }
     .music-controls .previous svg path, .music-controls .next svg path,
     .music-controls .previous svg rect, .music-controls .next svg rect {
       fill: #3a3a5a;
     }
-    /* 播放按钮 - 深色强调，与白色主题对比 */
     .music-controls .play {
       cursor: pointer;
       background: #1a1a2e;
-      padding: 2rem;
+      padding: 1.5rem;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -164,8 +157,8 @@
       background: #2a2a4a;
     }
     .music-controls .play svg {
-      width: 4rem;
-      height: 4rem;
+      width: 3.2rem;
+      height: 3.2rem;
     }
     .music-controls .play svg path {
       fill: #ffffff;
@@ -176,11 +169,13 @@
     .music-controls .play .pause-btn path {
       fill: #ffffff;
     }
-
-    /* 收藏按钮 */
     .music-controls .favorite {
       cursor: pointer;
       filter: drop-shadow(0 2px 6px rgba(0,0,0,0.06));
+    }
+    .music-controls .favorite svg {
+      width: 2rem;
+      height: 2rem;
     }
     .music-controls .favorite svg path {
       fill: #4a4a6a;
@@ -190,18 +185,17 @@
       fill: #e74c5e;
     }
 
-    /* ===== 进度条 ===== */
+    /* ===== 进度条 (高度缩小) ===== */
     .audio-control {
       width: 85%;
-      height: 6px;
+      height: 4px;
       border-radius: 4px;
       background: rgba(0, 0, 0, 0.08);
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
       box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.06);
-      margin: 4px auto;
+      margin: 0 auto;
       cursor: pointer;
-      margin-top: 16px;
     }
     .audio-control .audio-progress {
       width: 20%;
@@ -213,23 +207,23 @@
     }
     .audio-control .audio-progress:after {
       content: "";
-      width: 9px;
-      height: 9px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: #1a1a2e;
       position: absolute;
       top: -2px;
-      right: -5px;
+      right: -4px;
       box-shadow: 0 0 16px rgba(26, 26, 46, 0.25);
       border: 2px solid rgba(255,255,255,0.6);
     }
 
-    /* ===== 时间显示 ===== */
+    /* ===== 时间显示 (缩小) ===== */
     .audio-duration {
-      margin-top: -28px;
+      margin-top: -2px;
       display: flex;
       width: 84%;
-      font-size: 1.4rem;
+      font-size: 1.0rem;
       font-weight: 500;
       color: rgba(30, 30, 50, 0.7);
       letter-spacing: 1px;
@@ -239,18 +233,18 @@
       flex: 1;
     }
 
-    /* ===== 底部装饰条 ===== */
+    /* ===== 底部装饰条 (缩小) ===== */
     .edge {
-      width: 10rem;
-      height: 6px;
+      width: 8rem;
+      height: 4px;
       background: rgba(0, 0, 0, 0.06);
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
       border-radius: 10px;
       box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.04);
+      margin-top: 0.2rem;
     }
 
-    /* ===== 工具类 ===== */
     .hide {
       display: none !important;
     }
@@ -258,49 +252,81 @@
     /* ===== 响应式 ===== */
     @media (max-width: 650px) {
       .player {
-        height: 32rem;
+        height: 16rem;
         border-radius: 8rem;
-        padding: 1rem 0;
+        padding: 0.8rem 0;
+        gap: 0.4rem;
       }
       .music-controls .play svg {
-        width: 3.2rem;
-        height: 3.2rem;
+        width: 2.6rem;
+        height: 2.6rem;
       }
       .music-controls .previous, .music-controls .next {
-        width: 5rem;
-        height: 5rem;
+        width: 4rem;
+        height: 4rem;
+        padding: 0.6rem;
+      }
+      .music-controls .previous svg, .music-controls .next svg {
+        width: 1.5rem;
+        height: 1.5rem;
       }
       .song-heading .title {
-        font-size: 1.9rem;
-      }
-      .music-controls .repeat .mode-indicator {
-        font-size: 0.7rem;
-        bottom: -1rem;
-        padding: 0 0.4rem;
-      }
-    }
-    @media (max-width: 420px) {
-      .player {
-        height: 28rem;
-        border-radius: 6rem;
-      }
-      .song-heading .title {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
       }
       .song-heading .album-name {
-        font-size: 1.2rem;
-      }
-      .music-controls .play {
-        padding: 1.5rem;
-      }
-      .music-controls .previous, .music-controls .next {
-        width: 4.2rem;
-        height: 4.2rem;
+        font-size: 1.0rem;
+        margin-top: 0;
       }
       .music-controls .repeat .mode-indicator {
         font-size: 0.6rem;
         bottom: -0.8rem;
         padding: 0 0.3rem;
+      }
+      .audio-duration {
+        font-size: 0.85rem;
+      }
+      .audio-control {
+        height: 3px;
+      }
+      .audio-control .audio-progress:after {
+        width: 5px;
+        height: 5px;
+        top: -1px;
+        right: -3px;
+      }
+    }
+    @media (max-width: 420px) {
+      .player {
+        height: 14rem;
+        border-radius: 6rem;
+        padding: 0.6rem 0;
+        gap: 0.3rem;
+      }
+      .song-heading .title {
+        font-size: 1.2rem;
+      }
+      .song-heading .album-name {
+        font-size: 0.9rem;
+      }
+      .music-controls .play {
+        padding: 1.2rem;
+      }
+      .music-controls .previous, .music-controls .next {
+        width: 3.4rem;
+        height: 3.4rem;
+        padding: 0.5rem;
+      }
+      .music-controls .repeat .mode-indicator {
+        font-size: 0.5rem;
+        bottom: -0.6rem;
+        padding: 0 0.2rem;
+      }
+      .audio-duration {
+        font-size: 0.75rem;
+      }
+      .edge {
+        width: 6rem;
+        height: 3px;
       }
     }
   </style>
@@ -313,7 +339,6 @@
         <div class="album-name" id="songIndex">🎵 共 0 首</div>
       </div>
       <div class="music-controls">
-        <!-- 循环/模式切换按钮 -->
         <div class="repeat" id="repeatBtn" title="点击切换播放模式">
           <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><title/><g data-name="1" id="_1">
             <path d="M102.59,341.42a15,15,0,0,1-13.42-8.28,187.41,187.41,0,0,1,35.11-216.86c73.18-73.19,192.26-73.19,265.44,0a15,15,0,0,1-21.21,21.21C307,76,207,76,145.49,137.49A157.45,157.45,0,0,0,116,319.69a15,15,0,0,1-13.4,21.73Z"/>
@@ -323,7 +348,6 @@
           </svg>
           <span class="mode-indicator" id="modeIndicator">顺序</span>
         </div>
-        <!-- 上一首 -->
         <div class="previous" id="prevBtn">
           <svg xmlns="http://www.w3.org/2000/svg" width="38" height="36" viewBox="0 0 38 36">
             <g>
@@ -332,14 +356,12 @@
             </g>
           </svg>
         </div>
-        <!-- 播放/暂停 -->
         <div class="play" id="playBtn">
           <svg class="play-btn" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <path d="M405.2,232.9L126.8,67.2c-3.4-2-6.9-3.2-10.9-3.2c-10.9,0-19.8,9-19.8,20H96v344h0.1c0,11,8.9,20,19.8,20  c4.1,0,7.5-1.4,11.2-3.4l278.1-165.5c6.6-5.5,10.8-13.8,10.8-23.1C416,246.7,411.8,238.5,405.2,232.9z"/>
           </svg>
           <svg class="pause-btn hide" height="20px" version="1.1" viewBox="0 0 20 20" width="20px" xmlns="http://www.w3.org/2000/svg" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" xmlns:xlink="http://www.w3.org/1999/xlink"><title/><desc/><defs/><g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1"><g fill="#000000" id="Icons-AV" transform="translate(-42.000000, -85.000000)"><g id="pause-circle-outline" transform="translate(42.000000, 85.000000)"><path d="M7,14 L9,14 L9,6 L7,6 L7,14 L7,14 Z M10,0 C4.5,0 0,4.5 0,10 C0,15.5 4.5,20 10,20 C15.5,20 20,15.5 20,10 C20,4.5 15.5,0 10,0 L10,0 Z M10,18 C5.6,18 2,14.4 2,10 C2,5.6 5.6,2 10,2 C14.4,2 18,5.6 18,10 C18,14.4 14.4,18 10,18 L10,18 Z M11,14 L13,14 L13,6 L11,6 L11,14 L11,14 Z" id="Shape"/></g></g></g></svg>
         </div>
-        <!-- 下一首 -->
         <div class="next" id="nextBtn">
           <svg xmlns="http://www.w3.org/2000/svg" width="38" height="36" viewBox="0 0 38 36">
             <title>17 Next</title>
@@ -349,7 +371,6 @@
             </g>
           </svg>
         </div>
-        <!-- 收藏 -->
         <div class="favorite" id="favBtn">
           <svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="24" width="24" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
             <g transform="translate(0 -1028.4)">
@@ -371,11 +392,9 @@
 
   <audio id="audioPlayer" src=""></audio>
 
-  <!-- 引入音乐列表数据 -->
   <script src="music.js"></script>
   <script>
     (function() {
-      // ===== DOM引用 =====
       const audio = document.getElementById('audioPlayer');
       const playBtn = document.getElementById('playBtn');
       const prevBtn = document.getElementById('prevBtn');
@@ -390,14 +409,11 @@
       const songIndex = document.getElementById('songIndex');
       const modeIndicator = document.getElementById('modeIndicator');
 
-      // ===== 音乐列表 =====
-      let musicList = window.musicList || [];
+      let musicList = window.MUSIC_DATA || [];
       let currentIndex = 0;
       let isPlaying = false;
-      // 播放模式: 'order' 顺序播放, 'random' 随机播放
       let playMode = 'order';
 
-      // ===== 初始化 =====
       function init() {
         if (musicList.length === 0) {
           songTitle.textContent = '暂无歌曲';
@@ -409,7 +425,6 @@
         loadSong(currentIndex);
       }
 
-      // ===== 加载歌曲 =====
       function loadSong(index) {
         if (musicList.length === 0) return;
         const song = musicList[index];
@@ -425,23 +440,19 @@
         }
       }
 
-      // ===== 获取下一首歌的索引 =====
       function getNextIndex() {
         if (musicList.length === 0) return 0;
         if (playMode === 'random') {
-          // 随机模式：生成不同于当前索引的随机数
           let newIndex;
           do {
             newIndex = Math.floor(Math.random() * musicList.length);
           } while (newIndex === currentIndex && musicList.length > 1);
           return newIndex;
         } else {
-          // 顺序模式
           return (currentIndex + 1) % musicList.length;
         }
       }
 
-      // ===== 获取上一首歌的索引 =====
       function getPrevIndex() {
         if (musicList.length === 0) return 0;
         if (playMode === 'random') {
@@ -455,7 +466,6 @@
         }
       }
 
-      // ===== 播放/暂停切换 =====
       function togglePlay() {
         if (musicList.length === 0) return;
         if (audio.paused) {
@@ -465,27 +475,20 @@
         }
       }
 
-      // ===== 上一首 =====
       function prevSong() {
         if (musicList.length === 0) return;
         currentIndex = getPrevIndex();
         loadSong(currentIndex);
-        if (isPlaying) {
-          audio.play().catch(() => {});
-        }
+        audio.play().catch(() => {});
       }
 
-      // ===== 下一首 =====
       function nextSong() {
         if (musicList.length === 0) return;
         currentIndex = getNextIndex();
         loadSong(currentIndex);
-        if (isPlaying) {
-          audio.play().catch(() => {});
-        }
+        audio.play().catch(() => {});
       }
 
-      // ===== 更新播放按钮状态 =====
       function updatePlayButton() {
         const playIcon = playBtn.querySelector('.play-btn');
         const pauseIcon = playBtn.querySelector('.pause-btn');
@@ -500,7 +503,6 @@
         }
       }
 
-      // ===== 更新进度条 =====
       function updateProgress() {
         if (audio.duration) {
           const percent = (audio.currentTime / audio.duration) * 100;
@@ -520,7 +522,6 @@
         }
       }
 
-      // ===== 进度条点击跳转 =====
       function seekProgress(e) {
         const rect = progressContainer.getBoundingClientRect();
         const clickX = e.clientX - rect.left;
@@ -531,7 +532,6 @@
         }
       }
 
-      // ===== 切换播放模式 =====
       function togglePlayMode() {
         if (playMode === 'order') {
           playMode = 'random';
@@ -539,7 +539,6 @@
           playMode = 'order';
         }
         updateModeIndicator();
-        // 轻微反馈：按钮闪烁
         repeatBtn.style.transition = 'transform 0.15s';
         repeatBtn.style.transform = 'scale(0.85)';
         setTimeout(() => {
@@ -547,13 +546,11 @@
         }, 150);
       }
 
-      // ===== 更新模式指示器 =====
       function updateModeIndicator() {
         const indicator = modeIndicator;
         if (playMode === 'random') {
           indicator.textContent = '随机';
           indicator.classList.add('random');
-          // 图标颜色变化（通过path染色）
           const path = repeatBtn.querySelector('path');
           if (path) path.style.fill = '#e74c5e';
         } else {
@@ -564,12 +561,10 @@
         }
       }
 
-      // ===== 收藏切换 =====
       function toggleFav() {
         favBtn.classList.toggle('pressed');
       }
 
-      // ===== 事件绑定 =====
       playBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         togglePlay();
@@ -613,7 +608,6 @@
 
       progressContainer.addEventListener('click', seekProgress);
 
-      // 键盘支持
       document.addEventListener('keydown', (e) => {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
         if (e.code === 'Space') {
@@ -630,7 +624,6 @@
         }
       });
 
-      // ===== 按钮按下效果 =====
       document.querySelectorAll('.previous, .next, .play').forEach(el => {
         el.addEventListener('mousedown', () => el.classList.add('pressed'));
         el.addEventListener('mouseup', () => el.classList.remove('pressed'));
@@ -639,10 +632,8 @@
         el.addEventListener('touchend', () => el.classList.remove('pressed'));
       });
 
-      // ===== 启动 =====
       init();
-
-      console.log('🎵 白色磨玻璃播放器已启动，歌曲数:', musicList.length, ' 模式:', playMode);
+      console.log('🎵 紧凑版播放器已启动，歌曲数:', musicList.length, ' 模式:', playMode);
     })();
   </script>
 </body>

@@ -3605,9 +3605,7 @@
                 idx = (idx + 1) % playlist.length;
             }
             loadTrack(idx);
-            if (isPlaying) {
-                audio.play().catch(() => {});
-            }
+            audio.play().catch(() => {});
         }
 
         function prevTrack() {
@@ -3623,9 +3621,7 @@
                 idx = (idx - 1 + playlist.length) % playlist.length;
             }
             loadTrack(idx);
-            if (isPlaying) {
-                audio.play().catch(() => {});
-            }
+            audio.play().catch(() => {});
         }
 
         function bindEvents() {

@@ -126,12 +126,47 @@
             text-shadow: 0 1px 4px rgba(0,0,0,0.5);
             border-bottom: 1px solid rgba(255,255,240,0.15);
         }
+        /* 进度条样式 */
+        .music-player-wrapper .progress-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 2px 4px 2px;
+        }
+        .music-player-wrapper .progress-bar-track {
+            flex: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.20);
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            transition: height 0.15s;
+        }
+        .music-player-wrapper .progress-bar-track:hover {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.30);
+        }
+        .music-player-wrapper .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #f0c060, #ffd700);
+            border-radius: 4px;
+            transition: width 0.05s linear;
+            box-shadow: 0 0 12px rgba(255, 215, 0, 0.25);
+        }
+        .music-player-wrapper .progress-time {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.70);
+            min-width: 38px;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+        }
         .music-controls {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 12px;
-            padding-top: 12px;
+            padding-top: 10px;
             flex-wrap: wrap;
         }
         .music-controls button {
@@ -182,7 +217,7 @@
         .list-toggle-area {
             display: flex;
             justify-content: flex-end;
-            padding-top: 8px;
+            padding-top: 6px;
         }
         .list-toggle-btn {
             background: transparent;
@@ -262,6 +297,7 @@
             .music-player-wrapper { width: 280px; padding: 14px 14px 16px; }
             .music-controls button { width: 38px; height: 38px; font-size: 1rem; }
             .music-controls .play-btn { width: 50px; height: 50px; font-size: 1.5rem; }
+            .music-player-wrapper .progress-time { font-size: 10px; min-width: 30px; }
         }
     </style>
 </head>
@@ -305,6 +341,14 @@
     <!-- 音乐播放器 浮层 (毛玻璃居中) -->
     <div class="music-player-wrapper" id="musicPlayerWrapper">
         <div class="song-title" id="currentSongTitle">🎵 选择一首歌</div>
+        <!-- 进度条 -->
+        <div class="progress-container">
+            <span class="progress-time" id="currentTime">0:00</span>
+            <div class="progress-bar-track" id="progressTrack">
+                <div class="progress-bar-fill" id="progressFill"></div>
+            </div>
+            <span class="progress-time" id="totalTime">0:00</span>
+        </div>
         <div class="music-controls">
             <button class="mode-btn" id="modeBtn" title="循环模式">🔁</button>
             <button id="prevBtn" title="上一首">⏮</button>
@@ -365,6 +409,33 @@
         const playlistContainer = document.getElementById('playlistContainer');
         const songTitleEl = document.getElementById('currentSongTitle');
 
+        // 进度元素
+        const progressFill = document.getElementById('progressFill');
+        const progressTrack = document.getElementById('progressTrack');
+        const currentTimeEl = document.getElementById('currentTime');
+        const totalTimeEl = document.getElementById('totalTime');
+
+        // --- 辅助函数 ---
+        function formatTime(sec) {
+            if (isNaN(sec) || sec < 0) sec = 0;
+            const mins = Math.floor(sec / 60);
+            const secs = Math.floor(sec % 60);
+            return mins + ':' + (secs < 10 ? '0' : '') + secs;
+        }
+
+        function updateProgress() {
+            if (audio.duration && !isNaN(audio.duration)) {
+                const percent = (audio.currentTime / audio.duration) * 100;
+                progressFill.style.width = Math.min(percent, 100) + '%';
+                currentTimeEl.textContent = formatTime(audio.currentTime);
+                totalTimeEl.textContent = formatTime(audio.duration);
+            } else {
+                progressFill.style.width = '0%';
+                currentTimeEl.textContent = '0:00';
+                totalTimeEl.textContent = '0:00';
+            }
+        }
+
         // 渲染歌单
         function renderPlaylist() {
             let html = '';
@@ -399,6 +470,7 @@
                 document.querySelectorAll('.playlist-item').forEach(el => {
                     el.classList.toggle('active', parseInt(el.dataset.index, 10) === index);
                 });
+                updateProgress();
             }).catch(err => {
                 console.warn('播放失败:', err);
                 isPlaying = false;
@@ -420,6 +492,7 @@
             } else {
                 audio.play().then(() => {
                     isPlaying = true;
+                    updateProgress();
                 }).catch(e => {
                     console.warn('播放恢复失败', e);
                     isPlaying = false;
@@ -485,6 +558,7 @@
             if (list[currentIndex] && audio.src) {
                 songTitleEl.textContent = '🎵 ' + list[currentIndex].name;
             }
+            updateProgress();
         }
 
         // 打开/关闭歌单
@@ -503,11 +577,23 @@
         listToggleBtn.addEventListener('click', togglePlaylist);
         listToggleBtn2.addEventListener('click', togglePlaylist);
 
-        // 音频结束自动下一首
+        // 点击进度条跳转
+        progressTrack.addEventListener('click', function(e) {
+            if (!audio.duration || isNaN(audio.duration)) return;
+            const rect = this.getBoundingClientRect();
+            const ratio = (e.clientX - rect.left) / rect.width;
+            const seekTime = ratio * audio.duration;
+            audio.currentTime = seekTime;
+            updateProgress();
+        });
+
+        // 音频事件
+        audio.addEventListener('timeupdate', updateProgress);
         audio.addEventListener('ended', function() {
             if (mode === 1) { // 单曲循环
                 audio.currentTime = 0;
                 audio.play().catch(e => {});
+                updateProgress();
                 return;
             }
             nextSong();

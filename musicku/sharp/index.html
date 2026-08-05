@@ -3,15 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>CSS3卡通鲨鱼船底游动特效 + 音乐播放器</title>
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <link rel="stylesheet" href="css/style.css">
 
 <style>
-/* 保持原有样式不变，补充播放器样式 */
-
-/* 确保背景色完整保留 */
+/* 保持原有样式不变，补充播放器样式 + 进度条 */
 body {
   margin: 0;
   padding: 0;
@@ -56,7 +52,7 @@ html, body {
   font-size: 1rem;
   font-weight: 500;
   letter-spacing: 0.3px;
-  margin-bottom: 14px;
+  margin-bottom: 8px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -64,12 +60,49 @@ html, body {
   color: #fff;
   text-shadow: 0 1px 4px rgba(0,0,0,0.3);
 }
+
+/* ----- 进度条样式 ----- */
+.progress-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 12px;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.7);
+}
+.progress-bar-bg {
+  flex: 1;
+  height: 4px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 20px;
+  cursor: pointer;
+  position: relative;
+  transition: height 0.1s;
+}
+.progress-bar-bg:hover {
+  height: 6px;
+  background: rgba(255,255,255,0.3);
+}
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #f9d976, #f39f86);
+  border-radius: 20px;
+  transition: width 0.05s linear;
+  box-shadow: 0 0 8px rgba(243, 159, 134, 0.4);
+}
+.time-current, .time-duration {
+  min-width: 32px;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.65rem;
+}
+/* ----- 控件 ----- */
 .player-controls {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
 }
 .player-controls button {
   background: rgba(255, 255, 255, 0.08);
@@ -234,6 +267,7 @@ html, body {
     height: 44px;
     font-size: 22px;
   }
+  .progress-wrapper { font-size: 0.6rem; gap: 0.3rem; }
 }
 </style>
 </head>
@@ -249,6 +283,15 @@ html, body {
 <div class="player-wrapper">
   <div class="player-card">
     <div class="song-name" id="songNameDisplay">🎵 点击播放</div>
+
+    <!-- 进度条 -->
+    <div class="progress-wrapper">
+      <span class="time-current" id="timeCurrent">0:00</span>
+      <div class="progress-bar-bg" id="progressBarBg">
+        <div class="progress-fill" id="progressFill" style="width:0%;"></div>
+      </div>
+      <span class="time-duration" id="timeDuration">0:00</span>
+    </div>
 
     <div class="player-controls">
       <button id="prevBtn" title="上一首">⏮</button>
@@ -277,7 +320,9 @@ html, body {
   const audio = new Audio();
   let currentIndex = 0;
   let isPlaying = false;
-  let playMode = 'order';
+  let playMode = 'order'; // 'order', 'shuffle', 'loop'
+  let progressRAF = null;
+
   const listContainer = document.getElementById('musicListContainer');
   const songNameDisplay = document.getElementById('songNameDisplay');
   const playBtn = document.getElementById('playBtn');
@@ -287,12 +332,54 @@ html, body {
   const modeLabel = document.getElementById('modeLabel');
   const toggleListBtn = document.getElementById('toggleListBtn');
 
+  // 进度条元素
+  const progressFill = document.getElementById('progressFill');
+  const timeCurrent = document.getElementById('timeCurrent');
+  const timeDuration = document.getElementById('timeDuration');
+  const progressBarBg = document.getElementById('progressBarBg');
+
   const musicData = typeof MUSIC_DATA !== 'undefined' ? MUSIC_DATA : [];
 
+  // ----- 辅助函数 -----
   function formatSongName(item) {
     return item.name || '未知歌曲';
   }
+  function formatTime(seconds) {
+    if (isNaN(seconds) || !isFinite(seconds)) return '0:00';
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
+    return m + ':' + (s < 10 ? '0' : '') + s;
+  }
 
+  function updateProgress() {
+    if (!audio.duration || isNaN(audio.duration)) {
+      progressFill.style.width = '0%';
+      timeCurrent.textContent = '0:00';
+      timeDuration.textContent = '0:00';
+      return;
+    }
+    const pct = (audio.currentTime / audio.duration) * 100;
+    progressFill.style.width = Math.min(pct, 100) + '%';
+    timeCurrent.textContent = formatTime(audio.currentTime);
+    timeDuration.textContent = formatTime(audio.duration);
+  }
+
+  function startProgressLoop() {
+    if (progressRAF) cancelAnimationFrame(progressRAF);
+    function tick() {
+      updateProgress();
+      progressRAF = requestAnimationFrame(tick);
+    }
+    tick();
+  }
+  function stopProgressLoop() {
+    if (progressRAF) {
+      cancelAnimationFrame(progressRAF);
+      progressRAF = null;
+    }
+  }
+
+  // ----- 核心控制 -----
   function loadSong(index) {
     if (!musicData.length) return;
     const safeIndex = (index + musicData.length) % musicData.length;
@@ -301,9 +388,17 @@ html, body {
     audio.src = item.url;
     audio.load();
     songNameDisplay.textContent = '🎵 ' + formatSongName(item);
+    // 重置进度显示
+    progressFill.style.width = '0%';
+    timeCurrent.textContent = '0:00';
+    if (audio.duration) timeDuration.textContent = formatTime(audio.duration);
+    else timeDuration.textContent = '0:00';
     updateListActive();
     if (isPlaying) {
       audio.play().catch(() => {});
+      startProgressLoop();
+    } else {
+      stopProgressLoop();
     }
   }
 
@@ -313,10 +408,12 @@ html, body {
       audio.play().catch(() => {});
       isPlaying = true;
       playBtn.textContent = '⏸';
+      startProgressLoop();
     } else {
       audio.pause();
       isPlaying = false;
       playBtn.textContent = '▶';
+      stopProgressLoop();
     }
   }
 
@@ -329,6 +426,7 @@ html, body {
       isPlaying = true;
       playBtn.textContent = '⏸';
       audio.play().catch(() => {});
+      startProgressLoop();
     } else {
       audio.play().catch(() => {});
     }
@@ -350,6 +448,7 @@ html, body {
       isPlaying = true;
       playBtn.textContent = '⏸';
       audio.play().catch(() => {});
+      startProgressLoop();
     } else {
       audio.play().catch(() => {});
     }
@@ -394,8 +493,11 @@ html, body {
         if (!isPlaying) {
           isPlaying = true;
           playBtn.textContent = '⏸';
+          audio.play().catch(() => {});
+          startProgressLoop();
+        } else {
+          audio.play().catch(() => {});
         }
-        audio.play().catch(() => {});
       });
       listContainer.appendChild(div);
     });
@@ -419,29 +521,47 @@ html, body {
     }
   }
 
+  // ----- 事件绑定 -----
   playBtn.addEventListener('click', playPause);
   prevBtn.addEventListener('click', prevSong);
   nextBtn.addEventListener('click', nextSong);
   modeToggleBtn.addEventListener('click', toggleMode);
   toggleListBtn.addEventListener('click', toggleList);
 
+  // 进度条点击跳转
+  progressBarBg.addEventListener('click', function(e) {
+    if (!audio.duration || isNaN(audio.duration)) return;
+    const rect = this.getBoundingClientRect();
+    const pct = (e.clientX - rect.left) / rect.width;
+    audio.currentTime = pct * audio.duration;
+    updateProgress();
+  });
+
   audio.addEventListener('ended', function() {
     if (playMode === 'loop') return;
     nextSong();
   });
 
+  audio.addEventListener('loadedmetadata', function() {
+    timeDuration.textContent = formatTime(audio.duration);
+    updateProgress();
+  });
+
+  // 初始化
   function initPlayer() {
     if (musicData.length) {
       loadSong(0);
       isPlaying = false;
       playBtn.textContent = '▶';
       audio.pause();
+      stopProgressLoop();
     } else {
       songNameDisplay.textContent = '🎵 无音乐';
     }
     renderList();
     modeLabel.textContent = '🔁 顺序';
     audio.loop = false;
+    // 点击外部关闭歌单
     document.addEventListener('click', function(e) {
       const wrapper = document.querySelector('.player-wrapper');
       if (wrapper && !wrapper.contains(e.target)) {
@@ -450,6 +570,10 @@ html, body {
         }
       }
     });
+    // 初始进度
+    timeDuration.textContent = '0:00';
+    timeCurrent.textContent = '0:00';
+    progressFill.style.width = '0%';
   }
 
   initPlayer();

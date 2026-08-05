@@ -55,12 +55,47 @@
     font-size: 18px;
     font-weight: 500;
     letter-spacing: 1px;
-    margin: 4px 0 14px 0;
+    margin: 4px 0 10px 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     color: #f5f0ff;
     text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+  }
+  /* 进度条 */
+  .player-glass .progress-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 2px 12px 2px;
+  }
+  .player-glass .progress-bar-track {
+    flex: 1;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.20);
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    transition: height 0.15s;
+  }
+  .player-glass .progress-bar-track:hover {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.30);
+  }
+  .player-glass .progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #c4a0ff, #a78bfa);
+    border-radius: 4px;
+    transition: width 0.05s linear;
+    box-shadow: 0 0 12px rgba(167, 139, 250, 0.30);
+  }
+  .player-glass .progress-time {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.70);
+    min-width: 38px;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
   }
   .player-glass .controls {
     display: flex;
@@ -105,7 +140,7 @@
   }
   .player-glass .mode-label {
     font-size: 13px;
-    margin-top: 12px;
+    margin-top: 10px;
     opacity: 0.85;
     letter-spacing: 1px;
     background: rgba(0,0,0,0.25);
@@ -232,6 +267,14 @@
   <!-- 毛玻璃播放器 -->
   <div class="player-glass" id="playerGlass">
     <div class="song-title" id="songTitle">🎵 未选择歌曲</div>
+    <!-- 进度条 -->
+    <div class="progress-container">
+      <span class="progress-time" id="currentTime">0:00</span>
+      <div class="progress-bar-track" id="progressTrack">
+        <div class="progress-bar-fill" id="progressFill"></div>
+      </div>
+      <span class="progress-time" id="totalTime">0:00</span>
+    </div>
     <div class="controls">
       <button id="prevBtn" title="上一首">⏮</button>
       <button class="btn-play" id="playBtn" title="播放/暂停">▶</button>
@@ -274,6 +317,33 @@
   const playlistPanel = document.getElementById('playlistPanel');
   const playlistToggle = document.getElementById('playlistToggle');
 
+  // 进度元素
+  const progressFill = document.getElementById('progressFill');
+  const progressTrack = document.getElementById('progressTrack');
+  const currentTimeEl = document.getElementById('currentTime');
+  const totalTimeEl = document.getElementById('totalTime');
+
+  // --- 辅助函数 ---
+  function formatTime(sec) {
+    if (isNaN(sec) || sec < 0) sec = 0;
+    const mins = Math.floor(sec / 60);
+    const secs = Math.floor(sec % 60);
+    return mins + ':' + (secs < 10 ? '0' : '') + secs;
+  }
+
+  function updateProgress() {
+    if (audio.duration && !isNaN(audio.duration)) {
+      const percent = (audio.currentTime / audio.duration) * 100;
+      progressFill.style.width = Math.min(percent, 100) + '%';
+      currentTimeEl.textContent = formatTime(audio.currentTime);
+      totalTimeEl.textContent = formatTime(audio.duration);
+    } else {
+      progressFill.style.width = '0%';
+      currentTimeEl.textContent = '0:00';
+      totalTimeEl.textContent = '0:00';
+    }
+  }
+
   function loadSong(index) {
     if (!list.length) return;
     const item = list[index];
@@ -283,6 +353,8 @@
     document.querySelectorAll('.playlist-item').forEach((el, i) => {
       el.classList.toggle('active', i === index);
     });
+    // 加载后更新总时长
+    audio.addEventListener('loadedmetadata', updateProgress);
     if (isPlaying) {
       audio.play().catch(() => { isPlaying = false; updatePlayButton(); });
     }
@@ -296,7 +368,7 @@
     if (!list.length) return;
     if (audio.src === '' || audio.paused) {
       if (audio.src === '') loadSong(currentIndex);
-      audio.play().then(() => { isPlaying = true; updatePlayButton(); }).catch(() => { isPlaying = false; updatePlayButton(); });
+      audio.play().then(() => { isPlaying = true; updatePlayButton(); updateProgress(); }).catch(() => { isPlaying = false; updatePlayButton(); });
     } else {
       audio.pause();
       isPlaying = false;
@@ -313,7 +385,7 @@
     }
     loadSong(currentIndex);
     if (isPlaying) audio.play().catch(() => {});
-    else audio.play().then(() => { isPlaying = true; updatePlayButton(); }).catch(() => {});
+    else audio.play().then(() => { isPlaying = true; updatePlayButton(); updateProgress(); }).catch(() => {});
   }
 
   function nextSong() {
@@ -325,7 +397,7 @@
     }
     loadSong(currentIndex);
     if (isPlaying) audio.play().catch(() => {});
-    else audio.play().then(() => { isPlaying = true; updatePlayButton(); }).catch(() => {});
+    else audio.play().then(() => { isPlaying = true; updatePlayButton(); updateProgress(); }).catch(() => {});
   }
 
   function toggleMode() {
@@ -335,13 +407,26 @@
     modeLabel.innerHTML = `<span>${icons[mode]}</span> ${labels[mode]}`;
   }
 
+  // 音频事件
+  audio.addEventListener('timeupdate', updateProgress);
   audio.addEventListener('ended', function() {
     if (mode === 1) {
       audio.currentTime = 0;
       audio.play().catch(() => {});
+      updateProgress();
     } else {
       nextSong();
     }
+  });
+
+  // 点击进度条跳转
+  progressTrack.addEventListener('click', function(e) {
+    if (!audio.duration || isNaN(audio.duration)) return;
+    const rect = this.getBoundingClientRect();
+    const ratio = (e.clientX - rect.left) / rect.width;
+    const seekTime = ratio * audio.duration;
+    audio.currentTime = seekTime;
+    updateProgress();
   });
 
   function renderPlaylist() {
@@ -357,7 +442,7 @@
         const i = parseInt(this.dataset.index);
         if (i === currentIndex && audio.src) {
           if (audio.paused) {
-            audio.play().then(() => { isPlaying = true; updatePlayButton(); });
+            audio.play().then(() => { isPlaying = true; updatePlayButton(); updateProgress(); });
           } else {
             audio.pause();
             isPlaying = false;
@@ -366,7 +451,7 @@
         } else {
           currentIndex = i;
           loadSong(currentIndex);
-          audio.play().then(() => { isPlaying = true; updatePlayButton(); }).catch(() => {});
+          audio.play().then(() => { isPlaying = true; updatePlayButton(); updateProgress(); }).catch(() => {});
         }
         playlistPanel.classList.remove('show');
       });
@@ -379,6 +464,7 @@
     loadSong(0);
     isPlaying = false;
     updatePlayButton();
+    updateProgress();
   }
 
   playBtn.addEventListener('click', togglePlay);

@@ -114,7 +114,7 @@ body { overflow-x: hidden; overflow-y: hidden; background-color: #000; font-size
     font-size: 33px;           /* 原22px * 1.5 */
     font-weight: 500;
     letter-spacing: 1.5px;
-    margin-bottom: 27px;       /* 原18px * 1.5 */
+    margin-bottom: 12px;       /* 缩减为原来的一半，给进度条让空间 */
     text-shadow: 0 2px 12px rgba(0,0,0,0.5);
     white-space: nowrap;
     overflow: hidden;
@@ -122,6 +122,43 @@ body { overflow-x: hidden; overflow-y: hidden; background-color: #000; font-size
     max-width: 420px;          /* 原280px * 1.5 */
     display: inline-block;
 }
+
+/* ----- 进度条样式 ----- */
+.progress-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 18px;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.7);
+}
+.progress-bar-bg {
+    flex: 1;
+    height: 5px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 20px;
+    cursor: pointer;
+    position: relative;
+    transition: height 0.1s;
+}
+.progress-bar-bg:hover {
+    height: 7px;
+    background: rgba(255,255,255,0.3);
+}
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #f9d976, #f39f86);
+    border-radius: 20px;
+    transition: width 0.05s linear;
+    box-shadow: 0 0 8px rgba(243, 159, 134, 0.4);
+}
+.time-current, .time-duration {
+    min-width: 36px;
+    font-variant-numeric: tabular-nums;
+    font-size: 0.8rem;
+}
+
 .music-player .controls {
     display: flex;
     justify-content: center;
@@ -192,6 +229,8 @@ body { overflow-x: hidden; overflow-y: hidden; background-color: #000; font-size
     .music-player .controls .play-btn { width: 66px; height: 66px; font-size: 28px; }
     .music-player .controls #modeBtn { width: 58px; font-size: 16px; }
     .music-player .mode-label { font-size: 14px; padding: 4px 14px; }
+    .progress-wrapper { font-size: 0.7rem; gap: 0.5rem; }
+    .time-current, .time-duration { min-width: 28px; font-size: 0.7rem; }
 }
 @media (max-width: 500px) {
     .music-player { min-width: 260px; padding: 20px 16px; border-radius: 28px; }
@@ -201,6 +240,8 @@ body { overflow-x: hidden; overflow-y: hidden; background-color: #000; font-size
     .music-player .controls .play-btn { width: 54px; height: 54px; font-size: 22px; }
     .music-player .controls #modeBtn { width: 48px; font-size: 14px; }
     .music-player .mode-label { font-size: 12px; padding: 3px 10px; }
+    .progress-wrapper { font-size: 0.6rem; gap: 0.3rem; }
+    .time-current, .time-duration { min-width: 24px; font-size: 0.6rem; }
 }
 </style>
 </head>
@@ -211,6 +252,16 @@ body { overflow-x: hidden; overflow-y: hidden; background-color: #000; font-size
     <!-- 音乐播放器 (扩大50%) -->
     <div class="music-player" style="pointer-events:auto;">
         <div class="song-name" id="songNameDisplay">🎵 未播放</div>
+
+        <!-- 进度条 -->
+        <div class="progress-wrapper">
+            <span class="time-current" id="timeCurrent">0:00</span>
+            <div class="progress-bar-bg" id="progressBarBg">
+                <div class="progress-fill" id="progressFill" style="width:0%;"></div>
+            </div>
+            <span class="time-duration" id="timeDuration">0:00</span>
+        </div>
+
         <div class="controls">
             <button id="prevBtn" title="上一首">⏮</button>
             <button class="play-btn" id="playBtn" title="播放/暂停">▶</button>
@@ -302,9 +353,53 @@ const modeBtn = document.getElementById('modeBtn');
 const modeLabel = document.getElementById('modeLabel');
 const audio = new Audio();
 
+// 进度条元素
+const progressFill = document.getElementById('progressFill');
+const timeCurrent = document.getElementById('timeCurrent');
+const timeDuration = document.getElementById('timeDuration');
+const progressBarBg = document.getElementById('progressBarBg');
+
 let currentIndex = 0;
 let isPlaying = false;
 let mode = 'list'; // 'list', 'single', 'random'
+let progressRAF = null;
+
+// ----- 进度条辅助函数 -----
+function formatTime(seconds) {
+    if (isNaN(seconds) || !isFinite(seconds)) return '0:00';
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
+    return m + ':' + (s < 10 ? '0' : '') + s;
+}
+
+function updateProgress() {
+    if (!audio.duration || isNaN(audio.duration)) {
+        progressFill.style.width = '0%';
+        timeCurrent.textContent = '0:00';
+        timeDuration.textContent = '0:00';
+        return;
+    }
+    const pct = (audio.currentTime / audio.duration) * 100;
+    progressFill.style.width = Math.min(pct, 100) + '%';
+    timeCurrent.textContent = formatTime(audio.currentTime);
+    timeDuration.textContent = formatTime(audio.duration);
+}
+
+function startProgressLoop() {
+    if (progressRAF) cancelAnimationFrame(progressRAF);
+    function tick() {
+        updateProgress();
+        progressRAF = requestAnimationFrame(tick);
+    }
+    tick();
+}
+
+function stopProgressLoop() {
+    if (progressRAF) {
+        cancelAnimationFrame(progressRAF);
+        progressRAF = null;
+    }
+}
 
 function updateSongName() {
     if (MUSIC_DATA.length === 0) {
@@ -323,9 +418,17 @@ function loadSong(index) {
     const song = MUSIC_DATA[currentIndex];
     audio.src = song.url;
     audio.load();
+    // 重置进度
+    progressFill.style.width = '0%';
+    timeCurrent.textContent = '0:00';
+    if (audio.duration) timeDuration.textContent = formatTime(audio.duration);
+    else timeDuration.textContent = '0:00';
     updateSongName();
     if (isPlaying) {
         audio.play().catch(e => console.warn('自动播放被阻止', e));
+        startProgressLoop();
+    } else {
+        stopProgressLoop();
     }
 }
 
@@ -335,11 +438,13 @@ function togglePlay() {
         audio.play().then(() => {
             isPlaying = true;
             playBtn.textContent = '⏸';
+            startProgressLoop();
         }).catch(e => console.warn('播放失败', e));
     } else {
         audio.pause();
         isPlaying = false;
         playBtn.textContent = '▶';
+        stopProgressLoop();
     }
 }
 
@@ -354,7 +459,10 @@ function nextSong() {
     } else {
         loadSong((currentIndex + 1) % MUSIC_DATA.length);
     }
-    if (isPlaying) audio.play().catch(e => console.warn('自动播放', e));
+    if (isPlaying) {
+        audio.play().catch(e => console.warn('自动播放', e));
+        startProgressLoop();
+    }
 }
 
 function prevSong() {
@@ -368,7 +476,10 @@ function prevSong() {
     } else {
         loadSong((currentIndex - 1 + MUSIC_DATA.length) % MUSIC_DATA.length);
     }
-    if (isPlaying) audio.play().catch(e => console.warn('自动播放', e));
+    if (isPlaying) {
+        audio.play().catch(e => console.warn('自动播放', e));
+        startProgressLoop();
+    }
 }
 
 function toggleMode() {
@@ -387,10 +498,25 @@ function toggleMode() {
     }
 }
 
+// 进度条点击跳转
+progressBarBg.addEventListener('click', function(e) {
+    if (!audio.duration || isNaN(audio.duration)) return;
+    const rect = this.getBoundingClientRect();
+    const pct = (e.clientX - rect.left) / rect.width;
+    audio.currentTime = pct * audio.duration;
+    updateProgress();
+});
+
+audio.addEventListener('loadedmetadata', function() {
+    timeDuration.textContent = formatTime(audio.duration);
+    updateProgress();
+});
+
 audio.addEventListener('ended', function() {
     if (mode === 'single') {
         audio.currentTime = 0;
         audio.play().catch(e => console.warn('单曲循环播放', e));
+        startProgressLoop();
     } else {
         nextSong();
     }
@@ -417,9 +543,13 @@ if (MUSIC_DATA.length) {
     loadSong(0);
     isPlaying = false;
     playBtn.textContent = '▶';
+    stopProgressLoop();
     mode = 'list';
     modeLabel.textContent = '列表循环';
     modeBtn.textContent = '🔁';
+    timeDuration.textContent = '0:00';
+    timeCurrent.textContent = '0:00';
+    progressFill.style.width = '0%';
 } else {
     songNameDisplay.textContent = '🎵 无歌曲';
 }

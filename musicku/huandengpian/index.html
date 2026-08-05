@@ -9,7 +9,6 @@
         <link href="css/animate.css" rel="stylesheet" type="text/css" />
         <link href="css/bootslider.css" rel="stylesheet" type="text/css" />
         <link href="css/bs-theme-metro.css" rel="stylesheet" type="text/css" />
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
         <style>
             /* 原样式保持不变 */
             body, p, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
@@ -71,18 +70,60 @@
                 letter-spacing: 0.3px;
                 transition: all 0.2s;
             }
+            .music-player .track-info {
+                flex: 1 1 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+            }
             .music-player .track-name {
                 font-size: 18px;
                 font-weight: 400;
-                min-width: 100px;
                 text-align: center;
-                flex: 1 1 auto;
+                color: #fff;
+                text-shadow: 0 1px 4px rgba(0,0,0,0.5);
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                max-width: 200px;
-                color: #fff;
-                text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+                max-width: 100%;
+                width: 100%;
+            }
+            /* 进度条容器 */
+            .music-player .progress-container {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 0 2px;
+            }
+            .music-player .progress-bar-track {
+                flex: 1;
+                height: 4px;
+                background: rgba(255,255,255,0.25);
+                border-radius: 4px;
+                cursor: pointer;
+                position: relative;
+                transition: height 0.1s;
+            }
+            .music-player .progress-bar-track:hover {
+                height: 6px;
+                background: rgba(255,255,255,0.35);
+            }
+            .music-player .progress-bar-fill {
+                height: 100%;
+                width: 0%;
+                background: #fff;
+                border-radius: 4px;
+                transition: width 0.05s linear;
+                position: relative;
+            }
+            .music-player .progress-time {
+                font-size: 12px;
+                color: rgba(255,255,255,0.8);
+                min-width: 40px;
+                text-align: center;
+                font-variant-numeric: tabular-nums;
             }
             .music-player .controls {
                 display: flex;
@@ -196,7 +237,7 @@
                 }
                 .music-player .track-name {
                     font-size: 16px;
-                    max-width: 120px;
+                    max-width: 100%;
                 }
                 .music-player .controls button {
                     width: 34px;
@@ -214,6 +255,10 @@
                 }
                 .music-list {
                     max-height: 130px;
+                }
+                .music-player .progress-time {
+                    font-size: 10px;
+                    min-width: 32px;
                 }
             }
         </style>
@@ -336,7 +381,17 @@
             <!-- ===== 音乐播放器 - 最上层居中 ===== -->
             <div class="music-player-wrapper">
                 <div class="music-player" id="musicPlayer">
-                    <span class="track-name" id="trackName">🎵 未播放</span>
+                    <div class="track-info">
+                        <span class="track-name" id="trackName">🎵 未播放</span>
+                        <!-- 进度条 -->
+                        <div class="progress-container">
+                            <span class="progress-time" id="currentTime">0:00</span>
+                            <div class="progress-bar-track" id="progressTrack">
+                                <div class="progress-bar-fill" id="progressFill"></div>
+                            </div>
+                            <span class="progress-time" id="totalTime">0:00</span>
+                        </div>
+                    </div>
                     <div class="controls">
                         <button class="mode-btn" id="modeBtn" title="切换模式">🔁</button>
                         <button id="prevBtn" title="上一首">⏮</button>
@@ -396,6 +451,51 @@
                 var modeBtn = document.getElementById('modeBtn');
                 var listToggleBtn = document.getElementById('listToggleBtn');
                 var musicListEl = document.getElementById('musicList');
+                // 进度元素
+                var progressFill = document.getElementById('progressFill');
+                var progressTrack = document.getElementById('progressTrack');
+                var currentTimeEl = document.getElementById('currentTime');
+                var totalTimeEl = document.getElementById('totalTime');
+
+                // 辅助函数：格式化时间 (秒 -> mm:ss)
+                function formatTime(sec) {
+                    if (isNaN(sec) || sec < 0) sec = 0;
+                    var mins = Math.floor(sec / 60);
+                    var secs = Math.floor(sec % 60);
+                    return mins + ':' + (secs < 10 ? '0' : '') + secs;
+                }
+
+                // 更新进度条
+                function updateProgress() {
+                    if (audio.duration && !isNaN(audio.duration)) {
+                        var percent = (audio.currentTime / audio.duration) * 100;
+                        progressFill.style.width = Math.min(percent, 100) + '%';
+                        currentTimeEl.textContent = formatTime(audio.currentTime);
+                        totalTimeEl.textContent = formatTime(audio.duration);
+                    } else {
+                        progressFill.style.width = '0%';
+                        currentTimeEl.textContent = '0:00';
+                        totalTimeEl.textContent = '0:00';
+                    }
+                }
+
+                // 监听时间更新
+                audio.addEventListener('timeupdate', updateProgress);
+                audio.addEventListener('loadedmetadata', function() {
+                    totalTimeEl.textContent = formatTime(audio.duration);
+                    updateProgress();
+                });
+
+                // 点击进度条跳转
+                progressTrack.addEventListener('click', function(e) {
+                    if (!audio.duration || isNaN(audio.duration)) return;
+                    var rect = this.getBoundingClientRect();
+                    var clickX = e.clientX - rect.left;
+                    var ratio = clickX / rect.width;
+                    var seekTime = ratio * audio.duration;
+                    audio.currentTime = seekTime;
+                    updateProgress();
+                });
 
                 // 初始化列表
                 function renderList() {
@@ -439,6 +539,8 @@
                         isPlaying = true;
                         updatePlayButton();
                         trackNameEl.textContent = '🎵 ' + track.name;
+                        // 确保进度更新
+                        updateProgress();
                     }).catch(function(e) {
                         // 自动播放被阻止或加载失败
                         isPlaying = false;
@@ -527,6 +629,8 @@
                         // 单曲循环: 重新播放
                         audio.currentTime = 0;
                         audio.play().catch(function() {});
+                        // 更新进度显示
+                        updateProgress();
                     } else {
                         nextTrack();
                     }
@@ -539,6 +643,10 @@
                     audio.src = musicData[0].url;
                     audio.load();
                     // 默认不自动播放，等待用户点击
+                    // 但初始化显示总时长
+                    audio.addEventListener('loadedmetadata', function() {
+                        totalTimeEl.textContent = formatTime(audio.duration);
+                    });
                 } else {
                     trackNameEl.textContent = '🎵 无音乐';
                 }
