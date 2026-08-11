@@ -1,0 +1,14 @@
+/****************************************************************
+ *																*		
+ * 						      代码库							*
+ *                        www.dmaku.com							*
+ *       		  努力创建完善、持续更新插件以及模板			*
+ * 																*
+****************************************************************/
+.csslider1 > .cs_arrowprev > label:after,
+.csslider1 > .cs_arrownext > label:after {
+	line-height: 30px;
+}
+.csslider1 > .cs_play_pause > label:after {
+	line-height: 28px;
+}
