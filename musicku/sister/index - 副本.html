@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .name{
+            font-size: 40px;
+            color: #000;
+            position: absolute;
+            top: calc(50% - 60px);
+            left: calc(50% - 120px);
+        }
+    </style>
+</head>
+<body>
+    <div class="name">
+        看左下角    
+    </div>
+    
+<script src="./live2dw/lib/L2Dwidget.min.js"></script> 
+<script src="./live2dw/lib/L2Dwidget.0.min.js"></script> 
+<script>
+　　L2Dwidget.init({ 
+
+　　"model": {jsonPath:"https://unpkg.com/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json","scale": 1 }, 
+// 　　"model": {jsonPath:"https://unpkg.com/live2d-widget-model-z16@1.0.5/assets/z16.model.json","scale": 1 }, 
+// 　　"model": {jsonPath:"https://unpkg.com/live2d-widget-model-miku@1.0.5/assets/miku.model.json","scale": 1 }, 
+
+
+// 其他类型参考  live2dw  下文件夹中的 json 文件名  或者使用下面注释的代码（在谷歌浏览器有跨域问题，跨域使用火狐）
+
+// 　　"model": {jsonPath:"./live2dw/live2d-widget-model-chitose/assets/chitose.model.json","scale": 1 }, 
+　　"display": { "position": "left", "width": 300, "height": 600,"hOffset": 0, "vOffset": -20 }, 
+　　"mobile": { "show": true, "scale": 1 }, 
+　　"react": { "opacityDefault": 1, "opacityOnHover": 1 } });
+</script>
+    
+</body>
+</html>
