@@ -1,0 +1,880 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>弹弹弹 · 音乐播放器</title>
+
+<style type="text/css">
+* {
+  margin: 0;
+}
+ 
+body {
+  font-family: Helvetica, sans-serif;
+  background:#1f1f1f;
+  overflow: hidden;
+}
+
+#info {
+  font-size: 22px;
+  color: #ccc;
+  position: absolute;
+  z-index: -1;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  animation: fadeOut 1s forwards 3s;
+}
+
+#info > div {
+  margin-top: -3em;
+}
+
+#info > div > div {
+  margin-bottom: 0.4em;
+}
+
+code {
+  color: #bbb;
+  background: rgba(0, 0, 0, 0.07);
+  padding: 0em 0.2em;
+}
+
+/* ----- 音乐播放器 - 页面正中央 上下左右居中 ----- */
+.music-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;  /* 让点击穿透背景，但播放器内部可交互 */
+    z-index: 9999;
+}
+.music-overlay .music-player {
+    pointer-events: auto;   /* 播放器自身可交互 */
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 48px;
+    padding: 22px 32px;
+    max-width: 520px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #e8e8e8;
+    font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+    transition: all 0.2s;
+    box-sizing: border-box;
+}
+.music-player .track-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+.music-player .track-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 60%;
+    color: #ffffff;
+    font-weight: 600;
+}
+.music-player .track-time {
+    font-size: 0.85rem;
+    background: rgba(0,0,0,0.25);
+    padding: 2px 14px;
+    border-radius: 30px;
+    backdrop-filter: blur(2px);
+    color: #ddd;
+}
+.music-player .progress-bar {
+    width: 100%;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    margin: 10px 0 14px 0;
+    cursor: pointer;
+    position: relative;
+    transition: height 0.1s;
+}
+.music-player .progress-bar:hover {
+    height: 7px;
+}
+.music-player .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #6a8cff, #a77bff);
+    border-radius: 10px;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 12px rgba(106, 140, 255, 0.4);
+}
+.music-player .controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+.music-player .controls button {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(4px);
+    border: none;
+    border-radius: 40px;
+    padding: 8px 18px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #f0f0f0;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: 0.15s;
+    border: 1px solid rgba(255,255,255,0.15);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 56px;
+    justify-content: center;
+}
+.music-player .controls button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+.music-player .controls button:active {
+    transform: scale(0.95);
+}
+.music-player .controls .mode-btn {
+    background: rgba(200, 180, 255, 0.2);
+    min-width: 70px;
+}
+.music-player .controls .mode-btn.active-mode {
+    background: rgba(130, 170, 255, 0.35);
+    border-color: rgba(130, 170, 255, 0.5);
+}
+/* 音乐列表 - 毛玻璃风格 */
+.music-list {
+    margin-top: 16px;
+    max-height: 160px;
+    overflow-y: auto;
+    background: rgba(0,0,0,0.15);
+    backdrop-filter: blur(6px);
+    border-radius: 28px;
+    padding: 8px 4px;
+    border: 1px solid rgba(255,255,255,0.08);
+    display: none;
+    scrollbar-width: thin;
+}
+.music-list.show {
+    display: block;
+}
+.music-list::-webkit-scrollbar {
+    width: 4px;
+}
+.music-list::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.25);
+    border-radius: 10px;
+}
+.music-list .list-item {
+    padding: 6px 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.1s;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #e0e0e0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.music-list .list-item:hover {
+    background: rgba(255,255,255,0.12);
+}
+.music-list .list-item.active-song {
+    background: rgba(255,255,255,0.2);
+    font-weight: 600;
+    color: #fff;
+}
+.music-list .list-item .index {
+    opacity: 0.6;
+    margin-right: 10px;
+}
+/* 小屏适配 */
+@media (max-width: 600px) {
+    .music-overlay .music-player { padding: 18px 18px; max-width: 95%; }
+    .music-player .controls button { padding: 6px 12px; font-size: 0.9rem; min-width: 48px; }
+}
+</style>
+    	
+</head>
+<body>
+
+<div id="info">
+  <div>
+    <div>用鼠标拖动。按键盘<code>1</code> 慢动作；<code>2</code> 对于零重力；<code>3</code> 用于反重力。</div>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+  </div>
+</div>
+
+<canvas></canvas>
+
+<!-- ===== 音乐播放器 - 页面正中央 上下左右居中 ===== -->
+<div class="music-overlay">
+    <div class="music-player" id="musicPlayer">
+        <div class="track-info">
+            <span class="track-name" id="trackName">🎵 选择一首歌</span>
+            <span class="track-time" id="trackTime">0:00 / 0:00</span>
+        </div>
+        <div class="progress-bar" id="progressBar">
+            <div class="progress-fill" id="progressFill" style="width:0%;"></div>
+        </div>
+        <div class="controls">
+            <button id="prevBtn" title="上一首">⏮</button>
+            <button id="playBtn" title="播放/暂停">▶</button>
+            <button id="nextBtn" title="下一首">⏭</button>
+            <button id="modeBtn" class="mode-btn" title="循环模式">🔁 列表</button>
+            <button id="listToggleBtn" title="显示/隐藏歌单">📋</button>
+        </div>
+        <!-- 音乐列表 -->
+        <div class="music-list" id="musicListContainer"></div>
+    </div>
+</div>
+
+<script src="music.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+// ===== 物理模拟代码 (原样保留) =====
+const SPACING = 14;
+const ITERATIONS = 14;
+const MOUSE = SPACING * 5;
+let GRAVITY = 0.05;
+let SPEED = 1;
+
+const canvas = document.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const mouse = {
+  x: 0,
+  y: 0,
+  px: 0,
+  py: 0,
+  points: [],
+};
+
+const clamp = function (val, min, max) {
+  return Math.min(Math.max(val, min), max);
+};
+
+class Vector {
+  constructor (x = 0, y = 0) {
+    this.x = x;
+    this.y = y;
+  }
+
+  get length () {
+    return Math.sqrt(this.x * this.x + this.y * this.y);
+  }
+
+  add (v) {
+    const p = v instanceof Vector;
+    this.x += p ? v.x : v;
+    this.y += p ? v.y : v;
+    return this;
+  }
+
+  sub (v) {
+    const p = v instanceof Vector;
+    this.x -= p ? v.x : v;
+    this.y -= p ? v.y : v;
+    return this;
+  }
+
+  mul (v) {
+    const p = v instanceof Vector;
+    this.x *= p ? v.x : v;
+    this.y *= p ? v.y : v;
+    return this;
+  }
+
+  scale (x) {
+    this.x *= x;
+    this.y *= x;
+    return this;
+  }
+
+  normalize () {
+    const len = this.length;
+    if (len > 0) {
+      this.x /= len;
+      this.y /= len;
+    }
+
+    return this;
+  }
+
+  distance (v) {
+    const x = this.x - v.x;
+    const y = this.y - v.y;
+    return Math.sqrt(x * x + y * y);
+  }
+
+  static add (v1, v2) {
+    const v = v2 instanceof Vector;
+    return new Vector(
+      v1.x + (v ? v2.x : v2),
+      v1.y + (v ? v2.y : v2)
+    );
+  }
+
+  static sub (v1, v2) {
+    const v = v2 instanceof Vector;
+    return new Vector(
+      v1.x - (v ? v2.x : v2),
+      v1.y - (v ? v2.y : v2)
+    );
+  }
+
+  static mul (v1, v2) {
+    const v = v2 instanceof Vector;
+    return new Vector(
+      v1.x * (v ? v2.x : v2),
+      v1.y * (v ? v2.y : v2)
+    );
+  }
+
+  static dot (v1, v2) {
+    return v1.x * v2.x + v1.y * v2.y;
+  }
+}
+
+const reactor = function (a, b, p) {
+  const refA = Vector.add(a.toWorld(p), a.pos);
+  const refB = Vector.add(b.toWorld(Vector.mul(p, -1)), b.pos);
+
+  const diff = Vector.sub(refB, refA);
+  const mid = Vector.add(refA, Vector.mul(diff, 0.5));
+
+  const t = clamp(b.p - a.p, -Math.PI, Math.PI);
+  a.torque += t;
+  b.torque -= t;
+
+  const mfc = 0.04;
+  const tfc = 0.02;
+  const mf = Vector.mul(diff, mfc);
+  const tf = Vector.mul(diff, tfc);
+  const dm = Vector.sub(b.vat(mid), a.vat(mid));
+  mf.add(Vector.mul(dm, mfc));
+  tf.add(Vector.mul(dm, tfc));
+
+  a.addForce(mf, mid);
+  b.addForce(Vector.mul(mf, -1), mid);
+  a.addTorque(tf, mid);
+  b.addTorque(Vector.mul(tf, -1), mid);
+};
+
+const allContraints = [];
+
+class Point {
+  constructor (pos, square) {
+    this.pos = pos;
+    this.velocity = new Vector();
+    this.force = new Vector();
+
+    this.p = 0;
+    this.w = 0;
+    this.torque = 0;
+    this.square = square;
+  }
+
+  update () {
+    this.velocity.add(Vector.mul(this.force, SPEED));
+
+    this.force = new Vector(0, GRAVITY / ITERATIONS);
+
+    this.pos.add(Vector.mul(this.velocity, SPEED));
+
+    const qPI = Math.PI / 4;
+    this.w += this.torque / ((SPACING / 2) ** 2 / 2);
+    this.w = clamp(this.w * SPEED, -qPI, qPI);
+
+    this.p += this.w;
+    this.torque = 0;
+
+    mouse.points.includes(this) &&
+      this.moveTo(mouse, this.mouseDiff);
+  }
+
+  toWorld (input) {
+    return new Vector(
+      -input.y * Math.sin(this.p) + input.x * Math.cos(this.p),
+      input.y * Math.cos(this.p) + input.x * Math.sin(this.p)
+    );
+  }
+
+  vat (R) {
+    const dr = Vector.sub(R, this.pos);
+    const vdr = this.w * dr.length;
+
+    dr.normalize();
+
+    return Vector.add(
+      this.velocity,
+      new Vector(vdr * -dr.y, vdr * dr.x)
+    );
+  }
+
+  addForce (F) {
+    this.force.add(F);
+  }
+
+  addTorque (F, R) {
+    const arm = Vector.sub(R, this.pos);
+    const torque = F.y * arm.x - F.x * arm.y;
+    this.torque += torque;
+  }
+
+  moveTo (v, offset) {
+    const targetX = v.x + offset.x;
+    const targetY = v.y + offset.y;
+    const strength = 0.001;
+    this.velocity.x += (targetX - this.pos.x) * strength * SPEED;
+    this.velocity.y += (targetY - this.pos.y) * strength * SPEED;
+    this.velocity.mul(0.99);
+  }
+}
+
+class Square {
+  constructor (width, height, spacing, hue) {
+    this.width = width;
+    this.height = height;
+    this.spacing = spacing;
+    this.hue = hue;
+
+    const yOff = 200 + Math.random() * (canvas.height - 300 - height * SPACING);
+    const xOff = 10 + Math.random() * (canvas.width - 10 - width * SPACING);
+
+    const w = -0.5 + Math.random();
+
+    this.points = Array(width * height).fill(0).map((_, i) => {
+      const x = i % width;
+      const y = ~~(i / width);
+
+      const p = new Point(
+        new Vector(
+          xOff + x * spacing,
+          canvas.height - yOff + y * spacing,
+        ),
+        this,
+      );
+
+      p.w = w;
+
+      return p;
+    });
+
+    this.points.forEach((point, i) => {
+      const x = i % width;
+      const y = ~~(i / width);
+
+      if (x > 0) {
+        allContraints.push([
+          this.points[i - 1],
+          point,
+          new Vector(SPACING / 2, 0)
+        ]);
+      }
+
+      if (y > 0) {
+        allContraints.push([
+          this.points[i - width],
+          point,
+          new Vector(0, SPACING / 2)
+        ]);
+      }
+    });
+
+    this.drawPoints = [];
+
+    for (let i = 0; i < width; i++) {
+      this.drawPoints.push(this.points[i].pos);
+    }
+
+    for (let i = 0; i < height; i++) {
+      this.drawPoints.push(this.points[(width - 1) + width * i].pos);
+    }
+
+    for (let i = width - 1; i > -1; i--) {
+      this.drawPoints.push(this.points[(height - 1) * width + i].pos);
+    }
+
+    for (let i = height - 1; i > -1; i--) {
+      this.drawPoints.push(this.points[(width ) * i].pos);
+    }
+  }
+
+  draw (ctx) {
+    const { drawPoints, hue } = this;
+
+    ctx.lineWidth = 2;
+    ctx.fillStyle = `hsla(${hue}, 90%, 80%, 0.8)`;
+    ctx.strokeStyle = `hsla(${hue}, 90%, 70%, 0.8)`;
+
+    ctx.beginPath();
+    ctx.moveTo(drawPoints[0].x, drawPoints[0].y);
+
+    drawPoints.forEach((point, i) =>{
+      i && ctx.lineTo(point.x, point.y);
+    });
+
+    ctx.lineTo(drawPoints[0].x, drawPoints[0].y);
+    ctx.stroke();
+    ctx.fill();
+  }
+}
+
+const hue = Math.random() * 360;
+const squares = Array(4).fill(0).map((_, i) => {
+  const size = 8 + i * 2;
+  return new Square(
+    size,
+    size,
+    SPACING,
+    hue + i * 20,
+  );
+});
+
+const allPoints = [].concat(...squares.map(({ points }) => points));
+
+const update = function () {
+  const { width, height } = canvas;
+
+  ctx.clearRect(0, 0, width, height);
+
+  let i = ITERATIONS;
+  while (i--) {
+    allContraints.forEach((con, i) => {
+      reactor(...con, i);
+    });
+
+    allPoints.forEach((point, i) => {
+      const { square } = point;
+
+      const damping = 0.6;
+      const spacing = (square ? square.spacing : SPACING) / 2;
+
+      if (point.pos.x < spacing) {
+        point.force.add(new Vector((spacing - point.pos.x) * 1, 0));
+        point.velocity.y *= damping;
+      } else if (point.pos.x > canvas.width - spacing) {
+        point.force.add(new Vector((point.pos.x - canvas.width + spacing) * -1, 0));
+        point.velocity.y *= damping;
+      }
+
+      if (point.pos.y < spacing) {
+        point.force.add(new Vector(0, (spacing - point.pos.y) * 1));
+        point.velocity.x *= damping;
+      } else if (point.pos.y > canvas.height - spacing) {
+        point.force.add(new Vector(0, (point.pos.y - canvas.height + spacing) * -1));
+        point.velocity.x *= damping;
+      }
+
+      point.update();
+    });
+  }
+
+  squares.forEach((s) => {
+    s.draw(ctx);
+  });
+
+  if (mouse.down) {
+    ctx.fillStyle = 'rgba(0, 0, 100, 0.03)';
+    ctx.beginPath();
+    ctx.arc(mouse.x, mouse.y, MOUSE, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(mouse.x, mouse.y, SPACING, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  mouse.px = mouse.x;
+  mouse.py = mouse.y;
+
+  window.requestAnimationFrame(update);
+};
+
+update();
+
+
+const setMouse = (e) => {
+  e = e.touches ? e.touches[0] : e;
+  const rect = canvas.getBoundingClientRect();
+  mouse.px = mouse.x;
+  mouse.py = mouse.y;
+  mouse.x = e.clientX - rect.left;
+  mouse.y = e.clientY - rect.top;
+};
+
+canvas.onmousedown = canvas.ontouchstart = (e) => {
+  setMouse(e);
+  mouse.down = true;
+
+  for (const point of allPoints) {
+    if (point.pos.distance(mouse) < MOUSE && !mouse.points.includes(point)) {
+      mouse.points.push(point);
+      point.mouseDiff = Vector.sub(point.pos, new Vector(mouse.x, mouse.y));
+      point.velocity.mul(0);
+      point.force.mul(0);
+    }
+  }
+};
+
+canvas.onmouseup = canvas.ontouchend = () => {
+  mouse.points = [];
+  mouse.down = false;
+};
+
+canvas.onmousemove = canvas.ontouchmove = setMouse;
+
+window.onkeydown = ({ keyCode }) => {
+  if (keyCode === 49) {
+    SPEED = 0.2;
+  } else if (keyCode === 50) {
+    GRAVITY = 0;
+  } else if (keyCode === 51) {
+    GRAVITY = -0.05;
+  }
+};
+window.onkeyup = ({ keyCode }) => {
+  if (keyCode === 49) {
+    SPEED = 1;
+  } else if (keyCode === 50) {
+    GRAVITY = 0.05;
+  } else if (keyCode === 51) {
+    GRAVITY = 0.05;
+  }
+};
+
+// ===== 音乐播放器逻辑 =====
+(function() {
+    if (typeof MUSIC_DATA === 'undefined' || !MUSIC_DATA.length) {
+        console.warn('MUSIC_DATA 未加载, 使用占位数据');
+        window.MUSIC_DATA = [{ name: '示例歌曲', url: '' }];
+    }
+    var playlist = MUSIC_DATA;
+    var currentIndex = 0;
+    var isPlaying = false;
+    var mode = 'list';
+    var audio = new Audio();
+    var progressFill = document.getElementById('progressFill');
+    var trackNameEl = document.getElementById('trackName');
+    var trackTimeEl = document.getElementById('trackTime');
+    var playBtn = document.getElementById('playBtn');
+    var prevBtn = document.getElementById('prevBtn');
+    var nextBtn = document.getElementById('nextBtn');
+    var modeBtn = document.getElementById('modeBtn');
+    var listToggleBtn = document.getElementById('listToggleBtn');
+    var listContainer = document.getElementById('musicListContainer');
+    var progressBar = document.getElementById('progressBar');
+
+    function formatTime(seconds) {
+        if (isNaN(seconds) || seconds === Infinity) return '0:00';
+        var m = Math.floor(seconds / 60);
+        var s = Math.floor(seconds % 60);
+        return m + ':' + (s < 10 ? '0' : '') + s;
+    }
+
+    function loadTrack(index) {
+        if (!playlist.length) return;
+        index = (index + playlist.length) % playlist.length;
+        currentIndex = index;
+        var track = playlist[currentIndex];
+        audio.src = track.url;
+        audio.load();
+        trackNameEl.textContent = '🎵 ' + track.name;
+        updateListActive();
+        if (isPlaying) {
+            audio.play().catch(function(e) { console.warn('自动播放被阻止'); });
+        }
+        updateTimeDisplay();
+    }
+
+    function updateTimeDisplay() {
+        var current = audio.currentTime || 0;
+        var duration = audio.duration || 0;
+        trackTimeEl.textContent = formatTime(current) + ' / ' + formatTime(duration);
+        var pct = duration ? (current / duration * 100) : 0;
+        progressFill.style.width = Math.min(pct, 100) + '%';
+    }
+
+    function togglePlay() {
+        if (!playlist.length) return;
+        if (audio.paused) {
+            audio.play().catch(function(e) { 
+                console.warn('播放失败: ', e);
+                if (audio.src === '' || audio.src === window.location.href) {
+                    loadTrack(currentIndex);
+                    audio.play();
+                }
+            });
+            isPlaying = true;
+            playBtn.textContent = '⏸';
+        } else {
+            audio.pause();
+            isPlaying = false;
+            playBtn.textContent = '▶';
+        }
+    }
+
+    function nextTrack() {
+        if (!playlist.length) return;
+        var nextIdx = currentIndex + 1;
+        if (mode === 'random') {
+            nextIdx = Math.floor(Math.random() * playlist.length);
+        } else if (mode === 'loop') {
+            nextIdx = currentIndex;
+        } else {
+            if (nextIdx >= playlist.length) nextIdx = 0;
+        }
+        loadTrack(nextIdx);
+        if (!isPlaying) {
+            isPlaying = true;
+            playBtn.textContent = '⏸';
+        }
+        audio.play().catch(function(e) {});
+    }
+
+    function prevTrack() {
+        if (!playlist.length) return;
+        var prevIdx = currentIndex - 1;
+        if (mode === 'random') {
+            prevIdx = Math.floor(Math.random() * playlist.length);
+        } else if (mode === 'loop') {
+            prevIdx = currentIndex;
+        } else {
+            if (prevIdx < 0) prevIdx = playlist.length - 1;
+        }
+        loadTrack(prevIdx);
+        if (!isPlaying) {
+            isPlaying = true;
+            playBtn.textContent = '⏸';
+        }
+        audio.play().catch(function(e) {});
+    }
+
+    function toggleMode() {
+        var modes = ['list', 'loop', 'random'];
+        var idx = modes.indexOf(mode);
+        mode = modes[(idx + 1) % modes.length];
+        var labels = { list: '🔁 列表', loop: '🔂 单曲', random: '🔀 随机' };
+        modeBtn.textContent = labels[mode] || '🔁 列表';
+        modeBtn.className = 'mode-btn active-mode';
+    }
+
+    function renderList() {
+        if (!listContainer) return;
+        var html = '';
+        playlist.forEach(function(item, idx) {
+            var active = (idx === currentIndex) ? 'active-song' : '';
+            html += '<div class="list-item ' + active + '" data-index="' + idx + '">' +
+                '<span><span class="index">' + (idx+1) + '</span> ' + item.name + '</span>' +
+                '</div>';
+        });
+        listContainer.innerHTML = html;
+        var items = listContainer.querySelectorAll('.list-item');
+        for (var i = 0; i < items.length; i++) {
+            items[i].addEventListener('click', function(e) {
+                var idx = parseInt(this.getAttribute('data-index'));
+                if (!isNaN(idx) && idx !== currentIndex) {
+                    loadTrack(idx);
+                    if (!isPlaying) {
+                        isPlaying = true;
+                        playBtn.textContent = '⏸';
+                    }
+                    audio.play().catch(function(e) {});
+                } else if (idx === currentIndex) {
+                    togglePlay();
+                }
+            });
+        }
+    }
+
+    function updateListActive() {
+        var items = listContainer ? listContainer.querySelectorAll('.list-item') : [];
+        for (var i = 0; i < items.length; i++) {
+            var idx = parseInt(items[i].getAttribute('data-index'));
+            items[i].className = 'list-item' + (idx === currentIndex ? ' active-song' : '');
+        }
+    }
+
+    function toggleList() {
+        if (listContainer) {
+            listContainer.classList.toggle('show');
+            if (listContainer.classList.contains('show')) renderList();
+        }
+    }
+
+    playBtn.addEventListener('click', togglePlay);
+    prevBtn.addEventListener('click', prevTrack);
+    nextBtn.addEventListener('click', nextTrack);
+    modeBtn.addEventListener('click', toggleMode);
+    listToggleBtn.addEventListener('click', toggleList);
+
+    audio.addEventListener('timeupdate', updateTimeDisplay);
+    audio.addEventListener('ended', function() {
+        if (mode === 'loop') {
+            audio.currentTime = 0;
+            audio.play().catch(function(e) {});
+            return;
+        }
+        nextTrack();
+    });
+    audio.addEventListener('canplay', function() {
+        updateTimeDisplay();
+    });
+
+    progressBar.addEventListener('click', function(e) {
+        var rect = this.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var pct = Math.min(1, Math.max(0, x / rect.width));
+        if (audio.duration) {
+            audio.currentTime = pct * audio.duration;
+            updateTimeDisplay();
+        }
+    });
+
+    if (playlist.length) {
+        loadTrack(0);
+        isPlaying = false;
+        playBtn.textContent = '▶';
+    }
+    modeBtn.textContent = '🔁 列表';
+    modeBtn.className = 'mode-btn active-mode';
+
+    document.addEventListener('click', function(e) {
+        if (listContainer && listContainer.classList.contains('show')) {
+            var target = e.target;
+            if (!listContainer.contains(target) && target !== listToggleBtn && !listToggleBtn.contains(target)) {
+                listContainer.classList.remove('show');
+            }
+        }
+    });
+
+    window.__musicPlayer = { nextTrack, prevTrack, togglePlay, loadTrack };
+})();
+
+</script>
+
+</body>
+</html>

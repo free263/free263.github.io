@@ -1,0 +1,548 @@
+<html>
+<head>
+<title>jQuery虾米音乐播放器样式代码 - 站长素材</title>
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/scroll.css">
+<link rel="stylesheet" type="text/css" href="css/xiami.css">
+
+<script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="js/canvas.js"></script>
+<script type="text/javascript" src="js/mousewheel.js"></script>
+<script type="text/javascript" src="js/scroll.js"></script>
+<script type="text/javascript" src="js/xiami.js"></script>
+<script type="text/javascript" src="music.js"></script>
+
+</head>
+<body>
+	<!--模糊画布-->
+	<div class="blur">
+		<canvas style="width:1366px;height:700px;opacity:0;" width="1366" height="700" id="canvas">
+	</div>
+	<div class="playerMain">
+		<div class="top">
+			<a href="#" class="logo"></a>
+			<div class="search">
+				<div type="submit" class="searchBtn"></div>
+				<input type="text" class="searchTxt">
+			</div>
+			<div class="mainNav">
+				<div class="tipLogin">
+					马上
+					<a href="#" class="loginA">登录</a>
+				</div>
+				<a href="#" class="myroom"></a>
+			</div>
+		</div>
+		<div class="middle">
+			<div class="mainWrap">
+				<div class="leftBar">
+					<ul class="menuUL">
+						<li class="menuLi cur">
+							<a href="#">
+								<i class="icon iplay"></i>
+								正在播放
+							</a>
+						</li>
+						<li class="menuLi">
+							<a href="#">
+								<i class="icon ihst"></i>
+								播放历史
+							</a>
+						</li>
+						<li class="menuLi">
+							<a href="#">
+								<i class="icon ishouc"></i>
+								我收藏的单曲
+							</a>
+						</li>
+					</ul>
+					<div class="collectOut">
+						<span class="colS">我创建的精选集</span>
+						<a href="#" class="colA"></a>
+					</div>
+					<div class="cellectList"></div>
+					<audio id="audio"></audio>			
+				</div>
+				<div class="mainBody">
+					<div class="playHd">
+						<div class="phInner">
+							<div class="col">歌曲(<span id="songCount">0</span>)</div>
+							<div class="col">演唱者</div>
+							<div class="col">专辑</div>
+						</div>
+					</div>
+					<div class="playBd">
+						<div class="scrollView">
+							<ul class="songUL" id="songList">
+								<!-- 由 JavaScript 动态生成 -->
+							</ul>
+						</div>
+					</div>
+					<div class="playFt">
+						<div class="track">
+							<div class="uiCheck">
+								<input class="checkAll" type="checkbox" select="0">
+							</div>
+							<div class="uiItem">
+								<a href="#" class="itIcon itDele">删除</a>
+							</div>
+							<div class="uiItem">
+								<a href="#" class="itIcon itShou">收藏</a>
+							</div>
+							<div class="uiItem">
+								<a href="#" class="itIcon itJin">添加到精选集</a>
+							</div>
+							<div class="uiItem">
+								<a href="#" class="itIcon itMore">更多</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="mainOuther">
+					<div class="albumCover">
+						<a href="#">
+							<img src="images/2.jpg" id="canvas1">
+						</a>
+					</div>
+					<div class="albumSale">
+						<a href="#" class="asA">
+							<img src="">
+						</a>
+					</div>
+					<div id="lyr"></div>
+				</div>
+			</div>
+		</div>
+		<div class="bottom">
+			<div class="playerWrap">
+				<div class="playerCon">
+					<a href="#" class="pbtn prevBtn"></a>
+					<a href="#" class="pbtn playBtn" isplay="0"></a>
+					<a href="#" class="pbtn nextBtn"></a>
+					<a href="#" class="mode" data-mode="0"></a>
+				</div>
+				<div class="playInfo">
+					<div class="trackInfo">
+						<a href="#" class="songName" id="currentSongName">请选择歌曲</a>
+						-
+						<a href="#" class="songPlayer" id="currentSongPlayer">未知歌手</a>
+						<div class="trackCon">
+							<a href="#" class="tc1"></a>
+							<a href="#" class="tc2"></a>
+							<a href="#" class="tc3"></a>
+						</div>
+					</div>
+					<div class="playerLength">
+						<div class="position" id="currentTime">00:00</div>
+						<div class="progress">
+							<div class="pro1"></div>
+							<div class="pro2">
+								<a href="#" class="dian"></a>
+							</div> 
+						</div>
+						<div class="duration" id="totalDuration">00:00</div>
+					</div>
+				</div>
+				<div class="vol">
+					<a href="#" class="pinBtn"></a>
+					<div class="volm">
+						<div class="volSpeaker"></div>
+						<div class="volControl">
+							<a href="#" class="dian2"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		// ============================================================
+		// 从 MUSIC_DATA 生成歌曲列表，并实现播放控制
+		// ============================================================
+		(function() {
+			var songList = document.getElementById('songList');
+			var audio = document.getElementById('audio');
+			var playBtn = document.querySelector('.playBtn');
+			var prevBtn = document.querySelector('.prevBtn');
+			var nextBtn = document.querySelector('.nextBtn');
+			var modeBtn = document.querySelector('.mode');
+			var currentSongName = document.getElementById('currentSongName');
+			var currentSongPlayer = document.getElementById('currentSongPlayer');
+			var currentTimeEl = document.getElementById('currentTime');
+			var totalDurationEl = document.getElementById('totalDuration');
+			var progressPro1 = document.querySelector('.pro1');
+			var progressPro2 = document.querySelector('.pro2');
+			var dianBtn = document.querySelector('.dian');
+			var songCount = document.getElementById('songCount');
+			
+			var currentIndex = 0;
+			var isPlaying = false;
+			var isDragging = false;
+			
+			// 播放模式: 0-顺序播放, 1-单曲循环, 2-随机播放
+			var playMode = 0;
+			var modeIcons = ['顺序播放', '单曲循环', '随机播放'];
+			
+			// 解析歌曲信息
+			function parseSongInfo(song) {
+				var nameParts = song.name.split('-');
+				var singer = '未知歌手';
+				var songName = song.name;
+				if (nameParts.length >= 2) {
+					singer = nameParts[0].trim();
+					songName = nameParts.slice(1).join('-').trim();
+				}
+				return { singer: singer, songName: songName };
+			}
+			
+			// 生成歌曲列表
+			function renderSongList() {
+				if (!songList) return;
+				
+				var html = '';
+				for (var i = 0; i < MUSIC_DATA.length; i++) {
+					var song = MUSIC_DATA[i];
+					var info = parseSongInfo(song);
+					
+					html += '<li class="songList" data-index="' + i + '" data-url="' + song.url + '">';
+					html += '	<div class="songLMain">';
+					html += '		<div class="check">';
+					html += '			<input class="checkIn" type="checkbox" select="0">';
+					html += '		</div>';
+					html += '		<div class="start">';
+					html += '			<em sonN="' + (i + 1) + '">' + (i + 1) + '</em>';
+					html += '		</div>';
+					html += '		<div class="songBd">';
+					html += '			<div class="col colsn">' + info.songName + '</div>';
+					html += '			<div class="col colcn">' + info.singer + '</div>';
+					html += '			<div class="col">未知专辑</div>';
+					html += '		</div>';
+					html += '		<div class="control">';
+					html += '			<a class="cicon love"></a>';
+					html += '			<a class="cicon more"></a>';
+					html += '			<a class="cicon dele"></a>';
+					html += '		</div>';
+					html += '	</div>';
+					html += '</li>';
+				}
+				songList.innerHTML = html;
+				
+				if (songCount) {
+					songCount.textContent = MUSIC_DATA.length;
+				}
+				
+				// 点击歌曲播放
+				$('.songList').on('click', function(e) {
+					if ($(e.target).closest('.check, .control').length > 0) {
+						return;
+					}
+					var index = parseInt($(this).data('index'));
+					if (!isNaN(index)) {
+						playSong(index);
+					}
+				});
+				
+				$('.checkIn').on('click', function(e) {
+					e.stopPropagation();
+				});
+				
+				$('.control a').on('click', function(e) {
+					e.stopPropagation();
+				});
+			}
+			
+			// 更新播放按钮状态
+			function updatePlayBtn() {
+				if (isPlaying) {
+					playBtn.setAttribute('isplay', '1');
+					playBtn.className = 'pbtn playBtn playing';
+				} else {
+					playBtn.setAttribute('isplay', '0');
+					playBtn.className = 'pbtn playBtn paused';
+				}
+			}
+			
+			// 播放指定索引的歌曲
+			function playSong(index) {
+				if (index < 0 || index >= MUSIC_DATA.length) return;
+				
+				currentIndex = index;
+				var song = MUSIC_DATA[index];
+				var info = parseSongInfo(song);
+				
+				audio.src = song.url;
+				audio.load();
+				audio.play().then(function() {
+					isPlaying = true;
+					updatePlayBtn();
+				}).catch(function(err) {
+					console.log('播放失败:', err);
+					isPlaying = false;
+					updatePlayBtn();
+				});
+				
+				currentSongName.textContent = info.songName;
+				currentSongPlayer.textContent = info.singer;
+				
+				$('.songList').removeClass('active');
+				$('.songList[data-index="' + index + '"]').addClass('active');
+				
+				var coverImg = document.getElementById('canvas1');
+				if (coverImg) {
+					// 可以设置默认封面或随机封面
+				}
+			}
+			
+			// 切换播放/暂停
+			function togglePlay() {
+				if (!audio.src || audio.src === '') {
+					playSong(0);
+					return;
+				}
+				
+				if (isPlaying) {
+					audio.pause();
+					isPlaying = false;
+				} else {
+					audio.play().then(function() {
+						isPlaying = true;
+					}).catch(function(err) {
+						console.log('播放失败:', err);
+					});
+				}
+				updatePlayBtn();
+			}
+			
+			// 获取下一首索引
+			function getNextIndex() {
+				if (playMode === 1) {
+					// 单曲循环
+					return currentIndex;
+				} else if (playMode === 2) {
+					// 随机播放
+					var nextIdx;
+					do {
+						nextIdx = Math.floor(Math.random() * MUSIC_DATA.length);
+					} while (nextIdx === currentIndex && MUSIC_DATA.length > 1);
+					return nextIdx;
+				} else {
+					// 顺序播放
+					return (currentIndex + 1) % MUSIC_DATA.length;
+				}
+			}
+			
+			// 获取上一首索引
+			function getPrevIndex() {
+				if (playMode === 1) {
+					return currentIndex;
+				} else if (playMode === 2) {
+					var prevIdx;
+					do {
+						prevIdx = Math.floor(Math.random() * MUSIC_DATA.length);
+					} while (prevIdx === currentIndex && MUSIC_DATA.length > 1);
+					return prevIdx;
+				} else {
+					return (currentIndex - 1 + MUSIC_DATA.length) % MUSIC_DATA.length;
+				}
+			}
+			
+			// 上一首
+			function prevSong() {
+				playSong(getPrevIndex());
+			}
+			
+			// 下一首
+			function nextSong() {
+				playSong(getNextIndex());
+			}
+			
+			// 切换播放模式
+			function toggleMode() {
+				playMode = (playMode + 1) % 3;
+				modeBtn.setAttribute('data-mode', playMode);
+				// 修改样式 - 不同模式显示不同图标
+				var modeClass = '';
+				if (playMode === 0) modeClass = 'mode-order';
+				else if (playMode === 1) modeClass = 'mode-repeat';
+				else if (playMode === 2) modeClass = 'mode-random';
+				modeBtn.className = 'mode ' + modeClass;
+				console.log('播放模式切换为: ' + modeIcons[playMode]);
+			}
+			
+			// 格式化时间
+			function formatTime(seconds) {
+				if (isNaN(seconds) || seconds < 0) return '00:00';
+				var m = Math.floor(seconds / 60);
+				var s = Math.floor(seconds % 60);
+				return (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
+			}
+			
+			// 更新进度条
+			function updateProgress() {
+				if (audio.duration && !isNaN(audio.duration)) {
+					var percent = (audio.currentTime / audio.duration) * 100;
+					if (progressPro1) {
+						progressPro1.style.width = percent + '%';
+					}
+					if (progressPro2) {
+						progressPro2.style.left = percent + '%';
+					}
+					if (currentTimeEl) {
+						currentTimeEl.textContent = formatTime(audio.currentTime);
+					}
+					if (totalDurationEl) {
+						totalDurationEl.textContent = formatTime(audio.duration);
+					}
+				}
+			}
+			
+			// 进度条点击跳转
+			function seekTo(e) {
+				var progress = document.querySelector('.progress');
+				if (!progress) return;
+				var rect = progress.getBoundingClientRect();
+				var percent = (e.clientX - rect.left) / rect.width;
+				if (percent < 0) percent = 0;
+				if (percent > 1) percent = 1;
+				
+				if (audio.duration && !isNaN(audio.duration)) {
+					audio.currentTime = percent * audio.duration;
+					updateProgress();
+				}
+			}
+			
+			// ============================================================
+			// 绑定事件
+			// ============================================================
+			
+			renderSongList();
+			
+			if (MUSIC_DATA.length > 0) {
+				var defaultInfo = parseSongInfo(MUSIC_DATA[0]);
+				currentSongName.textContent = defaultInfo.songName;
+				currentSongPlayer.textContent = defaultInfo.singer;
+				audio.src = MUSIC_DATA[0].url;
+				audio.load();
+				$('.songList[data-index="0"]').addClass('active');
+			}
+			
+			// 播放/暂停按钮 - 使用更可靠的事件绑定
+			playBtn.addEventListener('click', function(e) {
+				e.preventDefault();
+				e.stopPropagation();
+				togglePlay();
+			});
+			
+			// 确保点击播放按钮时正确切换
+			$(playBtn).on('click', function(e) {
+				e.preventDefault();
+				togglePlay();
+			});
+			
+			prevBtn.addEventListener('click', function(e) {
+				e.preventDefault();
+				prevSong();
+			});
+			
+			nextBtn.addEventListener('click', function(e) {
+				e.preventDefault();
+				nextSong();
+			});
+			
+			// 模式切换按钮
+			modeBtn.addEventListener('click', function(e) {
+				e.preventDefault();
+				toggleMode();
+			});
+			
+			// 音频事件
+			audio.addEventListener('play', function() {
+				isPlaying = true;
+				updatePlayBtn();
+			});
+			
+			audio.addEventListener('pause', function() {
+				isPlaying = false;
+				updatePlayBtn();
+			});
+			
+			audio.addEventListener('ended', function() {
+				// 单曲循环模式不自动下一首
+				if (playMode === 1) {
+					audio.currentTime = 0;
+					audio.play();
+				} else {
+					nextSong();
+				}
+			});
+			
+			audio.addEventListener('timeupdate', function() {
+				if (!isDragging) {
+					updateProgress();
+				}
+			});
+			
+			audio.addEventListener('loadedmetadata', function() {
+				updateProgress();
+			});
+			
+			// 进度条点击
+			var progress = document.querySelector('.progress');
+			if (progress) {
+				progress.addEventListener('click', function(e) {
+					seekTo(e);
+				});
+				
+				var dian = document.querySelector('.dian');
+				if (dian) {
+					dian.addEventListener('mousedown', function(e) {
+						e.preventDefault();
+						isDragging = true;
+					});
+					
+					document.addEventListener('mousemove', function(e) {
+						if (isDragging) {
+							seekTo(e);
+						}
+					});
+					
+					document.addEventListener('mouseup', function(e) {
+						if (isDragging) {
+							isDragging = false;
+							seekTo(e);
+						}
+					});
+				}
+			}
+			
+			// 键盘空格
+			document.addEventListener('keydown', function(e) {
+				if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+				if (e.code === 'Space') {
+					e.preventDefault();
+					togglePlay();
+				}
+			});
+			
+			// 暴露全局
+			window.playSong = playSong;
+			window.togglePlay = togglePlay;
+			window.prevSong = prevSong;
+			window.nextSong = nextSong;
+			window.toggleMode = toggleMode;
+			
+			console.log('🎵 音乐播放器已初始化，共 ' + MUSIC_DATA.length + ' 首歌曲');
+			console.log('当前播放模式: ' + modeIcons[playMode]);
+			
+		})();
+	</script>
+
+<div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
+<p>适用浏览器：360、FireFox、Chrome、Safari、Opera、傲游、搜狗、世界之窗. 不支持IE8及以下浏览器。</p>
+<p>来源：<a href="http://sc.chinaz.com/" target="_blank">站长素材</a></p>
+</div>
+</body>
+</html>

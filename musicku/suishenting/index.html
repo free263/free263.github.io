@@ -1,0 +1,531 @@
+﻿﻿﻿<!DOCTYPE html>
+<html lang="ch">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>jQuery随身听音乐播放器 - 调用music.js</title>
+
+<link rel="stylesheet" href="css/base.css?version=19.3.9.1">
+
+<script src="js/jquery.min.js"></script>
+<script src="music.js"></script>
+
+<style>
+/* 补充样式：当歌曲名过长时显示省略号，避免布局变形 */
+.audio-head-tittle-text {
+    max-width: 90%;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.audio-head-tittle-text-off {
+    max-width: 60%;
+}
+
+/* ===== 循环按钮三种状态：列表循环、单曲循环、随机播放 ===== */
+/* 默认：列表循环（由 base.css 中的 .audio-btn-list-off 控制） */
+.audio-btn-list {
+    display: inline-block;
+    float: left;
+    width: 36px;
+    height: 36px;
+    margin: 32px 4px;
+    cursor: pointer;
+    transition: all .5s;
+    background: url("./image/循环.png") no-repeat center !important;
+    background-size: 36px 36px !important;
+}
+/* 列表循环状态（与 base.css 中的 .audio-btn-list-off 一致） */
+.audio-btn-list-off {
+    background: url("./image/循环.png") no-repeat center !important;
+    background-size: 36px 36px !important;
+}
+/* 单曲循环状态 */
+.audio-btn-list-on {
+    background: url("./image/单曲循环.png") no-repeat center !important;
+    background-size: 36px 36px !important;
+}
+/* 随机播放状态 */
+.audio-btn-list-random {
+    background: url("./image/随机播放.png") no-repeat center !important;
+    background-size: 36px 36px !important;
+}
+
+/* 按钮收起状态适配 */
+.audio-off .audio-btn-list,
+.audio-off .audio-btn-list-off,
+.audio-off .audio-btn-list-on,
+.audio-off .audio-btn-list-random {
+    width: 30px !important;
+    height: 30px !important;
+    background-size: 30px 30px !important;
+    margin: 30px 2px !important;
+}
+</style>
+
+</head>
+<body>
+
+<div id="audio" class="audio audio-off">
+
+    <audio id="audio-my" preload="metadata"></audio>
+    
+    <div class="audio-head">
+        <div class="audio-head-tittle">
+            <div class="audio-head-tittle-text audio-head-tittle-text-off"></div>
+        </div>
+        <div class="audio-head-tittle-by"></div>
+    </div>
+    <div class="add"></div>
+    <div class="min-time"></div>
+    <div class="audio-img">
+        <canvas id="audio-img-canvas" width="200px" height="200px"></canvas>
+        <div class="audio-img-cover audio-img-cover-off"></div>
+        <canvas id="audio-img-canvas-play" class="audio-img-canvas-play-off" width="45px" height="200px"></canvas>
+    </div>
+    <div class="audio-text">歌词待更新</div>
+    <div class="audio-by">
+        <div class="audio-by-all">
+            <span class="audio-by-now"></span>
+        </div>
+        <div class="audio-by-text">
+            <span class="audio-by-text-now">00:00</span>
+            <span class="audio-by-text-all">00:00</span>
+        </div>
+    </div>
+    <div class="audio-btn">
+        <!-- 循环模式按钮：支持 列表循环 → 单曲循环 → 随机播放 → 列表循环 -->
+        <div class="audio-btn-list audio-btn-list-off" id="loopToggle" title="列表循环"></div>
+        <div class="audio-btn-before" title="上一首"></div>
+        <div class="audio-btn-play audio-btn-play-off audio-btn-play-off-a" title="播放/暂停"></div>
+        <div class="audio-btn-sound" title="音量"></div>
+        <div class="audio-btn-next" title="下一首"></div>
+    </div>
+    <div class="audio-sound">
+        <div class="audio-sound-all">
+            <span class="audio-sound-now"></span>
+            <span class="audio-sound-art"></span>
+        </div>
+    </div>
+</div>
+
+<a class="audio-head-tittle-text-out"></a>
+<a class="audio-head-tittle-text-out-a"></a>
+
+<script>
+$(function () {
+    // ===== 使用 MUSIC_DATA =====
+    if (typeof MUSIC_DATA === 'undefined' || !MUSIC_DATA.length) {
+        console.warn('MUSIC_DATA 未加载，使用占位数据');
+        window.MUSIC_DATA = [{ name: '示例歌曲-歌手', url: '' }];
+    }
+    var playlist = MUSIC_DATA;
+    
+    var audio = document.getElementById('audio-my');
+    var audioPlay = false;
+    var audioIndex = 0;
+    
+    // ===== 循环模式：0=列表循环, 1=单曲循环, 2=随机播放 =====
+    var loopMode = 0;  // 0:列表循环, 1:单曲循环, 2:随机播放
+    var loopModeNames = ['列表循环', '单曲循环', '随机播放'];
+    var loopModeClasses = ['audio-btn-list-off', 'audio-btn-list-on', 'audio-btn-list-random'];
+    
+    var outTextValue = 0;
+    var audioSpeed = 1.8;
+
+    // 根据索引获取歌曲信息
+    function getTrack(index) {
+        if (!playlist.length) return null;
+        index = ((index % playlist.length) + playlist.length) % playlist.length;
+        return playlist[index];
+    }
+
+    // 获取下一首索引
+    function getNextIndex() {
+        if (!playlist.length) return 0;
+        if (loopMode === 2) { // 随机播放
+            var nextIdx;
+            var attempts = 0;
+            do {
+                nextIdx = Math.floor(Math.random() * playlist.length);
+                attempts++;
+            } while (nextIdx === audioIndex && playlist.length > 1 && attempts < 20);
+            return nextIdx;
+        } else { // 列表循环 或 单曲循环（单曲循环时由 ended 事件处理）
+            return (audioIndex + 1) % playlist.length;
+        }
+    }
+
+    // 获取上一首索引
+    function getPrevIndex() {
+        if (!playlist.length) return 0;
+        if (loopMode === 2) { // 随机播放
+            var prevIdx;
+            var attempts = 0;
+            do {
+                prevIdx = Math.floor(Math.random() * playlist.length);
+                attempts++;
+            } while (prevIdx === audioIndex && playlist.length > 1 && attempts < 20);
+            return prevIdx;
+        } else {
+            return ((audioIndex - 1) + playlist.length) % playlist.length;
+        }
+    }
+
+    // 加载歌曲
+    function loadTrack(index) {
+        if (!playlist.length) return;
+        var track = getTrack(index);
+        if (!track) return;
+        audioIndex = index;
+        audio.src = track.url;
+        audio.load();
+        
+        // 更新界面
+        var nameParts = track.name.split('-');
+        var singer = nameParts.length > 1 ? nameParts[0] : '未知歌手';
+        var songName = nameParts.length > 1 ? nameParts.slice(1).join('-') : nameParts[0];
+        $('.audio-head-tittle-text').text(songName);
+        $('.audio-head-tittle-by').text(singer);
+        $('.audio-head-tittle-text-out').text(songName);
+        $('.audio-head-tittle-text-out-a').text(songName);
+        $('.audio-head-tittle-text').css('text-indent', 0);
+        outTextValue = 0;
+        $('.audio-by-now').css('width', 0);
+        
+        if (audioPlay) {
+            audio.play();
+        }
+    }
+
+    // 下一首
+    function nextTrack() {
+        if (!playlist.length) return;
+        // 单曲循环时，不自动切换到下一首
+        if (loopMode === 1) {
+            audio.currentTime = 0;
+            if (audioPlay) audio.play();
+            return;
+        }
+        var nextIdx = getNextIndex();
+        loadTrack(nextIdx);
+    }
+
+    // 上一首
+    function prevTrack() {
+        if (!playlist.length) return;
+        // 单曲循环时，从头播放
+        if (loopMode === 1) {
+            audio.currentTime = 0;
+            if (audioPlay) audio.play();
+            return;
+        }
+        var prevIdx = getPrevIndex();
+        loadTrack(prevIdx);
+    }
+
+    // 切换播放/暂停
+    function togglePlay() {
+        if (!playlist.length) return;
+        if (audio.paused || audio.ended) {
+            if (!audio.src || audio.src === window.location.href) {
+                loadTrack(audioIndex);
+            }
+            audio.play();
+            audioPlay = true;
+            $('.audio-btn-play').removeClass('audio-btn-play-off').addClass('audio-btn-play-on');
+            $('#audio-img-canvas-play').addClass('audio-img-canvas-play-on');
+            $('#audio-img-canvas').addClass('audio-img-canvas-on');
+        } else {
+            audio.pause();
+            audioPlay = false;
+            $('.audio-btn-play').removeClass('audio-btn-play-on').addClass('audio-btn-play-off');
+            $('#audio-img-canvas-play').removeClass('audio-img-canvas-play-on');
+            $('#audio-img-canvas').removeClass('audio-img-canvas-on');
+        }
+    }
+
+    // ===== 切换循环模式：列表循环 → 单曲循环 → 随机播放 → 列表循环 =====
+    function toggleLoopMode() {
+        loopMode = (loopMode + 1) % 3;
+        var $btn = $('#loopToggle');
+        // 移除所有循环模式类
+        $btn.removeClass('audio-btn-list-off audio-btn-list-on audio-btn-list-random');
+        // 添加对应的类
+        $btn.addClass(loopModeClasses[loopMode]);
+        $btn.attr('title', loopModeNames[loopMode]);
+    }
+
+    // 更新进度
+    function updateProgress(x) {
+        var progress = $('.audio-by-all');
+        var position = x - progress.offset().left;
+        var percentage = 100 * position / progress.width();
+        if (percentage > 100) percentage = 100;
+        if (percentage < 0) percentage = 0;
+        $('.audio-by-now').css('width', percentage + '%');
+        if (audio.duration) {
+            audio.currentTime = audio.duration * percentage / 100;
+        }
+    }
+
+    // 更新音量
+    function updateVolume(x, vol) {
+        var volume = $('.audio-sound');
+        var percentage;
+        if (vol !== undefined) {
+            percentage = vol * 100;
+        } else {
+            var position = x - volume.offset().left;
+            percentage = 100 * position / volume.width();
+        }
+        if (percentage > 100) percentage = 100;
+        if (percentage < 0) percentage = 0;
+        percentage = parseInt(percentage);
+        $('.audio-sound-now').css('width', percentage + '%');
+        $('.audio-sound-art').css('left', percentage + '%');
+        audio.volume = percentage / 100;
+    }
+
+    // 时间格式化
+    function timeFormat(seconds) {
+        if (isNaN(seconds) || seconds === Infinity) return '00:00';
+        var minite = Math.floor(seconds / 60);
+        if (minite < 10) minite = '0' + minite;
+        var second = Math.floor(seconds % 60);
+        if (second < 10) second = '0' + second;
+        return minite + ':' + second;
+    }
+
+    // 文字滚动
+    function audioTextOut() {
+        var $text = $('.audio-head-tittle-text');
+        var textWidth = $text[0]?.scrollWidth || 0;
+        var containerWidth = $text.parent().width() || 100;
+        
+        if (textWidth > containerWidth) {
+            var maxOffset = textWidth - containerWidth + 8;
+            if (outTextValue <= -maxOffset) {
+                audioSpeed = -audioSpeed;
+            }
+            if (outTextValue >= 8) {
+                audioSpeed = -audioSpeed;
+            }
+            outTextValue -= audioSpeed;
+            $text.css('text-indent', outTextValue + 'px');
+        }
+    }
+
+    // ===== 绘图函数 =====
+    function drawAudioArc() {
+        var audioCanvas = document.getElementById('audio-img-canvas');
+        var audioCtx = audioCanvas.getContext('2d');
+        audioCtx.clearRect(0, 0, 200, 200);
+        audioCtx.translate(100, 100);
+        audioCtx.strokeStyle = 'rgba(255,255,255,1)';
+        audioCtx.lineWidth = 6;
+        audioCtx.arc(0, 0, 80, 0, Math.PI * 2, true);
+        audioCtx.stroke();
+        audioCtx.beginPath();
+        audioCtx.lineWidth = 3;
+        audioCtx.arc(0, 0, 72, Math.PI / 6, Math.PI / 6 * 4, false);
+        audioCtx.stroke();
+        audioCtx.beginPath();
+        audioCtx.arc(0, 0, 72, Math.PI / 6 * 9, Math.PI / 6 * 6, true);
+        audioCtx.stroke();
+        audioCtx.beginPath();
+        audioCtx.lineWidth = 2;
+        audioCtx.arc(0, 0, 50, Math.PI / 6 * 9, Math.PI / 6 * 11, true);
+        audioCtx.stroke();
+    }
+
+    function drawAudioPlay() {
+        var audioCanvasPlay = document.getElementById('audio-img-canvas-play');
+        var audioCtxPlay = audioCanvasPlay.getContext('2d');
+        audioCtxPlay.clearRect(0, 0, 45, 200);
+        audioCtxPlay.translate(25, 10);
+        audioCtxPlay.lineWidth = 4;
+        audioCtxPlay.strokeStyle = 'rgba(255,255,255,1)';
+        audioCtxPlay.rect(-10, 0, 20, 20);
+        audioCtxPlay.stroke();
+        audioCtxPlay.beginPath();
+        audioCtxPlay.rect(-10, 20, 20, 10);
+        audioCtxPlay.stroke();
+        audioCtxPlay.beginPath();
+        audioCtxPlay.moveTo(0, 30);
+        audioCtxPlay.lineTo(0, 140);
+        audioCtxPlay.stroke();
+        audioCtxPlay.beginPath();
+        audioCtxPlay.translate(0, 140);
+        audioCtxPlay.rotate(120);
+        audioCtxPlay.rect(0, 0, 18, 32);
+        audioCtxPlay.stroke();
+        audioCtxPlay.beginPath();
+        audioCtxPlay.lineWidth = 2;
+        audioCtxPlay.moveTo(10, 25);
+        audioCtxPlay.lineTo(30, 25);
+        audioCtxPlay.stroke();
+        audioCtxPlay.beginPath();
+    }
+
+    // ===== 事件绑定 =====
+    // 加载第一首
+    if (playlist.length) {
+        loadTrack(0);
+        audioPlay = false;
+        $('.audio-btn-play').removeClass('audio-btn-play-on').addClass('audio-btn-play-off');
+    }
+
+    // 播放/暂停按钮
+    $('.audio-btn-play').on('click', togglePlay);
+    $('#audio-img-canvas-play').on('click', togglePlay);
+
+    // 下一首/上一首
+    $('.audio-btn-next').on('click', function() {
+        nextTrack();
+    });
+    $('.audio-btn-before').on('click', function() {
+        prevTrack();
+    });
+
+    // ===== 循环模式切换（列表循环 → 单曲循环 → 随机播放） =====
+    $('#loopToggle').on('click', function() {
+        toggleLoopMode();
+    });
+
+    // 音量控制
+    $('.audio-btn-sound').on('click', function() {
+        $('.audio-sound').toggleClass('audio-sound-on');
+    });
+
+    // 进度条拖拽
+    var progressDrag = false;
+    $('.audio-by-all').on('mousedown', function(e) {
+        progressDrag = true;
+        updateProgress(e.pageX);
+    });
+    $(document).on('mouseup', function(e) {
+        if (progressDrag) {
+            progressDrag = false;
+            updateProgress(e.pageX);
+        }
+    });
+    $(document).on('mousemove', function(e) {
+        if (progressDrag) {
+            updateProgress(e.pageX);
+        }
+    });
+
+    // 音量拖拽
+    var volumeDrag = false;
+    $('.audio-sound-all').on('mousedown', function(e) {
+        volumeDrag = true;
+        updateVolume(e.pageX);
+    });
+    $(document).on('mouseup', function(e) {
+        if (volumeDrag) {
+            volumeDrag = false;
+            updateVolume(e.pageX);
+        }
+    });
+    $(document).on('mousemove', function(e) {
+        if (volumeDrag) {
+            updateVolume(e.pageX);
+        }
+    });
+
+    // 音频事件
+    audio.addEventListener('loadedmetadata', function() {
+        $('.audio-by-text-now').text(timeFormat(0));
+        $('.audio-by-text-all').text(timeFormat(audio.duration));
+        if (audioPlay) {
+            audio.play();
+        }
+    });
+
+    audio.addEventListener('timeupdate', function() {
+        var currentTime = audio.currentTime;
+        var duration = audio.duration || 1;
+        var percent = 100 * currentTime / duration;
+        $('.audio-by-now').css('width', percent + '%');
+        $('.min-time').css('width', percent + '%');
+        $('.audio-by-text-now').text(timeFormat(currentTime));
+        audioTextOut();
+    });
+
+    audio.addEventListener('ended', function() {
+        if (loopMode === 1) {
+            // 单曲循环：重新播放
+            audio.currentTime = 0;
+            audio.play();
+        } else if (loopMode === 2) {
+            // 随机播放：随机选一首
+            var nextIdx;
+            do {
+                nextIdx = Math.floor(Math.random() * playlist.length);
+            } while (nextIdx === audioIndex && playlist.length > 1);
+            loadTrack(nextIdx);
+        } else {
+            // 列表循环：下一首
+            var nextIdx = (audioIndex + 1) % playlist.length;
+            loadTrack(nextIdx);
+        }
+    });
+
+    // 鼠标悬停展开/收起
+    $("#audio").hover(function() {
+        $('.audio').toggleClass('audio-off');
+        $('.audio-img-cover').toggleClass('audio-img-cover-off');
+        $('.audio-btn-play').toggleClass('audio-btn-play-off-a');
+        $('.audio-head-tittle-by').toggleClass('audio-head-tittle-by-off');
+        $('.audio-head-tittle').toggleClass('audio-head-tittle-off');
+        $('.min-time').toggleClass('min-time-off');
+        $('.audio-head-tittle-text').toggleClass('audio-head-tittle-text-off');
+        $('.audio-btn-play').css('animation', '');
+        $('.audio-head-tittle-text').css('text-indent', 0);
+        outTextValue = 0;
+        audioSpeed = Math.abs(audioSpeed);
+    });
+
+    $("#audio").mouseleave(function() {
+        if (audioPlay) {
+            $('.audio-btn-play').css('animation', 'img-cover linear 2.5s infinite');
+        }
+        $('.audio-sound').removeClass('audio-sound-on');
+    });
+
+    // 初始化绘图
+    drawAudioArc();
+    drawAudioPlay();
+    updateVolume(0, 0.5);
+
+    // 初始化音量显示
+    $('.audio-by-text-now').text('00:00');
+    $('.audio-by-text-all').text('00:00');
+
+    // 窗口大小变化时重置文字滚动
+    $(window).resize(function() {
+        outTextValue = 0;
+        $('.audio-head-tittle-text').css('text-indent', 0);
+    });
+});
+</script>
+
+<div style="text-align:center;margin:150px 0; font:normal 14px/24px 'MicroSoft YaHei';">
+<p>适用浏览器：360、FireFox、Chrome、Opera、傲游、搜狗、世界之窗. 不支持Safari、IE8及以下浏览器。</p>
+<p>来源：<a href="http://sc.chinaz.com/" target="_blank">站长素材</a></p>
+<p style="margin-top:10px;color:#888;">播放列表来自 music.js，共 <span id="songCount"></span> 首歌曲</p>
+</div>
+
+<script>
+// 显示歌曲总数
+document.addEventListener('DOMContentLoaded', function() {
+    var count = typeof MUSIC_DATA !== 'undefined' ? MUSIC_DATA.length : 0;
+    document.getElementById('songCount').textContent = count;
+});
+</script>
+
+</body>
+</html>
