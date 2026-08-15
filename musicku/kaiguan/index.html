@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS3 Switch + 音乐播放器</title>
+    <!-- 引入 music.js 数据 -->
+    <script src="music.js"></script>
+    <style>
+        /* ===== 原 style.css 内容 (保持完全一致) ===== */
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: #ca9f6a;
+            background: -webkit-radial-gradient(ellipse at center, #ca9f6a 0%, #ad7846 100%);
+            background: -moz-radial-gradient(ellipse at center, #ca9f6a 0%, #ad7846 100%);
+            background: -o-radial-gradient(ellipse at center, #ca9f6a 0%, #ad7846 100%);
+            background: -ms-radial-gradient(ellipse at center, #ca9f6a 0%, #ad7846 100%);
+            background: radial-gradient(ellipse at center, #ca9f6a 0%, #ad7846 100%);
+            font-family: "Open Sans";
+        }
+        h3 {
+            color: #f5f5f5;
+            position: relative;
+            text-align: center;
+            text-transform: uppercase;
+            width: 200px;
+            display: block;
+            margin: 20px auto;
+        }
+        h3:before,
+        h3:after {
+            content: "";
+            display: block;
+            height: 1px;
+            width: 60px;
+            background-color: rgba(255,255,255,0.3);
+            position: absolute;
+            top: 50%;
+            left: -60px;
+        }
+        h3:after {
+            right: -60px;
+            left: auto;
+        }
+        .canvas {
+            padding: 20px;
+            text-align: center;
+        }
+        .switch {
+            margin: 50px;
+            display: inline-block;
+        }
+        /*.switch,
+        .switch *
+          box-sizing: border-box */
+        .switch {
+            width: 300px;
+            height: 280px;
+            padding: 5px 0;
+            background-color: #9d9d9d;
+            background-image: -webkit-linear-gradient(#b5b5b5, #cecece, #9d9d9d);
+            background-image: -moz-linear-gradient(#b5b5b5, #cecece, #9d9d9d);
+            background-image: -o-linear-gradient(#b5b5b5, #cecece, #9d9d9d);
+            background-image: -ms-linear-gradient(#b5b5b5, #cecece, #9d9d9d);
+            background-image: linear-gradient(#b5b5b5, #cecece, #9d9d9d);
+            border: 2px solid #916749;
+            -webkit-border-radius: 45px;
+            border-radius: 45px;
+            -webkit-box-shadow: 0 5px 10px rgba(0,0,0,0.3), inset 0 0 3px #333;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.3), inset 0 0 3px #333;
+            position: relative;
+        }
+        .switch:before {
+            content: "";
+            display: block;
+            background-color: #ededed;
+            background-image: -webkit-linear-gradient(#e6e6e6, #d5d5d5 49%, #e1e1e1);
+            background-image: -moz-linear-gradient(#e6e6e6, #d5d5d5 49%, #e1e1e1);
+            background-image: -o-linear-gradient(#e6e6e6, #d5d5d5 49%, #e1e1e1);
+            background-image: -ms-linear-gradient(#e6e6e6, #d5d5d5 49%, #e1e1e1);
+            background-image: linear-gradient(#e6e6e6, #d5d5d5 49%, #e1e1e1);
+            position: absolute;
+            top: 10px;
+            bottom: 5px;
+            left: 3px;
+            right: 3px;
+            -webkit-border-radius: 45px;
+            border-radius: 45px;
+            -webkit-box-shadow: 0 -6px 1px rgba(255,255,255,0.65), inset 0 2px 8px #d5d5d5;
+            box-shadow: 0 -6px 1px rgba(255,255,255,0.65), inset 0 2px 8px #d5d5d5;
+        }
+        .switch-button-outer {
+            width: 42%;
+            height: 66%;
+            margin: 17% auto 0;
+            padding-bottom: 17%;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+            -webkit-border-radius: 35px;
+            border-radius: 35px;
+        }
+        .switch-button-outer:before {
+            content: "";
+            background: -webkit-linear-gradient(#afb3b5 0%, #d5d8d9 100%);
+            background: -moz-linear-gradient(#afb3b5 0%, #d5d8d9 100%);
+            background: -o-linear-gradient(#afb3b5 0%, #d5d8d9 100%);
+            background: -ms-linear-gradient(#afb3b5 0%, #d5d8d9 100%);
+            background: linear-gradient(#afb3b5 0%, #d5d8d9 100%);
+            width: 100%;
+            top: 0;
+            left: 0;
+            position: absolute;
+            bottom: 21%;
+            z-index: 1;
+            -webkit-border-radius: 30px;
+            border-radius: 30px;
+            -webkit-box-shadow: 0 0 3px rgba(255,255,255,0.4);
+            box-shadow: 0 0 3px rgba(255,255,255,0.4);
+        }
+        .switch-button {
+            height: 90%;
+            width: 86%;
+            background: -webkit-linear-gradient(#f3f3f3, #fff);
+            background: -moz-linear-gradient(#f3f3f3, #fff);
+            background: -o-linear-gradient(#f3f3f3, #fff);
+            background: -ms-linear-gradient(#f3f3f3, #fff);
+            background: linear-gradient(#f3f3f3, #fff);
+            -webkit-border-radius: 30px;
+            border-radius: 30px;
+            overflow: auto;
+            position: relative;
+            top: 5%;
+            left: 7%;
+            cursor: pointer;
+            -webkit-box-shadow: 0 16px 8px -8px rgba(0,0,0,0.33) inset, 0 0 3px rgba(0,0,0,0.85);
+            box-shadow: 0 16px 8px -8px rgba(0,0,0,0.33) inset, 0 0 3px rgba(0,0,0,0.85);
+            z-index: 2;
+        }
+        .switch-button-inner {
+            width: 98%;
+            height: 87%;
+            margin: 0 1%;
+            background: -webkit-linear-gradient(#9d9d9d, #dedede, #f0f0f0);
+            background: -moz-linear-gradient(#9d9d9d, #dedede, #f0f0f0);
+            background: -o-linear-gradient(#9d9d9d, #dedede, #f0f0f0);
+            background: -ms-linear-gradient(#9d9d9d, #dedede, #f0f0f0);
+            background: linear-gradient(#9d9d9d, #dedede, #f0f0f0);
+            position: absolute;
+            bottom: 0;
+            -webkit-border-radius: 25px;
+            border-radius: 25px;
+            position: absolute;
+            z-index: 3;
+        }
+        .switch-button-inner:before {
+            content: "";
+            height: 16px;
+            width: 4px;
+            margin-left: -2px;
+            background-color: rgba(0,0,0,0.1);
+            border-bottom: 2px solid rgba(255,255,255,0.5);
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset;
+        }
+        .switch-button-inner:after {
+            content: "";
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(0,0,0,0.08);
+            margin-left: -12px;
+            position: absolute;
+            left: 50%;
+            bottom: 10px;
+            -webkit-border-radius: 50%;
+            border-radius: 50%;
+            -webkit-box-shadow: 0 2px 0 rgba(255,255,255,0.7);
+            box-shadow: 0 2px 0 rgba(255,255,255,0.7);
+        }
+        .switch:hover .switch-button {
+            background-image: -webkit-linear-gradient(#fcfcfc, #fff);
+            background-image: -moz-linear-gradient(#fcfcfc, #fff);
+            background-image: -o-linear-gradient(#fcfcfc, #fff);
+            background-image: -ms-linear-gradient(#fcfcfc, #fff);
+            background-image: linear-gradient(#fcfcfc, #fff);
+            -webkit-box-shadow: 0 14px 8px -7px rgba(0,0,0,0.33) inset, 0 -6px 8px -4px rgba(0,0,0,0.33) inset, 0 0 3px rgba(0,0,0,0.85);
+            box-shadow: 0 14px 8px -7px rgba(0,0,0,0.33) inset, 0 -6px 8px -4px rgba(0,0,0,0.33) inset, 0 0 3px rgba(0,0,0,0.85);
+        }
+        .switch:hover .switch-button-inner {
+            bottom: 3px;
+            background: -webkit-linear-gradient(#bababa, #dedede 40%, #e4e4e4);
+            background: -moz-linear-gradient(#bababa, #dedede 40%, #e4e4e4);
+            background: -o-linear-gradient(#bababa, #dedede 40%, #e4e4e4);
+            background: -ms-linear-gradient(#bababa, #dedede 40%, #e4e4e4);
+            background: linear-gradient(#bababa, #dedede 40%, #e4e4e4);
+            -webkit-box-shadow: inset 0 -4px 3px rgba(255,255,255,0.6);
+            box-shadow: inset 0 -4px 3px rgba(255,255,255,0.6);
+        }
+        .switch:hover .switch-button-inner:before {
+            top: 9.5px;
+        }
+        .switch:hover .switch-button-inner:after {
+            height: 19px;
+        }
+        .switch.checked .switch-button-outer:after {
+            content: "";
+            height: 50%;
+            width: 80%;
+            background: transparent;
+            position: absolute;
+            top: 6%;
+            left: 10%;
+            z-index: 1;
+            -webkit-border-radius: 20px;
+            border-radius: 20px;
+            -webkit-box-shadow: 0 60px 25px rgba(0,0,0,0.35);
+            box-shadow: 0 60px 25px rgba(0,0,0,0.35);
+        }
+        .switch.checked .switch-button {
+            background-image: -webkit-linear-gradient(#fff, #f3f3f3);
+            background-image: -moz-linear-gradient(#fff, #f3f3f3);
+            background-image: -o-linear-gradient(#fff, #f3f3f3);
+            background-image: -ms-linear-gradient(#fff, #f3f3f3);
+            background-image: linear-gradient(#fff, #f3f3f3);
+            -webkit-box-shadow: 0 -3px 8px rgba(255,255,255,0.5) inset, 0 -15px 0px rgba(0,0,0,0.33) inset, 0 0 3px rgba(0,0,0,0.85);
+            box-shadow: 0 -3px 8px rgba(255,255,255,0.5) inset, 0 -15px 0px rgba(0,0,0,0.33) inset, 0 0 3px rgba(0,0,0,0.85);
+        }
+        .switch.checked .switch-button:before {
+            content: "";
+            width: 100%;
+            height: 20px;
+            margin-left: -50%;
+            background-image: -webkit-radial-gradient(ellipse at bottom center, rgba(255,255,255,0.7), rgba(255,255,255,0) 70%);
+            background-image: -moz-radial-gradient(ellipse at bottom center, rgba(255,255,255,0.7), rgba(255,255,255,0) 70%);
+            background-image: -o-radial-gradient(ellipse at bottom center, rgba(255,255,255,0.7), rgba(255,255,255,0) 70%);
+            background-image: -ms-radial-gradient(ellipse at bottom center, rgba(255,255,255,0.7), rgba(255,255,255,0) 70%);
+            background-image: radial-gradient(ellipse at bottom center, rgba(255,255,255,0.7), rgba(255,255,255,0) 70%);
+            display: block;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+        }
+        .switch.checked .switch-button-inner {
+            background: -webkit-linear-gradient(#ddd, #dedede, #fff);
+            background: -moz-linear-gradient(#ddd, #dedede, #fff);
+            background: -o-linear-gradient(#ddd, #dedede, #fff);
+            background: -ms-linear-gradient(#ddd, #dedede, #fff);
+            background: linear-gradient(#ddd, #dedede, #fff);
+            bottom: auto;
+            top: 2px;
+        }
+        .switch.checked .switch-button-inner:before {
+            height: 18px;
+        }
+        .switch.checked .switch-button-inner:after {
+            height: 16px;
+        }
+        .switch.checked:hover .switch-button {
+            background-image: -webkit-linear-gradient(#f3f3f3, #fff);
+            background-image: -moz-linear-gradient(#f3f3f3, #fff);
+            background-image: -o-linear-gradient(#f3f3f3, #fff);
+            background-image: -ms-linear-gradient(#f3f3f3, #fff);
+            background-image: linear-gradient(#f3f3f3, #fff);
+            -webkit-box-shadow: 0 1px 8px rgba(255,255,255,0.5) inset, 0 -13px 0px rgba(0,0,0,0.33) inset, 0 0 3px rgba(0,0,0,0.85);
+            box-shadow: 0 1px 8px rgba(255,255,255,0.5) inset, 0 -13px 0px rgba(0,0,0,0.33) inset, 0 0 3px rgba(0,0,0,0.85);
+        }
+        .switch.checked:hover .switch-button:before {
+            background-image: -webkit-radial-gradient(ellipse at bottom center, rgba(255,255,255,0.6), rgba(255,255,255,0) 60%);
+            background-image: -moz-radial-gradient(ellipse at bottom center, rgba(255,255,255,0.6), rgba(255,255,255,0) 60%);
+            background-image: -o-radial-gradient(ellipse at bottom center, rgba(255,255,255,0.6), rgba(255,255,255,0) 60%);
+            background-image: -ms-radial-gradient(ellipse at bottom center, rgba(255,255,255,0.6), rgba(255,255,255,0) 60%);
+            background-image: radial-gradient(ellipse at bottom center, rgba(255,255,255,0.6), rgba(255,255,255,0) 60%);
+        }
+        .switch.checked:hover .switch-button-inner {
+            background: -webkit-linear-gradient(#d2d2d2, #dedede, #fff);
+            background: -moz-linear-gradient(#d2d2d2, #dedede, #fff);
+            background: -o-linear-gradient(#d2d2d2, #dedede, #fff);
+            background: -ms-linear-gradient(#d2d2d2, #dedede, #fff);
+            background: linear-gradient(#d2d2d2, #dedede, #fff);
+            bottom: auto;
+            top: 5px;
+            -webkit-box-shadow: inset 0 -4px 3px rgba(255,255,255,0.6);
+            box-shadow: inset 0 -4px 3px rgba(255,255,255,0.6);
+        }
+        .switch.checked:hover .switch-button-inner:before {
+            top: 9.5px;
+        }
+        .switch.checked:hover .switch-button-inner:after {
+            height: 19px;
+            bottom: 9px;
+        }
+        .screws {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        .screw {
+            display: block;
+            width: 16px;
+            height: 16px;
+            background-color: rgba(0,0,0,0.6);
+            background-image: -webkit-radial-gradient(circle at top center, #fcfcfc, transparent);
+            background-image: -moz-radial-gradient(circle at top center, #fcfcfc, transparent);
+            background-image: -o-radial-gradient(circle at top center, #fcfcfc, transparent);
+            background-image: -ms-radial-gradient(circle at top center, #fcfcfc, transparent);
+            background-image: radial-gradient(circle at top center, #fcfcfc, transparent);
+            border: 1px solid #999;
+            color: rgba(0,0,0,0.85);
+            font-family: 'Open Sans';
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 24px;
+            position: absolute;
+            left: 25px;
+            top: 20px;
+            -webkit-border-radius: 50%;
+            border-radius: 50%;
+            -webkit-box-shadow: 0 2px 1px rgba(255,255,255,0.5);
+            box-shadow: 0 2px 1px rgba(255,255,255,0.5);
+        }
+        .screw:before {
+            content: "";
+            width: 100%;
+            height: 60%;
+            background-image: -webkit-radial-gradient(center bottom, rgba(255,255,255,0.5) 50%, transparent);
+            background-image: -moz-radial-gradient(center bottom, rgba(255,255,255,0.5) 50%, transparent);
+            background-image: -o-radial-gradient(center bottom, rgba(255,255,255,0.5) 50%, transparent);
+            background-image: -ms-radial-gradient(center bottom, rgba(255,255,255,0.5) 50%, transparent);
+            background-image: radial-gradient(center bottom, rgba(255,255,255,0.5) 50%, transparent);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            -webkit-border-radius: 50%;
+            border-radius: 50%;
+        }
+        .screw:nth-child(2) {
+            left: auto;
+            right: 25px;
+        }
+        .screw:nth-child(3),
+        .screw:nth-child(4) {
+            top: auto;
+            bottom: 25px;
+        }
+        .screw:nth-child(4) {
+            right: 25px;
+            left: auto;
+        }
+
+        /* ===== 新增播放器布局 — 顶部与开关顶部对齐，额外下移30px ===== */
+        .canvas-wrapper {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 30px;
+            padding: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* 播放器容器 — 毛玻璃，顶部与 .switch 顶部平齐，再下移30px */
+        .player {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 260px;
+            max-width: 340px;
+            padding: 16px 70px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(14px) saturate(180%);
+            -webkit-backdrop-filter: blur(14px) saturate(180%);
+            border-radius: 45px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+            color: #fff;
+            transition: all 0.2s;
+            box-sizing: border-box;
+            height: 290px;
+            min-height: 200px;
+            margin-top: 55px;
+        }
+
+        /* 顶部区域改为纵向排列：歌名在上，模式标签在下 */
+        .player-top {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 4px;
+            margin-bottom: 4px;
+        }
+
+        .song-name {
+            font-size: 16px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+            letter-spacing: 0.3px;
+            text-align: left;
+            padding: 0 2px;
+        }
+
+        .mode-row {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .mode-badge {
+            font-size: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 12px;
+            border-radius: 30px;
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+            transition: 0.15s;
+            user-select: none;
+            white-space: nowrap;
+            display: inline-block;
+        }
+        .mode-badge:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        .progress-area {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 6px 0 8px 0;
+        }
+
+        .time-current, .time-total {
+            font-size: 12px;
+            font-variant-numeric: tabular-nums;
+            opacity: 0.85;
+            min-width: 34px;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 4px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            outline: none;
+            cursor: pointer;
+        }
+        .progress-bar::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #ffffffdd;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            border: 2px solid rgba(255,255,255,0.6);
+            cursor: pointer;
+        }
+        .progress-bar::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+        .progress-bar::-moz-range-thumb {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #ffffffdd;
+            border: 2px solid rgba(255,255,255,0.6);
+            cursor: pointer;
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 2px;
+        }
+
+        .ctrl-btn {
+            background: rgba(255,255,255,0.08);
+            border: none;
+            color: #fff;
+            font-size: 22px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.15s;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .ctrl-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.05);
+        }
+        .ctrl-btn:active {
+            transform: scale(0.92);
+        }
+        .ctrl-btn.list-toggle {
+            font-size: 18px;
+        }
+
+        /* 音乐列表浮层 */
+        .music-list-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+        .music-list-overlay.open {
+            display: flex;
+        }
+
+        .music-list-panel {
+            background: rgba(30, 35, 45, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            width: 420px;
+            max-width: 92vw;
+            max-height: 65vh;
+            border-radius: 32px;
+            padding: 20px 18px 20px 22px;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            color: #f0f2f5;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .music-list-panel h4 {
+            margin: 0 0 12px 0;
+            font-weight: 400;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            font-size: 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding-bottom: 10px;
+        }
+        .music-list-panel ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex: 1;
+            overflow-y: auto;
+        }
+        .music-list-panel ul li {
+            padding: 8px 14px;
+            border-radius: 30px;
+            margin-bottom: 4px;
+            cursor: pointer;
+            transition: 0.1s;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .music-list-panel ul li:hover {
+            background: rgba(255,255,255,0.08);
+        }
+        .music-list-panel ul li.active-song {
+            background: rgba(123, 203, 123, 0.2);
+            border-left: 3px solid #7bcb7b;
+            padding-left: 11px;
+        }
+        .music-list-panel .close-list {
+            align-self: flex-end;
+            margin-top: 12px;
+            background: rgba(255,255,255,0.06);
+            border: none;
+            color: #ccc;
+            padding: 6px 24px;
+            border-radius: 40px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.12s;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .music-list-panel .close-list:hover {
+            background: rgba(255,255,255,0.12);
+            color: #fff;
+        }
+
+        .music-list-panel ul::-webkit-scrollbar {
+            width: 5px;
+        }
+        .music-list-panel ul::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .music-list-panel ul::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.25);
+            border-radius: 10px;
+        }
+
+        /* 小屏适配 */
+        @media (max-width: 700px) {
+            .canvas-wrapper {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            .player {
+                height: auto;
+                min-height: 180px;
+                max-width: 300px;
+                width: 100%;
+                margin-top: 0;
+            }
+            .switch {
+                margin: 20px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h3>听松阁音乐控制器</h3>
+
+<div class="canvas-wrapper">
+    <!-- 左侧 Switch (原样) -->
+    <div class="switch" id="mainSwitch">
+        <div class="screws">
+            <span class="screw">*</span>
+            <span class="screw">*</span>
+            <span class="screw">*</span>
+            <span class="screw">*</span>
+        </div>
+        <div class="switch-button-outer">
+            <div class="switch-button" id="switchButton">
+                <div class="switch-button-inner"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 右侧 音乐播放器 (毛玻璃) -->
+    <div class="player" id="player">
+        <div class="player-top">
+            <span class="song-name" id="songName">🎶 选择歌曲</span>
+            <div class="mode-row">
+                <span class="mode-badge" id="modeBadge">🔁 循环</span>
+            </div>
+        </div>
+
+        <div class="progress-area">
+            <span class="time-current" id="timeCurrent">0:00</span>
+            <input type="range" class="progress-bar" id="progressBar" min="0" max="1000" value="0">
+            <span class="time-total" id="timeTotal">0:00</span>
+        </div>
+
+        <div class="player-controls">
+            <button class="ctrl-btn" id="prevBtn" title="上一首">⏮</button>
+            <button class="ctrl-btn" id="playBtn" title="播放/暂停">▶</button>
+            <button class="ctrl-btn" id="nextBtn" title="下一首">⏭</button>
+            <button class="ctrl-btn list-toggle" id="listToggleBtn" title="播放列表">📋</button>
+        </div>
+    </div>
+</div>
+
+<!-- 音乐列表浮层 -->
+<div class="music-list-overlay" id="musicListOverlay">
+    <div class="music-list-panel">
+        <h4>📂 音乐列表 · <span id="listCount"></span> 首</h4>
+        <ul id="musicListUl"></ul>
+        <button class="close-list" id="closeListBtn">✕ 关闭</button>
+    </div>
+</div>
+
+<!-- 原有 index.js 逻辑 + 播放器控制 -->
+<script>
+    // ===== 原有 index.js 逻辑 (完全保留) =====
+    function Switch(node) {
+        this.switchRoot = node;
+        this.switchRoot.onclick = this.switchClickEventHanlder;
+    }
+
+    Switch.prototype.switchClickEventHanlder = function (e) {
+        e.target = e.target || e.srcElement;
+        if(e.target.className.indexOf("switch-button") < 0) return;
+        if(!this.classList.contains("checked")) {
+            this.classList.add("checked");
+        } else{
+            this.classList.remove("checked");
+        }
+        this.checked = !this.checked;
+        // 额外触发播放/暂停 (由外部监听)
+        const event = new CustomEvent('switchToggle', { detail: { checked: this.checked } });
+        this.dispatchEvent(event);
+    };
+
+    var switches = document.querySelectorAll(".switch");
+    if(typeof switches !== "undefined" && switches.length) {
+        for(var i = switches.length - 1; i >=0; --i){
+            new Switch(switches[i]);
+        }
+    }
+
+    // ===== 新增播放器控制 (与开关联动) =====
+    (function() {
+        // 确保 MUSIC_DATA 存在
+        if (typeof MUSIC_DATA === 'undefined') {
+            console.warn('MUSIC_DATA 未定义');
+            window.MUSIC_DATA = [];
+        }
+
+        // DOM 引用
+        const switchEl = document.getElementById('mainSwitch');
+        const songNameEl = document.getElementById('songName');
+        const progressBar = document.getElementById('progressBar');
+        const timeCurrent = document.getElementById('timeCurrent');
+        const timeTotal = document.getElementById('timeTotal');
+        const playBtn = document.getElementById('playBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const modeBadge = document.getElementById('modeBadge');
+        const listToggleBtn = document.getElementById('listToggleBtn');
+        const musicListOverlay = document.getElementById('musicListOverlay');
+        const musicListUl = document.getElementById('musicListUl');
+        const listCount = document.getElementById('listCount');
+        const closeListBtn = document.getElementById('closeListBtn');
+
+        // 播放器状态
+        let currentIndex = 0;
+        let isPlaying = false;
+        let playMode = 'loop'; // 'loop' | 'random' | 'single'
+        const audio = new Audio();
+        let isDragging = false;
+
+        // 渲染列表
+        function renderList() {
+            const data = window.MUSIC_DATA || [];
+            listCount.textContent = data.length;
+            musicListUl.innerHTML = '';
+            data.forEach((item, idx) => {
+                const li = document.createElement('li');
+                li.textContent = item.name || `歌曲 ${idx+1}`;
+                li.dataset.index = idx;
+                if (idx === currentIndex) li.classList.add('active-song');
+                li.addEventListener('click', function() {
+                    const index = parseInt(this.dataset.index);
+                    if (!isNaN(index) && index !== currentIndex) {
+                        currentIndex = index;
+                        loadSong(currentIndex);
+                        if (isPlaying) {
+                            audio.play().catch(() => {});
+                        }
+                        renderList();
+                        updatePlayButton();
+                    } else if (index === currentIndex) {
+                        togglePlay();
+                    }
+                });
+                musicListUl.appendChild(li);
+            });
+        }
+
+        // 加载歌曲
+        function loadSong(index) {
+            const data = window.MUSIC_DATA || [];
+            if (!data.length) {
+                songNameEl.textContent = '⚠️ 无音乐';
+                return;
+            }
+            if (index < 0) index = data.length - 1;
+            if (index >= data.length) index = 0;
+            currentIndex = index;
+            const song = data[currentIndex];
+            if (!song) return;
+            songNameEl.textContent = song.name || '未知歌曲';
+            audio.src = song.url;
+            audio.load();
+            progressBar.value = 0;
+            timeCurrent.textContent = '0:00';
+            if (audio.duration) {
+                timeTotal.textContent = formatTime(audio.duration);
+            } else {
+                timeTotal.textContent = '0:00';
+            }
+            renderList();
+            if (isPlaying) {
+                audio.play().catch(() => {});
+            }
+            updatePlayButton();
+        }
+
+        // 播放/暂停
+        function togglePlay() {
+            if (!window.MUSIC_DATA || window.MUSIC_DATA.length === 0) return;
+            if (audio.src === '' || audio.paused) {
+                if (!audio.src) {
+                    loadSong(currentIndex);
+                }
+                audio.play().catch(() => {});
+                isPlaying = true;
+                playBtn.textContent = '⏸';
+                if (switchEl) switchEl.classList.add('checked');
+            } else {
+                audio.pause();
+                isPlaying = false;
+                playBtn.textContent = '▶';
+                if (switchEl) switchEl.classList.remove('checked');
+            }
+            updatePlayButton();
+        }
+
+        function updatePlayButton() {
+            if (isPlaying) {
+                playBtn.textContent = '⏸';
+                if (switchEl) switchEl.classList.add('checked');
+            } else {
+                playBtn.textContent = '▶';
+                if (switchEl) switchEl.classList.remove('checked');
+            }
+        }
+
+        // 上一首 / 下一首
+        function playPrev() {
+            if (!window.MUSIC_DATA || window.MUSIC_DATA.length === 0) return;
+            if (playMode === 'random') {
+                currentIndex = Math.floor(Math.random() * window.MUSIC_DATA.length);
+            } else {
+                currentIndex = (currentIndex - 1 + window.MUSIC_DATA.length) % window.MUSIC_DATA.length;
+            }
+            loadSong(currentIndex);
+            if (isPlaying) {
+                audio.play().catch(() => {});
+            }
+        }
+
+        function playNext() {
+            if (!window.MUSIC_DATA || window.MUSIC_DATA.length === 0) return;
+            if (playMode === 'random') {
+                currentIndex = Math.floor(Math.random() * window.MUSIC_DATA.length);
+            } else {
+                currentIndex = (currentIndex + 1) % window.MUSIC_DATA.length;
+            }
+            loadSong(currentIndex);
+            if (isPlaying) {
+                audio.play().catch(() => {});
+            }
+        }
+
+        // 模式切换
+        function toggleMode() {
+            const modes = ['loop', 'random', 'single'];
+            const icons = ['🔁 循环', '🎲 随机', '🔂 单曲'];
+            let idx = modes.indexOf(playMode);
+            idx = (idx + 1) % modes.length;
+            playMode = modes[idx];
+            modeBadge.textContent = icons[idx];
+        }
+
+        function formatTime(seconds) {
+            if (isNaN(seconds) || !isFinite(seconds)) return '0:00';
+            const m = Math.floor(seconds / 60);
+            const s = Math.floor(seconds % 60);
+            return `${m}:${s.toString().padStart(2, '0')}`;
+        }
+
+        // 进度条事件
+        progressBar.addEventListener('input', function() {
+            isDragging = true;
+            const val = parseFloat(this.value);
+            if (audio.duration) {
+                const seekTime = (val / 1000) * audio.duration;
+                timeCurrent.textContent = formatTime(seekTime);
+            }
+        });
+        progressBar.addEventListener('change', function() {
+            isDragging = false;
+            const val = parseFloat(this.value);
+            if (audio.duration) {
+                audio.currentTime = (val / 1000) * audio.duration;
+            }
+        });
+
+        // 音频事件
+        audio.addEventListener('timeupdate', function() {
+            if (!isDragging && audio.duration) {
+                const progress = (audio.currentTime / audio.duration) * 1000;
+                progressBar.value = Math.min(progress, 1000);
+                timeCurrent.textContent = formatTime(audio.currentTime);
+                timeTotal.textContent = formatTime(audio.duration);
+            }
+        });
+        audio.addEventListener('loadedmetadata', function() {
+            if (audio.duration) {
+                timeTotal.textContent = formatTime(audio.duration);
+            }
+        });
+        audio.addEventListener('ended', function() {
+            if (playMode === 'single') {
+                audio.currentTime = 0;
+                audio.play().catch(() => {});
+            } else {
+                playNext();
+            }
+        });
+        audio.addEventListener('error', function(e) {
+            console.warn('音频加载错误:', e);
+            if (window.MUSIC_DATA && window.MUSIC_DATA.length > 1) {
+                playNext();
+            }
+        });
+
+        // 监听开关的自定义事件
+        if (switchEl) {
+            switchEl.addEventListener('switchToggle', function(e) {
+                // 开关状态变化时，控制播放/暂停
+                if (e.detail.checked) {
+                    if (!isPlaying) {
+                        togglePlay();
+                    }
+                } else {
+                    if (isPlaying) {
+                        togglePlay();
+                    }
+                }
+            });
+        }
+
+        // 播放器按钮事件
+        playBtn.addEventListener('click', togglePlay);
+        prevBtn.addEventListener('click', playPrev);
+        nextBtn.addEventListener('click', playNext);
+        modeBadge.addEventListener('click', toggleMode);
+
+        // 列表控制
+        function openList() {
+            musicListOverlay.classList.add('open');
+            renderList();
+        }
+        function closeList() {
+            musicListOverlay.classList.remove('open');
+        }
+        listToggleBtn.addEventListener('click', openList);
+        closeListBtn.addEventListener('click', closeList);
+        musicListOverlay.addEventListener('click', function(e) {
+            if (e.target === this) closeList();
+        });
+
+        // 键盘快捷键
+        document.addEventListener('keydown', function(e) {
+            if (e.target.tagName === 'INPUT') return;
+            if (e.code === 'Space') {
+                e.preventDefault();
+                togglePlay();
+            }
+            if (e.code === 'ArrowRight') {
+                e.preventDefault();
+                playNext();
+            }
+            if (e.code === 'ArrowLeft') {
+                e.preventDefault();
+                playPrev();
+            }
+        });
+
+        // 初始化
+        function init() {
+            if (window.MUSIC_DATA && window.MUSIC_DATA.length) {
+                loadSong(0);
+                isPlaying = false;
+                audio.pause();
+                if (switchEl) switchEl.classList.remove('checked');
+                playBtn.textContent = '▶';
+            } else {
+                songNameEl.textContent = '🎵 无音乐数据';
+                listCount.textContent = '0';
+            }
+            renderList();
+            modeBadge.textContent = '🔁 循环';
+            playMode = 'loop';
+        }
+
+        init();
+    })();
+</script>
+
+</body>
+</html>
