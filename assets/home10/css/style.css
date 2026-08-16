@@ -87,25 +87,29 @@ a {
 .main-top {
     width: 90%;
     display: flex;
-    flex-direction: column;
-    /* background: chartreuse; */
+    flex-direction: row;        /* 改为水平排列 */
+    align-items: center;        /* 垂直居中 */
+    justify-content: space-between; /* 两端对齐 */
     border-bottom: 1px solid #ccc;
+    padding: 12px 0;            /* 减少上下内边距，降低高度 */
+    /* 原 min-height 约 180px，现压缩到约 90px */
 }
 
 .main-bot {
     overflow-y: auto;
     width: 90%;
+	height: 500px;
     display: flex;
     flex-direction: column;
     /* background: cornflowerblue; */
 }
 
 .main-top-title {
-    width: 100%;
     display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-top: 25px;
+    align-items: center;
+    gap: 12px;                  /* 标题和头像间距 */
+    margin-top: 0;              /* 移除原来多余的 margin */
+    flex-shrink: 0;            /* 防止被压缩 */
 }
 
 /* Do you like me */
@@ -116,33 +120,35 @@ a {
 
 /* 大标题 */
 .main-top-title>h1 {
-    text-align: center;
-    font-size: 2em;
-    margin-right: 5px;
+    font-size: 1.6em;           /* 原 2em，略微缩小 */
     color: #0a274d;
+    margin: 0;
+    white-space: nowrap;        /* 防止换行 */
 }
 
 /* 头像 */
 .main-top-title>a>img {
-    width: 100px;
-    height: 100px;
-    border-radius: 12px;
+    width: 56px;               /* 原 100px，缩小 */
+    height: 56px;
+    border-radius: 50%;        /* 改为圆形更精致，也可保留 12px */
     object-fit: cover;
+    display: block;
 }
 
 
 /* 简介 */
 .main-top-Brief {
-    width: 100%;
-    margin-top: 10px;
+    margin-top: 0;              /* 移除上边距 */
+    text-align: right;          /* 右对齐 */
+    flex-shrink: 1;            /* 允许收缩 */
+    min-width: 0;              /* 防止溢出 */
 }
 
 .main-top-Brief>p {
-    /* color: rgba(34,47,62,0.4); */
     color: #637792;
-    font-size: 18px;
-    margin-top: 5px;
-    margin-right: 10px;
+    font-size: 15px;            /* 原 18px，略微缩小 */
+    margin: 0;
+    white-space: nowrap;        /* 单行显示 */
 }
 
 
@@ -150,19 +156,22 @@ a {
 .main-top-tb {
     width: 100%;
     display: flex;
+    flex-wrap: wrap;            /* 允许换行，避免溢出 */
+    margin-top: 6px;            /* 减少与简介的间距 */
+    gap: 2px;                  /* 图标间距 */
 }
 
 .main-top-tb>a {
-    width: 45px;
-    height: 45px;
+    width: 38px;               /* 原 45px，略微缩小 */
+    height: 38px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
 .main-top-tb>a>i {
-    font-size: 25px;
+    font-size: 20px;            /* 原 25px，略微缩小 */
     color: #8095b1;
     transition: all 0.15s;
 }
