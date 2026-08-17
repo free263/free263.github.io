@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>音乐播放器 · 列表撑满底部</title>
+  <style>
+    /* ===== 基础重置 & 背景 ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      font-family: "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+      color: #fff;
+      overflow: hidden;
+      background: #1a0d10;
+      background-image: url('https://api.rryyz.com/api-pic/bg-guidao.php');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      background-attachment: fixed;
+    }
+    .bg-image {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 12% 70%, rgba(255, 178, 102, 0.18) 0%, transparent 25%),
+        radial-gradient(circle at 50% 60%, rgba(255, 130, 90, 0.12) 0%, transparent 35%),
+        radial-gradient(circle at 90% 90%, rgba(255, 200, 100, 0.22) 0%, transparent 20%),
+        radial-gradient(circle at 85% 15%, rgba(255, 160, 80, 0.15) 0%, transparent 18%),
+        linear-gradient(135deg, #1a0d10 0%, #2b1015 40%, #1a0d10 100%);
+      z-index: -2;
+    }
+    .bg-image::before {
+      content: "";
+      position: absolute;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 220, 150, 0.85) 0%, rgba(255, 180, 100, 0.4) 30%, transparent 70%);
+      top: 12%;
+      left: 8%;
+      filter: blur(2px);
+      box-shadow: 0 0 60px 30px rgba(255, 180, 100, 0.45), 0 0 100px 60px rgba(255, 150, 80, 0.25);
+    }
+    .bg-image::after {
+      content: "";
+      position: absolute;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 200, 120, 0.8) 0%, rgba(255, 150, 80, 0.35) 35%, transparent 70%);
+      bottom: 5%;
+      right: 8%;
+      box-shadow: 0 0 80px 40px rgba(255, 160, 80, 0.5), 0 0 140px 80px rgba(255, 130, 60, 0.25);
+    }
+    .bg-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: -1;
+    }
+
+    /* ===== 主容器 — 100%高度，列表撑满 ===== */
+    .player-wrap {
+      position: relative;
+      width: 100%;
+      height: 100%;                /* 改为100%，让列表占满底部 */
+      display: flex;
+      flex-direction: column;
+      padding: 16px 28px;
+      max-width: 853px;
+      margin: 0 auto;
+      gap: 7px;
+    }
+
+    /* ===== 顶部卡片 (固定高度) ===== */
+    .now-card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 16px;
+      padding: 14px 20px 12px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      flex-shrink: 0;
+      min-height: 120px;
+    }
+
+    .cover-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .cover-wrap {
+      position: relative;
+      width: 64px;
+      height: 64px;
+      flex-shrink: 0;
+    }
+    .cover {
+      position: relative;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #2a1419;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08), 0 4px 20px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      animation: spin 30s linear infinite;
+      animation-play-state: paused;
+    }
+    .cover.playing { animation-play-state: running; }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .cover-img { width: 100%; height: 100%; object-fit: cover; }
+    .dot.top {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      background: #fff;
+      border-radius: 50%;
+      top: 3px;
+      right: 8px;
+      z-index: 2;
+    }
+    .cord {
+      position: absolute;
+      width: 100px;
+      height: 160px;
+      right: -100px;
+      top: -80px;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+    .now-info {
+      flex: 1;
+      text-align: center;
+      padding-right: 16px;
+    }
+    .song-title {
+      font-size: 18px;
+      font-weight: 500;
+      color: #f5f5f5;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .settings-btn {
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      width: 24px;
+      height: 24px;
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.65);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s;
+    }
+    .settings-btn:hover { color: #ff6b9d; }
+    .settings-btn svg { width: 16px; height: 16px; }
+
+    /* 控制条 */
+    .controls-inline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 2px 0;
+    }
+    .ctrl-btn {
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.85);
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s, transform 0.15s;
+      border-radius: 50%;
+    }
+    .ctrl-btn:hover { color: #ff6b9d; transform: scale(1.08); }
+    .ctrl-btn.active { color: #ff4d8d; }
+    .ctrl-btn svg { width: 18px; height: 18px; }
+    .play-btn {
+      background: #ff4d8d;
+      color: #fff;
+      width: 38px;
+      height: 38px;
+      box-shadow: 0 4px 14px rgba(255, 77, 141, 0.45);
+    }
+    .play-btn:hover { background: #ff6b9d; color: #fff; transform: scale(1.08); }
+    .play-btn svg { width: 22px; height: 22px; }
+    .volume-wrap {
+      display: flex;
+      align-items: center;
+      width: 80px;
+    }
+    .volume-bar {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(to right,
+        #ff4d8d 0%,
+        #ff4d8d var(--vol, 70%),
+        rgba(255, 255, 255, 0.18) var(--vol, 70%),
+        rgba(255, 255, 255, 0.18) 100%);
+      border-radius: 2px;
+      cursor: pointer;
+      outline: none;
+    }
+    .volume-bar::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 12px;
+      height: 12px;
+      background: #fff;
+      border-radius: 50%;
+      border: none;
+      box-shadow: 0 0 0 2px rgba(255, 77, 141, 0.4);
+      cursor: pointer;
+    }
+    .volume-bar::-moz-range-thumb {
+      width: 12px;
+      height: 12px;
+      background: #fff;
+      border-radius: 50%;
+      border: none;
+      box-shadow: 0 0 0 2px rgba(255, 77, 141, 0.4);
+      cursor: pointer;
+    }
+
+    /* 进度条 */
+    .progress-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 0px;
+    }
+    .time {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.7);
+      min-width: 36px;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
+    .progress-wrap {
+      flex: 1;
+      position: relative;
+      height: 5px;
+      display: flex;
+      align-items: center;
+    }
+    .progress-bg {
+      position: absolute;
+      inset: 0;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.18);
+      border-radius: 3px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .progress-fill {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(to right, #ff6b9d, #ff4d8d);
+      border-radius: 3px;
+      pointer-events: none;
+    }
+    .progress-input {
+      position: relative;
+      z-index: 2;
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 5px;
+      background: transparent;
+      cursor: pointer;
+      outline: none;
+      margin: 0;
+    }
+    .progress-input::-webkit-slider-runnable-track {
+      height: 5px;
+      background: transparent;
+    }
+    .progress-input::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 13px;
+      height: 13px;
+      background: #fff;
+      border-radius: 50%;
+      border: none;
+      box-shadow: 0 0 0 2px rgba(255, 77, 141, 0.5);
+      cursor: pointer;
+      margin-top: -4px;
+    }
+    .progress-input::-moz-range-track {
+      height: 5px;
+      background: transparent;
+    }
+    .progress-input::-moz-range-thumb {
+      width: 13px;
+      height: 13px;
+      background: #fff;
+      border-radius: 50%;
+      border: none;
+      box-shadow: 0 0 0 2px rgba(255, 77, 141, 0.5);
+      cursor: pointer;
+    }
+
+    /* ===== 搜索框 ===== */
+    .search-wrap {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 16px;
+      padding: 6px 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+      flex-shrink: 0;
+    }
+    #searchInput {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-size: 13px;
+      padding: 4px 0;
+      font-family: inherit;
+    }
+    #searchInput::placeholder { color: rgba(255, 255, 255, 0.55); }
+
+    /* ===== 播放列表 — 撑满剩余所有高度 ===== */
+    .playlist {
+      flex: 1;                     /* 占据剩余所有空间 */
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      min-height: 60px;            /* 保证最小可见高度 */
+    }
+    .song-list {
+      list-style: none;
+      height: 100%;
+      overflow-y: auto;
+      padding: 4px 0;
+    }
+    .song-list::-webkit-scrollbar { width: 5px; }
+    .song-list::-webkit-scrollbar-track { background: transparent; }
+    .song-list::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 3px;
+    }
+    .song-list::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.25); }
+
+    .song-item {
+      display: flex;
+      align-items: center;
+      padding: 6px 18px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.18s;
+      user-select: none;
+    }
+    .song-item:hover { background: rgba(255, 255, 255, 0.06); }
+    .song-item.active { color: #ff4d8d; }
+    .song-item .idx {
+      width: 28px;
+      color: rgba(255, 255, 255, 0.55);
+      font-variant-numeric: tabular-nums;
+      font-size: 12px;
+    }
+    .song-item.active .idx { color: #ff4d8d; }
+    .song-item .name {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding-right: 10px;
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 13px;
+    }
+    .song-item .actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      transition: opacity 0.18s;
+    }
+    .song-item:hover .actions,
+    .song-item.active .actions { opacity: 1; }
+    .action-icon {
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.55);
+      cursor: pointer;
+      font-size: 11px;
+      padding: 2px 3px;
+      border-radius: 4px;
+      transition: color 0.18s, background 0.18s;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .action-icon:hover { color: #ff6b9d; background: rgba(255, 255, 255, 0.04); }
+    .action-icon.liked { color: #ff4d8d; }
+    .action-icon svg { width: 12px; height: 12px; }
+    .empty-tip {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.4);
+      padding: 30px;
+      font-size: 13px;
+    }
+
+    /* ===== 响应式 ===== */
+    @media (max-width: 768px) {
+      .player-wrap { padding: 10px 14px; gap: 5px; }
+      .now-card { padding: 10px 12px 8px 12px; gap: 6px; min-height: 100px; }
+      .cover-wrap { width: 52px; height: 52px; }
+      .cover { width: 52px; height: 52px; }
+      .song-title { font-size: 15px; }
+      .controls-inline { gap: 8px; }
+      .ctrl-btn { width: 28px; height: 28px; }
+      .play-btn { width: 34px; height: 34px; }
+      .volume-wrap { width: 60px; }
+      .cord { display: none; }
+      .search-wrap { padding: 4px 12px; }
+      .song-item { padding: 5px 12px; font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-image"></div>
+  <div class="bg-overlay"></div>
+
+  <main class="player-wrap">
+    <!-- 顶部卡片 -->
+    <section class="now-card">
+      <div class="cover-row">
+        <div class="cover-wrap">
+          <div class="cover">
+            <img src="logo.png" alt="封面" class="cover-img" width="64" height="64" />
+            <span class="dot top"></span>
+          </div>
+          <svg class="cord" viewBox="0 0 120 200" xmlns="http://www.w3.org/2000/svg">
+            <path d="M110 0 Q40 40 70 120 Q90 180 60 200" stroke="#d9d9d9" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <circle cx="110" cy="0" r="4" fill="#e6e6e6"/>
+          </svg>
+        </div>
+        <div class="now-info">
+          <h1 class="song-title" id="songTitle">加载中...</h1>
+        </div>
+        <button class="settings-btn" title="设置" aria-label="设置">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.49.49 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.49.49 0 0 0-.59.22L2.74 8.87a.49.49 0 0 0 .12.61l2.03 1.58c-.05.3-.07.62-.07.94 0 .32.02.63.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32a.49.49 0 0 0-.12-.61l-2.01-1.58zM12 15.6A3.6 3.6 0 0 1 8.4 12 3.6 3.6 0 0 1 12 8.4a3.6 3.6 0 0 1 3.6 3.6 3.6 3.6 0 0 1-3.6 3.6z"/></svg>
+        </button>
+      </div>
+
+      <!-- 控制条 -->
+      <div class="controls-inline">
+        <button class="ctrl-btn" id="prevBtn" title="上一首">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M6 6h2v12H6V6zm3.5 6l8.5 6V6l-8.5 6z"/></svg>
+        </button>
+        <button class="ctrl-btn play-btn" id="playBtn" title="播放/暂停">
+          <svg viewBox="0 0 24 24" id="playIcon"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
+          <svg viewBox="0 0 24 24" id="pauseIcon" style="display:none"><path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+        </button>
+        <button class="ctrl-btn" id="nextBtn" title="下一首">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+        </button>
+        <button class="ctrl-btn" id="listBtn" title="播放列表">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
+        </button>
+        <button class="ctrl-btn" id="loopBtn" title="循环模式">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>
+        </button>
+        <button class="ctrl-btn" id="muteBtn" title="静音">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+        </button>
+        <div class="volume-wrap">
+          <input type="range" id="volume" min="0" max="100" value="70" class="volume-bar" />
+        </div>
+      </div>
+
+      <!-- 进度条 -->
+      <div class="progress-row">
+        <span class="time" id="curTime">00:00</span>
+        <div class="progress-wrap">
+          <div class="progress-bg"></div>
+          <div class="progress-fill" id="progressFill"></div>
+          <input type="range" id="progress" min="0" max="100" value="0" step="0.1" class="progress-input" />
+        </div>
+        <span class="time" id="durTime">00:00</span>
+      </div>
+    </section>
+
+    <!-- 搜索框 -->
+    <div class="search-wrap">
+      <input type="text" id="searchInput" placeholder="搜索歌曲或歌手" />
+    </div>
+
+    <!-- 播放列表 — 自动撑满剩余高度，底部边框紧贴页面底部 -->
+    <section class="playlist">
+      <ul class="song-list" id="songList"></ul>
+    </section>
+  </main>
+
+  <audio id="audio" preload="metadata"></audio>
+
+  <!-- 外部脚本 -->
+  <script src="music.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
