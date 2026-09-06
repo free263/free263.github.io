@@ -1,0 +1,516 @@
+﻿﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>JS音乐在线播放插件vsPlayAudio - 站长素材</title>
+
+    <link rel="stylesheet" href="src/css/reset.css" />
+    <script src="dist/vsPlayAudio.min.js"></script>
+
+    <link rel="stylesheet" href="src/css/androidstudio.min.css" />
+    <script src="src/js/highlight.min.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad();
+    </script>
+
+    <style>
+        #nav {
+            text-align: center;
+        }
+        #nav ul li {
+            display: inline-block;
+            vertical-align: middle;
+            padding: 0 15px 0 15px;
+            border-left: 1px dotted #2bbc8a;
+            line-height: 15px;
+        }
+        #nav ul li a {
+            font-size: .8rem;
+            color: #2bbc8a;
+        }
+        #nav ul .blog {
+            border-left: 0px dotted #2bbc8a;
+        }
+        #vsPlayAudio {
+            width: 75px;
+            height: 75px;
+            margin: 12px auto 0;
+        }
+        .player-controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .player-controls button {
+            background: #2bbc8a;
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            margin: 0 6px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: opacity 0.3s, transform 0.2s;
+            vertical-align: middle;
+        }
+        .player-controls button:hover {
+            opacity: 0.8;
+            transform: scale(1.02);
+        }
+        .player-controls button:active {
+            transform: scale(0.95);
+        }
+        .player-controls button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+        /* 模式切换按钮特殊样式 */
+        .player-controls .mode-btn {
+            background: #444;
+            min-width: 80px;
+        }
+        .player-controls .mode-btn.active {
+            background: #e67e22;
+            box-shadow: 0 0 12px rgba(230, 126, 34, 0.4);
+        }
+        .player-controls .mode-btn .icon {
+            margin-right: 4px;
+        }
+        .song-info {
+            text-align: center;
+            margin-top: 16px;
+            color: #c9cacc;
+            font-size: 14px;
+        }
+        .song-info .title {
+            font-weight: 700;
+            font-size: 16px;
+        }
+        .song-info .artist {
+            color: #888;
+        }
+        .song-info .mode-label {
+            display: inline-block;
+            margin-top: 6px;
+            font-size: 12px;
+            padding: 2px 14px;
+            border-radius: 12px;
+            background: #2bbc8a;
+            color: #1d1f21;
+            font-weight: 600;
+        }
+        .song-info .mode-label.random {
+            background: #e67e22;
+        }
+        .song-counter {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            margin-top: 8px;
+        }
+        .song-counter span {
+            color: #2bbc8a;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body style="width:500px;margin:15px auto 0;color:#c9cacc;background-color:#1d1f21;">
+
+    <div style="text-align:center;font-size:36px;font-weight:700;margin:50px 0 0 0;">
+        <span>小体积美观的音乐播放器</span>
+    </div>
+    <div style="text-align:center;font-size:18px;margin:50px 0 0 0;">
+    </div>
+
+    <!-- 播放器容器 -->
+    <div class="clear" style="margin:50px auto 0;width:100px;height:100px;border-radius:50px;background:#fff;">
+        <div id="vsPlayAudio"></div>
+    </div>
+
+    <!-- 歌曲信息显示 -->
+    <div class="song-info" id="songInfo">
+        <div class="title" id="songTitle">未播放</div>
+        <div class="artist" id="songArtist">请点击播放</div>
+        <div class="mode-label" id="modeLabel">🔁 顺序播放</div>
+    </div>
+
+    <div class="song-counter" id="songCounter">
+        共 <span id="totalSongs">0</span> 首歌曲 · 当前 <span id="currentIndexDisplay">0</span> / <span id="totalDisplay">0</span>
+    </div>
+
+    <!-- 控制按钮 -->
+    <div class="player-controls">
+        <button id="prevBtn" title="上一首">⏮</button>
+        <button id="playBtn" title="播放/暂停">▶ 播放</button>
+        <button id="nextBtn" title="下一首">⏭</button>
+        <button id="modeBtn" class="mode-btn" title="切换播放模式">
+            <span class="icon">🔁</span> 顺序
+        </button>
+    </div>
+
+    <!-- 引入音乐数据 -->
+    <script src="music.js"></script>
+
+    <script>
+        (function() {
+            // 检查 MUSIC_DATA 是否存在
+            if (typeof MUSIC_DATA === 'undefined' || !MUSIC_DATA.length) {
+                console.error('MUSIC_DATA 未定义或为空，请检查 music.js');
+                return;
+            }
+
+            console.log('✅ 已加载 ' + MUSIC_DATA.length + ' 首歌曲');
+
+            // ============================================================
+            //  1. 使用 vsPlayAudio 插件创建播放器 UI
+            // ============================================================
+            var player = new vsPlayAudio({
+                element: 'vsPlayAudio',
+                autoPlay: false,
+                random: false,
+                music: {
+                    type: 'cloud',
+                    source: 2778782119 // 占位
+                }
+            });
+
+            // ============================================================
+            //  2. 自定义播放控制 - 完全接管
+            // ============================================================
+            var audio = new Audio();
+            var currentIndex = 0;
+            var isPlaying = false;
+            var isRandom = false; // false=顺序播放, true=随机播放
+            var historyStack = []; // 随机模式下的播放历史，用于防止重复
+            var MAX_HISTORY = 10;
+
+            // DOM 元素
+            var playBtn = document.getElementById('playBtn');
+            var prevBtn = document.getElementById('prevBtn');
+            var nextBtn = document.getElementById('nextBtn');
+            var modeBtn = document.getElementById('modeBtn');
+            var songTitle = document.getElementById('songTitle');
+            var songArtist = document.getElementById('songArtist');
+            var modeLabel = document.getElementById('modeLabel');
+            var totalSongs = document.getElementById('totalSongs');
+            var currentIndexDisplay = document.getElementById('currentIndexDisplay');
+            var totalDisplay = document.getElementById('totalDisplay');
+
+            // 更新歌曲计数
+            totalSongs.textContent = MUSIC_DATA.length;
+            totalDisplay.textContent = MUSIC_DATA.length;
+
+            // ============================================================
+            //  3. 核心播放函数
+            // ============================================================
+            function playByIndex(index, addToHistory) {
+                if (!MUSIC_DATA.length) return;
+
+                // 边界处理
+                if (index < 0) index = MUSIC_DATA.length - 1;
+                if (index >= MUSIC_DATA.length) index = 0;
+
+                currentIndex = index;
+                var song = MUSIC_DATA[currentIndex];
+
+                // 解析歌手和歌名
+                var nameParts = song.name.split('-');
+                var artist = nameParts.length > 1 ? nameParts[0].trim() : '未知歌手';
+                var title = nameParts.length > 1 ? nameParts.slice(1).join('-').trim() : song.name;
+
+                // 更新 UI 信息
+                songTitle.textContent = title;
+                songArtist.textContent = artist;
+                currentIndexDisplay.textContent = currentIndex + 1;
+
+                // 随机模式下记录历史
+                if (isRandom && addToHistory !== false) {
+                    historyStack.push(currentIndex);
+                    if (historyStack.length > MAX_HISTORY) {
+                        historyStack.shift();
+                    }
+                }
+
+                // 播放
+                audio.src = song.url;
+                audio.play()
+                    .then(function() {
+                        isPlaying = true;
+                        updatePlayButton();
+                        console.log('▶ 播放 [' + (currentIndex + 1) + '/' + MUSIC_DATA.length + '] ' + title + ' - ' + artist);
+                    })
+                    .catch(function(err) {
+                        console.warn('播放失败:', err);
+                        isPlaying = false;
+                        updatePlayButton();
+                    });
+
+                // 尝试更新插件 UI
+                try {
+                    if (player && typeof player._updateUI === 'function') {
+                        player._updateUI();
+                    }
+                    if (player && player.audio) {
+                        player.audio.src = song.url;
+                    }
+                } catch (e) {
+                    // 忽略
+                }
+            }
+
+            function getNextIndex() {
+                if (isRandom) {
+                    // 随机模式：从剩余未播放的歌曲中随机选择
+                    var available = [];
+                    for (var i = 0; i < MUSIC_DATA.length; i++) {
+                        // 如果历史记录包含了所有歌曲，清空历史重新开始
+                        if (historyStack.length >= MUSIC_DATA.length) {
+                            historyStack = [];
+                            break;
+                        }
+                        // 如果这首歌不在最近的历史中，可以作为候选
+                        if (historyStack.indexOf(i) === -1) {
+                            available.push(i);
+                        }
+                    }
+
+                    // 如果没有可用歌曲（理论上不会发生），重置历史
+                    if (available.length === 0) {
+                        historyStack = [];
+                        // 重新获取可用列表
+                        for (var j = 0; j < MUSIC_DATA.length; j++) {
+                            if (j !== currentIndex) {
+                                available.push(j);
+                            }
+                        }
+                        // 如果还是空，说明只有一首歌
+                        if (available.length === 0) {
+                            return currentIndex;
+                        }
+                    }
+
+                    var randomIndex = available[Math.floor(Math.random() * available.length)];
+                    return randomIndex;
+                } else {
+                    // 顺序播放
+                    return (currentIndex + 1) % MUSIC_DATA.length;
+                }
+            }
+
+            function getPrevIndex() {
+                if (isRandom) {
+                    // 随机模式：从历史记录中取上一首
+                    if (historyStack.length > 1) {
+                        // 移除当前歌曲
+                        historyStack.pop();
+                        // 取历史中的最后一首
+                        var prev = historyStack[historyStack.length - 1];
+                        // 从历史中移除，避免重复
+                        historyStack.pop();
+                        return prev;
+                    } else {
+                        // 没有历史记录，随机选一首不同的
+                        var available = [];
+                        for (var i = 0; i < MUSIC_DATA.length; i++) {
+                            if (i !== currentIndex) {
+                                available.push(i);
+                            }
+                        }
+                        if (available.length === 0) return currentIndex;
+                        return available[Math.floor(Math.random() * available.length)];
+                    }
+                } else {
+                    // 顺序播放
+                    var prev = currentIndex - 1;
+                    if (prev < 0) prev = MUSIC_DATA.length - 1;
+                    return prev;
+                }
+            }
+
+            function togglePlay() {
+                if (!MUSIC_DATA.length) return;
+
+                if (audio.paused) {
+                    // 如果没有 src 或者已经结束，重新加载当前歌曲
+                    if (!audio.src || audio.ended) {
+                        // 如果歌曲已结束，自动播放下一个
+                        if (audio.ended) {
+                            var nextIdx = getNextIndex();
+                            playByIndex(nextIdx, true);
+                            return;
+                        }
+                        playByIndex(currentIndex, false);
+                        return;
+                    }
+                    audio.play()
+                        .then(function() {
+                            isPlaying = true;
+                            updatePlayButton();
+                        })
+                        .catch(function(err) {
+                            console.warn('恢复播放失败:', err);
+                            playByIndex(currentIndex, false);
+                        });
+                } else {
+                    audio.pause();
+                    isPlaying = false;
+                    updatePlayButton();
+                }
+            }
+
+            function playNext() {
+                if (!MUSIC_DATA.length) return;
+                var nextIndex = getNextIndex();
+                playByIndex(nextIndex, true);
+            }
+
+            function playPrev() {
+                if (!MUSIC_DATA.length) return;
+                var prevIndex = getPrevIndex();
+                playByIndex(prevIndex, true);
+            }
+
+            // ============================================================
+            //  4. 模式切换
+            // ============================================================
+            function toggleMode() {
+                isRandom = !isRandom;
+
+                // 切换模式时清空历史记录（避免混乱）
+                historyStack = [];
+                // 将当前歌曲加入历史
+                historyStack.push(currentIndex);
+
+                updateModeUI();
+                console.log('🔄 切换播放模式: ' + (isRandom ? '随机播放' : '顺序播放'));
+            }
+
+            function updateModeUI() {
+                var modeBtnIcon = modeBtn.querySelector('.icon');
+                if (isRandom) {
+                    modeBtn.classList.add('active');
+                    modeBtnIcon.textContent = '🎲';
+                    modeBtn.innerHTML = '<span class="icon">🎲</span> 随机';
+                    modeLabel.textContent = '🎲 随机播放';
+                    modeLabel.className = 'mode-label random';
+                } else {
+                    modeBtn.classList.remove('active');
+                    modeBtnIcon.textContent = '🔁';
+                    modeBtn.innerHTML = '<span class="icon">🔁</span> 顺序';
+                    modeLabel.textContent = '🔁 顺序播放';
+                    modeLabel.className = 'mode-label';
+                }
+            }
+
+            // ============================================================
+            //  5. UI 更新
+            // ============================================================
+            function updatePlayButton() {
+                if (isPlaying) {
+                    playBtn.innerHTML = '⏸ 暂停';
+                } else {
+                    playBtn.innerHTML = '▶ 播放';
+                }
+            }
+
+            // ============================================================
+            //  6. 事件绑定
+            // ============================================================
+            playBtn.addEventListener('click', togglePlay);
+            nextBtn.addEventListener('click', playNext);
+            prevBtn.addEventListener('click', playPrev);
+            modeBtn.addEventListener('click', toggleMode);
+
+            // 自动播放下一首（歌曲结束时）
+            audio.addEventListener('ended', function() {
+                playNext();
+            });
+
+            // 键盘快捷键
+            document.addEventListener('keydown', function(e) {
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    togglePlay();
+                }
+                if (e.code === 'ArrowRight') {
+                    e.preventDefault();
+                    playNext();
+                }
+                if (e.code === 'ArrowLeft') {
+                    e.preventDefault();
+                    playPrev();
+                }
+                if (e.key === 'm' || e.key === 'M') {
+                    e.preventDefault();
+                    toggleMode();
+                }
+            });
+
+            // ============================================================
+            //  7. 暴露全局接口
+            // ============================================================
+            window.player = {
+                play: function(index) {
+                    if (typeof index === 'number' && index >= 0 && index < MUSIC_DATA.length) {
+                        historyStack = [];
+                        historyStack.push(index);
+                        playByIndex(index, false);
+                    } else {
+                        historyStack = [0];
+                        playByIndex(0, false);
+                    }
+                },
+                toggle: togglePlay,
+                next: playNext,
+                prev: playPrev,
+                pause: function() { audio.pause(); isPlaying = false; updatePlayButton(); },
+                resume: function() { audio.play(); isPlaying = true; updatePlayButton(); },
+                getCurrentIndex: function() { return currentIndex; },
+                getCurrentSong: function() { return MUSIC_DATA[currentIndex] || null; },
+                isRandom: function() { return isRandom; },
+                toggleMode: toggleMode,
+                getPlaylist: function() { return MUSIC_DATA.slice(); },
+                getAudio: function() { return audio; },
+                // 重置随机历史（可以手动调用）
+                resetHistory: function() {
+                    historyStack = [currentIndex];
+                    console.log('🔄 随机历史已重置');
+                }
+            };
+
+            // ============================================================
+            //  8. 初始化 - 默认加载第一首歌（不自动播放）
+            // ============================================================
+            if (MUSIC_DATA.length) {
+                var firstSong = MUSIC_DATA[0];
+                var nameParts = firstSong.name.split('-');
+                songTitle.textContent = nameParts.length > 1 ? nameParts.slice(1).join('-').trim() : firstSong.name;
+                songArtist.textContent = nameParts.length > 1 ? nameParts[0].trim() : '未知歌手';
+                currentIndexDisplay.textContent = 1;
+                audio.src = firstSong.url;
+                audio.load();
+
+                // 初始化历史记录
+                historyStack = [0];
+
+                console.log('📀 已加载第一首歌: ' + songTitle.textContent);
+            }
+
+            // 初始化模式 UI
+            updateModeUI();
+
+            console.log('✅ 播放器初始化完成');
+            console.log('📋 控制方式:');
+            console.log('   ▶ 按钮: 上一首 / 播放暂停 / 下一首 / 模式切换');
+            console.log('   ⌨️  空格 = 播放/暂停');
+            console.log('   ⌨️  左右方向键 = 切换歌曲');
+            console.log('   ⌨️  M键 = 切换播放模式');
+
+        })();
+    </script>
+
+</body>
+</html>

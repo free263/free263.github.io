@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>听松阁环形音乐播放器</title>
+<link rel='stylesheet' href='css/jquery-ui.css'>
+<style>
+/* 样式完全保持原样，仅增加列表和模式按钮的样式 */
+body { background: url(css/006.jpg) }
+.music-player { position: absolute !important; top: 50%; left: 50%; margin: -207px 0 0 -207px }
+
+.music-player
+{
+  position: relative;
+  width: 415px;
+  height: 415px;
+  overflow: hidden;
+  background: #252C36;
+  border-radius: 50%;
+  box-shadow: 0 1px 13px rgba(0, 0, 0, .55);
+  user-select: none;
+}
+
+.music-player > .album
+{
+  position: absolute;
+  top: -25%;
+  width: 100%;
+  height: auto;
+  min-height: 415px;
+}
+
+.music-player > .dash
+{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 300px;
+  background: url(css/image_png_00001.png) center bottom repeat-x;
+}
+
+.music-player > .dash > a
+{
+  display: block;
+  position: absolute;
+  top: 50px;
+  left: 12px;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  vertical-align: middle;
+  font-size: 22px;
+  text-decoration: none;
+  color: #FFF;
+  text-shadow: 0 1px 5px #000;
+  transition: all .3s;
+  opacity: .75;
+}
+
+.music-player > .dash > a[href="#share"] { left: auto; right: 55px; }
+.music-player > .dash > a[href="#love"] { left: auto; right: 18px; }
+.music-player > .dash > a:hover { opacity: 1 }
+.music-player > .dash > a.fa-volume-off + .volume-level > em { display: none }
+
+.music-player > .dash > .volume-level
+{
+  position: absolute;
+  top: 57px;
+  left: 45px;
+  width: 40px;
+  height: 6px;
+  padding: 1px;
+  overflow: hidden;
+  border: 1px solid #FFF;
+  border-radius: 3px;
+  box-shadow: 0 1px 5px #000, inset 0 1px 5px rgba(0, 0, 0, .5);
+  cursor: pointer;
+  transition: all .3s;
+  opacity: .75;
+}
+
+.music-player > .dash > .volume-level > em
+{
+  display: block;
+  height: 6px;
+  max-width: 100%;
+  background: #FFF;
+  box-shadow: 0 1px 5px #000;
+  border-radius: 1.5px;
+}
+
+.music-player > .dash > .volume-level:hover { opacity: 1 }
+
+.music-player > .dash > .seeker
+{
+  position: absolute;
+  bottom: 7px;
+  left: 50%;
+  width: 400px;
+  height: 203px;
+  overflow: hidden;
+  margin: 0 0 0 -200px;
+}
+
+.music-player > .dash > .seeker > .wheel
+{
+  position: absolute;
+  bottom: 0;
+  width: 364px;
+  height: 364px;
+  border: 18px solid #201B2B;
+  border-radius: 100%;
+}
+
+.music-player > .dash > .seeker > .wheel > .progress
+{
+  position: absolute;
+  bottom: -14px;
+  left: 50%;
+  width: 392px;
+  height: 392px;
+  overflow: hidden;
+  margin: 0 0 0 -196px;
+  border-radius: 100%;
+  transform-origin: 50% 50%;
+  background: url(css/image_png_00003.png);
+  transform: rotate(145deg);
+}
+
+.music-player > .dash > a[href="#seek"]
+{
+  display: block;
+  position: absolute;
+  top: -97px;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  margin: -9px 0 0 -9px;
+  background: #3A304D;
+  border: 4px solid #FFF;
+  border-radius: 100%;
+  opacity: 1;
+  transition: none;
+  transform: rotate(145deg);
+  transform-origin: 9px 200px;
+}
+
+.music-player > .dash > .controls
+{
+  position: absolute;
+  top: 85px;
+  left: 50%;
+  width: 180px;
+  height: 55px;
+  margin: 0 0 0 -90px;
+  background: #201F22;
+  border-radius: 23px;
+}
+
+.music-player > .dash > .controls:before
+{
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 124px;
+  height: 88px;
+  margin: -44px 0 0 -62px;
+  background: #201F22;
+  border-radius: 125%;
+}
+
+.music-player > .dash > .controls > a[href="#play"]
+{
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 88px;
+  height: 58px;
+  line-height: 58px;
+  vertical-align: middle;
+  text-align: center;
+  text-decoration: none;
+  font-size: 32px;
+  color: #FFF;
+  margin: -29px 0 0 -44px;
+  background: #F5696C;
+  border-radius: 29px;
+  transition: all .3s;
+}
+
+.music-player > .dash > .controls > a[href="#play"]:hover
+{
+  background: #ED484B;
+  box-shadow: 0 0 5px #F5696C;
+  text-shadow: 0 0 5px #FFF;
+}
+
+.music-player > .dash > .controls > a[href="#back"], .music-player > .dash > .controls > a[href="#forward"]
+{
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  width: 35px;
+  height: 30px;
+  margin: -15px 0 0;
+  line-height: 30px;
+  vertical-align: middle;
+  text-align: center;
+  text-decoration: none;
+  font-size: 22px;
+  color: #BDBCBD;
+  transition: all .3s;
+}
+
+.music-player > .dash > .controls > a[href="#forward"] { left: auto; right: 5px }
+
+.music-player > .dash > .controls > a[href="#back"]:hover, .music-player > .dash > .controls > a[href="#forward"]:hover
+{
+  color: #FFF;
+  text-shadow: 0 0 5px #BDBCBD;
+}
+
+.music-player > .dash > .info
+{
+  position: absolute;
+  bottom: 55px;
+  left: 50%;
+  width: 180px;
+  margin: 0 0 0 -90px;
+  text-align: center;
+  font-family: Segoe UI, sans-serif;
+  font-size: 12px;
+  color: #FFF;
+  cursor: default;
+}
+
+.music-player > .dash > .info > i
+{
+  display: inline-block;
+  padding: 0 10px;
+  height: 20px;
+  line-height: 20px;
+  vertical-align: middle;
+  font-size: 13px;
+  font-style: normal;
+  background: #201F22;
+  border-radius: 10px;
+}
+
+.music-player > .dash > .info > label
+{
+  display: block;
+  margin: 18px 0 5px;
+}
+
+.music-player > .dash > .info > small { font-size: 10px }
+
+/* 新增：列表切换按钮 (位于分享左侧) */
+.playlist-toggle {
+  position: absolute;
+  top: 50px;
+  right: 92px;
+  font-size: 18px !important;
+  width: 24px !important;
+  height: 24px !important;
+  line-height: 24px !important;
+  text-align: center;
+  opacity: 0.75;
+  color: #FFF;
+  text-shadow: 0 1px 5px #000;
+  cursor: pointer;
+  transition: all .3s;
+  text-decoration: none;
+  z-index: 5;
+}
+.playlist-toggle:hover { opacity: 1; }
+
+/* 模式切换按钮 (位于列表按钮左侧) */
+.mode-btn {
+  position: absolute;
+  top: 50px;
+  right: 124px;
+  font-size: 18px !important;
+  width: 24px !important;
+  height: 24px !important;
+  line-height: 24px !important;
+  text-align: center;
+  opacity: 0.75;
+  color: #FFF;
+  text-shadow: 0 1px 5px #000;
+  cursor: pointer;
+  transition: all .3s;
+  text-decoration: none;
+  z-index: 5;
+}
+.mode-btn:hover { opacity: 1; }
+
+/* 上一首/下一首 切换按钮 (位于模式按钮右侧) */
+.nav-btn-group {
+  position: absolute;
+  top: 50px;
+  right: 156px;
+  display: flex;
+  gap: 4px;
+  z-index: 5;
+}
+.nav-btn-group a {
+  display: block;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  font-size: 18px !important;
+  color: #FFF;
+  text-shadow: 0 1px 5px #000;
+  opacity: 0.75;
+  transition: all .3s;
+  text-decoration: none;
+}
+.nav-btn-group a:hover { opacity: 1; }
+
+/* 音乐列表面板 */
+.playlist-panel {
+  position: absolute;
+  bottom: 130px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280px;
+  max-height: 140px;
+  overflow-y: auto;
+  background: rgba(32, 31, 34, 0.88);
+  border-radius: 12px;
+  padding: 6px 8px;
+  color: #ccc;
+  font-size: 12px;
+  font-family: Segoe UI, sans-serif;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  z-index: 10;
+  scrollbar-width: thin;
+  scrollbar-color: #555 transparent;
+}
+.playlist-panel.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.playlist-panel::-webkit-scrollbar { width: 4px; }
+.playlist-panel::-webkit-scrollbar-thumb { background: #555; border-radius: 4px; }
+.playlist-item {
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: background 0.2s;
+}
+.playlist-item:hover { background: rgba(255,255,255,0.08); }
+.playlist-item.active { color: #F5696C; font-weight: bold; }
+
+/* 调整原始分享和心形位置，为模式按钮和列表按钮腾出空间 */
+.music-player > .dash > a[href="#share"] { right: 55px; }
+.music-player > .dash > a[href="#love"] { right: 18px; }
+</style>
+<script src="js/prefixfree.min.js"></script>
+</head>
+<body>
+<div class="music-player">
+  <img src="css/wh8.jpg" class="album" />
+  <div class="dash">
+    <a href="#mute" class="fa fa-volume-up"></a>
+    <span class="volume-level">
+      <em style="width: 75%"></em>
+    </span>
+    <a href="#share" class="fa fa-share"></a>
+    <a href="#love" class="fa fa-heart"></a>
+    
+    <!-- 列表切换按钮 - 位于分享和模式按钮之间 -->
+    <a href="#playlist" class="playlist-toggle" id="playlistToggle" title="显示/隐藏歌单">📋</a>
+    
+    <!-- 上一首/下一首 快速切换 (位于模式按钮右侧) -->
+    <div class="nav-btn-group">
+	<!-- 模式切换按钮 (顺序/随机) - 位于列表按钮左侧 -->
+      <a href="#mode" id="modeBtn" title="切换播放模式">🔁</a>
+      <a href="#prev" id="quickPrev" title="上一首">⏮</a>
+      <a href="#next" id="quickNext" title="下一首">⏭</a>
+    </div>
+
+    <div class="seeker">
+      <div class="wheel">
+        <div class="progress"></div>
+      </div>
+    </div>
+    <a href="#seek"></a>
+    <div class="controls">
+      <a href="#back" class="fa fa-fast-backward"></a>
+      <a href="#play" class="fa fa-pause"></a>
+      <a href="#forward" class="fa fa-fast-forward"></a>
+    </div>
+    <div><br><br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <audio controls autoplay loop id="audioPlayer">
+        <source src="" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="info">
+      <i><span name="current">0:00</span> / <span name="duration">0:00</span></i>
+      <label>纯音乐</label>
+      <small>001.半山听雨，放空自己（古琴）-唯美纯音乐</small>
+      
+    </div>
+    
+    <!-- 音乐列表面板 -->
+    <div class="playlist-panel" id="playlistPanel"></div>
+  </div>
+</div>
+<script src='js/jquery_and_jqueryui.js'></script>
+<!-- 引入 music.js 数据 -->
+<script src="js/music.js"></script>
+<!-- 核心逻辑：保留原播放器UI交互，接入 music.js 歌曲列表，增加模式切换和列表 -->
+<script>
+(function() {
+  var audio = document.getElementById('audioPlayer');
+  var playlist = window.MUSIC_DATA || [];
+  var currentIndex = 0;
+  var isPlaying = false;
+  var isMuted = false;
+  var duration = 0;
+  var current = 0;
+
+  // 播放模式: 'order' 顺序, 'random' 随机
+  var playMode = 'order';
+  var modeSymbols = { 'order': '🔁', 'random': '🎲' };
+
+  // DOM 元素
+  var $playBtn = document.querySelector('.controls > a[href="#play"]');
+  var $backBtn = document.querySelector('.controls > a[href="#back"]');
+  var $forwardBtn = document.querySelector('.controls > a[href="#forward"]');
+  var $muteBtn = document.querySelector('.dash > a[href="#mute"]');
+  var $volumeLevel = document.querySelector('.volume-level');
+  var $volumeEm = document.querySelector('.volume-level em');
+  var $currentSpan = document.querySelector('.info > i > [name="current"]');
+  var $durationSpan = document.querySelector('.info > i > [name="duration"]');
+  var $label = document.querySelector('.info > label');
+  var $small = document.querySelector('.info > small');
+  var $seekLink = document.querySelector('.dash > a[href="#seek"]');
+  var $progress = document.querySelector('.seeker .wheel .progress');
+  var $modeBtn = document.getElementById('modeBtn');
+  var $playlistToggle = document.getElementById('playlistToggle');
+  var $playlistPanel = document.getElementById('playlistPanel');
+  var $quickPrev = document.getElementById('quickPrev');
+  var $quickNext = document.getElementById('quickNext');
+
+  // 格式化时间
+  function formatTime(seconds) {
+    if (!seconds || isNaN(seconds)) return '0:00';
+    var m = Math.floor(seconds / 60);
+    var s = Math.floor(seconds % 60);
+    if (s < 10) s = '0' + s;
+    return m + ':' + s;
+  }
+
+  // 更新进度环
+  function updateProgress(pct) {
+    if (pct > 1) pct = 1;
+    if (pct < 0) pct = 0;
+    var deg = -((pct * 180) + 90);
+    var rotate = 'rotate(' + deg + 'deg)';
+    if ($seekLink) {
+      $seekLink.style.transform = rotate;
+      $seekLink.style.webkitTransform = rotate;
+    }
+    if ($progress) {
+      $progress.style.transform = rotate;
+      $progress.style.webkitTransform = rotate;
+    }
+  }
+
+  // 更新播放信息
+  function updateInfo() {
+    if (audio.duration && !isNaN(audio.duration)) {
+      duration = audio.duration;
+      $durationSpan.textContent = formatTime(duration);
+    } else {
+      $durationSpan.textContent = '0:00';
+    }
+    if (!isNaN(audio.currentTime)) {
+      current = audio.currentTime;
+      $currentSpan.textContent = formatTime(current);
+      var pct = duration ? current / duration : 0;
+      updateProgress(pct);
+    }
+    if (playlist.length && playlist[currentIndex]) {
+      var name = playlist[currentIndex].name || '未知歌曲';
+      var parts = name.split('-');
+      if (parts.length >= 2) {
+        $label.textContent = parts[0].trim();
+        $small.textContent = parts.slice(1).join('-').trim();
+      } else {
+        $label.textContent = '听松阁';
+        $small.textContent = name;
+      }
+    }
+    highlightPlaylist();
+  }
+
+  // 加载歌曲
+  function loadSong(index) {
+    if (!playlist.length) return;
+    if (index < 0) index = playlist.length - 1;
+    if (index >= playlist.length) index = 0;
+    currentIndex = index;
+    var song = playlist[currentIndex];
+    if (!song || !song.url) return;
+    audio.src = song.url;
+    audio.load();
+    if (isPlaying) {
+      audio.play().catch(function(e) { console.warn('自动播放被阻止:', e); });
+    }
+    updateInfo();
+  }
+
+  // 播放/暂停
+  function togglePlay() {
+    if (audio.paused) {
+      audio.play().catch(function(e) { console.warn('播放失败:', e); });
+      isPlaying = true;
+      $playBtn.classList.remove('fa-play');
+      $playBtn.classList.add('fa-pause');
+    } else {
+      audio.pause();
+      isPlaying = false;
+      $playBtn.classList.remove('fa-pause');
+      $playBtn.classList.add('fa-play');
+    }
+  }
+
+  // 上一首
+  function playPrev() {
+    if (playMode === 'random') {
+      var newIndex = Math.floor(Math.random() * playlist.length);
+      while (newIndex === currentIndex && playlist.length > 1) {
+        newIndex = Math.floor(Math.random() * playlist.length);
+      }
+      loadSong(newIndex);
+    } else {
+      loadSong(currentIndex - 1);
+    }
+    if (isPlaying) audio.play().catch(function(e) {});
+    else { $playBtn.classList.remove('fa-pause'); $playBtn.classList.add('fa-play'); }
+    updateInfo();
+  }
+
+  // 下一首
+  function playNext() {
+    if (playMode === 'random') {
+      var newIndex = Math.floor(Math.random() * playlist.length);
+      while (newIndex === currentIndex && playlist.length > 1) {
+        newIndex = Math.floor(Math.random() * playlist.length);
+      }
+      loadSong(newIndex);
+    } else {
+      loadSong(currentIndex + 1);
+    }
+    if (isPlaying) audio.play().catch(function(e) {});
+    else { $playBtn.classList.remove('fa-pause'); $playBtn.classList.add('fa-play'); }
+    updateInfo();
+  }
+
+  // 静音
+  function toggleMute() {
+    audio.muted = !audio.muted;
+    isMuted = audio.muted;
+    if (isMuted) {
+      $muteBtn.classList.remove('fa-volume-up');
+      $muteBtn.classList.add('fa-volume-off');
+    } else {
+      $muteBtn.classList.remove('fa-volume-off');
+      $muteBtn.classList.add('fa-volume-up');
+    }
+  }
+
+  // 音量控制
+  function setupVolume() {
+    if (!$volumeLevel) return;
+    var setVolume = function(e) {
+      var rect = $volumeLevel.getBoundingClientRect();
+      var x = e.clientX - rect.left;
+      var pct = Math.min(1, Math.max(0, x / rect.width));
+      audio.volume = pct;
+      $volumeEm.style.width = (pct * 100) + '%';
+    };
+    $volumeLevel.addEventListener('mousedown', function(e) {
+      setVolume(e);
+      document.addEventListener('mousemove', setVolume);
+    });
+    document.addEventListener('mouseup', function() {
+      document.removeEventListener('mousemove', setVolume);
+    });
+    $volumeLevel.addEventListener('click', setVolume);
+  }
+
+  // 进度拖动
+  function setupSeek() {
+    var seekLink = $seekLink;
+    var progressEl = $progress;
+    var player = document.querySelector('.music-player');
+    if (!seekLink || !progressEl || !player) return;
+
+    player.addEventListener('mousemove', function(e) {
+      if (!seekLink.classList.contains('active')) return;
+      var wheel = document.querySelector('.seeker .wheel');
+      if (!wheel) return;
+      var rect = wheel.getBoundingClientRect();
+      var cx = rect.left + rect.width / 2;
+      var cy = rect.top + rect.height / 2;
+      var dx = e.clientX - cx;
+      var dy = e.clientY - cy;
+      var angle = Math.atan2(dy, dx) * (180 / Math.PI);
+      var deg = angle + 90;
+      if (deg < 90) deg = 90;
+      if (deg > 270) deg = 270;
+      var pct = (270 - deg) / 180;
+      if (pct < 0) pct = 0;
+      if (pct > 1) pct = 1;
+      var rotate = 'rotate(' + deg + 'deg)';
+      seekLink.style.transform = rotate;
+      seekLink.style.webkitTransform = rotate;
+      progressEl.style.transform = rotate;
+      progressEl.style.webkitTransform = rotate;
+      if (audio.duration) {
+        var newTime = pct * audio.duration;
+        audio.currentTime = newTime;
+        $currentSpan.textContent = formatTime(newTime);
+      }
+    });
+
+    seekLink.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+      this.classList.add('active');
+    });
+
+    document.addEventListener('mouseup', function() {
+      seekLink.classList.remove('active');
+    });
+  }
+
+  // 模式切换 (顺序/随机)
+  function toggleMode() {
+    playMode = (playMode === 'order') ? 'random' : 'order';
+    $modeBtn.textContent = modeSymbols[playMode];
+    $modeBtn.title = playMode === 'order' ? '顺序播放' : '随机播放';
+  }
+
+  // 渲染音乐列表
+  function renderPlaylist() {
+    if (!$playlistPanel) return;
+    $playlistPanel.innerHTML = '';
+    playlist.forEach(function(song, index) {
+      var div = document.createElement('div');
+      div.className = 'playlist-item';
+      if (index === currentIndex) div.classList.add('active');
+      div.textContent = song.name || '未知歌曲';
+      div.dataset.index = index;
+      div.addEventListener('click', function() {
+        loadSong(index);
+        if (isPlaying) audio.play().catch(function(e) {});
+        else { $playBtn.classList.remove('fa-pause'); $playBtn.classList.add('fa-play'); }
+        $playlistPanel.classList.remove('active');
+      });
+      $playlistPanel.appendChild(div);
+    });
+  }
+
+  function highlightPlaylist() {
+    var items = $playlistPanel.querySelectorAll('.playlist-item');
+    items.forEach(function(item, idx) {
+      item.classList.toggle('active', idx === currentIndex);
+    });
+  }
+
+  function togglePlaylist() {
+    $playlistPanel.classList.toggle('active');
+    if ($playlistPanel.classList.contains('active')) {
+      renderPlaylist();
+      highlightPlaylist();
+    }
+  }
+
+  // 初始化
+  function init() {
+    if ($playBtn) {
+      $playBtn.addEventListener('click', function(e) { e.preventDefault(); togglePlay(); });
+    }
+    if ($backBtn) {
+      $backBtn.addEventListener('click', function(e) { e.preventDefault(); playPrev(); });
+    }
+    if ($forwardBtn) {
+      $forwardBtn.addEventListener('click', function(e) { e.preventDefault(); playNext(); });
+    }
+    if ($muteBtn) {
+      $muteBtn.addEventListener('click', function(e) { e.preventDefault(); toggleMute(); });
+    }
+    if ($modeBtn) {
+      $modeBtn.addEventListener('click', function(e) { e.preventDefault(); toggleMode(); });
+    }
+    if ($playlistToggle) {
+      $playlistToggle.addEventListener('click', function(e) { e.preventDefault(); togglePlaylist(); });
+    }
+    if ($quickPrev) {
+      $quickPrev.addEventListener('click', function(e) { e.preventDefault(); playPrev(); });
+    }
+    if ($quickNext) {
+      $quickNext.addEventListener('click', function(e) { e.preventDefault(); playNext(); });
+    }
+
+    setupVolume();
+    setupSeek();
+
+    audio.addEventListener('loadedmetadata', function() { updateInfo(); });
+    audio.addEventListener('timeupdate', function() { updateInfo(); });
+    audio.addEventListener('ended', function() {
+      playNext();
+    });
+    audio.addEventListener('play', function() {
+      isPlaying = true;
+      $playBtn.classList.remove('fa-play');
+      $playBtn.classList.add('fa-pause');
+    });
+    audio.addEventListener('pause', function() {
+      isPlaying = false;
+      $playBtn.classList.remove('fa-pause');
+      $playBtn.classList.add('fa-play');
+    });
+
+    if (playlist.length > 0) {
+      loadSong(0);
+      renderPlaylist();
+    } else {
+      audio.src = 'https://vercel.rryyz.com/free163person/音乐视听/唯美纯音乐/001.半山听雨，放空自己（古琴）-唯美纯音乐.mp3';
+      audio.load();
+      setTimeout(updateInfo, 500);
+    }
+
+    $modeBtn.textContent = modeSymbols[playMode];
+    $modeBtn.title = playMode === 'order' ? '顺序播放' : '随机播放';
+
+    if (audio.paused) {
+      $playBtn.classList.remove('fa-pause');
+      $playBtn.classList.add('fa-play');
+    } else {
+      $playBtn.classList.remove('fa-play');
+      $playBtn.classList.add('fa-pause');
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+<div style="text-align:center;clear:both">
+</div>
+</body>
+</html>

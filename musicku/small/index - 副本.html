@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>JS音乐在线播放插件vsPlayAudio - 站长素材</title>
+
+<!--默认样式  可无视-->
+<link rel="stylesheet" href="src/css/reset.css">
+
+<!--核心js-->
+<script src="dist/vsPlayAudio.min.js"></script>
+
+<!--代码高亮  可无视-->
+<link rel="stylesheet" href="src/css/androidstudio.min.css">
+<script src="src/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<style>
+	#nav {
+		text-align: center;
+	}
+	#nav ul li {
+		display: inline-block;
+		vertical-align: middle;
+		padding: 0 15px 0 15px;
+		border-left: 1px dotted #2bbc8a;
+		line-height: 15px;
+	}
+	#nav ul li a {
+		font-size: .8rem;
+		color: #2bbc8a;
+	}
+	#nav ul .blog {
+		border-left: 0px dotted #2bbc8a;
+	}
+</style>
+
+</head>
+<body style="width: 500px;margin: 15px auto 0;color: #c9cacc;background-color: #1d1f21;">
+
+<div style="text-align: center;font-size: 36px;font-weight: 700;margin: 50px 0 0 0;">
+	<span>vsPlayAudio v0.1.0</span>
+</div>
+<div style="text-align: center;font-size: 18px;margin: 50px 0 0 0;">
+	<p style="line-height: 45px;">小体积美观的音乐播放器</p>
+	<p style="line-height: 45px;">mini music player</p>
+</div>
+<div class="clear" style="margin: 50px auto 0;width: 100px;height: 100px;border-radius: 50px;background: #fff;">
+	<div id="vsPlayAudio" style="margin: 12px auto 0;width: 75px;height: 75px;"></div>
+</div>
+
+<script>
+	var player = new vsPlayAudio({
+		music: {
+			//必需项,音乐配置
+			type: 'cloud',
+			//必需项,网易云方式指定填'cloud'
+			source: 2778782119
+			//必需项,网易云音乐歌单id
+			//登录网易云网页版,在网页地址中拿到
+			// ... playlist?id=317921676
+		},
+		autoPlay: true,
+		random: true
+	});
+</script>
+<div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
+<p>适用浏览器：360、FireFox、Chrome、Opera、傲游、搜狗、世界之窗. 不支持Safari、IE8及以下浏览器。</p>
+<p>来源：<a href="http://sc.chinaz.com/" target="_blank">站长素材</a></p>
+</div>
+</body>
+</html>

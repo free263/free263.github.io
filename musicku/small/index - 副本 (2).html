@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>JS音乐在线播放插件vsPlayAudio - 站长素材</title>
+
+    <!-- 默认样式  可无视 -->
+    <link rel="stylesheet" href="src/css/reset.css" />
+
+    <!-- 核心js -->
+    <script src="dist/vsPlayAudio.min.js"></script>
+
+    <!-- 代码高亮  可无视 -->
+    <link rel="stylesheet" href="src/css/androidstudio.min.css" />
+    <script src="src/js/highlight.min.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad();
+    </script>
+
+    <style>
+        #nav {
+            text-align: center;
+        }
+        #nav ul li {
+            display: inline-block;
+            vertical-align: middle;
+            padding: 0 15px 0 15px;
+            border-left: 1px dotted #2bbc8a;
+            line-height: 15px;
+        }
+        #nav ul li a {
+            font-size: .8rem;
+            color: #2bbc8a;
+        }
+        #nav ul .blog {
+            border-left: 0px dotted #2bbc8a;
+        }
+    </style>
+</head>
+<body style="width:500px;margin:15px auto 0;color:#c9cacc;background-color:#1d1f21;">
+
+    <div style="text-align:center;font-size:36px;font-weight:700;margin:50px 0 0 0;">
+        <span>小体积美观的音乐播放器</span>
+    </div>
+    <div style="text-align:center;font-size:18px;margin:50px 0 0 0;">
+        <p style="line-height:45px;">&nbsp;</p>
+        <p style="line-height:45px;">&nbsp;</p>
+    </div>
+    <div class="clear" style="margin:50px auto 0;width:100px;height:100px;border-radius:50px;background:#fff;">
+        <div id="vsPlayAudio" style="margin:12px auto 0;width:75px;height:75px;"></div>
+    </div>
+
+    <!-- 引入音乐数据 -->
+    <script src="music.js"></script>
+
+    <script>
+        // 保存原始构造函数
+        var OrigVsPlayAudio = window.vsPlayAudio;
+
+        // 扩展支持本地音乐列表
+        window.vsPlayAudio = function(options) {
+            // 如果传入的是本地数据，使用本地列表
+            if (options && options.music && options.music.type === 'local') {
+                var list = options.music.list || [];
+                if (list.length === 0) {
+                    console.warn('本地音乐列表为空');
+                }
+
+                // 创建基础实例（使用占位 source）
+                var instance = new OrigVsPlayAudio({
+                    element: options.element || 'vsPlayAudio',
+                    autoPlay: false, // 先不自动播放，由我们自己控制
+                    random: options.random || false,
+                    music: {
+                        type: 'cloud',
+                        source: 2778782119 // 占位
+                    }
+                });
+
+                // 保存列表和当前索引
+                instance._playlist = list.map(function(item, index) {
+                    return {
+                        id: index + 1,
+                        name: item.name,
+                        url: item.url
+                    };
+                });
+                instance._currentIndex = 0;
+                instance._random = options.random || false;
+
+                // 创建 audio 元素
+                instance.audio = new Audio();
+
+                // 重写 play 方法
+                instance.play = function() {
+                    if (this._playlist && this._playlist.length) {
+                        var idx = this._currentIndex || 0;
+                        var song = this._playlist[idx];
+                        if (song) {
+                            this.audio.src = song.url;
+                            this.audio.play().catch(function(e) {
+                                console.warn('播放失败:', e);
+                            });
+                            this.nowAudio = song.id;
+                            // 更新 UI（如果有）
+                            this._updateUI && this._updateUI();
+                        }
+                    }
+                };
+
+                // 重写 pause 方法
+                var origPause = instance.pause;
+                instance.pause = function() {
+                    this.audio.pause();
+                };
+
+                // 重写 next 方法
+                instance.next = function() {
+                    if (this._playlist && this._playlist.length) {
+                        var total = this._playlist.length;
+                        var idx;
+                        if (this._random) {
+                            do {
+                                idx = Math.floor(Math.random() * total);
+                            } while (idx === this._currentIndex && total > 1);
+                        } else {
+                            idx = this._currentIndex + 1;
+                            if (idx >= total) idx = 0;
+                        }
+                        this._currentIndex = idx;
+                        this.play();
+                    }
+                };
+
+                // 重写 nowAudio getter
+                Object.defineProperty(instance, 'nowAudio', {
+                    get: function() {
+                        if (this._playlist && this._playlist.length) {
+                            var idx = this._currentIndex || 0;
+                            return this._playlist[idx] ? this._playlist[idx].id : null;
+                        }
+                        return null;
+                    },
+                    set: function(val) {
+                        // 允许外部设置
+                    }
+                });
+
+                // 自动播放下一条
+                instance.audio.addEventListener('ended', function() {
+                    instance.next();
+                });
+
+                // 如果设置了自动播放
+                if (options.autoPlay) {
+                    setTimeout(function() {
+                        instance.play();
+                    }, 100);
+                }
+
+                return instance;
+            } else {
+                // 否则走原始逻辑
+                return new OrigVsPlayAudio(options);
+            }
+        };
+
+        // 创建播放器实例，使用本地音乐数据
+        var player = new vsPlayAudio({
+            element: 'vsPlayAudio',
+            autoPlay: true,
+            random: false,
+            music: {
+                type: 'local',
+                list: MUSIC_DATA
+            }
+        });
+
+        // 暴露全局变量供按钮使用
+        window.player = player;
+    </script>
+
+
+</body>
+</html>
